@@ -1,0 +1,84 @@
+# RTI.gov — a citizen-first Right to Information service
+
+[Live site](https://rti-gov.vercel.app/) · [Product rationale](docs/PRODUCT.md) · [Deployment guide](docs/DEPLOYMENT.md)
+
+RTI.gov is an independent working concept for a unified Indian Right to Information service. It is designed around the citizen's complete journey: understand the Act, search proactive disclosures, find the correct public authority, create a precise request, track the statutory clock, reconcile payments and file a first appeal.
+
+> **Prototype boundary:** This repository is not an official Government of India service. It does not connect to government identity, payment, RTI or records systems. All people, requests, OTPs, documents and transactions are synthetic.
+
+## What works
+
+- Plain-language education grounded in the Right to Information Act, 2005 and the Right to Information Rules, 2012
+- Central, State and local authority routing
+- Searchable public-disclosure and authority demonstrations
+- Six-step RTI request workflow with BPL and fee handling
+- OTP-protected request status, transfer history and statutory deadlines
+- First appeal, request history, payment reconciliation and passwordless sign-in demonstrations
+- Responsive, keyboard-friendly interface with a bilingual Indian public-service identity
+- Search metadata, structured data, sitemap, robots policy, web manifest and social preview
+
+## Demo access
+
+| Purpose | Value |
+| --- | --- |
+| Registration number | `RTI/MORLY/2026/804271` |
+| Citizen email | `aarav.demo@example.in` |
+| One-time code | `240805` |
+| Payment transaction | `RTIDEMO240822118` |
+
+## Run locally
+
+Requirements: Node.js 22.13 or newer and npm.
+
+```bash
+npm install
+npm run dev
+```
+
+Open `http://localhost:3000`.
+
+## Validate
+
+The project supports two production targets:
+
+```bash
+# Sites / Vinext production build
+npm run build
+
+# Vercel / Next.js production build
+npm run vercel-build
+```
+
+GitHub Actions runs the Vercel-compatible production build for every pull request and push to `main`.
+
+## Project map
+
+```text
+app/                     Next.js routes, metadata, sitemap and manifest
+components/site-chrome   Shared national masthead, footer and page shells
+components/workflows     Interactive citizen workflows
+components/portal-data   Synthetic authorities, disclosures, FAQs and cases
+public/                  Parliament and social-preview media
+docs/                    Product and release documentation
+```
+
+The complete route map is documented in [docs/PRODUCT.md](docs/PRODUCT.md).
+
+## Continuous deployment
+
+`main` is the production branch. Vercel is connected to this repository: each push to `main` creates a new production deployment at [rti-gov.vercel.app](https://rti-gov.vercel.app/), while pull requests receive preview deployments. The independent Sites release is maintained as a second hosting target.
+
+See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for the release workflow and verification checklist.
+
+## Design principles
+
+1. Start with the constitutional right, not the form.
+2. Search before asking a citizen to file.
+3. Prevent wrong-authority and duplicate-payment errors before they happen.
+4. Make ownership, deadlines and remedies visible.
+5. Ask the citizen only for information the law actually requires.
+
+## Contributing
+
+Keep changes citizen-facing, evidence-based and accessible. Do not add real personal data, credentials or government marks that could make this prototype appear official. Open a pull request, describe the citizen problem being solved and include the validation performed.
+
