@@ -1,6 +1,8 @@
 # RTI.gov — a citizen-first Right to Information service
 
-[Live site](https://rti-gov.vercel.app/) · [Product rationale](docs/PRODUCT.md) · [Deployment guide](docs/DEPLOYMENT.md)
+[![Production build](https://github.com/abhieq31/rti-gov/actions/workflows/quality.yml/badge.svg)](https://github.com/abhieq31/rti-gov/actions/workflows/quality.yml)
+
+[Live site](https://rti-gov.vercel.app/) · [GitHub repository](https://github.com/abhieq31/rti-gov) · [Product rationale](docs/PRODUCT.md) · [Official-source register](docs/SOURCES.md) · [Deployment guide](docs/DEPLOYMENT.md)
 
 RTI.gov is an independent working concept for a unified Indian Right to Information service. It is designed around the citizen's complete journey: understand the Act, search proactive disclosures, find the correct public authority, create a precise request, track the statutory clock, reconcile payments and file a first appeal.
 
@@ -82,7 +84,7 @@ See [docs/USABILITY.md](docs/USABILITY.md) for the test protocol and non-negotia
 
 ## Continuous deployment
 
-`main` is the production branch. GitHub Actions validates every push and pull request. The existing Vercel production project is ready to connect to this repository; the one remaining account step is authorising GitHub under Vercel **Account Settings → Authentication**. Once connected, each push to `main` creates a production deployment at [rti-gov.vercel.app](https://rti-gov.vercel.app/) and pull requests receive preview deployments. The independent Sites release is maintained as a second hosting target.
+`main` is the production branch. The existing Vercel project is connected to `abhieq31/rti-gov`, with Git deployments enabled and `main` selected as the production branch. Every push and pull request is linted and built by GitHub Actions; pushes to `main` create production deployments at [rti-gov.vercel.app](https://rti-gov.vercel.app/), while pull requests receive isolated previews. The independent owner-only Sites release is maintained as a second hosting target.
 
 See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for the release workflow and verification checklist.
 
@@ -98,3 +100,5 @@ See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for the release workflow and verifi
 ## Contributing
 
 Keep changes citizen-facing, evidence-based and accessible. Do not add real personal data, credentials or government marks that could make this prototype appear official. Open a pull request, describe the citizen problem being solved and include the validation performed.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the branch, verification and review contract.

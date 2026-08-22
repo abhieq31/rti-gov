@@ -6,18 +6,39 @@
 - Production branch: `main`
 - Build command: `npm run vercel-build`
 - Framework output: Next.js
+- Git source: `github.com/abhieq31/rti-gov`
+- Git deployment state: enabled
 
-GitHub Actions already validates the repository. Automatic Vercel deployment requires one account-level prerequisite: connect the GitHub identity in Vercel **Account Settings → Authentication**, then connect `https://github.com/abhieq31/rti-gov` to the existing `rti-gov` project. After that connection, a merged or direct push to `main` triggers production and pull requests create isolated preview deployments.
+The Vercel project is connected to the GitHub repository and uses `main` as its production branch. GitHub Actions independently lints and builds every pull request and every push to `main`. Vercel creates a preview for pull requests and a production release for `main`.
+
+The production URL is stable; individual deployment URLs are immutable release artifacts. Do not manually deploy routine source changes. A normal Git merge is the release mechanism.
 
 ## Release sequence
 
 1. Create a branch and make the change.
-2. Run `npm run vercel-build`.
+2. Run `npm run lint` and `npm run vercel-build`.
 3. Open a pull request and wait for the GitHub quality check.
 4. Review the Vercel preview deployment.
 5. Merge to `main`.
 6. Confirm the production deployment is ready.
 7. Verify the homepage, request flow, status flow, sitemap and robots policy.
+
+## Connection audit
+
+Verify the Vercel project before relying on automation:
+
+- Project: `rti-gov`
+- Repository: `abhieq31/rti-gov`
+- Provider: GitHub
+- Production branch: `main`
+- Git deployments: enabled
+- Canonical production alias: `rti-gov.vercel.app`
+
+For a release to count as Git-driven, Vercel deployment metadata must identify the same commit SHA as GitHub `main`; a successful manual CLI deployment is not sufficient evidence.
+
+## Rollback
+
+Use Vercel's deployment history to promote the last known-good immutable deployment. Do not rewrite Git history. Follow with a normal reverting commit on `main` so repository state and production state converge again.
 
 ## Search release checks
 
