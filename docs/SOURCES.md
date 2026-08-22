@@ -1,0 +1,17 @@
+# Official-source register
+
+Checked 22 August 2026.
+
+| Purpose | Source |
+| --- | --- |
+| RTI Act, amended Act, Rules and language editions | [Department of Personnel & Training](https://rti.dopt.gov.in/rtiact.html) |
+| Guides, handbooks, studies, circular compilations and proactive-disclosure guidance | [DoPT RTI publications](https://rti.dopt.gov.in/publications.html) |
+| Central public-authority availability | [RTI Online authority list](https://rtionline.gov.in/request/allpa.php) |
+| CPIO and First Appellate Authority hierarchy | [RTI Online CPIO directory](https://rtionline.gov.in/request/cpioDetails_rticorner.php) |
+| DoPT subject-level CPIO directory | [DoPT RTI Corner](https://rtionline.gov.in/dopt_rticorner.php) |
+| State online filing portals | [DoPT State RTI links](https://rti.dopt.gov.in/rtistatelink.html) |
+| State Information Commission websites | [Central Information Commission directory](https://cic.gov.in/links-to-state-information-commissions) |
+| Government datasets and APIs | [Open Government Data Platform India](https://data.gov.in/) |
+| Reference journey architecture | [FOIA.gov](https://www.foia.gov/) and [How to make a FOIA request](https://www.foia.gov/how-to.html) |
+
+The site never silently converts explanatory prototype content into an official statement. External links identify their publisher, and synthetic search results or transactions remain labelled as demonstrations.

@@ -15,6 +15,9 @@ RTI.gov treats that entire journey as the service. The main flow starts with the
 | `/guide` | Follow the request process from research to reply |
 | `/search` | Search synthetic proactive disclosures before filing |
 | `/authorities` | Identify a likely Central, State or local public authority |
+| `/resources` | Use one curated library for official Acts, Rules, circulars, guides, reports, open data and training |
+| `/commissions` | Reach the Central or appropriate State Information Commission for oversight and second-stage remedies |
+| `/glossary` | Understand RTI administrative terms in plain language |
 | `/request` | Complete a three-decision mock RTI application and receive a registration number with an exact due date |
 | `/status` | View ownership, transfers, deadlines, fees and replies securely |
 | `/appeal` | Prepare a mock first appeal without a fee |
@@ -36,6 +39,10 @@ RTI.gov treats that entire journey as the service. The main flow starts with the
 - First and second appeals are treated as visible parts of the same case journey.
 
 The interface explains these rules in plain language; it is not legal advice.
+
+## Source architecture
+
+The portal deliberately separates explanation from authority. RTI.gov provides the citizen-facing structure; DoPT, RTI Online, the Central Information Commission, State Information Commissions and the Open Government Data Platform remain the sources of record. Official external destinations are labelled and open separately. The curated links were checked on 22 August 2026 and should be monitored in production because government URLs change.
 
 ## Primary interaction contract
 

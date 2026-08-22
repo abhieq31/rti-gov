@@ -13,6 +13,9 @@ The primary interaction has one measurable promise: a citizen can move from “I
 - Plain-language education grounded in the Right to Information Act, 2005 and the Right to Information Rules, 2012
 - Central, State and local authority routing
 - Searchable public-disclosure and authority demonstrations
+- Official RTI library for Acts, Rules, guides, circulars, reports, data and multilingual source material
+- Live Government of India CPIO paths and a Central/State Information Commission directory
+- Plain-language RTI glossary and functional text-size/high-contrast controls
 - Three-decision RTI request workflow: describe, identify, review and register
 - Plain-language authority recommendation across Central, State and local routes
 - Immediate prototype registration number and calculated 30-day or 48-hour deadline
@@ -64,6 +67,7 @@ app/                     Next.js routes, metadata, sitemap and manifest
 components/site-chrome   Shared national masthead, footer and page shells
 components/workflows     Interactive citizen workflows
 components/portal-data   Synthetic authorities, disclosures, FAQs and cases
+components/official-data Curated links to official RTI sources and Commissions
 public/                  Parliament and social-preview media
 docs/                    Product and release documentation
 ```
@@ -89,6 +93,7 @@ See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for the release workflow and verifi
 3. Prevent wrong-authority and duplicate-payment errors before they happen.
 4. Make ownership, deadlines and remedies visible.
 5. Ask the citizen only for information the law actually requires.
+6. Separate plain-language guidance from the official source of record.
 
 ## Contributing
 
