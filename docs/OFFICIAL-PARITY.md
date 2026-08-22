@@ -7,9 +7,11 @@ This is a functional redesign, not a visual clone. The official citizen portal a
 | Official capability | RTI.gov redesign |
 | --- | --- |
 | Choose a Central public authority | Plain-language recommendation plus a searchable snapshot of the official authority hierarchy |
-| Applicant name, address, email and optional SMS mobile | Three-decision filing flow with address, email and mobile |
+| Applicant name, address, email and optional SMS mobile | Three-decision filing flow; mobile is correctly optional |
+| Gender, PIN, rural/urban, education and phone fields | Preserved under an optional progressive-disclosure section instead of blocking the core task |
+| Indian citizenship declaration | One clear declaration at final review |
 | RTI text up to 3,000 characters | 3,000-character limit with visible count |
-| Supporting PDF up to 1 MB | Optional supporting-PDF control and safe-document warning |
+| Supporting PDF up to 1 MB with filename constraints | Validated PDF control, exact filename rule and safe-document warning |
 | BPL exemption with certificate | BPL selection, required proof and ₹0 receipt path |
 | ₹10 fee by net banking, card/RuPay or UPI | All official modes represented; payment and registration are atomic in the target design |
 | Unique registration and acknowledgement | Immediate synthetic registration, printable acknowledgement and explicit 30-day date |
@@ -29,6 +31,8 @@ This is a functional redesign, not a visual clone. The official citizen portal a
 | Second appeal / complaint | Commission directory and official hand-off |
 | Login optional | Direct filing remains primary; prototype account/history remains available |
 | Payment reconciliation | Legacy recovery view retained, but the redesigned filing path uses an idempotent payment intent so a successful payment never waits for reconciliation |
+| 21 mandatory-entry guidelines | Complete content in a one-action opening sheet; the full list is expandable and never becomes a wall before the form |
+| 26 current FAQ entries | Searchable, plain-language set covering every current question; obsolete certificate-bypass advice is explicitly corrected |
 
 ## Current official source data
 

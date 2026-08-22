@@ -7,6 +7,7 @@ Checked 22 August 2026.
 | RTI Act, amended Act, Rules and language editions | [Department of Personnel & Training](https://rti.dopt.gov.in/rtiact.html) |
 | Guides, handbooks, studies, circular compilations and proactive-disclosure guidance | [DoPT RTI publications](https://rti.dopt.gov.in/publications.html) |
 | Central public-authority availability | [RTI Online authority list](https://rtionline.gov.in/request/allpa.php) |
+| Current filing fields, attachment constraints and applicant declarations | [RTI Online submit-request flow](https://rtionline.gov.in/guidelines.php) and the captured current request form |
 | CPIO and First Appellate Authority hierarchy | [RTI Online CPIO directory](https://rtionline.gov.in/request/cpioDetails_rticorner.php) |
 | DoPT subject-level CPIO directory | [DoPT RTI Corner](https://rtionline.gov.in/dopt_rticorner.php) |
 | State online filing portals | [DoPT State RTI links](https://rti.dopt.gov.in/rtistatelink.html) |

@@ -17,16 +17,7 @@ export const disclosures = [
   { title: 'PMAY-U scheme guidelines and sanctioned project lists', authority: 'Ministry of Housing & Urban Affairs', type: 'Programme record', date: '7 May 2026', topic: 'pmay housing beneficiary sanctioned list' },
 ];
 
-export const faqs = [
-  ['Who can file an RTI request?', 'Any citizen of India can seek records under the Right to Information Act, 2005. This prototype uses synthetic applicant details.'],
-  ['What can I ask for?', 'Ask for existing records: documents, file notings, reports, data, contracts, correspondence or certified copies. A public authority is not required to create a new explanation or opinion.'],
-  ['What is the application fee?', 'The prescribed Central RTI application fee is ₹10 for non-BPL applicants. Eligible Below Poverty Line applicants do not pay the fee when valid proof is provided.'],
-  ['How long should a response take?', 'The usual statutory period is 30 days. Information concerning life or liberty has a 48-hour timeline. Other statutory situations can vary.'],
-  ['What if I chose the wrong authority?', 'For aligned Central authorities, the request may be transferred under section 6(3). State public authorities require the appropriate State route. This concept makes that distinction before payment.'],
-  ['Is an account mandatory?', 'No. The current Central portal allows direct filing. An account is useful for history, saved drafts and notifications; this concept keeps direct filing available.'],
-  ['How do I file a first appeal?', 'Use the original registration number and email address, select the ground for appeal, state your case and submit. No fee is charged for a Central first appeal.'],
-  ['What if payment was deducted but no registration number arrived?', 'Do not pay repeatedly. Use payment reconciliation and allow 24–48 working hours for bank reconciliation in the current system.'],
-] as const;
+export { officialFaqs as faqs } from './official-content';
 
 export const demoRequests = [
   { id: 'RTI/MORLY/2026/804271', subject: 'Anand Vihar foot-over bridge records', authority: 'Ministry of Railways', status: 'With CPIO', due: '21 Sep 2026', kind: 'Request' },

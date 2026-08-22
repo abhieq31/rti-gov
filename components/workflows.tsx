@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import { authorities, demoRequests, disclosures, faqs } from './portal-data';
+import { filingGuidelines } from './official-content';
 
 export function CitizenStart() {
   const [need, setNeed] = useState('');
@@ -73,10 +74,10 @@ export function AuthorityFinder() {
   );
 }
 
-type RequestDraft = { authority: string; region: string; name: string; email: string; mobile: string; address: string; bpl: boolean; urgent: boolean; request: string; format: string; payment: string };
+type RequestDraft = { authority: string; region: string; name: string; email: string; mobile: string; address: string; gender: string; pin: string; areaStatus: string; education: string; phone: string; bpl: boolean; urgent: boolean; request: string; format: string; payment: string };
 const initialDraft: RequestDraft = {
   authority: '', region: 'Delhi', name: '', email: '', mobile: '', address: '', bpl: false, urgent: false,
-  request: '', format: 'Electronic copy', payment: 'UPI',
+  gender: '', pin: '', areaStatus: '', education: '', phone: '', request: '', format: 'Electronic copy', payment: 'UPI',
 };
 
 const regions = ['Andaman & Nicobar Islands','Andhra Pradesh','Arunachal Pradesh','Assam','Bihar','Chandigarh','Chhattisgarh','Dadra & Nagar Haveli and Daman & Diu','Delhi','Goa','Gujarat','Haryana','Himachal Pradesh','Jammu & Kashmir','Jharkhand','Karnataka','Kerala','Ladakh','Lakshadweep','Madhya Pradesh','Maharashtra','Manipur','Meghalaya','Mizoram','Nagaland','Odisha','Puducherry','Punjab','Rajasthan','Sikkim','Tamil Nadu','Telangana','Tripura','Uttar Pradesh','Uttarakhand','West Bengal'];
@@ -93,10 +94,12 @@ function authorityFor(request: string, region: string) {
 
 export function RequestWorkflow({ initialNeed = '', initialAuthorityName = '' }: { initialNeed?: string; initialAuthorityName?: string }) {
   const [step, setStep] = useState(0);
+  const [showGuidelines, setShowGuidelines] = useState(true);
   const [draft, setDraft] = useState(() => ({ ...initialDraft, request: initialNeed, authority: initialAuthorityName ? `OFFICIAL:${initialAuthorityName}` : '' }));
   const [confirmed, setConfirmed] = useState(false);
   const [showAuthorities, setShowAuthorities] = useState(false);
   const [supportingFile, setSupportingFile] = useState('');
+  const [supportingFileError, setSupportingFileError] = useState('');
   const [registration, setRegistration] = useState('');
   const [paymentReference, setPaymentReference] = useState('');
   const [submittedAt, setSubmittedAt] = useState<Date | null>(null);
@@ -107,7 +110,7 @@ export function RequestWorkflow({ initialNeed = '', initialAuthorityName = '' }:
     ? { name: draft.authority.slice(9), code: 'CENTRAL', level: 'Central', topics: 'the official RTI Online public-authority directory', route: 'File online here' }
     : authorities.find((item) => item.code === draft.authority) || suggestedAuthority;
   const grievanceLikely = /fix|repair|complaint|not received|delay|pending|take action/.test(draft.request.toLowerCase());
-  const canContinue = [Boolean(draft.request.trim().length >= 12 && draft.region && (draft.authority || suggestedAuthority.code)), Boolean(draft.name && draft.mobile.replace(/\D/g, '').length >= 10 && draft.email.includes('@') && draft.address.trim().length >= 8 && (!draft.bpl || supportingFile)), confirmed][step] ?? true;
+  const canContinue = [Boolean(draft.request.trim().length >= 12 && draft.region && (draft.authority || suggestedAuthority.code)), Boolean(draft.name && draft.email.includes('@') && draft.address.trim().length >= 8 && (!draft.mobile || draft.mobile.replace(/\D/g, '').length >= 10) && !supportingFileError && (!draft.bpl || supportingFile)), confirmed][step] ?? true;
 
   const dueDate = useMemo(() => {
     if (!submittedAt) return null;
@@ -117,6 +120,20 @@ export function RequestWorkflow({ initialNeed = '', initialAuthorityName = '' }:
   }, [submittedAt, draft.urgent]);
 
   const formatDate = (date: Date) => new Intl.DateTimeFormat('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }).format(date);
+  const chooseSupportingFile = (file?: File) => {
+    if (!file) { setSupportingFile(''); setSupportingFileError(''); return; }
+    const name = file.name;
+    const stem = name.replace(/\.pdf$/i, '');
+    const error = file.type !== 'application/pdf' || !/\.pdf$/i.test(name)
+      ? 'Choose a PDF file.'
+      : file.size > 1_000_000
+        ? 'The PDF must be 1 MB or smaller.'
+        : /\s/.test(name) || !/^[A-Za-z0-9]+$/.test(stem) || stem.length >= 12
+          ? 'Use a filename under 12 letters or numbers, with no spaces.'
+          : '';
+    setSupportingFile(error ? '' : name);
+    setSupportingFileError(error);
+  };
   const submit = () => {
     const now = new Date();
     const id = `RTI-DEMO/${selectedAuthority.code}/${now.getFullYear()}/${String(now.getTime()).slice(-6)}`;
@@ -125,7 +142,14 @@ export function RequestWorkflow({ initialNeed = '', initialAuthorityName = '' }:
     localStorage.setItem('rti-gov-demo-request', JSON.stringify(saved));
     setRegistration(id); setPaymentReference(paymentId); setSubmittedAt(now); setStep(3);
   };
-  return (
+  return (<>
+    {showGuidelines && <div className="guideline-backdrop"><section aria-describedby="guideline-intro" aria-labelledby="guideline-title" aria-modal="true" className="guideline-dialog" role="dialog">
+      <div className="guideline-heading"><span className="step-label">Official filing rules · simplified entry</span><h2 id="guideline-title">Before you file.</h2><p id="guideline-intro">The law is serious. The interface does not need to feel heavy.</p></div>
+      <div className="guideline-essentials"><article><b>Central authorities only</b><span>State and local matters use their own RTI route.</span></article><article><b>Indian citizens</b><span>No reason for seeking the records is required.</span></article><article><b>₹10 or BPL exemption</b><span>Valid BPL proof removes the application fee.</span></article><article><b>3,000 characters</b><span>Use a short request or attach a compliant PDF.</span></article></div>
+      <details className="guideline-details"><summary>Read all 21 official portal guidelines <span>+</span></summary><ol>{filingGuidelines.map((item, index) => <li key={item}><b>{index + 1}</b><p>{item}</p></li>)}</ol></details>
+      <div className="guideline-safety"><b>Never upload Aadhaar, PAN or bank details.</b><span>BPL proof is the only identity-related exception in the current filing rules.</span></div>
+      <button autoFocus className="button-primary guideline-continue" onClick={() => setShowGuidelines(false)} type="button">I understand — start my request <b>→</b></button>
+    </section></div>}
     <div className="fast-workflow">
       <div className="fast-progress" aria-label={step < 3 ? `Decision ${step + 1} of 3` : 'Request registered'}><div style={{ width: `${((step + 1) / 4) * 100}%` }}/><span>{labels[step]}</span><b>{step < 3 ? `Decision ${step + 1} of 3 · about ${step === 0 ? '70' : step === 1 ? '40' : '15'} seconds left` : 'Registration complete'}</b></div>
       <div className="fast-body">
@@ -137,15 +161,16 @@ export function RequestWorkflow({ initialNeed = '', initialAuthorityName = '' }:
           {grievanceLikely && <div className="gentle-warning"><b>Need the problem fixed?</b><p>RTI can get the records behind a decision. A grievance service is better for asking an office to take action.</p><a href="/guide">Help me choose</a></div>}
         </section>}
         {step === 1 && <section className="fast-step"><span className="step-label">Contact for the response</span><h2>Where should the reply go?</h2><p>Only what the authority needs to identify you and send the response. Never Aadhaar, PAN or bank details.</p>
-          <div className="fast-form"><label><span>Full name</span><input autoComplete="name" value={draft.name} onChange={(event) => update('name', event.target.value)} placeholder="Your name"/></label><label><span>Mobile</span><input autoComplete="tel" inputMode="numeric" value={draft.mobile} onChange={(event) => update('mobile', event.target.value)} placeholder="10-digit mobile number"/></label><label><span>Email</span><input autoComplete="email" type="email" value={draft.email} onChange={(event) => update('email', event.target.value)} placeholder="you@example.com"/></label><label><span>Postal address</span><textarea autoComplete="street-address" value={draft.address} onChange={(event) => update('address', event.target.value)} placeholder="House, street, city and PIN code"/></label></div>
+          <div className="fast-form"><label><span>Full name</span><input autoComplete="name" value={draft.name} onChange={(event) => update('name', event.target.value)} placeholder="Your name"/></label><label><span>Mobile <small>optional · for SMS</small></span><input autoComplete="tel" inputMode="numeric" value={draft.mobile} onChange={(event) => update('mobile', event.target.value)} placeholder="10-digit mobile number"/></label><label><span>Email</span><input autoComplete="email" type="email" value={draft.email} onChange={(event) => update('email', event.target.value)} placeholder="you@example.com"/></label><label><span>Postal address</span><textarea autoComplete="street-address" value={draft.address} onChange={(event) => update('address', event.target.value)} placeholder="House, street and city"/></label></div>
+          <details className="optional-applicant"><summary>Additional applicant details <span>Optional</span></summary><div className="optional-grid"><label><span>PIN code</span><input inputMode="numeric" maxLength={6} value={draft.pin} onChange={(event) => update('pin', event.target.value.replace(/\D/g, ''))}/></label><label><span>Gender</span><select value={draft.gender} onChange={(event) => update('gender', event.target.value)}><option value="">Prefer not to say</option><option>Male</option><option>Female</option><option>Third gender</option></select></label><label><span>Area</span><select value={draft.areaStatus} onChange={(event) => update('areaStatus', event.target.value)}><option value="">Not specified</option><option>Rural</option><option>Urban</option></select></label><label><span>Educational status</span><select value={draft.education} onChange={(event) => update('education', event.target.value)}><option value="">Not specified</option><option>Literate</option><option>Illiterate</option></select></label><label><span>Phone / landline</span><input inputMode="tel" value={draft.phone} onChange={(event) => update('phone', event.target.value)}/></label><div><span>Country and citizenship</span><b>India · Indian citizen</b></div></div><p>The current form asks for these fields. They stay optional here because they are not needed to route or answer most requests.</p></details>
           <div className="delivery-row"><label><span>Send records as</span><select value={draft.format} onChange={(event) => update('format', event.target.value)}><option>Electronic copy</option><option>Certified paper copy</option><option>Inspection of records</option></select></label><label className="bpl-toggle"><input checked={draft.bpl} onChange={(event) => update('bpl', event.target.checked)} type="checkbox"/><span><b>I have valid BPL proof</b><small>Application fee becomes ₹0</small></span></label></div>
-          <label className="supporting-upload"><span>{draft.bpl ? 'BPL proof PDF (required for exemption)' : 'Supporting PDF (optional)'}</span><input accept="application/pdf" onChange={(event) => setSupportingFile(event.target.files?.[0]?.name || '')} type="file"/><small>{supportingFile || 'PDF up to 1 MB in the current official service. Do not upload Aadhaar, PAN or another identity document.'}</small></label>
+          <label className="supporting-upload"><span>{draft.bpl ? 'BPL proof PDF (required for exemption)' : 'Supporting PDF (optional)'}</span><input accept="application/pdf" onChange={(event) => chooseSupportingFile(event.target.files?.[0])} type="file"/><small className={supportingFileError ? 'file-error' : ''}>{supportingFileError || supportingFile || 'PDF up to 1 MB. Filename: fewer than 12 letters or numbers, no spaces. Never upload Aadhaar or PAN.'}</small></label>
         </section>}
         {step === 2 && <section className="fast-step review-step"><span className="step-label">One calm review</span><h2>Ready to register.</h2><p>Check the request once. Payment and registration happen together.</p>
           <div className="fast-review"><article><span>Request</span><p>{draft.request}</p><button type="button" onClick={() => setStep(0)}>Edit</button></article><article><span>Public authority</span><b>{selectedAuthority.name}</b><small>{selectedAuthority.level} route · transfer assistance included</small></article><article><span>Response to</span><b>{draft.name}</b><small>{draft.email} · {draft.format}</small></article></div>
           <div className="checkout-row"><div><span>Application fee</span><strong>{draft.bpl ? '₹0' : '₹10'}</strong><small>{draft.bpl ? 'BPL exemption selected' : 'One-time Central RTI fee'}</small></div>{!draft.bpl && <div className="fast-payment" role="group" aria-label="Payment method">{['UPI','Net banking','RuPay / card'].map((item) => <button className={draft.payment === item ? 'selected' : ''} onClick={() => update('payment', item)} key={item} type="button">{item}{draft.payment === item && <span>✓</span>}</button>)}</div>}</div>
           <div className="atomic-promise" role="note"><span aria-hidden="true">✓</span><div><b>No OTP in this filing. No payment limbo.</b><small>The payment result and registration number return in one response. A retry reuses the same payment intent, so it cannot create a duplicate charge or request.</small></div></div>
-          <label className="final-declaration"><input checked={confirmed} onChange={(event) => setConfirmed(event.target.checked)} type="checkbox"/><span><b>I confirm these details are correct.</b><small>This prototype creates a device-local demonstration receipt. Nothing is transmitted or charged.</small></span></label>
+          <label className="final-declaration"><input checked={confirmed} onChange={(event) => setConfirmed(event.target.checked)} type="checkbox"/><span><b>I confirm I am an Indian citizen and these details are correct.</b><small>This prototype creates a device-local demonstration receipt. Nothing is transmitted or charged.</small></span></label>
         </section>}
         {step === 3 && submittedAt && dueDate && <section className="fast-receipt"><div className="success-orbit"><span>✓</span></div><span className="step-label">Request registered</span><h2>You&apos;re done.</h2><p>Your proof and statutory clock are now in one place.</p>
           <div className="registration-card"><span>Prototype registration number</span><b>{registration}</b><button onClick={() => navigator.clipboard?.writeText(registration)} type="button">Copy number</button></div>
@@ -158,7 +183,7 @@ export function RequestWorkflow({ initialNeed = '', initialAuthorityName = '' }:
       </div>
       {step < 3 && <div className="fast-actions"><button disabled={step === 0} onClick={() => setStep((current) => current - 1)} type="button">← Back</button><span><i>✓</i> Saved on this device</span>{step < 2 ? <button className="button-primary" disabled={!canContinue} onClick={() => setStep((current) => current + 1)} type="button">Continue <b>→</b></button> : <button className="button-primary" disabled={!confirmed} onClick={submit} type="button">{draft.bpl ? 'Register request' : `Pay ₹10 & register`} <b>→</b></button>}</div>}
     </div>
-  );
+  </>);
 }
 
 export function StatusLookup() {
@@ -204,5 +229,7 @@ export function DemoLogin() {
 
 export function FaqList() {
   const [open, setOpen] = useState(0);
-  return <div className="faq-list">{faqs.map(([question, answer], index) => <article className={open === index ? 'open' : ''} key={question}><button onClick={() => setOpen(open === index ? -1 : index)} type="button"><span>{question}</span><i>{open === index ? '−' : '+'}</i></button>{open === index && <p>{answer}</p>}</article>)}</div>;
+  const [query, setQuery] = useState('');
+  const matches = faqs.filter(([question, answer]) => `${question} ${answer}`.toLowerCase().includes(query.trim().toLowerCase()));
+  return <div className="faq-tool"><label className="faq-search"><span>Search all 26 official questions</span><input value={query} onChange={(event) => { setQuery(event.target.value); setOpen(-1); }} placeholder="Try payment, transfer, OTP or appeal"/></label><div className="faq-count">{matches.length} answer{matches.length === 1 ? '' : 's'}</div><div className="faq-list">{matches.map(([question, answer], index) => <article className={open === index ? 'open' : ''} key={question}><button onClick={() => setOpen(open === index ? -1 : index)} type="button"><span>{question}</span><i>{open === index ? '−' : '+'}</i></button>{open === index && <p>{answer}</p>}</article>)}</div>{!matches.length && <div className="empty-result"><b>No exact match.</b><p>Try a shorter word such as “fee”, “status” or “appeal”.</p></div>}</div>;
 }
