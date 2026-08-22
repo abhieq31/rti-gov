@@ -3,6 +3,33 @@
 import { useMemo, useState } from 'react';
 import { authorities, demoRequests, disclosures, faqs } from './portal-data';
 
+export function CitizenStart() {
+  const [need, setNeed] = useState('');
+  const examples = [
+    'Road repair estimate near my home',
+    'Inspection report for my railway station',
+    'Status and file noting of my pension case',
+  ];
+  return (
+    <form className="citizen-start" action="/request">
+      <label htmlFor="citizen-need">What information do you want?</label>
+      <textarea
+        id="citizen-need"
+        name="need"
+        value={need}
+        onChange={(event) => setNeed(event.target.value)}
+        placeholder="For example: Give me the inspection reports for the road repaired outside my home last year."
+        rows={3}
+      />
+      <div className="citizen-start-actions">
+        <span><i aria-hidden="true">✓</i> No reason. No Aadhaar. Plain language is enough.</span>
+        <button disabled={need.trim().length < 12}>Start my request <b>→</b></button>
+      </div>
+      <div className="example-prompts"><span>Try an example</span>{examples.map((example) => <button key={example} type="button" onClick={() => setNeed(example)}>{example}</button>)}</div>
+    </form>
+  );
+}
+
 export function SearchRecords() {
   const [query, setQuery] = useState('');
   const [searched, setSearched] = useState(false);
@@ -46,43 +73,82 @@ export function AuthorityFinder() {
   );
 }
 
-type RequestDraft = { authority: string; name: string; email: string; mobile: string; address: string; bpl: boolean; urgent: boolean; request: string; format: string; payment: string };
+type RequestDraft = { authority: string; region: string; name: string; email: string; mobile: string; address: string; bpl: boolean; urgent: boolean; request: string; format: string; payment: string };
 const initialDraft: RequestDraft = {
-  authority: '', name: 'Aarav Demo', email: 'aarav.demo@example.in', mobile: '90000 00000', address: '42 Demo Road, New Delhi 110001', bpl: false, urgent: false,
-  request: 'Please provide copies of inspection reports and the completion certificate for the foot-over bridge work at Anand Vihar railway station between 1 April 2024 and 31 March 2025.', format: 'Electronic copy', payment: 'UPI',
+  authority: '', region: 'Delhi', name: '', email: '', mobile: '', address: '', bpl: false, urgent: false,
+  request: '', format: 'Electronic copy', payment: 'UPI',
 };
 
-export function RequestWorkflow() {
+const regions = ['Andaman & Nicobar Islands','Andhra Pradesh','Arunachal Pradesh','Assam','Bihar','Chandigarh','Chhattisgarh','Dadra & Nagar Haveli and Daman & Diu','Delhi','Goa','Gujarat','Haryana','Himachal Pradesh','Jammu & Kashmir','Jharkhand','Karnataka','Kerala','Ladakh','Lakshadweep','Madhya Pradesh','Maharashtra','Manipur','Meghalaya','Mizoram','Nagaland','Odisha','Puducherry','Punjab','Rajasthan','Sikkim','Tamil Nadu','Telangana','Tripura','Uttar Pradesh','Uttarakhand','West Bengal'];
+
+function authorityFor(request: string, region: string) {
+  const text = request.toLowerCase();
+  if (/rail|station|train|platform/.test(text)) return authorities[0];
+  if (/epf|epfo|provident|pension/.test(text)) return authorities[1];
+  if (/national highway|nh-|n hai|nhai/.test(text)) return authorities[2];
+  if (/service rule|government employee|rti polic|dopt/.test(text)) return authorities[3];
+  if (region === 'Delhi' && /road|drain|garbage|property|building|park|street/.test(text)) return authorities[4];
+  return { name: `${region} public authority`, code: region.replace(/[^A-Z]/gi, '').slice(0, 4).toUpperCase() || 'STATE', level: 'State', topics: 'The department or local body holding this record', route: 'Route through the appropriate State service' };
+}
+
+export function RequestWorkflow({ initialNeed = '' }: { initialNeed?: string }) {
   const [step, setStep] = useState(0);
-  const [draft, setDraft] = useState(initialDraft);
-  const [fit, setFit] = useState('');
+  const [draft, setDraft] = useState(() => ({ ...initialDraft, request: initialNeed }));
   const [confirmed, setConfirmed] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const labels = ['Right route', 'Authority', 'Applicant', 'Records', 'Fee', 'Receipt'];
+  const [showAuthorities, setShowAuthorities] = useState(false);
+  const [registration, setRegistration] = useState('');
+  const [submittedAt, setSubmittedAt] = useState<Date | null>(null);
+  const labels = ['Your request', 'Your details', 'Review', 'Registered'];
   const update = <K extends keyof RequestDraft>(key: K, value: RequestDraft[K]) => setDraft((current) => ({ ...current, [key]: value }));
-  const selectedAuthority = authorities.find((item) => item.code === draft.authority);
-  const canContinue = [fit === 'records', Boolean(draft.authority), Boolean(draft.name && draft.email && draft.address), draft.request.trim().length > 20, confirmed][step] ?? true;
+  const suggestedAuthority = useMemo(() => authorityFor(draft.request, draft.region), [draft.request, draft.region]);
+  const selectedAuthority = authorities.find((item) => item.code === draft.authority) || (draft.authority === suggestedAuthority.code ? suggestedAuthority : suggestedAuthority);
+  const grievanceLikely = /fix|repair|complaint|not received|delay|pending|take action/.test(draft.request.toLowerCase());
+  const canContinue = [Boolean(draft.request.trim().length >= 12 && draft.region && (draft.authority || suggestedAuthority.code)), Boolean(draft.name && draft.mobile.replace(/\D/g, '').length >= 10 && draft.email.includes('@') && draft.address.trim().length >= 8), confirmed][step] ?? true;
+
+  const dueDate = useMemo(() => {
+    if (!submittedAt) return null;
+    const due = new Date(submittedAt);
+    due.setDate(due.getDate() + (draft.urgent ? 2 : 30));
+    return due;
+  }, [submittedAt, draft.urgent]);
+
+  const formatDate = (date: Date) => new Intl.DateTimeFormat('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }).format(date);
   const submit = () => {
-    const saved = { ...demoRequests[0], id: 'RTI/MORLY/2026/804271', subject: draft.request.slice(0, 70), authority: selectedAuthority?.name || 'Ministry of Railways' };
+    const now = new Date();
+    const id = `RTI-DEMO/${selectedAuthority.code}/${now.getFullYear()}/${String(now.getTime()).slice(-6)}`;
+    const saved = { ...demoRequests[0], id, subject: draft.request.slice(0, 70), authority: selectedAuthority.name };
     localStorage.setItem('rti-gov-demo-request', JSON.stringify(saved));
-    setSubmitted(true); setStep(5);
+    setRegistration(id); setSubmittedAt(now); setStep(3);
   };
   return (
-    <div className="workflow-shell">
-      <div className="workflow-progress">{labels.map((label, index) => <div className={`${index === step ? 'active' : ''} ${index < step ? 'complete' : ''}`} key={label}><span>{index < step ? '✓' : index + 1}</span><small>{label}</small></div>)}</div>
-      <div className="workflow-body">
-        {step === 0 && <section className="workflow-step"><span className="step-label">Step 1 · Check the route</span><h2>What do you need from the authority?</h2><p>RTI gives you existing government records. It does not order an office to fix a service.</p><div className="choice-grid vertical">
-          <button className={fit === 'records' ? 'selected' : ''} onClick={() => setFit('records')} type="button"><b>Copies of existing records</b><small>Files, reports, data, contracts, notes or correspondence</small><i>Best fit</i></button>
-          <button className={fit === 'grievance' ? 'selected warning' : ''} onClick={() => setFit('grievance')} type="button"><b>A service problem fixed</b><small>Pension delay, certificate, refund or individual grievance</small><i>Use grievance</i></button>
-          <button className={fit === 'opinion' ? 'selected warning' : ''} onClick={() => setFit('opinion')} type="button"><b>An explanation or opinion</b><small>Reframe it as the recorded reasons or file noting</small><i>Reframe</i></button>
-        </div>{fit && fit !== 'records' && <div className="decision-advice"><b>Do not file yet.</b><p>{fit === 'grievance' ? 'A grievance portal can seek corrective action. Use RTI only if you want the records behind that action.' : 'Ask for the documents, file noting or recorded reasons used to make the decision.'}</p></div>}</section>}
-        {step === 1 && <section className="workflow-step"><span className="step-label">Step 2 · Public authority</span><h2>Who is likely to hold the record?</h2><p>The right destination matters more than legal language.</p><div className="choice-grid authority-choices">{authorities.slice(0, 5).map((item) => <button className={draft.authority === item.code ? 'selected' : ''} key={item.code} onClick={() => update('authority', item.code)} type="button"><span>{item.level}</span><b>{item.name}</b><small>{item.topics}</small></button>)}</div></section>}
-        {step === 2 && <section className="workflow-step"><span className="step-label">Step 3 · Applicant details</span><h2>Who should receive the response?</h2><p>Only details required to identify and contact the applicant. Never enter Aadhaar, PAN, bank or card information here.</p><div className="form-grid"><label><span>Full name</span><input value={draft.name} onChange={(event) => update('name', event.target.value)} /></label><label><span>Email</span><input type="email" value={draft.email} onChange={(event) => update('email', event.target.value)} /></label><label><span>Mobile for alerts</span><input value={draft.mobile} onChange={(event) => update('mobile', event.target.value)} /></label><label className="wide"><span>Postal address</span><textarea value={draft.address} onChange={(event) => update('address', event.target.value)} /></label></div><label className="check-row"><input checked={draft.bpl} onChange={(event) => update('bpl', event.target.checked)} type="checkbox" /><span><b>I am eligible for the Below Poverty Line fee exemption</b><small>A valid certificate would be required in production.</small></span></label></section>}
-        {step === 3 && <section className="workflow-step"><span className="step-label">Step 4 · Describe the records</span><h2>Specific beats formal.</h2><p>Describe the record, place and date range. The authority needs a search instruction—not a legal speech.</p><div className="request-toolbar"><span>To <b>{selectedAuthority?.name}</b></span><span>{draft.request.length} / 3,000 characters</span></div><label className="big-textarea"><span>Information requested</span><textarea value={draft.request} onChange={(event) => update('request', event.target.value)} /></label><button className="clarify-button" onClick={() => update('request', 'Please provide the following records under the Right to Information Act, 2005:\n\n1. Copies of inspection reports for the foot-over bridge work at Anand Vihar railway station between 1 April 2024 and 31 March 2025.\n2. A copy of the completion certificate issued for this work.\n3. The name and designation of the office that approved that certificate.\n\nI prefer to receive these records electronically.')} type="button">✦ Clarify this request <small>Mock writing assistance · adds no new facts</small></button><div className="form-grid mini"><label><span>Preferred format</span><select value={draft.format} onChange={(event) => update('format', event.target.value)}><option>Electronic copy</option><option>Certified paper copy</option><option>Inspection of records</option></select></label><label><span>Supporting PDF (optional)</span><input accept="application/pdf" type="file" /></label></div><label className="check-row"><input checked={draft.urgent} onChange={(event) => update('urgent', event.target.checked)} type="checkbox" /><span><b>This concerns life or liberty</b><small>Use only when the 48-hour statutory condition genuinely applies.</small></span></label></section>}
-        {step === 4 && <section className="workflow-step"><span className="step-label">Step 5 · Review and mock payment</span><h2>Know exactly what will be sent.</h2><p>Production would hand off to an approved payment gateway. This prototype never collects financial details.</p><div className="review-panel"><div><small>Public authority</small><b>{selectedAuthority?.name}</b></div><div><small>Applicant</small><b>{draft.name}</b><span>{draft.email}</span></div><div className="wide"><small>Request</small><p>{draft.request}</p></div><div><small>Application fee</small><b>{draft.bpl ? '₹0 · BPL exemption' : '₹10'}</b></div><div><small>Delivery</small><b>{draft.format}</b></div></div>{!draft.bpl && <div className="payment-methods">{['UPI', 'Net banking', 'Card / RuPay'].map((item) => <button className={draft.payment === item ? 'selected' : ''} onClick={() => update('payment', item)} key={item} type="button">{item}<span>{draft.payment === item ? '✓' : ''}</span></button>)}</div>}<label className="check-row declaration"><input checked={confirmed} onChange={(event) => setConfirmed(event.target.checked)} type="checkbox" /><span><b>I understand this is a synthetic demonstration.</b><small>No identity, payment, file or request will leave this prototype.</small></span></label></section>}
-        {step === 5 && <section className="receipt-screen"><span className="receipt-check">✓</span><span className="step-label">Mock request submitted</span><h2>Now you know what happens next.</h2><p>A real service should never end at “submitted.” It should give proof, a deadline and the next action.</p><div className="receipt-id"><small>Registration number</small><b>RTI/MORLY/2026/804271</b><button type="button">Copy</button></div><div className="receipt-details"><div><small>Submitted</small><b>22 August 2026</b></div><div><small>Response due</small><b>21 September 2026</b></div><div><small>Authority</small><b>{selectedAuthority?.name}</b></div></div><div className="receipt-actions"><a className="button-primary" href="/status">Track this request</a><a className="button-secondary" href="/history">Open request history</a></div>{submitted && <p className="save-note">Saved to this device for the demo.</p>}</section>}
+    <div className="fast-workflow">
+      <div className="fast-progress" aria-label={`Step ${step + 1} of 4`}><div style={{ width: `${((step + 1) / 4) * 100}%` }}/><span>{labels[step]}</span><b>{step < 3 ? `${step + 1} of 3 · about ${step === 0 ? '70' : step === 1 ? '40' : '15'} seconds left` : 'Complete'}</b></div>
+      <div className="fast-body">
+        {step === 0 && <section className="fast-step"><span className="step-label">Start with the information</span><h2>What do you want to know?</h2><p>Write it as you would say it. We&apos;ll shape the request and find the likely office.</p>
+          <label className="fast-question"><span>Your information request</span><textarea autoFocus value={draft.request} onChange={(event) => update('request', event.target.value)} placeholder="Give me copies of the inspection reports for…"/><small>{draft.request.length} characters · ask for records, reports, lists, file notes or data</small></label>
+          <div className="route-fields"><label><span>Where is this about?</span><select value={draft.region} onChange={(event) => update('region', event.target.value)}>{regions.map((region) => <option key={region}>{region}</option>)}</select></label><label className="urgent-toggle"><input checked={draft.urgent} onChange={(event) => update('urgent', event.target.checked)} type="checkbox"/><span><b>Life or liberty</b><small>Only for a genuine 48-hour matter</small></span></label></div>
+          {draft.request.trim().length >= 12 && <div className="authority-match"><div><span>Likely record holder</span><b>{selectedAuthority.name}</b><small>{selectedAuthority.level} · {selectedAuthority.topics}</small></div><button type="button" onClick={() => setShowAuthorities((current) => !current)}>{showAuthorities ? 'Use suggestion' : 'Change'}</button></div>}
+          {showAuthorities && <div className="authority-picker">{authorities.map((item) => <button className={draft.authority === item.code ? 'selected' : ''} key={item.code} onClick={() => { update('authority', item.code); setShowAuthorities(false); }} type="button"><b>{item.name}</b><small>{item.level}</small></button>)}</div>}
+          {grievanceLikely && <div className="gentle-warning"><b>Need the problem fixed?</b><p>RTI can get the records behind a decision. A grievance service is better for asking an office to take action.</p><a href="/guide">Help me choose</a></div>}
+        </section>}
+        {step === 1 && <section className="fast-step"><span className="step-label">Contact for the response</span><h2>Where should the reply go?</h2><p>Only what the authority needs to identify you and send the response. Never Aadhaar, PAN or bank details.</p>
+          <div className="fast-form"><label><span>Full name</span><input autoComplete="name" value={draft.name} onChange={(event) => update('name', event.target.value)} placeholder="Your name"/></label><label><span>Mobile</span><input autoComplete="tel" inputMode="numeric" value={draft.mobile} onChange={(event) => update('mobile', event.target.value)} placeholder="10-digit mobile number"/></label><label><span>Email</span><input autoComplete="email" type="email" value={draft.email} onChange={(event) => update('email', event.target.value)} placeholder="you@example.com"/></label><label><span>Postal address</span><textarea autoComplete="street-address" value={draft.address} onChange={(event) => update('address', event.target.value)} placeholder="House, street, city and PIN code"/></label></div>
+          <div className="delivery-row"><label><span>Send records as</span><select value={draft.format} onChange={(event) => update('format', event.target.value)}><option>Electronic copy</option><option>Certified paper copy</option><option>Inspection of records</option></select></label><label className="bpl-toggle"><input checked={draft.bpl} onChange={(event) => update('bpl', event.target.checked)} type="checkbox"/><span><b>I have valid BPL proof</b><small>Application fee becomes ₹0</small></span></label></div>
+        </section>}
+        {step === 2 && <section className="fast-step review-step"><span className="step-label">One calm review</span><h2>Ready to register.</h2><p>Check the request once. Payment and registration happen together.</p>
+          <div className="fast-review"><article><span>Request</span><p>{draft.request}</p><button type="button" onClick={() => setStep(0)}>Edit</button></article><article><span>Public authority</span><b>{selectedAuthority.name}</b><small>{selectedAuthority.level} route · transfer assistance included</small></article><article><span>Response to</span><b>{draft.name}</b><small>{draft.email} · {draft.format}</small></article></div>
+          <div className="checkout-row"><div><span>Application fee</span><strong>{draft.bpl ? '₹0' : '₹10'}</strong><small>{draft.bpl ? 'BPL exemption selected' : 'One-time Central RTI fee'}</small></div>{!draft.bpl && <div className="fast-payment" role="group" aria-label="Payment method">{['UPI','Net banking','RuPay / card'].map((item) => <button className={draft.payment === item ? 'selected' : ''} onClick={() => update('payment', item)} key={item} type="button">{item}{draft.payment === item && <span>✓</span>}</button>)}</div>}</div>
+          <label className="final-declaration"><input checked={confirmed} onChange={(event) => setConfirmed(event.target.checked)} type="checkbox"/><span><b>I confirm these details are correct.</b><small>This prototype creates a device-local demonstration receipt. Nothing is transmitted or charged.</small></span></label>
+        </section>}
+        {step === 3 && submittedAt && dueDate && <section className="fast-receipt"><div className="success-orbit"><span>✓</span></div><span className="step-label">Request registered</span><h2>You&apos;re done.</h2><p>Your proof and statutory clock are now in one place.</p>
+          <div className="registration-card"><span>Prototype registration number</span><b>{registration}</b><button onClick={() => navigator.clipboard?.writeText(registration)} type="button">Copy number</button></div>
+          <div className="deadline-card"><div><span>Response due</span><strong>{formatDate(dueDate)}</strong><small>{draft.urgent ? '48-hour life-or-liberty timeline selected' : '30 calendar days from registration'}</small></div><div className="deadline-count"><b>{draft.urgent ? '48' : '30'}</b><span>{draft.urgent ? 'hours' : 'days'}</span></div></div>
+          <dl className="receipt-summary"><div><dt>Filed</dt><dd>{formatDate(submittedAt)}</dd></div><div><dt>Authority</dt><dd>{selectedAuthority.name}</dd></div><div><dt>Delivery</dt><dd>{draft.format}</dd></div><div><dt>Fee</dt><dd>{draft.bpl ? '₹0 · BPL' : `₹10 · ${draft.payment}`}</dd></div></dl>
+          <div className="next-promise"><b>What happens next</b><p>We&apos;ll show who has the request, every transfer, days remaining, fees, the reply and the exact moment an appeal becomes available.</p></div>
+          <div className="receipt-actions"><a className="button-primary" href="/status">Track this request</a><button className="button-secondary" onClick={() => window.print()} type="button">Save acknowledgement</button></div><small className="prototype-receipt-note">This is a prototype receipt and is not valid for an official RTI filing.</small>
+        </section>}
       </div>
-      {step < 5 && <div className="workflow-actions"><button disabled={step === 0} onClick={() => setStep((current) => current - 1)} type="button">← Back</button><span>Draft saved on this device</span>{step < 4 ? <button className="button-primary" disabled={!canContinue} onClick={() => setStep((current) => current + 1)} type="button">Continue →</button> : <button className="button-primary" disabled={!confirmed} onClick={submit} type="button">{draft.bpl ? 'Submit mock request →' : `Pay ₹10 & submit →`}</button>}</div>}
+      {step < 3 && <div className="fast-actions"><button disabled={step === 0} onClick={() => setStep((current) => current - 1)} type="button">← Back</button><span><i>✓</i> Saved on this device</span>{step < 2 ? <button className="button-primary" disabled={!canContinue} onClick={() => setStep((current) => current + 1)} type="button">Continue <b>→</b></button> : <button className="button-primary" disabled={!confirmed} onClick={submit} type="button">{draft.bpl ? 'Register request' : `Pay ₹10 & register`} <b>→</b></button>}</div>}
     </div>
   );
 }

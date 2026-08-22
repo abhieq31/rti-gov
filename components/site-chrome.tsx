@@ -28,8 +28,8 @@ export function SiteHeader() {
             <span><strong>RTI.gov</strong><small>सूचना का अधिकार · Right to Information</small></span>
           </Link>
           <div className="service-promise">
-            <b>India&apos;s central home for the Right to Information</b>
-            <p>Understand the Act, find public records and prepare the right request.</p>
+            <b>One clear path to public information</b>
+            <p>Ask, register, track and appeal without learning the machinery.</p>
           </div>
         </div>
         <nav className="primary-nav" aria-label="Primary navigation">

@@ -4,6 +4,8 @@
 
 RTI.gov is an independent working concept for a unified Indian Right to Information service. It is designed around the citizen's complete journey: understand the Act, search proactive disclosures, find the correct public authority, create a precise request, track the statutory clock, reconcile payments and file a first appeal.
 
+The primary interaction has one measurable promise: a citizen can move from “I want this information” to a prototype registration number and exact statutory due date in under 90 seconds on a mid-range phone.
+
 > **Prototype boundary:** This repository is not an official Government of India service. It does not connect to government identity, payment, RTI or records systems. All people, requests, OTPs, documents and transactions are synthetic.
 
 ## What works
@@ -11,10 +13,14 @@ RTI.gov is an independent working concept for a unified Indian Right to Informat
 - Plain-language education grounded in the Right to Information Act, 2005 and the Right to Information Rules, 2012
 - Central, State and local authority routing
 - Searchable public-disclosure and authority demonstrations
-- Six-step RTI request workflow with BPL and fee handling
+- Three-decision RTI request workflow: describe, identify, review and register
+- Plain-language authority recommendation across Central, State and local routes
+- Immediate prototype registration number and calculated 30-day or 48-hour deadline
+- Mobile autofill support, BPL exemption handling and a printable acknowledgement
 - OTP-protected request status, transfer history and statutory deadlines
 - First appeal, request history, payment reconciliation and passwordless sign-in demonstrations
 - Responsive, keyboard-friendly interface with a bilingual Indian public-service identity
+- No externally hosted webfont dependency in the critical rendering path
 - Search metadata, structured data, sitemap, robots policy, web manifest and social preview
 
 ## Demo access
@@ -63,6 +69,12 @@ docs/                    Product and release documentation
 ```
 
 The complete route map is documented in [docs/PRODUCT.md](docs/PRODUCT.md).
+
+## Usability acceptance
+
+The filing journey is designed and tested at a `390 × 844` mobile viewport. The current instrumented browser run completed the full path—starting from a sample information need, confirming the authority, entering synthetic contact details, reviewing, registering and receiving the deadline—in **43 seconds**, with no browser console errors. This is a regression benchmark, not a substitute for moderated testing with citizens.
+
+See [docs/USABILITY.md](docs/USABILITY.md) for the test protocol and non-negotiable experience rules.
 
 ## Continuous deployment
 
