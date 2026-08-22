@@ -13,5 +13,9 @@ Checked 22 August 2026.
 | State Information Commission websites | [Central Information Commission directory](https://cic.gov.in/links-to-state-information-commissions) |
 | Government datasets and APIs | [Open Government Data Platform India](https://data.gov.in/) |
 | Reference journey architecture | [FOIA.gov](https://www.foia.gov/) and [How to make a FOIA request](https://www.foia.gov/how-to.html) |
+| Current citizen filing, Nodal Officer routing, CPIO forwarding, split registrations and status behaviour | [RTI Online citizen manual](https://www.rtionline.gov.in/viewPDF.php?file=um_citizen.pdf) |
+| Current transfer, additional-fee, privacy and first-appeal behaviour | [RTI Online frequently asked questions](https://rtionline.gov.in/faq.php?pageid=c9f0f895fb98ab9159f51fd0297e236d) |
+| First and second appeal powers and statutory periods | [Central Information Commission: Second Appeal](https://cic.gov.in/second-appeal) and [Second Appeal Guidelines](https://cic.gov.in/second-appeal-guidelines) |
+| Government website quality, accessibility, security and lifecycle requirements | [GIGW 3.0](https://guidelines.india.gov.in/scope-and-objective/) and [GIGW quick tips](https://guidelines.india.gov.in/quick-tips/) |
 
 The site never silently converts explanatory prototype content into an official statement. External links identify their publisher, and synthetic search results or transactions remain labelled as demonstrations.

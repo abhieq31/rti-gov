@@ -13,6 +13,7 @@ RTI.gov treats that entire journey as the service. The main flow starts with the
 | `/` | State the information need immediately or choose search/track |
 | `/learn` | Understand rights, limits, fees, timelines and remedies |
 | `/guide` | Follow the request process from research to reply |
+| `/process` | See the verified Nodal Officer, CPIO, record, reply and appeal lifecycle in citizen and department views |
 | `/search` | Search synthetic proactive disclosures before filing |
 | `/authorities` | Identify a likely Central, State or local public authority |
 | `/resources` | Use one curated library for official Acts, Rules, circulars, guides, reports, open data and training |
@@ -26,6 +27,7 @@ RTI.gov treats that entire journey as the service. The main flow starts with the
 | `/login` | Enter the synthetic passwordless citizen account |
 | `/faq` | Resolve common procedural questions |
 | `/contact` | Find the right kind of support |
+| `/policies` | Review GIGW readiness, accessibility, privacy, security and content-governance commitments |
 
 ## Legal rules represented
 
@@ -39,6 +41,16 @@ RTI.gov treats that entire journey as the service. The main flow starts with the
 - First and second appeals are treated as visible parts of the same case journey.
 
 The interface explains these rules in plain language; it is not legal advice.
+
+## Operational model
+
+The current Central RTI portal sends a newly registered application to the selected Ministry or Department's Nodal Officer, not directly to a CPIO. The Nodal Officer forwards the application to the concerned CPIO, may split it across several CPIOs, or transfers it under Section 6(3) when another Central public authority holds the record. The CPIO owns the statutory response, may collect records from internal custodians, issue an additional-fee notice, seek a readable supporting document, transfer part of the case, or dispose it with a reply. First appeal is tied to the relevant original or split registration number and is routed to the designated First Appellate Authority.
+
+The redesigned service keeps those official roles while changing visibility: citizens see one parent case, every linked registration, current accountable officer, complete event history, statutory clock and next lawful action. Proposed integrations and officer-workbench features are clearly separated from verified current behaviour.
+
+## Government adoption standard
+
+Visual similarity to an existing NIC site is not sufficient. Government adoption would require departmental ownership, GIGW 3.0 conformity, WCAG 2.1 Level AA accessibility, formal website policies, a named Web Information Manager, safe-to-host security certification, STQC evaluation, multilingual content governance and verified production integrations. The prototype demonstrates this direction but does not claim certification.
 
 ## Source architecture
 

@@ -18,6 +18,8 @@ The primary interaction has one measurable promise: a citizen can move from “I
 - Official RTI library for Acts, Rules, guides, circulars, reports, data and multilingual source material
 - Live Government of India CPIO paths and a Central/State Information Commission directory
 - Plain-language RTI glossary and functional text-size/high-contrast controls
+- Verified Nodal Officer → CPIO → reply → appeal operating model with citizen and department views
+- GIGW-oriented institutional design, website policies and explicit adoption/certification boundary
 - Three-decision RTI request workflow: describe, identify, review and register
 - Plain-language authority recommendation across Central, State and local routes
 - Immediate prototype registration number and calculated 30-day or 48-hour deadline
