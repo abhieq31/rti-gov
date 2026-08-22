@@ -1,0 +1,3 @@
+import type { Metadata } from 'next'; import { PageShell, MockNotice } from '@/components/site-chrome'; import { DemoLogin } from '@/components/workflows';
+export const metadata: Metadata = { title: 'Citizen sign in | RTI.gov', description: 'Use the synthetic passwordless demo account to view RTI requests and appeals.' };
+export default function LoginPage(){return <PageShell><section className="login-page"><MockNotice/><DemoLogin/><aside><span className="page-eyebrow light">Direct filing remains available</span><h1>An account is useful.<br/>It is not a gate.</h1><p>Citizens can still file without creating an account. Signing in adds saved drafts, consolidated history, notifications and deadline reminders.</p></aside></section></PageShell>}

@@ -1,0 +1,3 @@
+import type { Metadata } from 'next'; import { PageHero, PageShell } from '@/components/site-chrome'; import { FaqList } from '@/components/workflows';
+export const metadata: Metadata = { title: 'RTI frequently asked questions | RTI.gov', description: 'Plain-language answers about eligibility, records, fees, timelines, transfers, status and first appeals.' };
+export default function FaqPage(){return <PageShell><PageHero eyebrow="Frequently asked questions" title="Plain answers before legal language." intro="The essential questions citizens ask before, during and after an RTI request."/><section className="narrow-content"><FaqList/></section></PageShell>}

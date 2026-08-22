@@ -1,0 +1,3 @@
+import type { Metadata } from 'next'; import { PageHero, PageShell, MockNotice } from '@/components/site-chrome'; import { PaymentReconciliation } from '@/components/workflows';
+export const metadata: Metadata = { title: 'RTI payment reconciliation | RTI.gov', description: 'Check a payment when money was deducted but an RTI registration number was not generated.' };
+export default function PaymentsPage(){return <PageShell><PageHero eyebrow="Payment reconciliation" title="Never pay twice for the same request." intro="Check whether a payment was received and whether a registration number was generated."/><MockNotice>Payment lookup uses a synthetic transaction. No bank, UPI or card system is connected.</MockNotice><PaymentReconciliation/></PageShell>}

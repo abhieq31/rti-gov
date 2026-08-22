@@ -1,0 +1,3 @@
+import type { Metadata } from 'next'; import { PageHero, PageShell, MockNotice } from '@/components/site-chrome'; import { AppealWorkflow } from '@/components/workflows';
+export const metadata: Metadata = { title: 'File a first RTI appeal online | RTI.gov', description: 'Prepare a no-fee first appeal for delay, denial, incomplete information or unreasonable fees.' };
+export default function AppealPage(){return <PageShell><PageHero eyebrow="First appeal" title="A right without an appeal is only a promise." intro="Find the original request, state the ground clearly and create a traceable first appeal. No Central first-appeal fee."/><MockNotice/><AppealWorkflow/></PageShell>}

@@ -1,0 +1,3 @@
+import type { Metadata } from 'next'; import { PageHero, PageShell, MockNotice } from '@/components/site-chrome'; import { RequestWorkflow } from '@/components/workflows';
+export const metadata: Metadata = { title: 'File an RTI request online | RTI.gov', description: 'Check the route, find the authority, write a clear request and complete a safe mock RTI submission.' };
+export default function RequestPage(){return <PageShell><PageHero eyebrow="File an RTI request" title="One careful question. One accountable trail." intro="A guided request designed to prevent the most expensive mistakes before payment."/><MockNotice/><RequestWorkflow/></PageShell>}
