@@ -7,7 +7,7 @@
 - Build command: `npm run vercel-build`
 - Framework output: Next.js
 
-Vercel's Git integration watches the GitHub repository. A merged or direct push to `main` triggers a production deployment. Pull requests create isolated preview deployments for review.
+GitHub Actions already validates the repository. Automatic Vercel deployment requires one account-level prerequisite: connect the GitHub identity in Vercel **Account Settings → Authentication**, then connect `https://github.com/abhieq31/rti-gov` to the existing `rti-gov` project. After that connection, a merged or direct push to `main` triggers production and pull requests create isolated preview deployments.
 
 ## Release sequence
 
@@ -33,4 +33,3 @@ Vercel's Git integration watches the GitHub repository. A merged or direct push 
 - No personal data, secrets, real OTPs or real payment information are committed.
 - No workflow claims to transmit information to a government system.
 - Any new legal statement is checked against an authoritative Act, Rule or official guidance source.
-
