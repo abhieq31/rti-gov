@@ -6,7 +6,7 @@ Citizens arrive to decide whether RTI is appropriate, check whether information 
 
 ## RTI Online elements preserved
 
-The redesign retains the centred portal frame, blue institutional masthead, RTI Online name, Government of India and Department of Personnel & Training ownership text, language control, public-authority link, compact service navigation, jurisdiction warning, help access, and institutional footer. These familiar signals support recognition and trust. A persistent high-contrast prototype disclosure prevents the independent concept from being mistaken for the official service.
+The redesign retains the centred portal frame, blue institutional masthead, RTI Online name, Government of India and Department of Personnel & Training ownership text, language control, public-authority link, compact service navigation, jurisdiction warning, help access, and institutional footer. These familiar signals support recognition and trust. A restrained disclosure in the utility bar and a complete footer boundary prevent the independent concept from being mistaken for the official service without competing with citizen tasks.
 
 The established labels—Submit Request, Submit First Appeal, View Status, View History, Login, FAQ, Contact Us, and Payment Reconciliation—remain visible and route to the repository's working experiences.
 
@@ -16,7 +16,7 @@ The homepage adapts a task-first journey: understand the access-to-information m
 
 ## Elements removed or reduced
 
-The oversized marketing hero, promotional claims about speed, large decorative whitespace, heavy shadows, and startup-style cards were reduced. They delayed access to core services and made the portal feel like a campaign site. Decorative imagery and invented performance statistics are deliberately absent.
+The oversized marketing hero, promotional claims about speed, two competing navigation bars, repeated prototype banners, flat equal-weight service cells, large decorative whitespace, and startup-style cards were removed. They delayed access to core services or weakened hierarchy. The new lifecycle visual communicates real process ownership and time expectations; invented performance statistics remain deliberately absent.
 
 ## Final information hierarchy
 

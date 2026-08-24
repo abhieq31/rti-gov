@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import './official-portal.css';
+import './citizen-portal.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://rti-gov.vercel.app'),
