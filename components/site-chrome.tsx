@@ -1,40 +1,46 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 
-const primary = [
-  ['Know your RTI', '/learn'],
-  ['Before you file', '/guide'],
-  ['Search disclosures', '/search'],
-  ['Public authorities', '/authorities'],
-  ['Track & appeal', '/status'],
-] as const;
-
 export function SiteHeader() {
   return (
     <>
       <a className="skip-link" href="#main">Skip to main content</a>
-      <div className="india-ribbon">
-        <div className="india-identity">
-          <span className="flag-mini" aria-hidden="true"><i/><i/><i/></span>
-          <span><b>भारत सरकार के लिए प्रस्तावित</b><small>Proposed Government of India service</small></span>
+      <div className="gov-utility">
+        <div className="gov-utility-left">
+          <b>भारत सरकार</b>
+          <span>Government of India</span>
         </div>
-        <span className="prototype-label">Independent prototype · No government systems connected</span>
+        <div className="gov-utility-right">
+          <Link href="/contact">Help</Link>
+          <Link href="/faq">FAQ</Link>
+          <span aria-label="Hindi language option">हिन्दी</span>
+        </div>
       </div>
-      <div className="department-bar"><span>कार्मिक एवं प्रशिक्षण विभाग</span><b>Department of Personnel & Training</b><div><Link href="/contact">Help</Link><Link href="/login">Citizen sign in</Link></div></div>
-      <header className="site-header-v2">
-        <div className="brand-row">
-          <Link className="brand-v2" href="/" aria-label="RTI.gov home">
-            <span className="rti-mark" aria-hidden="true"><i>RTI</i><small>2005</small></span>
-            <span><strong>RTI.gov</strong><small>सूचना का अधिकार · Right to Information</small></span>
+      <div className="prototype-strip" role="note">
+        Independent redesign prototype · Not an official Government of India website · No live RTI, identity or payment systems are connected
+      </div>
+      <header className="portal-header">
+        <div className="portal-brand-row">
+          <Link className="portal-brand" href="/" aria-label="RTI Online prototype home">
+            <span className="portal-seal" aria-hidden="true"><b>RTI</b><small>2005</small></span>
+            <span className="portal-brand-copy">
+              <strong>RTI ONLINE</strong>
+              <span>सूचना का अधिकार · Right to Information</span>
+              <small>Department of Personnel &amp; Training</small>
+            </span>
           </Link>
-          <div className="service-promise">
-            <b>One clear path to public information</b>
-            <p>Ask, register, track and appeal without learning the machinery.</p>
+          <div className="portal-help">
+            <span>Citizen services for Right to Information</span>
+            <Link href="/guide">How to use this service →</Link>
           </div>
         </div>
-        <nav className="primary-nav" aria-label="Primary navigation">
-          {primary.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}
-          <Link className="file-now" href="/request">Create a request <span>→</span></Link>
+        <nav className="portal-nav" aria-label="Primary navigation">
+          <Link href="/">Home</Link>
+          <Link className="portal-nav-primary" href="/request">Submit Request</Link>
+          <Link href="/appeal">Submit First Appeal</Link>
+          <Link href="/status">View Status</Link>
+          <Link href="/history">View History</Link>
+          <Link href="/login">Login</Link>
         </nav>
       </header>
     </>
@@ -46,16 +52,15 @@ export function SiteFooter() {
     <footer className="site-footer-v2">
       <div className="footer-lead">
         <span className="rti-mark small"><i>RTI</i><small>2005</small></span>
-        <div><b>RTI.gov</b><small>सूचना आपका अधिकार है · Information is your right.</small></div>
+        <div><b>RTI Online · redesign prototype</b><small>सूचना आपका अधिकार है · Information is your right.</small></div>
       </div>
       <div className="footer-map">
-        <div><b>Use RTI.gov</b><Link href="/request">File a request</Link><Link href="/status">View status</Link><Link href="/history">Request history</Link><Link href="/payments">Payment reconciliation</Link></div>
-        <div><b>Know your right</b><Link href="/learn">RTI Act explained</Link><Link href="/guide">Citizen guide</Link><Link href="/faq">Frequently asked questions</Link><Link href="/authorities">Public authorities</Link></div>
-        <div><b>Support</b><Link href="/contact">Contact and help</Link><Link href="/appeal">First appeal</Link><Link href="/login">Demo citizen login</Link><a href="#accessibility">Accessibility</a></div>
+        <div><b>Citizen services</b><Link href="/request">Submit request</Link><Link href="/appeal">Submit first appeal</Link><Link href="/status">View status</Link><Link href="/history">View history</Link></div>
+        <div><b>Information</b><Link href="/learn">RTI Act explained</Link><Link href="/guide">Citizen guide</Link><Link href="/faq">Frequently asked questions</Link><Link href="/authorities">Public authorities</Link></div>
+        <div><b>Support</b><Link href="/contact">Contact and help</Link><Link href="/payments">Payment reconciliation</Link><Link href="/login">Citizen login</Link><a href="#accessibility">Accessibility</a></div>
       </div>
       <div className="prototype-disclosure">
-        <p><b>Prototype boundary:</b> This is an independent competition concept. It does not submit to, represent, or connect with any Government of India system. All identities, requests, OTPs, files and payments shown are synthetic.</p>
-        <p>Parliament photograph: Pinakpani / Wikimedia Commons, CC BY-SA 4.0.</p>
+        <p><b>Prototype boundary:</b> This is an independent redesign concept. It does not submit to, represent, or connect with any Government of India system. All identities, requests, OTPs, files and payments shown are synthetic.</p>
       </div>
     </footer>
   );
