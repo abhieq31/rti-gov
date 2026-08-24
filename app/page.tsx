@@ -1,55 +1,86 @@
 import Link from 'next/link';
 import { PageShell } from '@/components/site-chrome';
 
-const actions = [
-  ['Submit RTI Request', 'File a new request to a Central public authority.', '/request', 'primary'],
-  ['Submit First Appeal', 'Continue from an existing RTI registration.', '/appeal', ''],
-  ['View Status', 'See authority, stage, due date and next action.', '/status', ''],
-  ['View History', 'Open requests, replies and appeals together.', '/history', ''],
-  ['Payment Reconciliation', 'Check a payment before trying again.', '/payments', ''],
+const serviceLinks = [
+  { label: 'Track a request', detail: 'See the officer, due date and every transfer', href: '/status', icon: '⌁' },
+  { label: 'Submit first appeal', detail: 'Continue from an eligible RTI request', href: '/appeal', icon: '↗' },
+  { label: 'Find an authority', detail: 'Identify who is most likely to hold the record', href: '/authorities', icon: '◎' },
+  { label: 'Payment help', detail: 'Check a payment before trying again', href: '/payments', icon: '₹' },
 ] as const;
 
 const journey = [
-  ['1', 'Understand RTI', 'Check whether you need records or grievance action.', '/learn'],
-  ['2', 'Search information', 'The answer may already be published.', '/search'],
-  ['3', 'Find the authority', 'Identify the office most likely to hold the record.', '/authorities'],
-  ['4', 'Start your request', 'Ask precisely and keep your registration number.', '/request'],
+  { n: '01', title: 'Understand', text: 'Use RTI to ask for an existing record—not to ask an office to solve a grievance.', href: '/learn' },
+  { n: '02', title: 'Search', text: 'The answer may already be published in a report, order, budget or disclosure.', href: '/search' },
+  { n: '03', title: 'Find', text: 'Choose the Central public authority most likely to hold the information.', href: '/authorities' },
+  { n: '04', title: 'File', text: 'Describe the record precisely, pay the fee if applicable, and save the receipt.', href: '/request' },
 ] as const;
 
 export default function HomePage() {
-  return <PageShell><div className="citizen-home">
-    <section className="citizen-hero" aria-labelledby="hero-title">
-      <div className="hero-message">
-        <span className="section-eyebrow">Right to Information Act, 2005</span>
-        <h1 id="hero-title">Ask the government.<br/><em>Track every step.</em></h1>
-        <p>Request existing records from Central Government public authorities, follow the statutory timeline, and appeal when you need to.</p>
-        <div className="hero-ctas"><Link className="action-primary" href="/request">File an RTI Request <span>→</span></Link><Link className="action-secondary" href="/status">Track a Request</Link></div>
-        <ul className="hero-facts"><li><b>₹10</b><span>Central application fee</span></li><li><b>30 days</b><span>Usual response period</span></li><li><b>No reason</b><span>required to ask</span></li></ul>
+  return (
+    <PageShell>
+      <div className="rti-home">
+        <section className="rti-hero">
+          <div className="rti-hero-copy">
+            <span className="rti-overline">Right to Information Act, 2005</span>
+            <h1>Information is<br/><em>your right.</em></h1>
+            <p>Request records from a Central Government public authority, follow the statutory timeline, and appeal when the response is delayed or incomplete.</p>
+            <div className="rti-hero-actions">
+              <Link className="rti-action rti-action-primary" href="/request">File an RTI request <span aria-hidden="true">→</span></Link>
+              <Link className="rti-action rti-action-light" href="/status">Track my request</Link>
+            </div>
+            <ul className="rti-fact-row" aria-label="Key RTI facts">
+              <li><strong>₹10</strong><span>Central application fee<br/>BPL applicants exempt</span></li>
+              <li><strong>30 days</strong><span>Usual response period<br/>48 hours for life or liberty</span></li>
+              <li><strong>No reason</strong><span>You do not have to explain<br/>why you want a record</span></li>
+            </ul>
+          </div>
+          <aside className="rti-case-card" aria-label="Example RTI request progress">
+            <div className="rti-case-top"><span>How a request moves</span><b>One request. A visible chain of responsibility.</b></div>
+            <ol className="rti-timeline">
+              <li className="done"><i>✓</i><div><b>Request registered</b><small>Receipt and statutory due date issued</small></div><span>Day 0</span></li>
+              <li className="active"><i>2</i><div><b>Nodal officer routes it</b><small>Ownership checked inside the Ministry</small></div><span>Current</span></li>
+              <li><i>3</i><div><b>Concerned CPIO responds</b><small>Reply, lawful transfer or fee notice</small></div><span>By day 30</span></li>
+              <li><i>4</i><div><b>First appeal, if needed</b><small>The original case details carry forward</small></div><span>No Central fee</span></li>
+            </ol>
+            <Link href="/process">Explore the complete process <span aria-hidden="true">→</span></Link>
+          </aside>
+        </section>
+
+        <section className="rti-jurisdiction" aria-labelledby="jurisdiction-title">
+          <div className="rti-jurisdiction-mark" aria-hidden="true">!</div>
+          <div><span>Before you file</span><h2 id="jurisdiction-title">This service is for Central Government public authorities.</h2><p>For a State Government, municipal body, State police, or local authority, use that State’s RTI portal. Filing in the wrong system can delay or return your application.</p></div>
+          <Link href="/authorities">Check the right authority <span aria-hidden="true">→</span></Link>
+        </section>
+
+        <section className="rti-service-section" aria-labelledby="services-title">
+          <div className="rti-section-heading"><div><span>Online services</span><h2 id="services-title">What would you like to do?</h2></div><Link href="/history">View request history →</Link></div>
+          <div className="rti-service-layout">
+            <Link className="rti-feature-card" href="/request"><span className="rti-card-number">01</span><div><small>Start a new application</small><h3>File an RTI request</h3><p>Ask for an identifiable record from a Central public authority. The guided form helps you describe the information and select the likely record holder.</p></div><i aria-hidden="true">→</i></Link>
+            <div className="rti-service-grid">
+              {serviceLinks.map((service) => <Link href={service.href} key={service.href}><i aria-hidden="true">{service.icon}</i><div><h3>{service.label}</h3><p>{service.detail}</p></div><span aria-hidden="true">→</span></Link>)}
+            </div>
+          </div>
+        </section>
+
+        <section className="rti-journey" aria-labelledby="journey-title">
+          <div className="rti-journey-intro"><span>A better request begins before the form</span><h2 id="journey-title">Four steps to the right record.</h2><p>Research first, route carefully, then write the narrowest request that can produce the information you need.</p></div>
+          <ol>{journey.map((step) => <li key={step.n}><span>{step.n}</span><h3>{step.title}</h3><p>{step.text}</p><Link href={step.href}>Start here <span aria-hidden="true">↗</span></Link></li>)}</ol>
+        </section>
+
+        <section className="rti-essentials" aria-labelledby="essentials-title">
+          <div className="rti-essentials-copy"><span>Know before you submit</span><h2 id="essentials-title">A precise request gets a more precise answer.</h2><p>Ask for records that already exist: orders, file notings, inspection reports, contracts, correspondence, statistics, or certified copies. RTI does not require an office to create an explanation or settle a grievance.</p><Link className="rti-text-link" href="/guide">Read the filing guide →</Link></div>
+          <div className="rti-essential-list">
+            <article><span>01</span><div><h3>Name the record</h3><p>Include the subject, office, place, project, and a useful date range.</p></div></article>
+            <article><span>02</span><div><h3>Keep it focused</h3><p>One clear subject is easier to route, search, copy, and answer.</p></div></article>
+            <article><span>03</span><div><h3>Protect your identity</h3><p>Never put Aadhaar, PAN, OTP, password, or banking details in the request text.</p></div></article>
+          </div>
+        </section>
+
+        <section className="rti-help" aria-label="RTI help desk">
+          <div className="rti-help-symbol" aria-hidden="true">?</div><div><span>RTI Online help desk</span><h2>Unsure where to begin?</h2><p>Support hours: Monday–Friday, 9:00 AM–5:30 PM, except public holidays.</p></div>
+          <dl><div><dt>Call</dt><dd>011-24010690 / 691</dd></div><div><dt>Email</dt><dd>helprtionline-dopt[at]nic[dot]in</dd></div></dl><Link href="/contact">Get help <span aria-hidden="true">→</span></Link>
+        </section>
       </div>
-      <div className="lifecycle-card" aria-labelledby="lifecycle-title">
-        <div className="lifecycle-head"><span>YOUR REQUEST JOURNEY</span><h2 id="lifecycle-title">From filing to a lawful response</h2></div>
-        <ol>
-          <li className="complete"><i>✓</i><div><b>Request filed</b><small>Registration number issued</small></div><time>Day 0</time></li>
-          <li><i>2</i><div><b>Nodal Officer</b><small>Routes to the record-holding office</small></div><time>Transfer<br/>up to 5 days</time></li>
-          <li><i>3</i><div><b>CPIO reviews</b><small>Central Public Information Officer</small></div><time>Responsible<br/>officer</time></li>
-          <li><i>4</i><div><b>Reply available</b><small>Records, decision, or additional fee</small></div><time>Usually by<br/>day 30</time></li>
-        </ol>
-        <div className="appeal-route"><span>IF THE REPLY IS LATE OR INADEQUATE</span><Link href="/appeal"><b>First Appeal</b><small>Continue with the same case →</small></Link></div>
-      </div>
-    </section>
-
-    <section className="jurisdiction-alert" aria-labelledby="jurisdiction-title"><span aria-hidden="true">!</span><div><b id="jurisdiction-title">This service is for Central Government public authorities only.</b><p>For State Governments—including the Government of NCT Delhi—use the relevant State RTI portal.</p></div><Link href="/authorities">Check the authority before filing →</Link></section>
-
-    <section className="service-section" aria-labelledby="services-title"><div className="section-heading"><span className="section-eyebrow">Citizen services</span><h2 id="services-title">What do you need to do?</h2><p>Start with the task that matches where you are in the RTI process.</p></div><div className="service-layout">
-      <Link className="service-feature" href="/request"><span className="service-icon" aria-hidden="true">✎</span><div><small>START A NEW APPLICATION</small><h3>File an RTI Request</h3><p>Describe the records in plain language. We&apos;ll help identify the likely authority, explain the fee, and give you one calm review before submission.</p><b>Begin your request <i>→</i></b></div></Link>
-      <div className="service-secondary"><Link href="/status"><span className="service-icon" aria-hidden="true">◎</span><div><small>EXISTING REQUEST</small><h3>Track Request</h3><p>See the responsible authority, transfer history, due date, reply and next lawful action.</p><b>Check status →</b></div></Link><Link href="/appeal"><span className="service-icon" aria-hidden="true">↗</span><div><small>RESPONSE OR DELAY</small><h3>File First Appeal</h3><p>Connect to the original case without entering everything again.</p><b>Check appeal eligibility →</b></div></Link></div>
-      <nav className="service-support" aria-label="Related citizen services"><Link href="/history"><span>▤</span><b>View History</b><i>Requests, replies and appeals</i><em>→</em></Link><Link href="/payments"><span>₹</span><b>Payment Reconciliation</b><i>Check before paying again</i><em>→</em></Link><Link href="/authorities"><span>⌖</span><b>Find Public Authority</b><i>Send the request where records live</i><em>→</em></Link></nav>
-    </div></section>
-
-    <section className="journey-section" aria-labelledby="journey-title"><div className="journey-intro"><span className="section-eyebrow light">Before you file</span><h2 id="journey-title">A better request starts before the form.</h2><p>Follow the shortest route to the information you need.</p></div><ol><li><span>01</span><div><b>Understand</b><p>Check whether RTI applies, or whether you need a grievance service.</p><Link href="/learn">Is RTI right for this? →</Link></div></li><li><span>02</span><div><b>Search</b><p>Look for reports, circulars and records already published online.</p><Link href="/search">Search disclosures →</Link></div></li><li><span>03</span><div><b>Find</b><p>Identify the Central authority most likely to hold the record.</p><Link href="/authorities">Find the authority →</Link></div></li><li><span>04</span><div><b>File &amp; track</b><p>Ask precisely, save the number, and follow every step.</p><Link href="/request">Start a request →</Link></div></li></ol></section>
-
-    <section className="information-section" aria-labelledby="information-title"><div className="information-lead"><span className="section-eyebrow">RTI essentials</span><h2 id="information-title">Know what the law can do for you.</h2><p>Clear answers before you spend time on an application.</p><Link href="/guide">Read the full citizen guide →</Link></div><div className="information-editorial"><article><span>ASK FOR RECORDS</span><h3>What can I request?</h3><p>Documents, file notings, orders, reports, contracts, inspection records, correspondence, datasets and other existing information held by a public authority.</p></article><article><span>CHOOSE THE RIGHT ROUTE</span><h3>RTI does not resolve a grievance.</h3><p>It can reveal records behind a decision. It cannot force an office to repair, approve, pay, investigate or provide a service.</p></article><details open><summary>Fees, exemptions and time limits <i>+</i></summary><div><b>₹10</b><p>Central application fee. Eligible Below Poverty Line applicants are exempt with valid proof.</p><b>30 days</b><p>Usual response period. Information concerning life or liberty is subject to a 48-hour provision.</p></div></details><details><summary>What happens after filing? <i>+</i></summary><div><p>Keep the registration number. Track routing, transfers, additional-fee notices and the authority&apos;s reply from the status service.</p></div></details><details><summary>When can I file a first appeal? <i>+</i></summary><div><p>A first appeal may be relevant when no timely reply arrives, information is denied or incomplete, or an additional fee is disputed.</p></div></details></div></section>
-
-    <section className="home-help"><div><span>?</span><div><b>Need help with RTI Online?</b><p>Use the step-by-step guide or speak to the prototype help desk.</p></div></div><nav><Link href="/guide">Citizen Guide</Link><Link href="/faq">Frequently Asked Questions</Link><Link href="/contact">Contact Us</Link></nav></section>
-  </div></PageShell>;
+    </PageShell>
+  );
 }
