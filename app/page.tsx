@@ -1,6 +1,21 @@
 import Link from 'next/link';
 import { PageShell } from '@/components/site-chrome';
 
+const actions = [
+  ['Submit RTI Request', 'File a new request to a Central public authority.', '/request', 'primary'],
+  ['Submit First Appeal', 'Continue from an existing RTI registration.', '/appeal', ''],
+  ['View Status', 'See authority, stage, due date and next action.', '/status', ''],
+  ['View History', 'Open requests, replies and appeals together.', '/history', ''],
+  ['Payment Reconciliation', 'Check a payment before trying again.', '/payments', ''],
+] as const;
+
+const journey = [
+  ['1', 'Understand RTI', 'Check whether you need records or grievance action.', '/learn'],
+  ['2', 'Search information', 'The answer may already be published.', '/search'],
+  ['3', 'Find the authority', 'Identify the office most likely to hold the record.', '/authorities'],
+  ['4', 'Start your request', 'Ask precisely and keep your registration number.', '/request'],
+] as const;
+
 export default function HomePage() {
   return <PageShell><div className="citizen-home">
     <section className="citizen-hero" aria-labelledby="hero-title">
