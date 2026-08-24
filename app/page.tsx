@@ -1,119 +1,33 @@
 import Link from 'next/link';
 import { PageShell } from '@/components/site-chrome';
 
+const actions = [
+  ['Submit RTI Request', 'File a new request to a Central public authority.', '/request', 'primary'],
+  ['Submit First Appeal', 'Continue from an existing RTI registration.', '/appeal', ''],
+  ['View Status', 'See authority, stage, due date and next action.', '/status', ''],
+  ['View History', 'Open requests, replies and appeals together.', '/history', ''],
+  ['Payment Reconciliation', 'Check a payment before trying again.', '/payments', ''],
+] as const;
+
+const journey = [
+  ['1', 'Understand RTI', 'Check whether you need records or grievance action.', '/learn'],
+  ['2', 'Search information', 'The answer may already be published.', '/search'],
+  ['3', 'Find the authority', 'Identify the office most likely to hold the record.', '/authorities'],
+  ['4', 'Start your request', 'Ask precisely and keep your registration number.', '/request'],
+] as const;
+
 export default function HomePage() {
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    name: 'RTI Online redesign prototype',
-    url: 'https://rti-gov.vercel.app',
-    description: 'An independent redesign prototype for citizen-facing Right to Information services in India.',
-  };
+  return <PageShell><div className="portal-home">
+    <section className="home-intro" aria-labelledby="home-title"><div><span className="portal-kicker">Right to Information Online</span><h1 id="home-title">Access Central Government information.</h1><p>Submit, track and appeal an RTI request through a clearer, guided citizen service.</p></div><aside><b>Before you file</b><p>Ask for an existing record—such as a document, report, file noting, order or dataset. You do not need to explain why you want it.</p><Link href="/guide">Check if RTI is the right route →</Link></aside></section>
 
-  return (
-    <PageShell>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <div className="portal-home">
-        <section className="portal-hero">
-          <div className="portal-hero-copy">
-            <span className="portal-kicker">Right to Information Online</span>
-            <h1>File, track and appeal your RTI request from one familiar place.</h1>
-            <p>
-              This redesign keeps the service model simple and recognisable: submit a request, view its status,
-              access your history, or file a first appeal. The interface is cleaner, faster and easier to use on mobile.
-            </p>
-            <div className="portal-hero-actions">
-              <Link className="portal-button" href="/request">Submit Request</Link>
-              <Link className="portal-button-secondary" href="/status">View Status</Link>
-            </div>
-            <div className="portal-inline-links">
-              <Link href="/appeal">Submit First Appeal</Link>
-              <Link href="/history">View Request History</Link>
-              <Link href="/guide">Read citizen guidance</Link>
-            </div>
-          </div>
+    <section className="portal-scope-alert" aria-labelledby="scope-title"><span aria-hidden="true">!</span><div><strong id="scope-title">Central Government authorities only</strong><p>Do not file here for State Governments, including the Government of NCT Delhi. An application sent to the wrong jurisdiction may be returned.</p></div><Link href="/authorities">Find the correct authority</Link></section>
 
-          <aside className="portal-notice" aria-labelledby="portal-notice-title">
-            <h2 id="portal-notice-title">Important before you file</h2>
-            <ul>
-              <li>Use RTI to request information or records held by a public authority.</li>
-              <li>You do not need to give a reason for seeking information.</li>
-              <li>Central RTI applications ordinarily carry a ₹10 application fee; eligible BPL applicants are exempt.</li>
-              <li>This prototype does not submit a real RTI application or collect a real payment.</li>
-            </ul>
-          </aside>
-        </section>
+    <section className="home-actions" aria-labelledby="actions-title"><div className="compact-heading"><div><span className="portal-kicker">Citizen services</span><h2 id="actions-title">What do you need to do?</h2></div><Link href="/login">Sign in to My RTI →</Link></div><div className="home-action-grid">{actions.map(([title, text, href, emphasis], index) => <Link href={href} className={emphasis ? 'featured' : ''} key={href}><span>{String(index + 1).padStart(2, '0')}</span><div><b>{title}</b><p>{text}</p></div><i aria-hidden="true">→</i></Link>)}</div></section>
 
-        <section className="portal-services" aria-labelledby="portal-services-title">
-          <div className="portal-section-head">
-            <h2 id="portal-services-title">Citizen services</h2>
-            <p>Keep the actions where citizens expect them. Improve the experience around those actions, not the vocabulary.</p>
-          </div>
-          <div className="portal-service-grid">
-            <Link href="/request">
-              <span>01</span>
-              <b>Submit Request</b>
-              <p>Prepare and submit a new RTI request through a guided form.</p>
-              <i>Start →</i>
-            </Link>
-            <Link href="/appeal">
-              <span>02</span>
-              <b>Submit First Appeal</b>
-              <p>Use the appeal route when a response is delayed, denied or incomplete.</p>
-              <i>Open appeal →</i>
-            </Link>
-            <Link href="/status">
-              <span>03</span>
-              <b>View Status</b>
-              <p>Check the current stage, authority, deadline and available next action.</p>
-              <i>Track request →</i>
-            </Link>
-            <Link href="/history">
-              <span>04</span>
-              <b>View History</b>
-              <p>See previous requests, acknowledgements, replies and appeals in one place.</p>
-              <i>Open history →</i>
-            </Link>
-          </div>
-        </section>
+    <section className="home-journey" aria-labelledby="journey-title"><div className="compact-heading"><div><span className="portal-kicker">Start your RTI journey</span><h2 id="journey-title">Find the answer with the fewest steps.</h2></div><p>Understand → Search → Find → File</p></div><ol>{journey.map(([number, title, text, href]) => <li key={href}><span>{number}</span><div><b>{title}</b><p>{text}</p><Link href={href}>Continue →</Link></div></li>)}</ol></section>
 
-        <section className="portal-guidance">
-          <div className="portal-guidance-copy">
-            <span className="portal-kicker">Before submitting</span>
-            <h2>Three checks prevent most avoidable RTI problems.</h2>
-            <p>
-              A modern interface should remove friction without hiding the rules that matter. These checks stay visible before payment or registration.
-            </p>
-          </div>
-          <div className="portal-guidance-list">
-            <article>
-              <span>1</span>
-              <div><b>Ask for records, not explanations</b><p>Describe the document, file, report, order, inspection, note or data you want.</p></div>
-            </article>
-            <article>
-              <span>2</span>
-              <div><b>Choose the authority that holds the information</b><p>The filing flow helps identify the likely Central, State or local public authority.</p></div>
-            </article>
-            <article>
-              <span>3</span>
-              <div><b>Keep your registration number</b><p>Use it to view status, preserve the record trail and file an appeal when necessary.</p></div>
-            </article>
-          </div>
-        </section>
+    <section className="rti-facts" aria-labelledby="facts-title"><div><span className="portal-kicker">Essential RTI facts</span><h2 id="facts-title">Know the fee, clock and next step.</h2></div><dl><div><dt>No reason needed</dt><dd>Ask for information without explaining why you need it.</dd></div><div><dt>₹10 or ₹0</dt><dd>Central application fee; eligible BPL applicants are exempt with proof.</dd></div><div><dt>30 days / 48 hours</dt><dd>Usual response period; 48 hours where life or liberty is involved.</dd></div><div><dt>After submission</dt><dd>Track receipt, transfers, additional fees and the authority&apos;s reply.</dd></div><div><dt>First appeal</dt><dd>Relevant when a reply is late, denied, incomplete or the fee is disputed.</dd></div></dl></section>
 
-        <section className="portal-support">
-          <div>
-            <b>Need help before filing?</b>
-            <span>Use the guide, FAQ or public-authority finder before starting a request.</span>
-          </div>
-          <nav aria-label="Help links">
-            <Link href="/guide">Citizen Guide</Link>
-            <Link href="/faq">FAQ</Link>
-            <Link href="/authorities">Public Authorities</Link>
-            <Link href="/contact">Contact</Link>
-          </nav>
-        </section>
-      </div>
-    </PageShell>
-  );
+    <section className="portal-help-band"><div><span aria-hidden="true">?</span><div><b>RTI Online help desk</b><p>Get help using this prototype service. Do not share passwords, OTPs, Aadhaar, PAN or bank details.</p></div></div><nav aria-label="Help links"><Link href="/guide">Citizen Guide</Link><Link href="/faq">FAQ</Link><Link href="/contact">Contact Us</Link></nav></section>
+  </div></PageShell>;
 }
