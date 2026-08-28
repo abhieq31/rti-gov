@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useId, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 type NavLink = readonly [string, string];
 
@@ -21,7 +21,7 @@ export function SiteNav({
   const pathname = usePathname();
   const [openPath, setOpenPath] = useState<string | null>(null);
   const open = openPath === pathname;
-  const drawerId = useId();
+  const drawerId = 'citizen-menu';
   const closeRef = useRef<HTMLButtonElement>(null);
   const setOpen = (value: boolean) => setOpenPath(value ? pathname : null);
 

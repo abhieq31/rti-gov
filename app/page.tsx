@@ -10,12 +10,6 @@ const needExamples = [
 
 const DEMO_NEED = '/request?need=Inspection%20report%20for%20my%20railway%20station';
 
-const startCards = [
-  { href: '/search', title: 'See if the record is already public', text: 'Search disclosures, circulars and reports before you file a request.' },
-  { href: '/learn', title: 'Learn about the RTI process', text: 'What you can ask for, what you cannot, and how long a reply should take.' },
-  { href: '/status?registration=RTI%2FMORLY%2F2026%2F804271&email=aarav.demo%40example.in', title: 'Track a demonstration case', text: 'Open RTI/MORLY/2026/804271 and the 30-day clock without retyping credentials.' },
-] as const;
-
 const pathSteps = [
   { n: '01', title: 'Your sentence', text: 'Start with the record you want. The form never asks for an authority name first.' },
   { n: '02', title: 'The right office', text: 'The prototype recommends a Central public authority from the words you used.' },
@@ -56,11 +50,8 @@ export default function HomePage() {
         <p>This independent prototype helps you decide whether an RTI request is the right step, find the correct Central <Term id="public-authority">public authority</Term>, and file when you are ready.</p>
         <div className="civic-demo">
           <p>Working prototype · nothing is sent to a government system</p>
-          <div className="civic-demo-actions">
-            <Link className="india-primary-button" href={DEMO_NEED}>File a demo request in one minute <span>→</span></Link>
-            <Link className="india-secondary-button civic-ghost" href="/compare">See why this exists</Link>
-          </div>
-          <small>Then track it with <code>RTI/MORLY/2026/804271</code> · code <code>RTI26</code> · OTP <code>240805</code></small>
+          <Link className="india-primary-button" href={DEMO_NEED}>File a demo request in one minute <span>→</span></Link>
+          <small>Opens Railway Board with Aarav’s details. Track with <code>RTI/MORLY/2026/804271</code> · code <code>RTI26</code></small>
         </div>
       </div>
       <aside aria-label="Demonstration acknowledgement" className="civic-ack">
@@ -95,15 +86,6 @@ export default function HomePage() {
             ))}
           </div>
         </form>
-        <div className="civic-start-cards">
-          {startCards.map((card, index) => (
-            <Link href={card.href} key={card.href}>
-              <small>{String(index + 1).padStart(2, '0')}</small>
-              <b>{card.title}</b>
-              <span>{card.text}</span>
-            </Link>
-          ))}
-        </div>
       </div>
     </section>
 
@@ -131,6 +113,13 @@ export default function HomePage() {
         <p>These match the official RTI Online homepage diagram. Life-or-liberty requests are due in 48 hours.</p>
         <Link href="/process">See the full process →</Link>
       </div>
+      <aside className="clock-urgent" role="note">
+        <b>48 hours</b>
+        <div>
+          <strong>Life or liberty</strong>
+          <p>A genuine emergency is due in two days, not thirty. Tick that only when a person’s life or liberty is at stake.</p>
+        </div>
+      </aside>
       <div className="clock-row civic-clock-grid">
         {clocks.map((item) => (
           <Link href="/process" key={item.title}>

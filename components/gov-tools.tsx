@@ -26,7 +26,6 @@ export function GovUtilityTools() {
   return (
     <>
       <nav aria-label={hindi ? 'सुगम्यता और भाषा' : 'Accessibility and language'}>
-        <a href="#main">{hindi ? 'मुख्य विषयवस्तु पर जाएं' : 'Skip to main content'}</a>
         <Link href="/policies">{hindi ? 'सुगम्यता' : 'Accessibility'}</Link>
         <span className="text-tools" role="group" aria-label={hindi ? 'अक्षर आकार' : 'Text size'}>
           <button aria-label="Decrease text size" aria-pressed={size === 'sm'} onClick={() => setSize('sm')} type="button">A−</button>

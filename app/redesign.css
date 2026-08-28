@@ -105,7 +105,8 @@ html[data-text-size='lg'] .india-theme{zoom:1.12}
   .gov-mobile-bar{display:flex;align-items:center;justify-content:space-between;min-height:48px;padding:0 16px;background:var(--gov-navy);color:#fff;border-bottom:4px solid var(--gov-orange)}
   .gov-mobile-bar>span{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
   .gov-menu-toggle{display:inline-flex;align-items:center;gap:10px;min-height:36px;padding:0 12px;border:1px solid rgba(255,255,255,.28);background:transparent;color:#fff;font-size:11px;font-weight:800;cursor:pointer}
-  .gov-header{position:sticky;top:0;z-index:50;box-shadow:0 10px 28px rgba(8,44,76,.16)}
+  .gov-header{position:static;box-shadow:none}
+  .gov-mobile-bar{position:sticky;top:0;z-index:50;box-shadow:0 10px 28px rgba(8,44,76,.16)}
   .gov-drawer-backdrop{display:block;position:fixed;inset:0;z-index:60;border:0;background:rgba(6,24,43,.55)}
   .gov-drawer{display:block;position:fixed;top:0;right:0;bottom:0;z-index:70;width:min(320px,82vw);overflow-x:hidden;overflow-y:auto;background:#fff;color:var(--gov-ink);box-shadow:-18px 0 40px rgba(8,44,76,.28)}
   .gov-drawer-head{min-height:64px;padding:0 12px 0 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--gov-navy);color:#fff}
@@ -120,6 +121,8 @@ html[data-text-size='lg'] .india-theme{zoom:1.12}
 }
 @media(max-width:900px){.civic-hero-split{grid-template-columns:1fr;padding-bottom:28px}.civic-ack{max-width:420px}}
 @media(max-width:680px){
+  .india-theme .request-list article{grid-template-columns:38px minmax(0,1fr) auto}
+  .india-theme .request-list a{grid-column:auto}
   .civic-path ol,.civic-clock-grid,.compare-highlights{grid-template-columns:1fr}
   .civic-path,.civic-clocks,.civic-why,.compare-highlights{width:calc(100% - 24px)}
   .civic-path li{min-height:0}
@@ -236,7 +239,7 @@ html[data-text-size='lg'] .india-theme{zoom:1.12}
 .india-theme .civic-ack-head{padding:18px 22px 16px;background:#0c2340}
 .india-theme .civic-ack-head span{color:#d4b48a;font-size:11px;letter-spacing:.16em}
 .india-theme .civic-ack-head b{margin-top:8px;font:600 18px/1.25 Georgia,serif;letter-spacing:.01em}
-.india-theme .civic-ack>p{margin:18px 22px 0;font-size:15px;color:#3c4a56}
+.india-theme .civic-ack>p{margin:18px 22px 0;padding-right:76px;font-size:15px;color:#3c4a56}
 .india-theme .civic-ack dt{font-size:11px;color:#7a6a55}
 .india-theme .civic-ack dd{font-size:14px;font-weight:650}
 .india-theme .civic-ack-stamp{top:96px;right:18px;bottom:auto;border-width:1.5px;transform:none;width:64px;height:64px}
@@ -297,9 +300,10 @@ html[data-text-size='lg'] .india-theme{zoom:1.12}
 
 .india-theme .page-hero,.india-theme .fast-request-head{
   background:#efe9dc;border-bottom:1px solid #ddd4c6;
+  padding:36px max(20px,calc((100vw - 1120px)/2)) 28px;
 }
 .india-theme .page-hero h1,.india-theme .fast-request-head h1{
-  font:500 clamp(36px,5vw,58px)/1.12 Georgia,"Iowan Old Style",Palatino,serif;
+  font:500 clamp(32px,4.4vw,48px)/1.12 Georgia,"Iowan Old Style",Palatino,serif;
   letter-spacing:-.035em;color:#0c2340;
 }
 .india-theme .page-hero>p,.india-theme .fast-request-head>p{font-size:17px;color:#5d6b78;line-height:1.6}
@@ -308,6 +312,9 @@ html[data-text-size='lg'] .india-theme{zoom:1.12}
   border-radius:0;border-color:#ddd4c6;background:#fbf8f2;box-shadow:0 16px 36px rgba(12,35,64,.06);
 }
 .india-theme .fast-progress,.india-theme .dashboard-head,.india-theme .search-tool{background:#0c2340}
+.india-theme .dashboard-head .button-primary{background:#fbf8f2;color:#0c2340}
+.india-theme .list-due small{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8a4e18}
+.india-theme .list-due b{font:600 14px Georgia,serif}
 .india-theme .fast-progress>div{background:#d4b48a}
 .india-theme .fast-step h2,.india-theme .fast-receipt h2,.india-theme .service-form-intro h2{font:500 clamp(30px,3.6vw,44px)/1.12 Georgia,serif}
 .india-theme .form-fieldset{border-color:#ddd4c6;border-top-color:#0c2340;background:#fbf8f2}
@@ -372,6 +379,8 @@ html[data-text-size='lg'] .india-theme{zoom:1.12}
 .civic-start .optional-details,.fast-step .optional-details summary{font-size:14px}
 
 @media(max-width:900px){
+  .india-theme .list-due{display:grid}
+  .india-theme .request-list article{grid-template-columns:44px minmax(0,1fr) auto 44px;gap:10px}
   .india-theme .civic-path ol{border-top:0}
   .india-theme .civic-path li{border-right:0;border-top:1px solid #ddd4c6;padding:22px 0}
   .india-theme .civic-hero{padding:56px 20px 40px}
@@ -379,4 +388,59 @@ html[data-text-size='lg'] .india-theme{zoom:1.12}
   .india-theme .login-page{grid-template-columns:1fr;padding:28px 16px 64px;gap:24px}
   .civic-start .citizen-start-actions{display:grid;gap:10px}
   .civic-start .citizen-start-actions>button{width:100%}
+}
+
+/* One-minute demo: dossier, ₹10 slip, case file, 45-day appeal */
+.india-theme .civic-hero-split{align-items:start;padding-bottom:28px}
+.india-theme .civic-hero-split .civic-start{margin-top:0;padding-top:8px}
+.india-theme .civic-start .citizen-start>textarea{min-height:72px}
+.india-theme .civic-clocks .clock-urgent{margin:0}
+.demo-dossier-card{margin:8px 0 18px;border:1px solid #ddd4c6;background:#f7f1e4}
+.demo-dossier-card>article{padding:20px 22px;border-bottom:1px solid #e4d8c4}
+.demo-dossier-card>article span,.demo-dossier-card dt{display:block;color:#8a4e18;font-size:11px;font-weight:650;letter-spacing:.12em;text-transform:uppercase}
+.demo-dossier-card>article p{margin:8px 0 0;color:#0c2340;font:500 20px/1.4 Georgia,"Iowan Old Style",Palatino,serif}
+.demo-dossier-card dl{margin:0;display:grid;grid-template-columns:1fr 1fr}
+.demo-dossier-card dl>div{padding:16px 22px;border-right:1px solid #e4d8c4;border-bottom:1px solid #e4d8c4}
+.demo-dossier-card dl>div:nth-child(2n){border-right:0}
+.demo-dossier-card dd{margin:6px 0 0;color:#0c2340;font:600 16px/1.35 Georgia,serif}
+.demo-dossier-card small{display:block;margin-top:4px;color:#5d6b78;font-size:13px;font-weight:500;font-family:system-ui,sans-serif}
+.demo-dossier .text-button{margin:0;padding:0;font-size:14px}
+.demo-pay-slip{margin-top:16px;padding:20px 22px;display:grid;grid-template-columns:minmax(160px,.7fr) 1fr;gap:20px;align-items:center;border:1px solid #d9cbb3;background:#f7f1e4}
+.demo-pay-slip>div:first-child{display:grid;gap:4px}
+.demo-pay-slip span{color:#8a4e18;font-size:11px;font-weight:650;letter-spacing:.12em;text-transform:uppercase}
+.demo-pay-slip strong{font:500 44px/1 Georgia,"Iowan Old Style",Palatino,serif;color:#0c2340}
+.demo-pay-slip small{color:#5d6b78;font-size:13px}
+.demo-pay-slip.appeal-fee-slip{grid-template-columns:1fr auto}
+.demo-pay-slip .deadline-count{width:72px;height:72px;border:1px solid #1f7a4d;color:#1f7a4d;background:#fbf8f2}
+.guidelines-check,.final-declaration{scroll-margin-bottom:96px}
+.case-file{max-width:760px}
+.case-file-head{display:grid;grid-template-columns:1fr auto;gap:6px 16px;align-items:start;padding-bottom:16px;border-bottom:1px solid #ddd4c6}
+.case-file-head small{grid-column:1;color:#8a4e18;font-size:11px;font-weight:650;letter-spacing:.14em;text-transform:uppercase}
+.case-file-head b{grid-column:1;font:600 22px/1.2 Georgia,serif;color:#0c2340;letter-spacing:.01em}
+.case-file-head span{grid-row:1/3;grid-column:2;align-self:center;padding:8px 10px;border:1px solid #d4b48a;background:#f7f1e4;color:#8a4e18;font-size:12px;font-weight:650}
+.case-file>h2{margin:18px 0 6px;font:500 28px/1.2 Georgia,serif;color:#0c2340}
+.case-authority{margin:0 0 18px;color:#5d6b78}
+.case-file .deadline-card{margin:0 0 22px;background:#eef5ef;border-color:#c3d7c8}
+.appeal-strip{margin:8px 0 18px;padding:18px 20px;display:flex;gap:18px;align-items:center;justify-content:space-between;border:1px solid #d9cbb3;background:#f7f1e4}
+.appeal-strip span{display:block;color:#8a4e18;font-size:11px;font-weight:650;letter-spacing:.12em;text-transform:uppercase}
+.appeal-strip b{display:block;margin:4px 0;font:600 20px/1.2 Georgia,serif;color:#0c2340}
+.appeal-strip small{display:block;color:#5d6b78;font-size:13px;line-height:1.45}
+.appeal-strip .button-primary{flex:none;white-space:nowrap}
+.payment-receipt{margin-top:28px;padding-top:8px;border-top:1px solid #ddd4c6}
+.history-switch{margin:0;padding:12px 25px 22px}
+.india-theme .civic-clocks .clock-urgent>b{min-width:auto}
+
+.fast-receipt,.demo-dossier,.review-step{scroll-margin-top:12px}
+@media(max-width:900px){
+  .fast-receipt,.demo-dossier,.review-step,.guidelines-check,.final-declaration{scroll-margin-top:64px}
+}
+@media(max-width:700px){
+  .demo-dossier-card dl,.demo-pay-slip{grid-template-columns:1fr}
+  .demo-dossier-card dl>div{border-right:0}
+  .appeal-strip{display:grid}
+  .appeal-strip .button-primary{width:100%}
+  .case-file-head{grid-template-columns:1fr}
+  .case-file-head span{grid-row:auto;grid-column:1;justify-self:start}
+  .guidelines-check,.final-declaration{scroll-margin-bottom:120px}
+  .fast-workflow .fast-body{padding-bottom:132px}
 }
