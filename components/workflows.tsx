@@ -3,7 +3,9 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { authorities, centralAuthorities, centralMinistries, demoRequests, disclosures, faqs } from './portal-data';
 
+const DEMO_NEED = 'Inspection report for my railway station';
 const DEMO_EMAIL = 'aarav.demo@example.in';
+const DEMO_DUE = '21 September 2026';
 const DEMO_SECURITY = 'RTI26';
 const DEMO_PAYMENT_ID = 'RTIDEMO240822118';
 const DEMO_REQUEST_ID = 'RTI/MORLY/2026/804271';
@@ -148,6 +150,19 @@ const initialDraft: RequestDraft = {
   request: '', format: 'Electronic copy', payment: 'UPI',
 };
 
+const demoApplicant: Partial<RequestDraft> = {
+  name: 'Aarav Sharma',
+  gender: 'Male',
+  email: DEMO_EMAIL,
+  emailConfirm: DEMO_EMAIL,
+  mobile: '9810012345',
+  address: '14 Ashoka Road, New Delhi',
+  pin: '110001',
+  locality: 'Urban',
+  education: 'Literate',
+  bpl: 'no',
+};
+
 function scrollStepIntoView(node: HTMLElement | null) {
   if (!node) return;
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -224,21 +239,25 @@ function PortalGuidelines({ kind, accepted, onAccepted }: { kind: 'request' | 'a
 }
 
 export function RequestWorkflow({ initialNeed = '', initialAuthority = '' }: { initialNeed?: string; initialAuthority?: string }) {
-  const seeded = findAuthority(initialAuthority);
+  const seeded = findAuthority(initialAuthority) || (initialNeed ? suggestAuthority(initialNeed) : undefined);
+  const demoPath = Boolean(initialNeed);
   const [step, setStep] = useState(0);
   const [guidelinesAccepted, setGuidelinesAccepted] = useState(false);
   const [draft, setDraft] = useState(() => ({
     ...initialDraft,
+    ...(demoPath ? demoApplicant : {}),
     request: initialNeed,
     authority: seeded?.level === 'Central' ? seeded.code : '',
     ministry: seeded?.level === 'Central' ? seeded.ministry : '',
   }));
   const [authorityQuery, setAuthorityQuery] = useState('');
-  const [securityCode, setSecurityCode] = useState('');
+  const [securityCode, setSecurityCode] = useState(demoPath ? DEMO_SECURITY : '');
   const [confirmed, setConfirmed] = useState(false);
   const [registration, setRegistration] = useState('');
   const [submittedAt, setSubmittedAt] = useState<Date | null>(null);
-
+  const [draftReady, setDraftReady] = useState(Boolean(initialNeed || initialAuthority));
+  const [demoLoaded, setDemoLoaded] = useState(demoPath);
+  const [editing, setEditing] = useState(false);
   const workflowRef = useRef<HTMLDivElement>(null);
   const didStep = useRef(false);
   const labels = ['Guidelines', 'Request form', 'Payment', 'Registered'];
@@ -259,7 +278,6 @@ export function RequestWorkflow({ initialNeed = '', initialAuthority = '' }: { i
     return centralAuthorities.filter((item) => `${item.name} ${item.ministry} ${item.topics}`.toLowerCase().includes(q)).slice(0, 6);
   }, [authorityQuery]);
   const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(draft.email);
-  const emailsMatch = draft.email === draft.emailConfirm;
   const pinValid = !draft.pin || /^\d{6}$/.test(draft.pin);
   const formComplete = Boolean(
     draft.ministry
@@ -279,8 +297,18 @@ export function RequestWorkflow({ initialNeed = '', initialAuthority = '' }: { i
   const grievanceLikely = /fix|repair|complaint|not received|delay|pending|take action/.test(draft.request.toLowerCase());
 
   useEffect(() => {
-    if (step < 3) storeValue('rti-gov-demo-draft', draft);
-  }, [draft, step]);
+    if (initialNeed || initialAuthority) return;
+    const timer = window.setTimeout(() => {
+      const savedDraft = readStored<RequestDraft>('rti-gov-demo-draft');
+      if (savedDraft) setDraft({ ...initialDraft, ...savedDraft });
+      setDraftReady(true);
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, [initialNeed, initialAuthority]);
+
+  useEffect(() => {
+    if (draftReady && step < 3) storeValue('rti-gov-demo-draft', draft);
+  }, [draft, draftReady, step]);
 
   useEffect(() => {
     if (!didStep.current) {
@@ -291,6 +319,19 @@ export function RequestWorkflow({ initialNeed = '', initialAuthority = '' }: { i
     const target = root?.querySelector(step === 3 ? '.fast-receipt' : '.fast-body, .demo-dossier, .review-step') || root;
     scrollStepIntoView(target instanceof HTMLElement ? target : root);
   }, [step]);
+
+  const loadRailwayDemo = () => {
+    const railway = findAuthority('MORLY');
+    setDraft((current) => ({
+      ...current,
+      ...demoApplicant,
+      request: current.request.trim().length >= 12 ? current.request : DEMO_NEED,
+      authority: railway?.code || 'MORLY',
+      ministry: railway?.ministry || 'Ministry of Railways',
+    }));
+    setSecurityCode(DEMO_SECURITY);
+    setDemoLoaded(true);
+  };
 
   const dueDate = useMemo(() => {
     if (!submittedAt) return null;
@@ -322,16 +363,39 @@ export function RequestWorkflow({ initialNeed = '', initialAuthority = '' }: { i
     setRegistration(id); setSubmittedAt(now); setStep(3);
   };
 
+  const demoReady = demoPath || demoLoaded || (selectedAuthority?.code === 'MORLY' && draft.name === 'Aarav Sharma');
+
   return (
     <div className="fast-workflow" ref={workflowRef}>
-      <div className="fast-progress" aria-label={`Step ${step + 1} of 4`}><div style={{ width: `${((step + 1) / 4) * 100}%` }}/><span>{labels[step]}</span><b>{step < 3 ? `Step ${step + 1} of 3` : 'Complete'}</b></div>
+      <div className="fast-progress" role="progressbar" aria-valuemin={1} aria-valuemax={3} aria-valuenow={Math.min(step + 1, 3)} aria-label={step < 3 ? `Step ${step + 1} of 3, ${labels[step]}` : 'Request registered'}><div style={{ width: `${((step + 1) / 4) * 100}%` }}/><span>{labels[step]}</span><b>{step < 3 ? `Step ${step + 1} of 3` : 'Complete'}</b></div>
       <div className="fast-body">
-        {step === 0 && <PortalGuidelines kind="request" accepted={guidelinesAccepted} onAccepted={setGuidelinesAccepted}/>}
-        {step === 1 && <section className="fast-step official-form">
+        {step === 0 && <>
+          {!demoReady && <p className="demo-fill-note" role="status">Arrived from the menu with a blank form? <button onClick={loadRailwayDemo} type="button">Load the Railway Board demonstration</button> to file in one minute, or type your own request next.</p>}
+          <PortalGuidelines kind="request" accepted={guidelinesAccepted} onAccepted={setGuidelinesAccepted}/>
+        </>}
+        {step === 1 && demoReady && !editing && <section className="fast-step demo-dossier">
+          <span className="step-label">Online RTI request form</span>
+          <h2>Railway Board is ready. Review Aarav’s request.</h2>
+          <p>The demonstration already chose the authority, applicant, electronic copy and ₹10 fee. Continue to pay, or change any line.</p>
+          <div className="demo-dossier-card">
+            <article>
+              <span>The record</span>
+              <p>{draft.request}</p>
+            </article>
+            <dl>
+              <div><dt>Public authority</dt><dd>{selectedAuthority?.name || 'Railway Board'}<small>{selectedAuthority?.ministry || 'Ministry of Railways'}</small></dd></div>
+              <div><dt>Applicant</dt><dd>{draft.name}<small>{draft.email} · {draft.pin} {draft.state}</small></dd></div>
+              <div><dt>Fee</dt><dd>{draft.bpl === 'yes' ? '₹0 · BPL' : '₹10 · UPI'}</dd></div>
+              <div><dt>Delivery</dt><dd>{draft.format}</dd></div>
+            </dl>
+          </div>
+          <button className="text-button" onClick={() => setEditing(true)} type="button">Change details</button>
+        </section>}
+        {step === 1 && (!demoReady || editing) && <section className="fast-step official-form">
           <span className="step-label">Online RTI request form</span>
           <h2>Start with the record you want.</h2>
-          <p>Fields marked <b>*</b> are mandatory. The authority is recommended from your sentence. Only Indian citizens can file. Do not use this form for State Government authorities, including NCT Delhi.</p>
-          {initialNeed && <p className="demo-fill-note" role="status">The request text is filled from the homepage. Choose the suggested public authority, then complete the applicant details. Security code is <b>{DEMO_SECURITY}</b>.</p>}
+          <p>Indian citizens only. Name, email, address and the record are enough. Gender and extra contact details are optional.</p>
+          {demoReady && <p className="demo-fill-note" role="status">Demonstration is complete: Railway Board · Aarav Sharma · ₹10 · security {DEMO_SECURITY}. Review and continue.</p>}
 
           <fieldset className="form-fieldset">
             <legend>The record you want</legend>
@@ -351,17 +415,17 @@ export function RequestWorkflow({ initialNeed = '', initialAuthority = '' }: { i
             {suggestedAuthority && draft.request.trim().length >= 12 && suggestedAuthority.code !== selectedAuthority?.code && <div className="authority-match"><div><span>Suggested from request text</span><b>{suggestedAuthority.name}</b><small>{suggestedAuthority.ministry}</small></div><button type="button" onClick={() => setDraft((current) => ({ ...current, ministry: suggestedAuthority.ministry, authority: suggestedAuthority.code }))}>Use this authority</button></div>}
           </fieldset>
 
+          <details className="optional-details" open={!demoReady ? true : undefined}>
+            <summary>{demoReady ? 'Applicant, fee and delivery — Aarav Sharma · ₹10 · electronic copy' : 'Applicant, fee and delivery'}</summary>
           <fieldset className="form-fieldset">
             <legend>Personal details of RTI applicant</legend>
             <div className="fast-form">
               <label><span>Email ID *</span><input autoComplete="email" type="email" value={draft.email} onChange={(event) => update('email', event.target.value)}/></label>
-              <label><span>Confirm email ID *</span><input autoComplete="email" type="email" value={draft.emailConfirm} onChange={(event) => update('emailConfirm', event.target.value)}/></label>
               <label><span>Name *</span><input autoComplete="name" value={draft.name} onChange={(event) => update('name', event.target.value)}/></label>
               <label><span>Mobile number</span><input autoComplete="tel" inputMode="numeric" maxLength={10} value={draft.mobile} onChange={(event) => update('mobile', event.target.value.replace(/\D/g, ''))} placeholder="10-digit mobile for SMS alerts"/></label>
-              <label className="wide"><span>Gender *</span><div className="choice-row" role="radiogroup">{(['Male', 'Female', 'Third Gender'] as const).map((item) => <label key={item}><input checked={draft.gender === item} name="gender" onChange={() => update('gender', item)} type="radio"/>{item}</label>)}</div></label>
+              <label className="wide"><span>Gender</span><div className="choice-row" role="radiogroup">{(['Male', 'Female', 'Third Gender'] as const).map((item) => <label key={item}><input checked={draft.gender === item} name="gender" onChange={() => update('gender', item)} type="radio"/>{item}</label>)}</div></label>
               <label className="wide"><span>Address *</span><textarea autoComplete="street-address" value={draft.address} onChange={(event) => update('address', event.target.value)} placeholder="House, street, city"/></label>
               <label><span>PIN code</span><input inputMode="numeric" maxLength={6} value={draft.pin} onChange={(event) => update('pin', event.target.value.replace(/\D/g, ''))}/></label>
-              <label><span>Country</span><select value={draft.country} onChange={(event) => update('country', event.target.value as RequestDraft['country'])}><option>India</option><option>Other</option></select></label>
               <label><span>State</span><select value={draft.state} onChange={(event) => update('state', event.target.value)}>{regions.map((region) => <option key={region}>{region}</option>)}</select></label>
             </div>
             <details className="optional-details">
@@ -372,14 +436,11 @@ export function RequestWorkflow({ initialNeed = '', initialAuthority = '' }: { i
                 <label><span>Phone number</span><input inputMode="numeric" value={draft.phone} onChange={(event) => update('phone', event.target.value)}/></label>
               </div>
             </details>
-            {draft.email && !emailsMatch && <p className="form-hint">Email ID and confirm email ID must match.</p>}
-            {draft.country === 'Other' && <p className="form-error" role="alert">Only Indian citizens can file an RTI request through this portal.</p>}
           </fieldset>
 
           <fieldset className="form-fieldset">
             <legend>Request details</legend>
             <div className="fast-form">
-              <label><span>Citizenship</span><input readOnly value="Indian citizen"/></label>
               <label><span>Is the applicant Below Poverty Line? *</span><div className="choice-row" role="radiogroup">{(['no', 'yes'] as const).map((item) => <label key={item}><input checked={draft.bpl === item} name="bpl" onChange={() => update('bpl', item)} type="radio"/>{item === 'yes' ? 'Yes' : 'No'}</label>)}</div></label>
               <label><span>Send records as</span><select value={draft.format} onChange={(event) => update('format', event.target.value)}><option>Electronic copy</option><option>Certified paper copy</option><option>Inspection of records</option></select></label>
               <label className="urgent-toggle"><input checked={draft.urgent} onChange={(event) => update('urgent', event.target.checked)} type="checkbox"/><span><b>Life or liberty</b><small>Use only for a genuine 48-hour matter</small></span></label>
@@ -388,6 +449,7 @@ export function RequestWorkflow({ initialNeed = '', initialAuthority = '' }: { i
             <label className="supporting-upload"><span>Supporting document (optional)</span><input accept="application/pdf" type="file"/><small>One PDF up to 1 MB. PDF name should be under 12 characters, with no spaces. Do not upload Aadhaar or PAN.</small></label>
             <label><span>Enter security code *</span><div className="captcha-row"><b aria-label="Demonstration security code">RTI26</b><input value={securityCode} onChange={(event) => setSecurityCode(event.target.value)} placeholder="Enter RTI26"/></div></label>
           </fieldset>
+          </details>
         </section>}
         {step === 2 && selectedAuthority && <section className="fast-step review-step"><span className="step-label">Make payment</span><h2>{bplExempt ? 'Confirm the BPL exemption.' : 'Confirm and pay ₹10.'}</h2><p>{bplExempt ? 'Eligible BPL applicants do not pay the application fee when valid proof is attached.' : 'Non-BPL applicants pay ₹10 once. Do not pay again if a previous attempt is pending. This demonstration does not charge a bank or UPI account.'}</p>
           <div className="fast-review"><article><span>Request</span><p>{draft.request}</p><button type="button" onClick={() => setStep(1)}>Edit</button></article><article><span>Public authority</span><b>{selectedAuthority.name}</b><small>{selectedAuthority.ministry}</small></article><article><span>Applicant</span><b>{draft.name}</b><small>{draft.email} · {draft.format}</small></article></div>
@@ -402,8 +464,7 @@ export function RequestWorkflow({ initialNeed = '', initialAuthority = '' }: { i
           <label className="final-declaration"><input checked={confirmed} onChange={(event) => setConfirmed(event.target.checked)} type="checkbox"/><span><b>I confirm these details are correct.</b><small>This prototype creates a device-local demonstration receipt. Nothing is transmitted or charged.</small></span></label>
         </section>}
         {step === 3 && submittedAt && dueDate && selectedAuthority && <section className="fast-receipt"><div className="success-orbit"><span>✓</span></div><span className="step-label">Request registered</span><h2>Your number and due date.</h2><p>Save both. The statutory clock starts today. Status and first appeal use this same number.</p>
-          <div className="registration-card"><span>Prototype registration number</span><b>{registration}</b><button onClick={() => navigator.clipboard?.writeText(registration)} type="button">Copy number</button></div>
-          <div className="deadline-card"><div><span>Response due</span><strong>{formatDate(dueDate)}</strong><small>{draft.urgent ? '48-hour life-or-liberty timeline selected' : '30 calendar days from registration'}</small></div><div className="deadline-count"><b>{draft.urgent ? '48' : '30'}</b><span>{draft.urgent ? 'hours' : 'days'}</span></div></div>
+          <PaperKeep number={registration} numberLabel="Prototype registration number" dueLabel="Response due" due={formatDate(dueDate)} dueHint={draft.urgent ? '48-hour life-or-liberty timeline selected' : '30 calendar days from registration'} clock={draft.urgent ? '48' : '30'} clockUnit={draft.urgent ? 'hours' : 'days'} />
           <dl className="receipt-summary"><div><dt>Filed</dt><dd>{formatDate(submittedAt)}</dd></div><div><dt>Authority</dt><dd>{selectedAuthority.name}<small> · {selectedAuthority.ministry}</small></dd></div><div><dt>Fee</dt><dd>{bplExempt ? '₹0 · BPL' : `₹10 · ${draft.payment}`}</dd></div><div><dt>Payment reference</dt><dd>{bplExempt ? 'Not charged' : DEMO_PAYMENT_ID}</dd></div></dl>
           <div className="next-promise"><b>What happens next</b><p>The Nodal Officer transmits the request to the concerned CPIO. Open status for the days left, then file a first appeal at ₹0 if there is no reply.</p></div>
           <div className="receipt-actions"><a className="button-primary" href={`/status?registration=${encodeURIComponent(registration)}&email=${encodeURIComponent(draft.email)}`}>View status</a><a className="button-secondary" href={`/appeal?registration=${encodeURIComponent(registration)}`}>Prepare first appeal</a></div><small className="prototype-receipt-note">This is a prototype receipt and is not valid for an official RTI filing.</small>
@@ -658,7 +719,7 @@ export function AppealWorkflow({ initialRegistration = '' }: { initialRegistrati
 
   return (
     <div className="fast-workflow" ref={workflowRef}>
-      <div className="fast-progress" aria-label={step === 3 ? 'Complete' : `Step ${demoPath ? (step === 0 ? 1 : 2) : step + 1} of ${demoPath ? 2 : 3}`}><div style={{ width: `${progressNow * 100}%` }}/><span>{labels[step]}</span><b>{step === 3 ? 'Complete' : demoPath ? `Step ${step === 0 ? 1 : 2} of 2` : `Step ${step + 1} of 3`}</b></div>
+      <div className="fast-progress" role="progressbar" aria-valuemin={1} aria-valuemax={demoPath ? 2 : 3} aria-valuenow={step === 3 ? (demoPath ? 2 : 3) : demoPath ? (step === 0 ? 1 : 2) : step + 1} aria-label={step === 3 ? 'Appeal registered' : `Step ${demoPath ? (step === 0 ? 1 : 2) : step + 1} of ${demoPath ? 2 : 3}, ${labels[step]}`}><div style={{ width: `${progressNow * 100}%` }}/><span>{labels[step]}</span><b>{step === 3 ? 'Complete' : demoPath ? `Step ${step === 0 ? 1 : 2} of 2` : `Step ${step + 1} of 3`}</b></div>
       <div className="fast-body">
         {step === 0 && <>
           {demoPath && <p className="demo-fill-note" role="status">Demonstration appeal for <b>{DEMO_REQUEST_ID}</b> is ready. Accept the guidelines, then review. No fee.</p>}
@@ -727,8 +788,7 @@ export function AppealWorkflow({ initialRegistration = '' }: { initialRegistrati
           <span className="step-label">First appeal registered</span>
           <h2>Your appeal number and 45-day clock.</h2>
           <p>The appeal has been routed to the First Appellate Authority. No fee was charged.</p>
-          <div className="registration-card"><span>Prototype appeal number</span><b>{appealRegistration}</b><button onClick={() => navigator.clipboard?.writeText(appealRegistration)} type="button">Copy number</button></div>
-          <div className="deadline-card"><div><span>Appeal decision due</span><strong>{formatDate(dueDate)}</strong><small>45 days from registration, matching the official RTI Online clock</small></div><div className="deadline-count"><b>45</b><span>days</span></div></div>
+          <PaperKeep number={appealRegistration} numberLabel="Prototype appeal number" dueLabel="Appeal decision due" due={formatDate(dueDate)} dueHint="45 days from registration" clock="45" clockUnit="days" />
           <dl className="receipt-summary">
             <div><dt>Filed</dt><dd>{formatDate(submittedAt)}</dd></div>
             <div><dt>Original request</dt><dd>{sourceRecord?.id || registration}</dd></div>
@@ -838,7 +898,7 @@ export function PaymentReconciliation() {
           <span className="step-label">Payment reconciled</span>
           <h2>₹10 received. Number issued.</h2>
           <p>Do not pay again. Status uses this same registration number.</p>
-          <div className="registration-card"><span>Prototype registration number</span><b>{DEMO_REQUEST_ID}</b></div>
+          <PaperKeep number={DEMO_REQUEST_ID} numberLabel="Prototype registration number" dueLabel="Response due" due={DEMO_DUE} dueHint="30 calendar days from registration" clock="30" clockUnit="days" />
           <dl className="receipt-summary">
             <div><dt>Amount</dt><dd>₹10 · UPI</dd></div>
             <div><dt>Transaction</dt><dd>{DEMO_PAYMENT_ID}</dd></div>

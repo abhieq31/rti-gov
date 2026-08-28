@@ -136,7 +136,7 @@ html[data-text-size='lg'] .india-theme{zoom:1.12}
   .lookup-form .button-primary,.otp-panel .button-primary{width:100%}
   .civic-start-cards{display:none}
   .india-theme .civic-hero{padding-top:36px;padding-bottom:24px}
-  .civic-demo .civic-ghost,.civic-demo small{display:none}
+  .civic-demo .civic-ghost{display:none}
   .case-actions{display:grid}
   .case-actions>*{width:100%;text-align:center}
 }
@@ -559,4 +559,29 @@ html[data-text-size='lg'] .india-theme{zoom:1.12}
 @media(max-width:900px){
   .india-theme .concept-band nav{margin-left:0}
   .india-theme .civic-note{width:calc(100% - 40px);margin-bottom:48px}
+}
+
+.paper-keep{
+  margin-top:24px;border:1px solid #d9cbb3;background:#f7f1e4;text-align:left;overflow:hidden;
+}
+.paper-keep .registration-card{margin-top:0}
+.paper-keep .registration-card b{overflow-wrap:anywhere}
+.paper-keep .deadline-card{margin:0;border:0;border-top:1px dashed #c3b49a;background:#eef5ef}
+.india-theme .paper-keep .deadline-card{background:#eef5ef;border-color:#c3d7c8}
+@media(max-width:700px){
+  .india-theme .history-ledger .request-list article{
+    grid-template-columns:40px minmax(0,1fr);gap:8px 12px;padding:16px 4px 18px;align-items:start;
+  }
+  .india-theme .history-ledger .list-status{display:none}
+  .india-theme .history-ledger .list-due,
+  .india-theme .history-ledger .request-list a{grid-column:2;justify-self:start}
+  .india-theme .history-ledger .list-due b{font-size:16px}
+  .india-theme .history-ledger .request-list a{font-size:14px;padding:4px 0}
+  .india-theme .civic-demo small{display:block;color:#c5d2dc;font-size:13px}
+}
+@media print{
+  .skip-link,.india-tricolour,.concept-band,.gov-header,.gov-footer,.file-strip,.fast-progress,.fast-actions,.case-actions,.gov-mobile-bar,.receipt-actions,.gov-drawer,.gov-drawer-backdrop{display:none!important}
+  .india-theme,.india-theme main,.tool-surface,.fast-workflow,.fast-body,.dashboard-surface{background:#fff!important;box-shadow:none!important}
+  .fast-workflow,.tool-surface{width:100%;margin:0;border:0}
+  .paper-keep,.deadline-card,.registration-card{break-inside:avoid}
 }

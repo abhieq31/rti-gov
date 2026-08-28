@@ -14,7 +14,7 @@ export default function HomePage() {
           <p>An independent prototype for Central public authorities. Nothing is sent to a government system.</p>
           <div className="civic-demo">
             <Link className="india-primary-button" href={DEMO_NEED}>File a demo request <span>→</span></Link>
-            <small>Starts with a railway inspection request. You fill the form. Code <code>RTI26</code></small>
+            <small>Railway Board · Aarav Sharma · code <code>RTI26</code></small>
           </div>
         </div>
         <aside aria-label="Demonstration acknowledgement" className="civic-ack">
