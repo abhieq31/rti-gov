@@ -13,6 +13,7 @@ RTI.gov treats that entire journey as the service. The main flow starts with the
 | `/` | State the information need immediately or choose search/track |
 | `/learn` | Understand rights, limits, fees, timelines and remedies |
 | `/guide` | Follow the request process from research to reply |
+| `/process` | See the complete request, routing, response and appeal timeline |
 | `/search` | Search synthetic proactive disclosures before filing |
 | `/authorities` | Identify a likely Central, State or local public authority |
 | `/request` | Complete a three-decision mock RTI application and receive a registration number with an exact due date |
@@ -23,6 +24,7 @@ RTI.gov treats that entire journey as the service. The main flow starts with the
 | `/login` | Enter the synthetic passwordless citizen account |
 | `/faq` | Resolve common procedural questions |
 | `/contact` | Find the right kind of support |
+| `/policies` | Understand the prototype, privacy, language and accessibility boundaries |
 
 ## Legal rules represented
 

@@ -10,7 +10,7 @@ export const authorities = [
 ];
 
 export const disclosures = [
-  { title: 'Station redevelopment works: inspection and safety disclosures', authority: 'Ministry of Railways', type: 'Proactive disclosure', date: '18 July 2026', topic: 'railway station inspection safety work' },
+  { title: 'Station redevelopment works: inspection and safety disclosures', authority: 'Ministry of Railways', type: 'Proactive disclosure', date: '18 July 2026', topic: 'railway station inspection safety report work' },
   { title: 'EPFO circulars and office orders, 2025–26', authority: 'Employees’ Provident Fund Organisation', type: 'Circular collection', date: '2 August 2026', topic: 'epfo pension circular office order' },
   { title: 'National highway tenders and awarded contracts', authority: 'Ministry of Road Transport & Highways', type: 'Open dataset', date: '11 August 2026', topic: 'highway tender contract project' },
   { title: 'RTI annual returns and public-authority performance', authority: 'Central Information Commission', type: 'Annual report', date: '30 June 2026', topic: 'rti annual report performance backlog' },

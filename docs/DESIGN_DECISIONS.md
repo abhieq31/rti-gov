@@ -6,7 +6,7 @@ Citizens arrive to decide whether RTI is appropriate, check whether information 
 
 ## RTI Online elements preserved
 
-The redesign retains the centred portal frame, blue institutional masthead, RTI Online name, Government of India and Department of Personnel & Training ownership text, language control, public-authority link, compact service navigation, jurisdiction warning, help access, and institutional footer. These familiar signals support recognition and trust. A restrained disclosure in the utility bar and a complete footer boundary prevent the independent concept from being mistaken for the official service without competing with citizen tasks.
+The redesign retains the centred portal frame, blue institutional masthead, RTI Online name, language label, public-authority link, compact service navigation, jurisdiction warning, help access, and institutional footer. These familiar signals support recognition without falsely claiming Government of India or Department of Personnel & Training ownership. A persistent disclosure in the utility bar and a complete footer boundary make the independent concept unmistakable without competing with citizen tasks.
 
 The established labels—Submit Request, Submit First Appeal, View Status, View History, Login, FAQ, Contact Us, and Payment Reconciliation—remain visible and route to the repository's working experiences.
 
