@@ -46,6 +46,13 @@ export default function ProcessPage() {
           <h2>RTI request registered</h2>
           <p>You receive a registration number, filing date and the usual statutory due date. Life-or-liberty requests are due in 48 hours.</p>
         </article>
+        <aside className="clock-urgent" role="note">
+          <b>48 hours</b>
+          <div>
+            <strong>Life or liberty</strong>
+            <p>Use only for a genuine emergency. The CPIO must reply in two days, not thirty. The prototype marks this on the receipt when selected.</p>
+          </div>
+        </aside>
         <div className="clock-row">
           {branches.map((item) => (
             <article key={item.title}>
@@ -55,6 +62,7 @@ export default function ProcessPage() {
             </article>
           ))}
         </div>
+        <p className="clock-bridge">Not satisfied after a reply — or after silence — continues down this path.</p>
         <div className="clock-row later">
           {later.map((item) => (
             <article key={item.title}>
@@ -64,7 +72,7 @@ export default function ProcessPage() {
             </article>
           ))}
         </div>
-        <p className="clock-note">Not satisfied after a reply, or after a first-appeal decision, continues down this path. A Section 18 complaint to the CIC is a separate remedy when there is no applicable time limit.</p>
+        <p className="clock-note">A Section 18 complaint to the CIC is a separate remedy when there is no applicable time limit. Second appeals are not filed through this portal.</p>
       </section>
     </PageShell>
   );

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { GovUtilityTools } from './gov-tools';
+import { SiteNav } from './site-nav';
 
 const coreServices = [
   ['Submit Request', '/request'], ['Submit First Appeal', '/appeal'], ['View Status', '/status'],
@@ -28,8 +29,7 @@ export function SiteHeader() {
         <div className="gov-owner"><span>An initiative of</span><b>Department of Personnel &amp; Training</b><small>Ministry of Personnel, Public Grievances &amp; Pensions</small></div>
         <Link className="authority-link" href="/authorities"><span aria-hidden="true">⌕</span><span><b>Public Authorities</b><small>Check availability</small></span></Link>
       </div>
-      <nav className="gov-primary-nav" aria-label="Primary navigation"><Link href="/">Home</Link>{coreServices.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}<Link className="gov-login" href="/login">Citizen Login <span>→</span></Link></nav>
-      <details className="gov-mobile-menu"><summary>Menu <span>☰</span></summary><nav>{[...coreServices, ...information].map(([label, href]) => <Link key={href} href={href}>{label}<span>→</span></Link>)}<Link href="/login">Citizen Login <span>→</span></Link></nav></details>
+      <SiteNav coreServices={coreServices} information={information} />
     </header>
   </>;
 }

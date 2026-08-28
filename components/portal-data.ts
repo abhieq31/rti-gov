@@ -89,7 +89,7 @@ export const faqs = [
 ] as const;
 
 export const demoRequests = [
-  { id: 'RTI/MORLY/2026/804271', subject: 'Anand Vihar foot-over bridge records', authority: 'Railway Board', status: 'With CPIO', due: '21 Sep 2026', kind: 'Request' },
+  { id: 'RTI/MORLY/2026/804271', subject: 'Inspection report for Anand Vihar railway station', authority: 'Railway Board', status: 'With CPIO', due: '21 Sep 2026', kind: 'Request', email: 'aarav.demo@example.in' },
   { id: 'RTI/EPFO/2026/792184', subject: 'Regional office inspection circulars', authority: 'Employees’ Provident Fund Organisation', status: 'Reply received', due: 'Closed 14 Aug 2026', kind: 'Request' },
   { id: 'RTI/MORTH/A/2026/10842', subject: 'First appeal: highway tender evaluation', authority: 'Ministry of Road Transport & Highways', status: 'Appeal in review', due: '5 Sep 2026', kind: 'Appeal' },
 ];
