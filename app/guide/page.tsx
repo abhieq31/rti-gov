@@ -10,12 +10,13 @@ export const metadata: Metadata = {
 const flows = [
   {
     title: 'Submit RTI request',
-    href: '/request?need=Inspection%20report%20for%20my%20railway%20station',
+    href: '/request',
     steps: [
       'Accept the guidelines',
-      'Review the recommended public authority and applicant',
-      'Confirm and pay ₹10, or attach BPL proof',
-      'Save the registration number and the statutory due date',
+      'Type the record you want',
+      'Use the suggested public authority if it is right',
+      'Type applicant details, BPL and security code RTI26',
+      'Pay ₹10, then save the number and due date',
     ],
   },
   {
@@ -61,8 +62,8 @@ export default function GuidePage() {
   return (
     <PageShell>
       <section className="file-strip">
-        <span>Citizen user manual</span>
-        <p>The same walk as the one-minute demonstration: guidelines, Railway Board, ₹10, number and due date, then a free first appeal.</p>
+        <span>User Manual</span>
+        <p>Guidelines, the record, the public authority, applicant details, RTI26, then the number and due date. First appeal has no fee.</p>
       </section>
       <section className="manual-flows">
         {flows.map((flow, index) => (

@@ -328,9 +328,8 @@ export function RequestWorkflow({ initialNeed = '', initialAuthority = '' }: { i
         {step === 0 && <PortalGuidelines kind="request" accepted={guidelinesAccepted} onAccepted={setGuidelinesAccepted}/>}
         {step === 1 && <section className="fast-step official-form">
           <span className="step-label">Online RTI request form</span>
-          <h2>{initialNeed ? 'Choose the office, then type the applicant.' : 'Start with the record you want.'}</h2>
-          <p>Indian citizens only. Click the suggested office if it is right, then type name, email, address, BPL and security code <b>{DEMO_SECURITY}</b>.</p>
-          {initialNeed && <p className="demo-fill-note" role="status">Request text is filled from the homepage. Nothing else is filled. Click the suggested public authority, then complete the form on camera.</p>}
+          <h2>Start with the record you want.</h2>
+          <p>Indian citizens only. Type the record, use the suggested office if it is right, then name, email, address, BPL and security code <b>{DEMO_SECURITY}</b>.</p>
 
           <fieldset className="form-fieldset">
             <legend>The record you want</legend>
@@ -780,7 +779,7 @@ export function HistoryDashboard() {
           <span className="step-label">Demo citizen account</span>
           <h2>Aarav’s cases</h2>
         </div>
-        <a className="button-primary" href="/request?need=Inspection%20report%20for%20my%20railway%20station">New request</a>
+        <a className="button-primary" href="/request">New request</a>
       </div>
       <div className="dashboard-filter">{['All', 'Request', 'Appeal', 'Pending'].map((item) => <button aria-pressed={filter === item} className={filter === item ? 'active' : ''} key={item} onClick={() => setFilter(item)} type="button">{item}</button>)}</div>
       <div className="request-list">{records.map((item) => {

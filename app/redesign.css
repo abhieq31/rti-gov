@@ -483,7 +483,7 @@ html[data-text-size='lg'] .india-theme{zoom:1.12}
 .india-theme .portal-guidelines li span{font-size:13px;line-height:1.4}
 .india-theme .guidelines-check{padding:12px 14px}
 .india-theme .demo-fill-note{margin:0 auto 12px}
-.india-theme .authority-suggest{margin-top:14px;padding:16px 18px;border:1px solid #d4b48a;background:#f7f1e4}
+.india-theme .authority-suggest{margin-top:14px;padding:16px 18px;border:1px solid #d4b48a;background:#f7f1e4;display:flex;align-items:center;gap:16px}
 .india-theme .authority-suggest>button{margin-left:auto;min-height:44px;padding:0 16px;border:0;background:#0c2340;color:#fbf8f2;font-size:13px;font-weight:800;cursor:pointer}
 @media(max-width:700px){.india-theme .authority-suggest{flex-direction:column;align-items:stretch;gap:12px}.india-theme .authority-suggest>button{margin-left:0;width:100%}}
 .india-theme .fast-body{min-height:0;padding:20px clamp(18px,5vw,48px) 24px}
@@ -574,9 +574,11 @@ html[data-text-size='lg'] .india-theme{zoom:1.12}
 .service-options li:nth-child(even) a{padding-left:28px}
 .service-options b{font:600 20px/1.25 Georgia,serif}
 .service-options span{color:#5d6b78;font-size:14px;line-height:1.5;font-weight:400}
+.service-options a:hover,.service-options a:focus-visible{color:#1d4e73}
 .service-options a:hover b,.service-options a:focus-visible b{color:#1d4e73}
 .portal-also{margin:22px 0 0;display:flex;flex-wrap:wrap;gap:8px 22px}
 .portal-also a{color:#0c2340;font-size:14px;font-weight:650;text-decoration:none}
+.portal-also a:hover,.portal-also a:focus-visible{text-decoration:underline}
 .portal-home .civic-note{width:auto;margin:28px 0 0;padding:14px 0;border-top:1px solid #ddd4c6}
 .home-clocks{margin:36px 0 0;padding:22px 0 0;list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;border-top:1px solid #ddd4c6}
 .home-clocks b{display:block;color:#8a4e18;font:500 22px/1 Georgia,serif}

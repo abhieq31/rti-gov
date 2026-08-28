@@ -11,7 +11,7 @@ export default function LoginPage() {
   return (
     <PageShell>
       <section className="file-strip">
-        <span>Citizen login</span>
+        <span>Login</span>
         <p>An account is not required to file. Demo username <b>aarav.demo</b>, password <b>rti@2026</b>, security code <b>RTI26</b>.</p>
       </section>
       <DemoLogin />
