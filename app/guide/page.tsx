@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PageHero, PageShell } from '@/components/site-chrome';
 
-export const metadata: Metadata = { title: 'RTI Online citizen user manual', description: 'Front-end guide to submitting, paying, tracking and appealing a Central Government RTI application online.' };
+export const metadata: Metadata = { title: 'Citizen manual: file, pay, track, appeal | RTI Online prototype', description: 'Front-end guide to submitting, paying, tracking and appealing a Central Government RTI application online.' };
 
 const flows = [
   { title: 'Submit RTI request', href: '/request', steps: ['Read and accept portal guidelines', 'Select the Ministry, Department or Central public authority', 'Enter applicant contact and postal details', 'Choose BPL status and attach valid proof if applicable', 'Write up to 3,000 characters and attach an optional PDF up to 1 MB', 'Choose UPI, net banking, card or RuPay and make payment', 'Save the unique registration number sent by email and SMS'] },

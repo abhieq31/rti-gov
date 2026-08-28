@@ -113,11 +113,13 @@ export default function HomePage() {
       </div>
       <div className="clock-row civic-clock-grid">
         {clocks.map((item) => (
-          <article key={item.title}>
-            <b>{item.time}</b>
-            <h3>{item.title}</h3>
-            <p>{item.text}</p>
-          </article>
+          <Link href="/process" key={item.title}>
+            <article>
+              <b>{item.time}</b>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </article>
+          </Link>
         ))}
       </div>
     </section>

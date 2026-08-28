@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { PageHero, PageShell } from '@/components/site-chrome';
 
 export const metadata: Metadata = {
-  title: 'Official RTI Online versus this prototype | RTI Online',
+  title: 'Official RTI Online versus this civic prototype',
   description: 'Side-by-side of the live rtionline.gov.in citizen portal and this independent redesign.',
 };
 

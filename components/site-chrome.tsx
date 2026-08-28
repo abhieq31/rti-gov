@@ -19,14 +19,14 @@ export function SiteHeader() {
     <a className="skip-link" href="#main">Skip to main content</a>
     <div className="india-tricolour" aria-hidden="true"><i/><i/><i/></div>
     <div className="gov-utility"><div>
-      <span><b>भारत सरकार</b><i/>Government of India</span>
+      <span><b>सूचना का अधिकार</b><i/>Right to Information Act, 2005</span>
       <GovUtilityTools />
     </div></div>
     <div className="concept-band"><div><b>Independent redesign prototype</b><span>This is not the official RTI Online portal. Use only synthetic demonstration data.</span><Link href="/policies">About this prototype</Link></div></div>
     <header className="gov-header">
       <div className="gov-masthead">
         <Link className="gov-brand" href="/" aria-label="RTI Online home"><span className="gov-mark" aria-hidden="true">RTI</span><span><strong>RTI Online</strong><small>सूचना का अधिकार · Right to Information</small></span></Link>
-        <div className="gov-owner"><span>An initiative of</span><b>Department of Personnel &amp; Training</b><small>Ministry of Personnel, Public Grievances &amp; Pensions</small></div>
+        <div className="gov-owner"><span>Independent prototype</span><b>Not a Government of India service</b><small>Patterned on RTI Online, DoPT</small></div>
         <Link className="authority-link" href="/authorities"><span aria-hidden="true">⌕</span><span><b>Public Authorities</b><small>Check availability</small></span></Link>
       </div>
       <SiteNav coreServices={coreServices} information={information} />

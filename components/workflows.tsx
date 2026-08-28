@@ -311,9 +311,15 @@ export function RequestWorkflow({ initialNeed = '', initialAuthority = '' }: { i
         </>}
         {step === 1 && <section className="fast-step official-form">
           <span className="step-label">Online RTI request form</span>
-          <h2>File a request with a Central public authority.</h2>
-          <p>Fields marked <b>*</b> are mandatory. Only Indian citizens can file. Do not use this form for State Government authorities, including NCT Delhi.</p>
+          <h2>Start with the record you want.</h2>
+          <p>Fields marked <b>*</b> are mandatory. The authority is recommended from your sentence. Only Indian citizens can file. Do not use this form for State Government authorities, including NCT Delhi.</p>
           {demoReady && <p className="demo-fill-note" role="status">Demonstration is complete: Railway Board · Aarav Sharma · ₹10 · security {DEMO_SECURITY}. Review and continue.</p>}
+
+          <fieldset className="form-fieldset">
+            <legend>The record you want</legend>
+            <label className="fast-question"><span>Text for RTI request application *</span><textarea maxLength={3000} value={draft.request} onChange={(event) => update('request', event.target.value)} placeholder="Provide copies of the inspection reports for…"/><small>{draft.request.length} / 3,000 characters · only A–Z, 0–9 and , . - _ ( ) / @ : &amp; ? \ % in a live filing</small></label>
+            {grievanceLikely && <div className="gentle-warning"><b>Need the problem fixed?</b><p>RTI obtains existing records. A grievance service is the route for asking an office to take action.</p><a href="/guide">Read the user manual</a></div>}
+          </fieldset>
 
           <fieldset className="form-fieldset">
             <legend>Public authority details</legend>
@@ -324,7 +330,7 @@ export function RequestWorkflow({ initialNeed = '', initialAuthority = '' }: { i
               <label><span>Select public authority *</span><select value={draft.authority} disabled={!draft.ministry} onChange={(event) => update('authority', event.target.value)}><option value="">Select</option>{ministryAuthorities.map((item) => <option key={item.code} value={item.code}>{item.name}</option>)}</select></label>
             </div>
             {selectedAuthority && <div className="authority-match"><div><span>Request will be filed with</span><b>{selectedAuthority.name}</b><small>{selectedAuthority.ministry} · {selectedAuthority.topics}</small></div></div>}
-            {!selectedAuthority && suggestedAuthority && draft.request.trim().length >= 12 && <div className="authority-match"><div><span>Suggested from request text</span><b>{suggestedAuthority.name}</b><small>{suggestedAuthority.ministry}</small></div><button type="button" onClick={() => setDraft((current) => ({ ...current, ministry: suggestedAuthority.ministry, authority: suggestedAuthority.code }))}>Use this authority</button></div>}
+            {suggestedAuthority && draft.request.trim().length >= 12 && suggestedAuthority.code !== selectedAuthority?.code && <div className="authority-match"><div><span>Suggested from request text</span><b>{suggestedAuthority.name}</b><small>{suggestedAuthority.ministry}</small></div><button type="button" onClick={() => setDraft((current) => ({ ...current, ministry: suggestedAuthority.ministry, authority: suggestedAuthority.code }))}>Use this authority</button></div>}
           </fieldset>
 
           <fieldset className="form-fieldset">
@@ -361,8 +367,6 @@ export function RequestWorkflow({ initialNeed = '', initialAuthority = '' }: { i
               <label className="urgent-toggle"><input checked={draft.urgent} onChange={(event) => update('urgent', event.target.checked)} type="checkbox"/><span><b>Life or liberty</b><small>Use only for a genuine 48-hour matter</small></span></label>
             </div>
             {bplExempt && <label className="supporting-upload"><span>BPL certificate *</span><input accept="application/pdf" type="file"/><small>Valid BPL proof · PDF up to 1 MB. Do not upload Aadhaar or PAN.</small></label>}
-            <label className="fast-question"><span>Text for RTI request application *</span><textarea maxLength={3000} value={draft.request} onChange={(event) => update('request', event.target.value)} placeholder="Provide copies of the inspection reports for…"/><small>{draft.request.length} / 3,000 characters · only A–Z, 0–9 and , . - _ ( ) / @ : &amp; ? \ % in a live filing</small></label>
-            {grievanceLikely && <div className="gentle-warning"><b>Need the problem fixed?</b><p>RTI obtains existing records. A grievance service is the route for asking an office to take action.</p><a href="/guide">Read the user manual</a></div>}
             <label className="supporting-upload"><span>Supporting document (optional)</span><input accept="application/pdf" type="file"/><small>One PDF up to 1 MB. PDF name should be under 12 characters, with no spaces. Do not upload Aadhaar or PAN.</small></label>
             <label><span>Enter security code *</span><div className="captcha-row"><b aria-label="Demonstration security code">RTI26</b><input value={securityCode} onChange={(event) => setSecurityCode(event.target.value)} placeholder="Enter RTI26"/></div></label>
           </fieldset>
@@ -375,7 +379,7 @@ export function RequestWorkflow({ initialNeed = '', initialAuthority = '' }: { i
         {step === 3 && submittedAt && dueDate && selectedAuthority && <section className="fast-receipt"><div className="success-orbit"><span>✓</span></div><span className="step-label">Request registered</span><h2>Application submitted.</h2><p>A unique registration number has been generated. In the live portal this is also sent by email and SMS.</p>
           <div className="registration-card"><span>Prototype registration number</span><b>{registration}</b><button onClick={() => navigator.clipboard?.writeText(registration)} type="button">Copy number</button></div>
           <div className="deadline-card"><div><span>Response due</span><strong>{formatDate(dueDate)}</strong><small>{draft.urgent ? '48-hour life-or-liberty timeline selected' : '30 calendar days from registration'}</small></div><div className="deadline-count"><b>{draft.urgent ? '48' : '30'}</b><span>{draft.urgent ? 'hours' : 'days'}</span></div></div>
-          <dl className="receipt-summary"><div><dt>Filed</dt><dd>{formatDate(submittedAt)}</dd></div><div><dt>Authority</dt><dd>{selectedAuthority.name}</dd></div><div><dt>Delivery</dt><dd>{draft.format}</dd></div><div><dt>Fee</dt><dd>{bplExempt ? '₹0 · BPL' : `₹10 · ${draft.payment}`}</dd></div></dl>
+          <dl className="receipt-summary"><div><dt>Filed</dt><dd>{formatDate(submittedAt)}</dd></div><div><dt>Authority</dt><dd>{selectedAuthority.name}<small> · {selectedAuthority.ministry}</small></dd></div><div><dt>Delivery</dt><dd>{draft.format}</dd></div><div><dt>Fee</dt><dd>{bplExempt ? '₹0 · BPL' : `₹10 · ${draft.payment}`}</dd></div></dl>
           <div className="next-promise"><b>What happens next</b><p>The Nodal Officer transmits the request to the concerned CPIO. Use View Status to see movement, additional fees, replies and first-appeal options.</p></div>
           <div className="receipt-actions"><a className="button-primary" href={`/status?registration=${encodeURIComponent(registration)}&email=${encodeURIComponent(draft.email)}`}>View status</a><button className="button-secondary" onClick={() => window.print()} type="button">Save acknowledgement</button></div><small className="prototype-receipt-note">This is a prototype receipt and is not valid for an official RTI filing.</small>
         </section>}

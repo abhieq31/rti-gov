@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { PageHero, PageShell } from '@/components/site-chrome';
 
 export const metadata: Metadata = {
-  title: 'How an RTI request moves | RTI Online',
+  title: '30, 5, 45 and 90-day RTI clocks | RTI Online prototype',
   description: 'The official citizen clocks: 30 days to reply, 5 days to transfer, 45 days for a first appeal, 90 days for a second appeal to the CIC.',
 };
 

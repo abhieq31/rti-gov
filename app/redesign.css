@@ -341,9 +341,27 @@ html[data-text-size='lg'] .india-theme{zoom:1.12}
 .india-theme .gov-drawer nav a{font-size:15px}
 .india-theme .gov-drawer-login{background:#0c2340}
 
+.civic-clock-grid a{color:inherit;text-decoration:none;display:block}
+.civic-clock-grid a:hover article,.civic-clock-grid a:focus-visible article{border-top-color:#0c2340}
+.india-theme .gov-utility>div{flex-wrap:wrap}
+.lang-note{flex:1 0 100%;margin:0;padding:6px 0 10px;color:#5b4a38;font-size:13px;line-height:1.45}
+.lang-note a{color:#0c2340;font-weight:650;text-decoration:underline}
+.receipt-summary small{font-weight:600;color:#5d6b78}
+
+.india-theme .login-page{
+  min-height:0;padding:48px max(20px,calc((100vw - 1120px)/2)) 80px;gap:36px 48px;
+  background:#efe9dc;align-items:start;
+}
+.india-theme .login-page>.mock-notice{position:static;transform:none;left:auto;top:auto;grid-column:1/-1;width:auto;margin:0}
+.india-theme .login-page aside{color:#0c2340}
+.india-theme .login-page aside h1{color:#0c2340}
+.india-theme .login-page aside p{color:#5d6b78;font-size:16px}
+.india-theme .login-card{border:1px solid #ddd4c6}
+
 @media(max-width:900px){
   .india-theme .civic-path ol{border-top:0}
   .india-theme .civic-path li{border-right:0;border-top:1px solid #ddd4c6;padding:22px 0}
   .india-theme .civic-hero{padding:56px 20px 40px}
   .india-theme .civic-hero h1{font-size:34px}
+  .india-theme .login-page{grid-template-columns:1fr;padding:28px 16px 64px;gap:24px}
 }
