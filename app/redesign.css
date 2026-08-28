@@ -140,3 +140,210 @@ html[data-text-size='lg'] .india-theme{zoom:1.12}
 .form-fieldset label{display:grid;gap:7px}
 .form-fieldset label>span{color:#415c70;font-size:11px;font-weight:800}
 .form-fieldset>label input,.form-fieldset>label textarea{width:100%;min-height:50px;padding:0 12px;border:1px solid #b9c8d0;background:#fff}
+
+/* Craft: paper, type, restraint. Overrides the stacked template look. */
+.india-theme{
+  --gov-navy:#0c2340;
+  --gov-blue:#1d4e73;
+  --gov-orange:#b86a2d;
+  --gov-ink:#1c2430;
+  --gov-muted:#5d6b78;
+  --gov-line:#ddd4c6;
+  --gov-wash:#f4efe6;
+  --gov-white:#fbf8f2;
+  --gov-shadow:0 18px 40px rgba(12,35,64,.08);
+  background:#f4efe6;
+  color:var(--gov-ink);
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Devanagari",Helvetica,Arial,sans-serif;
+  font-size:16px;
+  line-height:1.5;
+}
+.india-theme main{background:#f4efe6}
+.india-theme .india-tricolour{height:3px}
+.india-theme .india-tricolour i:nth-child(1){background:#c97a32}
+.india-theme .india-tricolour i:nth-child(2){background:#f7f3ea}
+.india-theme .india-tricolour i:nth-child(3){background:#1f7a4d}
+.india-theme .gov-utility{background:#f7f3ea;border-bottom:1px solid #e6dccb}
+.india-theme .gov-utility>div{min-height:42px;font-size:12px;color:#4e5c68}
+.india-theme .gov-utility nav>*{height:42px;font-size:12px;color:#4e5c68}
+.india-theme .concept-band{background:#f7f3ea;color:#3f3122;border-bottom:1px solid #e6dccb}
+.india-theme .concept-band>div{min-height:42px;font-size:13px}
+.india-theme .concept-band b{color:#8a4e18;font-weight:700}
+.india-theme .concept-band span{color:#5b4a38}
+.india-theme .concept-band a{color:#0c2340;font-weight:650;text-decoration:none}
+.india-theme .gov-header{background:#fbf8f2}
+.india-theme .gov-masthead{min-height:84px}
+.india-theme .gov-mark{
+  width:52px;height:52px;border:1px solid #b86a2d;border-radius:50%;
+  box-shadow:inset 0 0 0 3px #fbf8f2,inset 0 0 0 4px #0c2340;
+  background:#0c2340;color:#f4efe6;font:600 11px/1 Georgia,"Iowan Old Style",Palatino,serif;
+  letter-spacing:.14em;
+}
+.india-theme .gov-footer-brand .gov-mark{width:44px;height:44px;font-size:9px;box-shadow:inset 0 0 0 3px #071f35,inset 0 0 0 4px #b86a2d;border-color:#b86a2d}
+.india-theme .gov-brand strong{font:600 32px/1 Georgia,"Iowan Old Style",Palatino,serif;letter-spacing:-.03em}
+.india-theme .gov-brand small{font-size:12px;color:#5d6b78;letter-spacing:.04em}
+.india-theme .gov-owner span{font-size:11px;letter-spacing:.08em}
+.india-theme .gov-owner b{font-size:13px;font-weight:650}
+.india-theme .gov-owner small{font-size:11px}
+.india-theme .authority-link{border-color:#d7ccbb;background:#fff;border-radius:0}
+.india-theme .authority-link b{font-size:13px}.india-theme .authority-link small{font-size:12px}
+.india-theme .gov-primary-nav{min-height:52px;background:#0c2340;border-bottom:2px solid #b86a2d}
+.india-theme .gov-primary-nav>a{font-size:13px;font-weight:600;padding:0 16px}
+.india-theme .gov-primary-nav .gov-login{background:transparent;border-left:1px solid rgba(255,255,255,.14)}
+.india-theme .gov-login span{margin-left:10px}
+.india-theme .gov-primary-nav>a[aria-current='page']{box-shadow:inset 0 -2px 0 #e2c39a}
+
+.india-theme .india-kicker,.india-theme .page-eyebrow,.india-theme .step-label{
+  padding:0;border:0;background:transparent;color:#8a4e18;
+  font-size:12px;font-weight:650;letter-spacing:.14em;text-transform:uppercase;
+}
+.india-theme .civic-hero .india-kicker{color:#e2c39a;background:transparent}
+.india-theme .india-primary-button,.india-theme .button-primary,.india-theme .button-secondary{
+  min-height:48px;padding:0 22px;border-radius:0;font-size:14px;font-weight:650;letter-spacing:0;
+}
+.india-theme .india-primary-button{background:#fbf8f2;color:#0c2340}
+.india-theme .india-primary-button span{margin-left:12px}
+.india-theme .civic-hero .india-primary-button{background:#fbf8f2;color:#0c2340;box-shadow:0 10px 24px rgba(0,0,0,.22)}
+.india-theme .button-primary{background:#0c2340;color:#fff}
+.india-theme .button-primary:disabled{opacity:1;background:#e4ddd0;color:#7a7266}
+.india-theme .button-secondary{background:transparent;border:1px solid #c9bda8;color:#0c2340}
+.india-theme .civic-hero .civic-ghost{background:transparent;color:#fbf8f2;border:1px solid rgba(251,248,242,.7)}
+
+.india-theme .civic-hero{padding:48px max(20px,calc((100vw - 1120px)/2)) 56px;background:#07182b}
+.india-theme .civic-hero-photo{background:url('/hero.jpg') center 42%/cover no-repeat;opacity:.55}
+.india-theme .civic-hero-photo::after{
+  background:
+    linear-gradient(105deg,#061422 4%,rgba(7,24,43,.88) 36%,rgba(7,24,43,.28) 72%),
+    linear-gradient(to top,#061422 0 12%,transparent 38%);
+}
+.india-theme .civic-hero h1{
+  margin:12px 0 14px;color:#fbf8f2;
+  font:500 clamp(30px,3.6vw,48px)/1.16 Georgia,"Iowan Old Style",Palatino,serif;
+  letter-spacing:-.035em;
+}
+.india-theme .civic-hero-copy>p{max-width:640px;color:#d5e0e8;font-size:18px;line-height:1.65}
+.india-theme .civic-demo{margin-top:20px}
+.india-theme .civic-demo p{color:#e2c39a;font-size:12px;font-weight:650;letter-spacing:.12em}
+.india-theme .civic-demo small{color:#c5d2dc;font-size:13px}
+.india-theme .civic-demo code{background:rgba(255,255,255,.08);font-size:13px}
+
+.india-theme .civic-ack{background:#f7f1e4;border:1px solid #d9cbb3;box-shadow:0 24px 50px rgba(0,0,0,.28)}
+.india-theme .civic-ack-head{padding:18px 22px 16px;background:#0c2340}
+.india-theme .civic-ack-head span{color:#d4b48a;font-size:11px;letter-spacing:.16em}
+.india-theme .civic-ack-head b{margin-top:8px;font:600 18px/1.25 Georgia,serif;letter-spacing:.01em}
+.india-theme .civic-ack>p{margin:18px 22px 0;font-size:15px;color:#3c4a56}
+.india-theme .civic-ack dt{font-size:11px;color:#7a6a55}
+.india-theme .civic-ack dd{font-size:14px;font-weight:650}
+.india-theme .civic-ack-stamp{top:96px;right:18px;bottom:auto;border-width:1.5px;transform:none;width:64px;height:64px}
+.india-theme .civic-ack-track{margin:16px 22px 0;color:#0c2340;font-size:13px}
+.india-theme .civic-ack>small{margin:10px 22px 18px;font-size:12px}
+
+.india-theme .civic-start h2{color:#d4b48a;font-size:12px;font-weight:650}
+.india-theme .civic-start-cards a{
+  min-height:176px;padding:26px;background:#fbf8f2;border:1px solid #e4d8c4;
+  box-shadow:none;border-radius:0;transition:none;
+}
+.india-theme .civic-start-cards a small{color:#8a4e18;font-size:12px}
+.india-theme .civic-start-cards a b{font:600 22px/1.25 Georgia,serif}
+.india-theme .civic-start-cards a span{font-size:14px;line-height:1.55;color:#5d6b78}
+.india-theme .civic-start-cards a:hover,.india-theme .civic-start-cards a:focus-visible{
+  transform:none;border-top-width:1px;border-color:#0c2340;box-shadow:none;
+}
+
+.india-theme .civic-path{padding:72px 0 24px}
+.india-theme .civic-path-copy h2,.india-theme .civic-clocks>div:first-child h2,.india-theme .civic-why h2,.india-theme .civic-learn h2,.india-theme .civic-more h2{
+  font:500 clamp(28px,3.4vw,42px)/1.18 Georgia,"Iowan Old Style",Palatino,serif;
+  letter-spacing:-.03em;color:#0c2340;
+}
+.india-theme .civic-path-copy p,.india-theme .civic-clocks>div:first-child p,.india-theme .civic-why p,.india-theme .civic-more p{font-size:16px;color:#5d6b78}
+.india-theme .civic-path ol{gap:0;border-top:1px solid #ddd4c6}
+.india-theme .civic-path li{
+  min-height:0;padding:28px 24px 28px 0;border:0;border-right:1px solid #ddd4c6;box-shadow:none;background:transparent;
+}
+.india-theme .civic-path li:last-child{border-right:0}
+.india-theme .civic-path small{color:#8a4e18;font:500 28px/1 Georgia,serif;letter-spacing:0}
+.india-theme .civic-path b{font:600 20px/1.25 Georgia,serif}
+.india-theme .civic-path span{font-size:14px;line-height:1.55}
+
+.india-theme .civic-clocks{padding:48px 0}
+.india-theme .clock-row article{padding:28px 8px 8px 0;border:0;border-top:1px solid #ddd4c6;background:transparent}
+.india-theme .clock-row b{padding:0;background:transparent;color:#8a4e18;font:500 28px/1 Georgia,serif}
+.india-theme .clock-row h3{margin:10px 0 8px;font:600 20px Georgia,serif}
+.india-theme .clock-row p{font-size:14px}
+.india-theme .clock-row.later article{background:transparent}
+
+.india-theme .civic-why{padding:36px 0 48px}
+.india-theme .civic-why li{background:#fbf8f2;border-color:#e4d8c4}
+.india-theme .civic-why li>div:last-child{background:#eef5ef}
+.india-theme .civic-why li span{font-size:11px}
+.india-theme .civic-why b,.india-theme .civic-why strong{font-size:15px;line-height:1.45}
+
+.india-theme .civic-learn{padding:72px max(20px,calc((100vw - 1120px)/2)) 48px;background:#efe9dc}
+.india-theme .learn-column{border-color:#ddd4c6;background:#fbf8f2}
+.india-theme .learn-column>button strong{font:600 20px/1.25 Georgia,serif}
+.india-theme .learn-column>button span{font-size:12px;color:#8a4e18}
+.india-theme .learn-column>div{font-size:15px}
+
+.india-theme .civic-note{background:#f7f1e4;border-left-color:#b86a2d;color:#4a3a28}
+.india-theme .civic-note p,.india-theme .civic-note a{font-size:14px}
+.india-theme .civic-more a{font-size:15px;font-weight:650;min-height:56px}
+.india-theme .glossary-drawer{border-color:#ddd4c6;background:#fbf8f2}
+.india-theme .glossary-toggle span{font:600 20px Georgia,serif}
+
+.india-theme .page-hero,.india-theme .fast-request-head{
+  background:#efe9dc;border-bottom:1px solid #ddd4c6;
+}
+.india-theme .page-hero h1,.india-theme .fast-request-head h1{
+  font:500 clamp(36px,5vw,58px)/1.12 Georgia,"Iowan Old Style",Palatino,serif;
+  letter-spacing:-.035em;color:#0c2340;
+}
+.india-theme .page-hero>p,.india-theme .fast-request-head>p{font-size:17px;color:#5d6b78;line-height:1.6}
+.india-theme .mock-notice{background:#f7f1e4;border-color:#e4d0b0}
+.india-theme .tool-surface,.india-theme .workflow-shell,.india-theme .dashboard-surface,.india-theme .fast-workflow,.india-theme .login-card,.india-theme .narrow-content{
+  border-radius:0;border-color:#ddd4c6;background:#fbf8f2;box-shadow:0 16px 36px rgba(12,35,64,.06);
+}
+.india-theme .fast-progress,.india-theme .dashboard-head,.india-theme .search-tool{background:#0c2340}
+.india-theme .fast-progress>div{background:#d4b48a}
+.india-theme .fast-step h2,.india-theme .fast-receipt h2,.india-theme .service-form-intro h2{font:500 clamp(30px,3.6vw,44px)/1.12 Georgia,serif}
+.india-theme .form-fieldset{border-color:#ddd4c6;border-top-color:#0c2340;background:#fbf8f2}
+.india-theme .form-fieldset label>span,.india-theme .fast-form label>span,.india-theme .fast-question>span{font-size:13px;color:#3f5160}
+.india-theme .guidelines-title h2{font:500 clamp(30px,3.6vw,44px)/1.12 Georgia,serif}
+.india-theme .portal-guidelines li b{font-size:14px}
+.india-theme .portal-guidelines li span{font-size:14px;line-height:1.55}
+.india-theme .guidelines-check b{font-size:14px}
+.india-theme .guidelines-check small{font-size:12px}
+
+.india-theme .gov-footer{background:#07182b}
+.india-theme .gov-footer-brand strong{font:600 26px Georgia,serif}
+.india-theme .gov-footer-brand p{font-size:14px;line-height:1.55;color:#c5d2dc}
+.india-theme .gov-footer-brand small{font-size:12px}
+.india-theme .gov-footer-links b{font-size:12px;color:#d4b48a}
+.india-theme .gov-footer-links a{font-size:14px;color:#d5e0e8}
+.india-theme .gov-footer-contact{font-size:13px;color:#b7c6d0}
+.india-theme .gov-footer-bottom{font-size:12px}
+
+.india-theme .compare-highlights article{border-radius:0;border-top:1px solid #ddd4c6;box-shadow:none;background:#fbf8f2}
+.india-theme .compare-highlights article>span{font:600 22px Georgia,serif}
+.india-theme .compare-highlights small{font-size:11px}
+.india-theme .compare-highlights p{font-size:15px}
+.india-theme .compare-table table{box-shadow:none;border:1px solid #ddd4c6}
+.india-theme .compare-table thead th{background:#0c2340;font-size:12px}
+.india-theme .clock-origin{background:#0c2340}
+.india-theme .clock-origin h2{font:500 34px Georgia,serif}
+.india-theme .clock-urgent>b{font:500 32px Georgia,serif}
+
+.india-theme .gov-mobile-bar{background:#0c2340;border-bottom:2px solid #b86a2d}
+.india-theme .gov-mobile-bar>span{font-size:12px;letter-spacing:.1em}
+.india-theme .gov-menu-toggle{font-size:13px}
+.india-theme .gov-drawer-head small{font-size:11px}
+.india-theme .gov-drawer-head b{font:600 18px Georgia,serif}
+.india-theme .gov-drawer nav p{font-size:11px;color:#8a4e18}
+.india-theme .gov-drawer nav a{font-size:15px}
+.india-theme .gov-drawer-login{background:#0c2340}
+
+@media(max-width:900px){
+  .india-theme .civic-path ol{border-top:0}
+  .india-theme .civic-path li{border-right:0;border-top:1px solid #ddd4c6;padding:22px 0}
+  .india-theme .civic-hero{padding:56px 20px 40px}
+  .india-theme .civic-hero h1{font-size:34px}
+}

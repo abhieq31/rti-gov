@@ -25,7 +25,7 @@ export function SiteHeader() {
     <div className="concept-band"><div><b>Independent redesign prototype</b><span>This is not the official RTI Online portal. Use only synthetic demonstration data.</span><Link href="/policies">About this prototype</Link></div></div>
     <header className="gov-header">
       <div className="gov-masthead">
-        <Link className="gov-brand" href="/" aria-label="RTI Online home"><span className="gov-mark" aria-hidden="true">✺</span><span><strong>RTI Online</strong><small>सूचना का अधिकार · Right to Information</small></span></Link>
+        <Link className="gov-brand" href="/" aria-label="RTI Online home"><span className="gov-mark" aria-hidden="true">RTI</span><span><strong>RTI Online</strong><small>सूचना का अधिकार · Right to Information</small></span></Link>
         <div className="gov-owner"><span>An initiative of</span><b>Department of Personnel &amp; Training</b><small>Ministry of Personnel, Public Grievances &amp; Pensions</small></div>
         <Link className="authority-link" href="/authorities"><span aria-hidden="true">⌕</span><span><b>Public Authorities</b><small>Check availability</small></span></Link>
       </div>
@@ -37,7 +37,7 @@ export function SiteHeader() {
 export function SiteFooter() {
   return <footer className="gov-footer">
     <div className="gov-footer-main">
-      <div className="gov-footer-brand"><span className="gov-mark" aria-hidden="true">✺</span><div><strong>RTI Online</strong><p>Citizen services for Central Government information requests.</p><small>Independent redesign prototype · Not an official filing service</small></div></div>
+      <div className="gov-footer-brand"><span className="gov-mark" aria-hidden="true">RTI</span><div><strong>RTI Online</strong><p>Citizen services for Central Government information requests.</p><small>Independent redesign prototype · Not an official filing service</small></div></div>
       <div className="gov-footer-links"><div><b>Citizen services</b>{coreServices.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}</div><div><b>Information &amp; help</b>{information.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}</div><div><b>Related services</b><Link href="/commissions">Information Commissions</Link><Link href="/policies">Privacy &amp; accessibility</Link><a href="https://www.india.gov.in/">National Portal of India</a></div></div>
     </div>
     <div className="gov-footer-contact"><b>Help desk</b><span>011-24010690 / 691</span><span>9:00 AM–5:30 PM, Monday–Friday except public holidays</span><span>helprtionline-dopt[at]nic[dot]in</span></div>
