@@ -3,7 +3,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { authorities, centralAuthorities, centralMinistries, demoRequests, disclosures, faqs } from './portal-data';
 
-const DEMO_NEED = 'Inspection report for my railway station';
 const DEMO_EMAIL = 'aarav.demo@example.in';
 const DEMO_DUE = '21 September 2026';
 const DEMO_SECURITY = 'RTI26';
@@ -150,19 +149,6 @@ const initialDraft: RequestDraft = {
   request: '', format: 'Electronic copy', payment: 'UPI',
 };
 
-const demoApplicant: Partial<RequestDraft> = {
-  name: 'Aarav Sharma',
-  gender: 'Male',
-  email: DEMO_EMAIL,
-  emailConfirm: DEMO_EMAIL,
-  mobile: '9810012345',
-  address: '14 Ashoka Road, New Delhi',
-  pin: '110001',
-  locality: 'Urban',
-  education: 'Literate',
-  bpl: 'no',
-};
-
 function scrollStepIntoView(node: HTMLElement | null) {
   if (!node) return;
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -239,25 +225,20 @@ function PortalGuidelines({ kind, accepted, onAccepted }: { kind: 'request' | 'a
 }
 
 export function RequestWorkflow({ initialNeed = '', initialAuthority = '' }: { initialNeed?: string; initialAuthority?: string }) {
-  const seeded = findAuthority(initialAuthority) || (initialNeed ? suggestAuthority(initialNeed) : undefined);
-  const demoPath = Boolean(initialNeed);
+  const seeded = findAuthority(initialAuthority);
   const [step, setStep] = useState(0);
   const [guidelinesAccepted, setGuidelinesAccepted] = useState(false);
   const [draft, setDraft] = useState(() => ({
     ...initialDraft,
-    ...(demoPath ? demoApplicant : {}),
     request: initialNeed,
     authority: seeded?.level === 'Central' ? seeded.code : '',
     ministry: seeded?.level === 'Central' ? seeded.ministry : '',
   }));
   const [authorityQuery, setAuthorityQuery] = useState('');
-  const [securityCode, setSecurityCode] = useState(demoPath ? DEMO_SECURITY : '');
+  const [securityCode, setSecurityCode] = useState('');
   const [confirmed, setConfirmed] = useState(false);
   const [registration, setRegistration] = useState('');
   const [submittedAt, setSubmittedAt] = useState<Date | null>(null);
-  const [draftReady, setDraftReady] = useState(Boolean(initialNeed || initialAuthority));
-  const [demoLoaded, setDemoLoaded] = useState(demoPath);
-  const [editing, setEditing] = useState(false);
   const workflowRef = useRef<HTMLDivElement>(null);
   const didStep = useRef(false);
   const labels = ['Guidelines', 'Request form', 'Payment', 'Registered'];
@@ -297,18 +278,8 @@ export function RequestWorkflow({ initialNeed = '', initialAuthority = '' }: { i
   const grievanceLikely = /fix|repair|complaint|not received|delay|pending|take action/.test(draft.request.toLowerCase());
 
   useEffect(() => {
-    if (initialNeed || initialAuthority) return;
-    const timer = window.setTimeout(() => {
-      const savedDraft = readStored<RequestDraft>('rti-gov-demo-draft');
-      if (savedDraft) setDraft({ ...initialDraft, ...savedDraft });
-      setDraftReady(true);
-    }, 0);
-    return () => window.clearTimeout(timer);
-  }, [initialNeed, initialAuthority]);
-
-  useEffect(() => {
-    if (draftReady && step < 3) storeValue('rti-gov-demo-draft', draft);
-  }, [draft, draftReady, step]);
+    if (step < 3) storeValue('rti-gov-demo-draft', draft);
+  }, [draft, step]);
 
   useEffect(() => {
     if (!didStep.current) {
@@ -319,19 +290,6 @@ export function RequestWorkflow({ initialNeed = '', initialAuthority = '' }: { i
     const target = root?.querySelector(step === 3 ? '.fast-receipt' : '.fast-body, .demo-dossier, .review-step') || root;
     scrollStepIntoView(target instanceof HTMLElement ? target : root);
   }, [step]);
-
-  const loadRailwayDemo = () => {
-    const railway = findAuthority('MORLY');
-    setDraft((current) => ({
-      ...current,
-      ...demoApplicant,
-      request: current.request.trim().length >= 12 ? current.request : DEMO_NEED,
-      authority: railway?.code || 'MORLY',
-      ministry: railway?.ministry || 'Ministry of Railways',
-    }));
-    setSecurityCode(DEMO_SECURITY);
-    setDemoLoaded(true);
-  };
 
   const dueDate = useMemo(() => {
     if (!submittedAt) return null;
@@ -363,39 +321,16 @@ export function RequestWorkflow({ initialNeed = '', initialAuthority = '' }: { i
     setRegistration(id); setSubmittedAt(now); setStep(3);
   };
 
-  const demoReady = demoPath || demoLoaded || (selectedAuthority?.code === 'MORLY' && draft.name === 'Aarav Sharma');
-
   return (
     <div className="fast-workflow" ref={workflowRef}>
       <div className="fast-progress" role="progressbar" aria-valuemin={1} aria-valuemax={3} aria-valuenow={Math.min(step + 1, 3)} aria-label={step < 3 ? `Step ${step + 1} of 3, ${labels[step]}` : 'Request registered'}><div style={{ width: `${((step + 1) / 4) * 100}%` }}/><span>{labels[step]}</span><b>{step < 3 ? `Step ${step + 1} of 3` : 'Complete'}</b></div>
       <div className="fast-body">
-        {step === 0 && <>
-          {!demoReady && <p className="demo-fill-note" role="status">Arrived from the menu with a blank form? <button onClick={loadRailwayDemo} type="button">Load the Railway Board demonstration</button> to file in one minute, or type your own request next.</p>}
-          <PortalGuidelines kind="request" accepted={guidelinesAccepted} onAccepted={setGuidelinesAccepted}/>
-        </>}
-        {step === 1 && demoReady && !editing && <section className="fast-step demo-dossier">
-          <span className="step-label">Online RTI request form</span>
-          <h2>Railway Board is ready. Review Aarav’s request.</h2>
-          <p>The demonstration already chose the authority, applicant, electronic copy and ₹10 fee. Continue to pay, or change any line.</p>
-          <div className="demo-dossier-card">
-            <article>
-              <span>The record</span>
-              <p>{draft.request}</p>
-            </article>
-            <dl>
-              <div><dt>Public authority</dt><dd>{selectedAuthority?.name || 'Railway Board'}<small>{selectedAuthority?.ministry || 'Ministry of Railways'}</small></dd></div>
-              <div><dt>Applicant</dt><dd>{draft.name}<small>{draft.email} · {draft.pin} {draft.state}</small></dd></div>
-              <div><dt>Fee</dt><dd>{draft.bpl === 'yes' ? '₹0 · BPL' : '₹10 · UPI'}</dd></div>
-              <div><dt>Delivery</dt><dd>{draft.format}</dd></div>
-            </dl>
-          </div>
-          <button className="text-button" onClick={() => setEditing(true)} type="button">Change details</button>
-        </section>}
-        {step === 1 && (!demoReady || editing) && <section className="fast-step official-form">
+        {step === 0 && <PortalGuidelines kind="request" accepted={guidelinesAccepted} onAccepted={setGuidelinesAccepted}/>}
+        {step === 1 && <section className="fast-step official-form">
           <span className="step-label">Online RTI request form</span>
           <h2>Start with the record you want.</h2>
-          <p>Indian citizens only. Name, email, address and the record are enough. Gender and extra contact details are optional.</p>
-          {demoReady && <p className="demo-fill-note" role="status">Demonstration is complete: Railway Board · Aarav Sharma · ₹10 · security {DEMO_SECURITY}. Review and continue.</p>}
+          <p>Indian citizens only. Choose the suggested office, then type name, email, address, BPL and security code <b>{DEMO_SECURITY}</b>.</p>
+          {initialNeed && <p className="demo-fill-note" role="status">Request text is filled from the homepage. Nothing else is filled. Click the suggested public authority, then complete the form on camera.</p>}
 
           <fieldset className="form-fieldset">
             <legend>The record you want</legend>
@@ -415,8 +350,6 @@ export function RequestWorkflow({ initialNeed = '', initialAuthority = '' }: { i
             {suggestedAuthority && draft.request.trim().length >= 12 && suggestedAuthority.code !== selectedAuthority?.code && <div className="authority-match"><div><span>Suggested from request text</span><b>{suggestedAuthority.name}</b><small>{suggestedAuthority.ministry}</small></div><button type="button" onClick={() => setDraft((current) => ({ ...current, ministry: suggestedAuthority.ministry, authority: suggestedAuthority.code }))}>Use this authority</button></div>}
           </fieldset>
 
-          <details className="optional-details" open={!demoReady ? true : undefined}>
-            <summary>{demoReady ? 'Applicant, fee and delivery — Aarav Sharma · ₹10 · electronic copy' : 'Applicant, fee and delivery'}</summary>
           <fieldset className="form-fieldset">
             <legend>Personal details of RTI applicant</legend>
             <div className="fast-form">
@@ -449,7 +382,6 @@ export function RequestWorkflow({ initialNeed = '', initialAuthority = '' }: { i
             <label className="supporting-upload"><span>Supporting document (optional)</span><input accept="application/pdf" type="file"/><small>One PDF up to 1 MB. PDF name should be under 12 characters, with no spaces. Do not upload Aadhaar or PAN.</small></label>
             <label><span>Enter security code *</span><div className="captcha-row"><b aria-label="Demonstration security code">RTI26</b><input value={securityCode} onChange={(event) => setSecurityCode(event.target.value)} placeholder="Enter RTI26"/></div></label>
           </fieldset>
-          </details>
         </section>}
         {step === 2 && selectedAuthority && <section className="fast-step review-step"><span className="step-label">Make payment</span><h2>{bplExempt ? 'Confirm the BPL exemption.' : 'Confirm and pay ₹10.'}</h2><p>{bplExempt ? 'Eligible BPL applicants do not pay the application fee when valid proof is attached.' : 'Non-BPL applicants pay ₹10 once. Do not pay again if a previous attempt is pending. This demonstration does not charge a bank or UPI account.'}</p>
           <div className="fast-review"><article><span>Request</span><p>{draft.request}</p><button type="button" onClick={() => setStep(1)}>Edit</button></article><article><span>Public authority</span><b>{selectedAuthority.name}</b><small>{selectedAuthority.ministry}</small></article><article><span>Applicant</span><b>{draft.name}</b><small>{draft.email} · {draft.format}</small></article></div>
