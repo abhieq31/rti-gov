@@ -10,8 +10,7 @@ const coreServices = [
 
 const information = [
   ['Public Authorities', '/authorities'], ['User Manual', '/guide'], ['FAQ', '/faq'],
-  ['Contact Us', '/contact'], ['About RTI', '/learn'], ['How it works', '/process'],
-  ['Why this redesign', '/compare'],
+  ['Contact Us', '/contact'],
 ] as const;
 
 export function SiteHeader() {
@@ -62,9 +61,9 @@ export function SiteFooter() {
             {coreServices.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}
           </div>
           <div>
-            <Link href="/process">How it works</Link>
-            <Link href="/compare">Why this redesign</Link>
-            <Link href="/policies">About this prototype</Link>
+            {information.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}
+            <Link href="/policies">Privacy</Link>
+            <a href="https://www.india.gov.in/">National Portal of India</a>
           </div>
         </div>
       </div>

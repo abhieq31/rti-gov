@@ -483,6 +483,9 @@ html[data-text-size='lg'] .india-theme{zoom:1.12}
 .india-theme .portal-guidelines li span{font-size:13px;line-height:1.4}
 .india-theme .guidelines-check{padding:12px 14px}
 .india-theme .demo-fill-note{margin:0 auto 12px}
+.india-theme .authority-suggest{margin-top:14px;padding:16px 18px;border:1px solid #d4b48a;background:#f7f1e4}
+.india-theme .authority-suggest>button{margin-left:auto;min-height:44px;padding:0 16px;border:0;background:#0c2340;color:#fbf8f2;font-size:13px;font-weight:800;cursor:pointer}
+@media(max-width:700px){.india-theme .authority-suggest{flex-direction:column;align-items:stretch;gap:12px}.india-theme .authority-suggest>button{margin-left:0;width:100%}}
 .india-theme .fast-body{min-height:0;padding:20px clamp(18px,5vw,48px) 24px}
 .india-theme .fast-workflow{margin-top:16px;margin-bottom:48px}
 .india-theme .login-card{
@@ -559,6 +562,30 @@ html[data-text-size='lg'] .india-theme{zoom:1.12}
 @media(max-width:900px){
   .india-theme .concept-band nav{margin-left:0}
   .india-theme .civic-note{width:calc(100% - 40px);margin-bottom:48px}
+}
+
+.portal-home{width:min(1120px,calc(100% - 40px));margin:0 auto 72px;padding-top:48px}
+.portal-home-lead{max-width:720px;margin-bottom:36px}
+.portal-home-lead h1{margin:10px 0 12px;color:#0c2340;font:500 clamp(28px,3.6vw,42px)/1.18 Georgia,"Iowan Old Style",Palatino,serif;letter-spacing:-.03em}
+.portal-home-lead p{margin:0;color:#5d6b78;font-size:17px;line-height:1.6}
+.service-options{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #ddd4c6}
+.service-options a{min-height:108px;padding:22px 24px 22px 0;display:grid;gap:8px;align-content:center;border-bottom:1px solid #ddd4c6;color:#0c2340;text-decoration:none}
+.service-options li:nth-child(odd) a{padding-right:28px;border-right:1px solid #ddd4c6}
+.service-options li:nth-child(even) a{padding-left:28px}
+.service-options b{font:600 20px/1.25 Georgia,serif}
+.service-options span{color:#5d6b78;font-size:14px;line-height:1.5;font-weight:400}
+.service-options a:hover b,.service-options a:focus-visible b{color:#1d4e73}
+.portal-also{margin:22px 0 0;display:flex;flex-wrap:wrap;gap:8px 22px}
+.portal-also a{color:#0c2340;font-size:14px;font-weight:650;text-decoration:none}
+.portal-home .civic-note{width:auto;margin:28px 0 0;padding:14px 0;border-top:1px solid #ddd4c6}
+.home-clocks{margin:36px 0 0;padding:22px 0 0;list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;border-top:1px solid #ddd4c6}
+.home-clocks b{display:block;color:#8a4e18;font:500 22px/1 Georgia,serif}
+.home-clocks span{color:#5d6b78;font-size:14px}
+@media(max-width:800px){
+  .portal-home{width:calc(100% - 32px);padding-top:32px}
+  .service-options{grid-template-columns:1fr}
+  .service-options li:nth-child(odd) a,.service-options li:nth-child(even) a{padding:18px 0;border-right:0}
+  .home-clocks{grid-template-columns:1fr 1fr}
 }
 
 .paper-keep{

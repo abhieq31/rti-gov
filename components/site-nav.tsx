@@ -47,7 +47,7 @@ export function SiteNav({
         {coreServices.map(([label, href]) => (
           <Link aria-current={isCurrent(pathname, href) ? 'page' : undefined} href={href} key={href}>{label}</Link>
         ))}
-        <Link aria-current={isCurrent(pathname, '/login') ? 'page' : undefined} className="gov-login" href="/login">Citizen Login <span>→</span></Link>
+        <Link aria-current={isCurrent(pathname, '/login') ? 'page' : undefined} className="gov-login" href="/login">Login</Link>
       </nav>
       <div className="gov-mobile-bar">
         <span>Citizen services</span>
@@ -76,7 +76,7 @@ export function SiteNav({
               {information.map(([label, href]) => (
                 <Link aria-current={isCurrent(pathname, href) ? 'page' : undefined} href={href} key={href} onClick={() => setOpen(false)}>{label}<span aria-hidden="true">→</span></Link>
               ))}
-              <Link aria-current={isCurrent(pathname, '/login') ? 'page' : undefined} className="gov-drawer-login" href="/login" onClick={() => setOpen(false)}>Citizen Login<span aria-hidden="true">→</span></Link>
+              <Link aria-current={isCurrent(pathname, '/login') ? 'page' : undefined} className="gov-drawer-login" href="/login" onClick={() => setOpen(false)}>Login<span aria-hidden="true">→</span></Link>
             </nav>
           </div>
         </>
