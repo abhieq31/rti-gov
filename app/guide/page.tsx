@@ -24,8 +24,8 @@ const flows = [
     href: '/appeal',
     steps: [
       'Accept the appeal guidelines',
-      'Review the original request, ground and ₹0 fee',
-      'Confirm. Continue stays blocked until you do',
+      'Enter the original registration number, email and RTI26',
+      'State the ground and the relief you want. No fee',
       'Save the appeal number and the 45-day FAA clock',
     ],
   },

@@ -567,27 +567,23 @@ function CaseStatus({ record, onChangeDetails }: { record: StatusRecord; onChang
   );
 }
 
-const DEMO_APPEAL_TEXT = `The CPIO has not supplied the inspection reports for Anand Vihar railway station within 30 days of registration number ${DEMO_REQUEST_ID}. I request the First Appellate Authority to direct disclosure of the complete reports and related file noting, or to record a lawful exemption.`;
-
 export function AppealWorkflow({ initialRegistration = '' }: { initialRegistration?: string }) {
-  const demoPath = !initialRegistration || initialRegistration.toUpperCase() === DEMO_REQUEST_ID;
   const [step, setStep] = useState(0);
   const [guidelinesAccepted, setGuidelinesAccepted] = useState(false);
-  const [registration, setRegistration] = useState(initialRegistration || DEMO_REQUEST_ID);
-  const [email, setEmail] = useState(demoPath ? 'aarav.demo@example.in' : '');
+  const [registration, setRegistration] = useState(initialRegistration);
+  const [email, setEmail] = useState('');
   const [lookupError, setLookupError] = useState('');
-  const [securityCode, setSecurityCode] = useState(demoPath ? 'RTI26' : '');
+  const [securityCode, setSecurityCode] = useState('');
   const [reason, setReason] = useState('No response after 30 days');
-  const [text, setText] = useState(demoPath ? DEMO_APPEAL_TEXT : '');
+  const [text, setText] = useState('');
   const [confirmed, setConfirmed] = useState(false);
-  const [sourceRecord, setSourceRecord] = useState<StatusRecord | null>(demoPath ? demoRequests.find((item) => item.id === DEMO_REQUEST_ID) || demoRequests[0] : null);
+  const [sourceRecord, setSourceRecord] = useState<StatusRecord | null>(null);
   const [appealRegistration, setAppealRegistration] = useState('');
   const [submittedAt, setSubmittedAt] = useState<Date | null>(null);
-  const [editing, setEditing] = useState(false);
   const workflowRef = useRef<HTMLDivElement>(null);
   const didStep = useRef(false);
-  const labels = demoPath ? ['Guidelines', 'Appeal form', 'Appeal form', 'Registered'] : ['Guidelines', 'Retrieve request', 'Appeal form', 'Registered'];
-  const progressNow = step === 3 ? 1 : demoPath ? (step === 0 ? 1 : 2) / 2 : (step + 1) / 3;
+  const labels = ['Guidelines', 'Retrieve request', 'Appeal form', 'Registered'];
+  const progressNow = step === 3 ? 1 : (step + 1) / 3;
   const formatDate = (date: Date) => new Intl.DateTimeFormat('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }).format(date);
   const dueDate = useMemo(() => {
     if (!submittedAt) return null;
@@ -627,7 +623,7 @@ export function AppealWorkflow({ initialRegistration = '' }: { initialRegistrati
       return;
     }
     const root = workflowRef.current;
-    const target = root?.querySelector(step === 3 ? '.fast-receipt' : '.fast-body, .demo-dossier, .review-step') || root;
+    const target = root?.querySelector(step === 3 ? '.fast-receipt' : '.fast-body, .review-step') || root;
     scrollStepIntoView(target instanceof HTMLElement ? target : root);
   }, [step]);
 
@@ -646,51 +642,22 @@ export function AppealWorkflow({ initialRegistration = '' }: { initialRegistrati
 
   return (
     <div className="fast-workflow" ref={workflowRef}>
-      <div className="fast-progress" role="progressbar" aria-valuemin={1} aria-valuemax={demoPath ? 2 : 3} aria-valuenow={step === 3 ? (demoPath ? 2 : 3) : demoPath ? (step === 0 ? 1 : 2) : step + 1} aria-label={step === 3 ? 'Appeal registered' : `Step ${demoPath ? (step === 0 ? 1 : 2) : step + 1} of ${demoPath ? 2 : 3}, ${labels[step]}`}><div style={{ width: `${progressNow * 100}%` }}/><span>{labels[step]}</span><b>{step === 3 ? 'Complete' : demoPath ? `Step ${step === 0 ? 1 : 2} of 2` : `Step ${step + 1} of 3`}</b></div>
+      <div className="fast-progress" role="progressbar" aria-valuemin={1} aria-valuemax={3} aria-valuenow={step === 3 ? 3 : step + 1} aria-label={step === 3 ? 'Appeal registered' : `Step ${step + 1} of 3, ${labels[step]}`}><div style={{ width: `${progressNow * 100}%` }}/><span>{labels[step]}</span><b>{step === 3 ? 'Complete' : `Step ${step + 1} of 3`}</b></div>
       <div className="fast-body">
-        {step === 0 && <>
-          {demoPath && <p className="demo-fill-note" role="status">Demonstration appeal for <b>{DEMO_REQUEST_ID}</b> is ready. Accept the guidelines, then review. No fee.</p>}
-          <PortalGuidelines kind="appeal" accepted={guidelinesAccepted} onAccepted={setGuidelinesAccepted}/>
-        </>}
+        {step === 0 && <PortalGuidelines kind="appeal" accepted={guidelinesAccepted} onAccepted={setGuidelinesAccepted}/>}
         {step === 1 && <section className="fast-step">
           <span className="step-label">Online RTI first appeal form</span>
           <h2>Start with the original request.</h2>
           <p>An online first appeal needs the original registration number, applicant email and security code. No fee is charged for a Central first appeal.</p>
           <div className="fast-form">
-            <label><span>RTI request registration number *</span><input required value={registration} onChange={(event) => setRegistration(event.target.value)} /></label>
-            <label><span>Email used to file *</span><input required type="email" value={email} onChange={(event) => setEmail(event.target.value)} /></label>
+            <label><span>RTI request registration number *</span><input required value={registration} onChange={(event) => setRegistration(event.target.value)} placeholder={DEMO_REQUEST_ID} /></label>
+            <label><span>Email used to file *</span><input required type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder={DEMO_EMAIL} /></label>
             <label className="wide"><span>Security code *</span><div className="captcha-row"><b aria-label="Demonstration security code">RTI26</b><input value={securityCode} onChange={(event) => setSecurityCode(event.target.value)} placeholder="Enter RTI26"/></div></label>
           </div>
           {lookupError && <p className="form-error" role="alert">{lookupError}</p>}
+          <button className="text-button" onClick={() => { setRegistration(DEMO_REQUEST_ID); setEmail(DEMO_EMAIL); setSecurityCode(DEMO_SECURITY); setLookupError(''); }} type="button">Fill demonstration request</button>
         </section>}
-        {step === 2 && demoPath && !editing && <section className="fast-step demo-dossier">
-          <span className="step-label">Grounds for appeal</span>
-          <h2>No fee. Review the first appeal.</h2>
-          <p>The original Railway Board request is attached. The First Appellate Authority has 45 days to decide.</p>
-          <div className="demo-dossier-card">
-            <article>
-              <span>The appeal</span>
-              <p>{text}</p>
-            </article>
-            <dl>
-              <div><dt>Original request</dt><dd>{sourceRecord?.id}<small>{sourceRecord?.subject}</small></dd></div>
-              <div><dt>Ground</dt><dd>{reason}</dd></div>
-              <div><dt>Fee</dt><dd>₹0 · first appeal</dd></div>
-              <div><dt>FAA clock</dt><dd>45 days</dd></div>
-            </dl>
-          </div>
-          <div className="demo-pay-slip appeal-fee-slip">
-            <div>
-              <span>First appeal fee</span>
-              <strong>₹0</strong>
-              <small>No fee for a Central first appeal</small>
-            </div>
-            <div className="deadline-count"><b>45</b><span>days</span></div>
-          </div>
-          <button className="text-button" onClick={() => setEditing(true)} type="button">Change details</button>
-          <label className="final-declaration"><input checked={confirmed} onChange={(event) => setConfirmed(event.target.checked)} type="checkbox" /><span><b>I confirm the appeal details are correct.</b><small>No fee is charged for a Central first appeal. This prototype transmits nothing.</small></span></label>
-        </section>}
-        {step === 2 && (!demoPath || editing) && <section className="fast-step">
+        {step === 2 && <section className="fast-step">
           <span className="step-label">Grounds for appeal</span>
           <h2>Complete the first appeal.</h2>
           <p>State what went wrong and the relief you want. The First Appellate Authority should decide within 45 days.</p>
@@ -728,9 +695,9 @@ export function AppealWorkflow({ initialRegistration = '' }: { initialRegistrati
         </section>}
       </div>
       {step < 3 && <div className="fast-actions">
-        <button disabled={step === 0} onClick={() => setStep((current) => (current === 2 && demoPath ? 0 : current - 1))} type="button">← Back</button>
+        <button disabled={step === 0} onClick={() => setStep((current) => current - 1)} type="button">← Back</button>
         <span><i>✓</i> {step === 2 ? 'No first-appeal fee' : 'Draft stays in this browser'}</span>
-        {step === 0 && <button className="button-primary" disabled={!canContinue} onClick={() => setStep(demoPath && sourceRecord ? 2 : 1)} type="button">{guidelinesAccepted ? <>Proceed to appeal form <b>→</b></> : 'Accept guidelines to continue'}</button>}
+        {step === 0 && <button className="button-primary" disabled={!canContinue} onClick={() => setStep(1)} type="button">{guidelinesAccepted ? <>Proceed to appeal form <b>→</b></> : 'Accept guidelines to continue'}</button>}
         {step === 1 && <button className="button-primary" disabled={!canContinue} onClick={findEligible} type="button">Retrieve request <b>→</b></button>}
         {step === 2 && <button className="button-primary" disabled={!canContinue} onClick={submitAppeal} type="button">{confirmed ? <>Submit first appeal <b>→</b></> : 'Confirm details to submit'}</button>}
       </div>}
@@ -860,7 +827,7 @@ export function PaymentReconciliation() {
 export function DemoLogin() {
   const [username, setUsername] = useState('aarav.demo'); const [password, setPassword] = useState('rti@2026'); const [security, setSecurity] = useState('RTI26'); const [error, setError] = useState('');
   const login = () => { if (username === 'aarav.demo' && password === 'rti@2026' && security.toUpperCase() === 'RTI26') { storeValue('rti-gov-demo-user', 'aarav'); window.location.href = '/history'; } else setError('Use the demonstration username, password and security code RTI26.'); };
-  return <div className="login-card"><span className="step-label">Citizen login</span><h2>Sign in with the demonstration account.</h2><p>Credentials are pre-filled. Security code is <b>RTI26</b>.</p><label><span>Username *</span><input autoComplete="username" value={username} onChange={(event) => setUsername(event.target.value)} /></label><label><span>Password *</span><input autoComplete="current-password" type="password" value={password} onChange={(event) => setPassword(event.target.value)} /></label><label><span>Security code *</span><div className="captcha-row"><b>RTI26</b><input value={security} onChange={(event) => setSecurity(event.target.value)} placeholder="Enter RTI26"/></div></label>{error && <p className="form-error" role="alert">{error}</p>}<button className="button-primary" onClick={login} type="button">Login</button><a className="login-history-link" href="/history">Forgot credentials? Open Aarav’s history →</a></div>;
+  return <div className="login-card"><span className="step-label">Login</span><h2>Sign in with the demonstration account.</h2><p>Credentials are pre-filled. Security code is <b>RTI26</b>.</p><label><span>Username *</span><input autoComplete="username" value={username} onChange={(event) => setUsername(event.target.value)} /></label><label><span>Password *</span><input autoComplete="current-password" type="password" value={password} onChange={(event) => setPassword(event.target.value)} /></label><label><span>Security code *</span><div className="captcha-row"><b>RTI26</b><input value={security} onChange={(event) => setSecurity(event.target.value)} placeholder="Enter RTI26"/></div></label>{error && <p className="form-error" role="alert">{error}</p>}<button className="button-primary" onClick={login} type="button">Login</button><a className="login-history-link" href="/history">Forgot credentials? Open Aarav’s history →</a></div>;
 }
 
 export function FeedbackForm() {
