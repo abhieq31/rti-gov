@@ -287,7 +287,7 @@ export function RequestWorkflow({ initialNeed = '', initialAuthority = '' }: { i
       return;
     }
     const root = workflowRef.current;
-    const target = root?.querySelector(step === 3 ? '.fast-receipt' : '.fast-body, .demo-dossier, .review-step') || root;
+    const target = root?.querySelector(step === 3 ? '.fast-receipt' : '.fast-body, .review-step') || root;
     scrollStepIntoView(target instanceof HTMLElement ? target : root);
   }, [step]);
 
@@ -328,14 +328,15 @@ export function RequestWorkflow({ initialNeed = '', initialAuthority = '' }: { i
         {step === 0 && <PortalGuidelines kind="request" accepted={guidelinesAccepted} onAccepted={setGuidelinesAccepted}/>}
         {step === 1 && <section className="fast-step official-form">
           <span className="step-label">Online RTI request form</span>
-          <h2>Start with the record you want.</h2>
-          <p>Indian citizens only. Choose the suggested office, then type name, email, address, BPL and security code <b>{DEMO_SECURITY}</b>.</p>
+          <h2>{initialNeed ? 'Choose the office, then type the applicant.' : 'Start with the record you want.'}</h2>
+          <p>Indian citizens only. Click the suggested office if it is right, then type name, email, address, BPL and security code <b>{DEMO_SECURITY}</b>.</p>
           {initialNeed && <p className="demo-fill-note" role="status">Request text is filled from the homepage. Nothing else is filled. Click the suggested public authority, then complete the form on camera.</p>}
 
           <fieldset className="form-fieldset">
             <legend>The record you want</legend>
             <label className="fast-question"><span>Text for RTI request application *</span><textarea maxLength={3000} value={draft.request} onChange={(event) => update('request', event.target.value)} placeholder="Provide copies of the inspection reports for…"/><small>{draft.request.length} / 3,000 characters · only A–Z, 0–9 and , . - _ ( ) / @ : &amp; ? \ % in a live filing</small></label>
             {grievanceLikely && <div className="gentle-warning"><b>Need the problem fixed?</b><p>RTI obtains existing records. A grievance service is the route for asking an office to take action.</p><a href="/guide">Read the user manual</a></div>}
+            {suggestedAuthority && draft.request.trim().length >= 12 && suggestedAuthority.code !== selectedAuthority?.code && <div className="authority-match authority-suggest"><div><span>Suggested from request text</span><b>{suggestedAuthority.name}</b><small>{suggestedAuthority.ministry}</small></div><button type="button" onClick={() => { setDraft((current) => ({ ...current, ministry: suggestedAuthority.ministry, authority: suggestedAuthority.code })); setConfirmed(false); }}>Use {suggestedAuthority.name}</button></div>}
           </fieldset>
 
           <fieldset className="form-fieldset">
@@ -347,14 +348,13 @@ export function RequestWorkflow({ initialNeed = '', initialAuthority = '' }: { i
               <label><span>Select public authority *</span><select value={draft.authority} disabled={!draft.ministry} onChange={(event) => update('authority', event.target.value)}><option value="">Select</option>{ministryAuthorities.map((item) => <option key={item.code} value={item.code}>{item.name}</option>)}</select></label>
             </div>
             {selectedAuthority && <div className="authority-match"><div><span>Request will be filed with</span><b>{selectedAuthority.name}</b><small>{selectedAuthority.ministry} · {selectedAuthority.topics}</small></div></div>}
-            {suggestedAuthority && draft.request.trim().length >= 12 && suggestedAuthority.code !== selectedAuthority?.code && <div className="authority-match"><div><span>Suggested from request text</span><b>{suggestedAuthority.name}</b><small>{suggestedAuthority.ministry}</small></div><button type="button" onClick={() => setDraft((current) => ({ ...current, ministry: suggestedAuthority.ministry, authority: suggestedAuthority.code }))}>Use this authority</button></div>}
           </fieldset>
 
           <fieldset className="form-fieldset">
             <legend>Personal details of RTI applicant</legend>
             <div className="fast-form">
-              <label><span>Email ID *</span><input autoComplete="email" type="email" value={draft.email} onChange={(event) => update('email', event.target.value)}/></label>
               <label><span>Name *</span><input autoComplete="name" value={draft.name} onChange={(event) => update('name', event.target.value)}/></label>
+              <label><span>Email ID *</span><input autoComplete="email" type="email" value={draft.email} onChange={(event) => update('email', event.target.value)}/></label>
               <label><span>Mobile number</span><input autoComplete="tel" inputMode="numeric" maxLength={10} value={draft.mobile} onChange={(event) => update('mobile', event.target.value.replace(/\D/g, ''))} placeholder="10-digit mobile for SMS alerts"/></label>
               <label className="wide"><span>Gender</span><div className="choice-row" role="radiogroup">{(['Male', 'Female', 'Third Gender'] as const).map((item) => <label key={item}><input checked={draft.gender === item} name="gender" onChange={() => update('gender', item)} type="radio"/>{item}</label>)}</div></label>
               <label className="wide"><span>Address *</span><textarea autoComplete="street-address" value={draft.address} onChange={(event) => update('address', event.target.value)} placeholder="House, street, city"/></label>
