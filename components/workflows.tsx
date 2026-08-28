@@ -851,9 +851,49 @@ export function HistoryDashboard() {
 }
 
 export function PaymentReconciliation() {
-  const [transaction, setTransaction] = useState(DEMO_PAYMENT_ID); const [email, setEmail] = useState(DEMO_EMAIL); const [security, setSecurity] = useState(DEMO_SECURITY); const [result, setResult] = useState<'idle' | 'found' | 'missing'>('found');
+  const [transaction, setTransaction] = useState(DEMO_PAYMENT_ID);
+  const [email, setEmail] = useState(DEMO_EMAIL);
+  const [security, setSecurity] = useState(DEMO_SECURITY);
+  const [result, setResult] = useState<'idle' | 'found' | 'missing'>('found');
   const check = () => setResult(transaction.trim().toUpperCase() === DEMO_PAYMENT_ID && email.trim().toLowerCase() === DEMO_EMAIL && security.toUpperCase() === DEMO_SECURITY ? 'found' : 'missing');
-  return <div className="tool-surface compact-tool"><form className="lookup-form" onSubmit={(event) => { event.preventDefault(); check(); }}><div className="service-form-intro"><span className="step-label">Payment reconciliation</span><h2>Find the ₹10 once.</h2><p>Use this only when money was debited but no registration number was generated. Do not pay again. Demonstration details are pre-filled.</p></div><label><span>Bank / gateway transaction ID *</span><input required value={transaction} onChange={(event) => setTransaction(event.target.value)} /></label><label><span>Applicant email *</span><input required type="email" value={email} onChange={(event) => setEmail(event.target.value)} /></label><label><span>Security code *</span><div className="captcha-row"><b>{DEMO_SECURITY}</b><input required value={security} onChange={(event) => setSecurity(event.target.value)} placeholder={`Enter ${DEMO_SECURITY}`}/></div></label>{result === 'missing' && <p className="form-error" role="alert">No matching prototype payment. Use the pre-filled details and security code {DEMO_SECURITY}.</p>}<button className="button-primary">Check payment</button><button className="text-button" onClick={() => { setTransaction(DEMO_PAYMENT_ID); setEmail(DEMO_EMAIL); setSecurity(DEMO_SECURITY); check(); }} type="button">Open demonstration payment</button></form>{result === 'found' && <div className="fast-receipt payment-receipt" role="status"><div className="success-orbit"><span>✓</span></div><span className="step-label">Payment reconciled</span><h2>₹10 received. Number issued.</h2><p>Do not attempt another payment. Status uses this same registration number.</p><div className="registration-card"><span>Prototype registration number</span><b>{DEMO_REQUEST_ID}</b></div><dl className="receipt-summary"><div><dt>Amount</dt><dd>₹10 · UPI</dd></div><div><dt>Transaction</dt><dd>{DEMO_PAYMENT_ID}</dd></div><div><dt>Applicant</dt><dd>{DEMO_EMAIL}</dd></div><div><dt>Authority</dt><dd>Railway Board</dd></div></dl><div className="receipt-actions"><a className="button-primary" href={`/status?registration=${encodeURIComponent(DEMO_REQUEST_ID)}&email=${encodeURIComponent(DEMO_EMAIL)}`}>View status</a></div></div>}</div>;
+  return (
+    <div className="tool-surface compact-tool">
+      {result === 'found' && (
+        <div className="fast-receipt payment-receipt" role="status">
+          <div className="success-orbit"><span>✓</span></div>
+          <span className="step-label">Payment reconciled</span>
+          <h2>₹10 received. Number issued.</h2>
+          <p>Do not pay again. Status uses this same registration number.</p>
+          <div className="registration-card"><span>Prototype registration number</span><b>{DEMO_REQUEST_ID}</b></div>
+          <dl className="receipt-summary">
+            <div><dt>Amount</dt><dd>₹10 · UPI</dd></div>
+            <div><dt>Transaction</dt><dd>{DEMO_PAYMENT_ID}</dd></div>
+            <div><dt>Applicant</dt><dd>{DEMO_EMAIL}</dd></div>
+            <div><dt>Authority</dt><dd>Railway Board</dd></div>
+          </dl>
+          <div className="receipt-actions">
+            <a className="button-primary" href={`/status?registration=${encodeURIComponent(DEMO_REQUEST_ID)}&email=${encodeURIComponent(DEMO_EMAIL)}`}>View status</a>
+            <button className="button-secondary" onClick={() => setResult('idle')} type="button">Look up a different payment</button>
+          </div>
+        </div>
+      )}
+      {result !== 'found' && (
+        <form className="lookup-form" onSubmit={(event) => { event.preventDefault(); check(); }}>
+          <div className="service-form-intro">
+            <span className="step-label">Payment reconciliation</span>
+            <h2>Find the ₹10 once.</h2>
+            <p>Use this only when money was debited but no registration number was generated. Do not pay again.</p>
+          </div>
+          <label><span>Bank / gateway transaction ID *</span><input required value={transaction} onChange={(event) => setTransaction(event.target.value)} /></label>
+          <label><span>Applicant email *</span><input required type="email" value={email} onChange={(event) => setEmail(event.target.value)} /></label>
+          <label><span>Security code *</span><div className="captcha-row"><b>{DEMO_SECURITY}</b><input required value={security} onChange={(event) => setSecurity(event.target.value)} placeholder={`Enter ${DEMO_SECURITY}`}/></div></label>
+          {result === 'missing' && <p className="form-error" role="alert">No matching prototype payment. Use the pre-filled details and security code {DEMO_SECURITY}.</p>}
+          <button className="button-primary">Check payment</button>
+          <button className="text-button" onClick={() => { setTransaction(DEMO_PAYMENT_ID); setEmail(DEMO_EMAIL); setSecurity(DEMO_SECURITY); check(); }} type="button">Open demonstration payment</button>
+        </form>
+      )}
+    </div>
+  );
 }
 
 export function DemoLogin() {

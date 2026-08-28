@@ -113,24 +113,24 @@ export default function HomePage() {
         <p>These match the official RTI Online homepage diagram. Life-or-liberty requests are due in 48 hours.</p>
         <Link href="/process">See the full process →</Link>
       </div>
-      <aside className="clock-urgent" role="note">
-        <b>48 hours</b>
-        <div>
-          <strong>Life or liberty</strong>
-          <p>A genuine emergency is due in two days, not thirty. Tick that only when a person’s life or liberty is at stake.</p>
-        </div>
-      </aside>
-      <div className="clock-row civic-clock-grid">
+      <ol className="clock-spine home-clocks">
+        <li className="urgent">
+          <b>48 hours</b>
+          <div>
+            <h2>Life or liberty</h2>
+            <p>A genuine emergency is due in two days, not thirty. Tick that only when a person’s life or liberty is at stake.</p>
+          </div>
+        </li>
         {clocks.map((item) => (
-          <Link href="/process" key={item.title}>
-            <article>
-              <b>{item.time}</b>
-              <h3>{item.title}</h3>
+          <li key={item.title}>
+            <b>{item.time}</b>
+            <div>
+              <h2>{item.title}</h2>
               <p>{item.text}</p>
-            </article>
-          </Link>
+            </div>
+          </li>
         ))}
-      </div>
+      </ol>
     </section>
 
     <section aria-labelledby="why-heading" className="civic-why">
@@ -158,7 +158,7 @@ export default function HomePage() {
 
     <section className="civic-learn" aria-labelledby="learn-heading">
       <h2 id="learn-heading">Do a little research first. Then file only if you still need the record.</h2>
-      <p className="civic-learn-lead">Hover a panel to read it. Dotted words open a short definition.</p>
+      <p className="civic-learn-lead">Open a column to read it. Dotted words open a short definition.</p>
       <LearnColumns />
     </section>
 

@@ -311,7 +311,7 @@ html[data-text-size='lg'] .india-theme{zoom:1.12}
 .india-theme .tool-surface,.india-theme .workflow-shell,.india-theme .dashboard-surface,.india-theme .fast-workflow,.india-theme .login-card,.india-theme .narrow-content{
   border-radius:0;border-color:#ddd4c6;background:#fbf8f2;box-shadow:0 16px 36px rgba(12,35,64,.06);
 }
-.india-theme .fast-progress,.india-theme .dashboard-head,.india-theme .search-tool{background:#0c2340}
+.india-theme .fast-progress,.india-theme .dashboard-head{background:#0c2340}
 .india-theme .dashboard-head .button-primary{background:#fbf8f2;color:#0c2340}
 .india-theme .list-due small{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8a4e18}
 .india-theme .list-due b{font:600 14px Georgia,serif}
@@ -426,7 +426,32 @@ html[data-text-size='lg'] .india-theme{zoom:1.12}
 .appeal-strip b{display:block;margin:4px 0;font:600 20px/1.2 Georgia,serif;color:#0c2340}
 .appeal-strip small{display:block;color:#5d6b78;font-size:13px;line-height:1.45}
 .appeal-strip .button-primary{flex:none;white-space:nowrap}
-.payment-receipt{margin-top:28px;padding-top:8px;border-top:1px solid #ddd4c6}
+.payment-receipt{margin:0;padding:8px 0 0;border:0}
+.civic-clocks .clock-spine{width:100%;margin:8px 0 0}
+.india-theme .authority-tool-head{
+  background:#fbf8f2;color:#0c2340;border-bottom:1px solid #ddd4c6;padding:22px 24px;
+}
+.india-theme .authority-tool-head label>span{color:#8a4e18;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.india-theme .authority-tool-head input{border:1px solid #ddd4c6;background:#fff;color:#0c2340}
+.india-theme .segment-control{background:#efe9dc}
+.india-theme .segment-control button{color:#5d6b78}
+.india-theme .segment-control button.active{background:#0c2340;color:#fbf8f2}
+.india-theme .authority-cards{grid-template-columns:1fr;gap:0;background:transparent;border-top:1px solid #ddd4c6}
+.india-theme .authority-cards article{
+  min-height:0;padding:18px 22px;grid-template-columns:56px 1fr auto;align-items:center;
+  border-bottom:1px solid #ddd4c6;background:#fbf8f2;
+}
+.india-theme .authority-code{background:#efe9dc;color:#0c2340}
+.india-theme .search-tool{
+  background:#fbf8f2;color:#0c2340;padding:22px 24px;border-bottom:1px solid #ddd4c6;
+}
+.india-theme .search-tool>label{font:500 26px Georgia,serif;color:#0c2340}
+.india-theme .search-tool>div{border:1px solid #ddd4c6;box-shadow:none;background:#fff}
+.india-theme .search-tool input{color:#0c2340}
+.india-theme .search-tool button{background:#0c2340}
+.india-theme .quick-queries button{border-radius:0;background:#efe9dc;color:#0c2340}
+.india-theme .search-tool>small{color:#5d6b78}
+.india-theme .content-rail{padding-top:36px}
 .history-switch{margin:0;padding:12px 25px 22px}
 .file-strip{
   padding:12px max(20px,calc((100vw - 1120px)/2));
@@ -465,11 +490,6 @@ html[data-text-size='lg'] .india-theme{zoom:1.12}
   background:#fbf8f2;border:1px solid #ddd4c6;box-shadow:none;
 }
 .india-theme .login-card h2{font:500 32px/1.15 Georgia,serif}
-.india-theme .search-tool,.india-theme .authority-tool-head{
-  background:#0c2340;color:#fbf8f2;
-}
-.india-theme .search-tool{padding:28px 32px}
-.india-theme .search-tool>label{font:500 26px Georgia,serif;color:#fbf8f2}
 .india-theme .tool-surface{margin-top:20px}
 
 @media(max-width:900px){

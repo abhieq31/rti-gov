@@ -70,7 +70,7 @@ export function LearnColumns() {
         const expanded = open === index;
         const panelId = `learn-panel-${index}`;
         return (
-          <article className={expanded ? 'learn-column is-open' : 'learn-column'} key={panel.title} onMouseEnter={() => setOpen(index)}>
+          <article className={expanded ? 'learn-column is-open' : 'learn-column'} key={panel.title}>
             <button aria-controls={panelId} aria-expanded={expanded} onClick={() => setOpen(expanded ? null : index)} type="button">
               <span>{String(index + 1).padStart(2, '0')}</span>
               <strong>{panel.title}</strong>
