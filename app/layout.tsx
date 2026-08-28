@@ -3,14 +3,15 @@ import './globals.css';
 import './official-portal.css';
 import './citizen-portal.css';
 import './portal-v2.css';
+import './redesign.css';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://rti-gov.vercel.app'),
+  metadataBase: new URL('https://rti-gov-india.abhipatel33360.chatgpt.site'),
   title: {
-    default: 'RTI Online — Right to Information citizen services',
+    default: 'RTI Online — Information is your right',
     template: '%s',
   },
-  description: 'A citizen-first concept for India’s unified Right to Information service: learn, search, file, track and appeal.',
+  description: 'A clear, citizen-first redesign of India’s RTI Online service for filing, tracking and appealing Central Government information requests.',
   applicationName: 'RTI Online prototype',
   authors: [{ name: 'RTI.gov independent concept team' }],
   creator: 'RTI.gov independent concept team',
@@ -18,8 +19,8 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 } },
   openGraph: {
     title: 'RTI Online — Information is your right',
-    description: 'Learn, search, create, track and appeal through one citizen-first RTI service.',
-    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'RTI.gov — Information is your right' }],
+    description: 'File, track and appeal a Central Government information request through one clear service.',
+    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'RTI Online — Information is your right. Getting it should be simple.' }],
     type: 'website',
     locale: 'en_IN',
     siteName: 'RTI Online prototype',
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'RTI Online — Information is your right',
-    description: 'Learn, search, create, track and appeal through one citizen-first RTI service.',
+    description: 'File, track and appeal a Central Government information request through one clear service.',
     images: ['/og.png'],
   },
   category: 'government services',
