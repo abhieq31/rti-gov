@@ -333,6 +333,8 @@ export function RequestWorkflow({ initialNeed = '', initialAuthority = '' }: { i
             {suggestedAuthority && draft.request.trim().length >= 12 && suggestedAuthority.code !== selectedAuthority?.code && <div className="authority-match"><div><span>Suggested from request text</span><b>{suggestedAuthority.name}</b><small>{suggestedAuthority.ministry}</small></div><button type="button" onClick={() => setDraft((current) => ({ ...current, ministry: suggestedAuthority.ministry, authority: suggestedAuthority.code }))}>Use this authority</button></div>}
           </fieldset>
 
+          <details className="optional-details" open={!demoReady ? true : undefined}>
+            <summary>{demoReady ? 'Applicant, fee and delivery — Aarav Sharma · ₹10 · electronic copy' : 'Applicant, fee and delivery'}</summary>
           <fieldset className="form-fieldset">
             <legend>Personal details of RTI applicant</legend>
             <div className="fast-form">
@@ -370,6 +372,7 @@ export function RequestWorkflow({ initialNeed = '', initialAuthority = '' }: { i
             <label className="supporting-upload"><span>Supporting document (optional)</span><input accept="application/pdf" type="file"/><small>One PDF up to 1 MB. PDF name should be under 12 characters, with no spaces. Do not upload Aadhaar or PAN.</small></label>
             <label><span>Enter security code *</span><div className="captcha-row"><b aria-label="Demonstration security code">RTI26</b><input value={securityCode} onChange={(event) => setSecurityCode(event.target.value)} placeholder="Enter RTI26"/></div></label>
           </fieldset>
+          </details>
         </section>}
         {step === 2 && selectedAuthority && <section className="fast-step review-step"><span className="step-label">Make payment</span><h2>Confirm and pay the prescribed fee.</h2><p>Non-BPL applicants pay ₹10 once by UPI, net banking, debit/credit card or RuPay. Do not pay again if a previous attempt is pending.</p>
           <div className="fast-review"><article><span>Request</span><p>{draft.request}</p><button type="button" onClick={() => setStep(1)}>Edit</button></article><article><span>Public authority</span><b>{selectedAuthority.name}</b><small>{selectedAuthority.ministry}</small></article><article><span>Applicant</span><b>{draft.name}</b><small>{draft.email} · {draft.gender} · {draft.format}</small></article></div>

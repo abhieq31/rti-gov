@@ -2,6 +2,12 @@ import Link from 'next/link';
 import { GlossaryDrawer, LearnColumns, Term } from '@/components/civic-browse';
 import { PageShell } from '@/components/site-chrome';
 
+const needExamples = [
+  'Road repair estimate near my home',
+  'Inspection report for my railway station',
+  'Status and file noting of my pension case',
+] as const;
+
 const DEMO_NEED = '/request?need=Inspection%20report%20for%20my%20railway%20station';
 
 const startCards = [
@@ -74,7 +80,21 @@ export default function HomePage() {
         <small>Synthetic demonstration · not a valid RTI filing</small>
       </aside>
       <div className="civic-start">
-        <h2>Start here</h2>
+        <h2>Start with the record you want</h2>
+        <form className="citizen-start" action="/request">
+          <label htmlFor="home-need">What information do you want?</label>
+          <textarea id="home-need" name="need" minLength={12} placeholder="For example: Give me the inspection reports for the road repaired outside my home last year." required rows={3} />
+          <div className="citizen-start-actions">
+            <span><i aria-hidden="true">✓</i> No reason. No Aadhaar. Plain language is enough.</span>
+            <button>Start my request <b>→</b></button>
+          </div>
+          <div className="example-prompts">
+            <span>Try an example</span>
+            {needExamples.map((example) => (
+              <Link href={`/request?need=${encodeURIComponent(example)}`} key={example}>{example}</Link>
+            ))}
+          </div>
+        </form>
         <div className="civic-start-cards">
           {startCards.map((card, index) => (
             <Link href={card.href} key={card.href}>

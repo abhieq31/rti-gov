@@ -358,10 +358,20 @@ html[data-text-size='lg'] .india-theme{zoom:1.12}
 .india-theme .login-page aside p{color:#5d6b78;font-size:16px}
 .india-theme .login-card{border:1px solid #ddd4c6}
 
+.civic-start .citizen-start{margin:0 0 22px;background:#fbf8f2;border:1px solid #e4d8c4;box-shadow:none}
+.civic-start .citizen-start>label{color:#8a4e18;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.civic-start .citizen-start>textarea{background:#fbf8f2;min-height:88px;font:500 18px/1.45 Georgia,"Iowan Old Style",Palatino,serif}
+.civic-start .citizen-start-actions{background:#efe9dc}
+.civic-start .citizen-start-actions>button{background:#0c2340;border-radius:0}
+.civic-start .example-prompts>button,.civic-start .example-prompts>a{background:#efe9dc;color:#0c2340;border-radius:0;font-size:12px;text-decoration:none;padding:8px 11px}
+.civic-start .optional-details,.fast-step .optional-details summary{font-size:14px}
+
 @media(max-width:900px){
   .india-theme .civic-path ol{border-top:0}
   .india-theme .civic-path li{border-right:0;border-top:1px solid #ddd4c6;padding:22px 0}
   .india-theme .civic-hero{padding:56px 20px 40px}
   .india-theme .civic-hero h1{font-size:34px}
   .india-theme .login-page{grid-template-columns:1fr;padding:28px 16px 64px;gap:24px}
+  .civic-start .citizen-start-actions{display:grid;gap:10px}
+  .civic-start .citizen-start-actions>button{width:100%}
 }

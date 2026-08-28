@@ -40,7 +40,7 @@ export function SiteFooter() {
       <div className="gov-footer-brand"><span className="gov-mark" aria-hidden="true">RTI</span><div><strong>RTI Online</strong><p>Citizen services for Central Government information requests.</p><small>Independent redesign prototype · Not an official filing service</small></div></div>
       <div className="gov-footer-links"><div><b>Citizen services</b>{coreServices.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}</div><div><b>Information &amp; help</b>{information.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}</div><div><b>Related services</b><Link href="/commissions">Information Commissions</Link><Link href="/policies">Privacy &amp; accessibility</Link><a href="https://www.india.gov.in/">National Portal of India</a></div></div>
     </div>
-    <div className="gov-footer-contact"><b>Help desk</b><span>011-24010690 / 691</span><span>9:00 AM–5:30 PM, Monday–Friday except public holidays</span><span>helprtionline-dopt[at]nic[dot]in</span></div>
+    <div className="gov-footer-contact"><b>Official RTI Online help desk</b><span>For rtionline.gov.in, not this prototype</span><span>011-24010690 / 691 · 9:00 AM–5:30 PM, Monday–Friday</span><span>helprtionline-dopt[at]nic[dot]in</span></div>
     <div className="gov-footer-bottom"><p>All interactions are synthetic and remain on this device.</p><span>Designed toward WCAG 2.1 AA · Formal audit pending</span></div>
   </footer>;
 }
