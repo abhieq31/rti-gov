@@ -3,8 +3,8 @@ import { PageShell } from '@/components/site-chrome';
 import { DemoLogin } from '@/components/workflows';
 
 export const metadata: Metadata = {
-  title: 'Citizen login with demonstration account | RTI Online prototype',
-  description: 'Sign in to the synthetic citizen account with username, password and security code.',
+  title: 'Login | RTI Online prototype',
+  description: 'Sign in with username, password and security code. An account is not required to file.',
 };
 
 export default function LoginPage() {
