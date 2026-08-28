@@ -36,3 +36,7 @@ next-env.d.ts
 /.wrangler/
 /outputs/
 /work/
+
+# Playwright audit browsers (captured artifacts live under docs/reference)
+/audit/rti-online/node_modules/
+/audit/rti-online/test-results/

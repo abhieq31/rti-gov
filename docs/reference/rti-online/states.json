@@ -1,0 +1,2537 @@
+{
+  "generatedAt": "2026-08-28T07:16:00.000Z",
+  "humanAssisted": false,
+  "states": [
+    {
+      "id": "home",
+      "flow": "shell",
+      "label": "VERIFIED_LIVE",
+      "url": "https://rtionline.gov.in/",
+      "title": "RTI Online :: Home | Submit RTI Request | Submit RTI First Appeal | View RTI Status | RTI FAQ",
+      "httpStatus": 200,
+      "triggeringAction": "Open https://rtionline.gov.in/",
+      "previousState": null,
+      "nextActions": [
+        "Submit Request",
+        "Submit First Appeal",
+        "View Status",
+        "View History",
+        "Login",
+        "Payment Reconciliation",
+        "FAQ",
+        "Contact Us",
+        "Policy",
+        "Public Authorities Available"
+      ],
+      "fields": [],
+      "validationRules": [],
+      "validationObserved": [],
+      "surface": "home",
+      "screenshots": {
+        "desktop": "screenshots/desktop/home.png",
+        "mobile": "screenshots/mobile/home.png"
+      },
+      "headings": [
+        {
+          "level": "h1",
+          "text": "RTI Online",
+          "visible": true
+        }
+      ],
+      "forms": [
+        {
+          "name": "frmLang",
+          "method": "post",
+          "action": "",
+          "fields": [
+            "lan",
+            "hndbaseurl",
+            "hndactionurl"
+          ]
+        }
+      ],
+      "notes": "Playwright desktop screenshot crops the CIC banner. Full banner + lifecycle recorded as home.cic-banner and home.lifecycle."
+    },
+    {
+      "id": "home.cic-banner",
+      "flow": "shell",
+      "label": "VERIFIED_LIVE",
+      "url": "https://rtionline.gov.in/",
+      "title": "CIC second-appeal integration notice",
+      "httpStatus": 200,
+      "triggeringAction": "Land on home (banner above the jurisdiction warning)",
+      "previousState": "home",
+      "nextActions": [
+        "Complaint & Second Appeal to CIC (external dsscic.nic.in)",
+        "Submit First Appeal"
+      ],
+      "fields": [
+        "First Appeal Registration Number",
+        "Email ID",
+        "Date of Filing the First Appeal"
+      ],
+      "validationRules": [],
+      "validationObserved": [],
+      "surface": "home",
+      "screenshots": {
+        "desktop": "screenshots/desktop/home.png",
+        "mobile": "screenshots/mobile/home.png"
+      },
+      "notes": "Full text verified from live homepage HTML. Playwright PNG crops the right edge of this banner. Footer link uses HTTP and a JS alert with the same copy."
+    },
+    {
+      "id": "home.lifecycle",
+      "flow": "shell",
+      "label": "VERIFIED_LIVE",
+      "url": "https://rtionline.gov.in/images/rti_lifecycle.jpg",
+      "title": "RTI request lifecycle diagram",
+      "httpStatus": 200,
+      "triggeringAction": "Homepage embeds images/rti_lifecycle.jpg (alt image1)",
+      "previousState": "home",
+      "nextActions": [
+        "Submit Request",
+        "Submit First Appeal",
+        "Complaint & Second Appeal to CIC"
+      ],
+      "fields": [],
+      "validationRules": [],
+      "validationObserved": [],
+      "surface": "home",
+      "screenshots": {
+        "desktop": "screenshots/desktop/home.lifecycle.png"
+      },
+      "notes": "Process graphic, not a form. Nodes and day-counts are recorded in flows/lifecycle.md. Trailing-slash URL 404s."
+    },
+    {
+      "id": "registration.404",
+      "flow": "login",
+      "label": "BROKEN_OFFICIAL_SITE",
+      "url": "https://rtionline.gov.in/registration.php",
+      "title": "",
+      "httpStatus": 404,
+      "triggeringAction": "GET /registration.php",
+      "previousState": "home",
+      "nextActions": [],
+      "fields": [],
+      "validationRules": [],
+      "validationObserved": [],
+      "surface": "broken",
+      "screenshots": {
+        "desktop": "screenshots/desktop/registration.404.png",
+        "mobile": "screenshots/mobile/registration.404.png"
+      },
+      "headings": [],
+      "forms": []
+    },
+    {
+      "id": "forgot-password.404",
+      "flow": "login",
+      "label": "BROKEN_OFFICIAL_SITE",
+      "url": "https://rtionline.gov.in/forgotPassword.php",
+      "title": "",
+      "httpStatus": 404,
+      "triggeringAction": "GET /forgotPassword.php",
+      "previousState": "home",
+      "nextActions": [],
+      "fields": [],
+      "validationRules": [],
+      "validationObserved": [],
+      "surface": "broken",
+      "screenshots": {
+        "desktop": "screenshots/desktop/forgot-password.404.png",
+        "mobile": "screenshots/mobile/forgot-password.404.png"
+      },
+      "headings": [],
+      "forms": []
+    },
+    {
+      "id": "contact",
+      "flow": "shell",
+      "label": "VERIFIED_LIVE",
+      "url": "https://rtionline.gov.in/Contactus.php",
+      "title": "RTI Online :: Online RTI Information System",
+      "httpStatus": 200,
+      "triggeringAction": "Navigate /Contactus.php",
+      "previousState": "home",
+      "nextActions": [
+        "Public Authorities Available",
+        "Home",
+        "Submit Request",
+        "Submit First Appeal",
+        "View Status",
+        "View History",
+        "Login",
+        "User Manual"
+      ],
+      "fields": [],
+      "validationRules": [],
+      "validationObserved": [],
+      "surface": "contact",
+      "screenshots": {
+        "desktop": "screenshots/desktop/contact.png",
+        "mobile": "screenshots/mobile/contact.png"
+      },
+      "headings": [
+        {
+          "level": "h1",
+          "text": "RTI Online",
+          "visible": true
+        }
+      ],
+      "forms": [
+        {
+          "name": "frmLang",
+          "method": "post",
+          "action": "",
+          "fields": [
+            "lan",
+            "hndbaseurl",
+            "hndactionurl"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "policies",
+      "flow": "shell",
+      "label": "VERIFIED_LIVE",
+      "url": "https://rtionline.gov.in/Policies.php",
+      "title": "RTI Online :: Online RTI Information System",
+      "httpStatus": 200,
+      "triggeringAction": "Navigate /Policies.php",
+      "previousState": "home",
+      "nextActions": [
+        "Public Authorities Available",
+        "Home",
+        "Submit Request",
+        "Submit First Appeal",
+        "View Status",
+        "View History",
+        "Login",
+        "User Manual"
+      ],
+      "fields": [],
+      "validationRules": [],
+      "validationObserved": [
+        "Website Policies",
+        "Disclaimer",
+        "Copyright Policy",
+        "Hyperlink Policy",
+        "Privacy Statement"
+      ],
+      "surface": "policies",
+      "screenshots": {
+        "desktop": "screenshots/desktop/policies.png",
+        "mobile": "screenshots/mobile/policies.png"
+      },
+      "headings": [
+        {
+          "level": "h1",
+          "text": "RTI Online",
+          "visible": true
+        },
+        {
+          "level": "h3",
+          "text": "Website Policies",
+          "visible": true
+        },
+        {
+          "level": "h4",
+          "text": "Disclaimer",
+          "visible": true
+        },
+        {
+          "level": "h4",
+          "text": "Copyright Policy",
+          "visible": true
+        },
+        {
+          "level": "h4",
+          "text": "Hyperlink Policy",
+          "visible": true
+        },
+        {
+          "level": "h4",
+          "text": "Privacy Statement",
+          "visible": true
+        }
+      ],
+      "forms": [
+        {
+          "name": "frmLang",
+          "method": "post",
+          "action": "",
+          "fields": [
+            "lan",
+            "hndbaseurl",
+            "hndactionurl"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "faq",
+      "flow": "shell",
+      "label": "VERIFIED_LIVE",
+      "url": "https://rtionline.gov.in/faq.php",
+      "title": "RTI Online :: Frequently Asked Questions",
+      "httpStatus": 200,
+      "triggeringAction": "Navigate /faq.php",
+      "previousState": "home",
+      "nextActions": [
+        "+",
+        "Public Authorities Available",
+        "Home",
+        "Submit Request",
+        "Submit First Appeal",
+        "View Status",
+        "View History",
+        "Login",
+        "User Manual"
+      ],
+      "fields": [
+        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
+        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
+        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
+        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
+        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
+        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
+        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
+        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
+        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
+        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
+        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
+        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
+        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
+        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
+        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
+        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
+        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
+        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
+        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
+        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
+        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
+        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
+        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
+        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
+        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
+        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]"
+      ],
+      "validationRules": [],
+      "validationObserved": [],
+      "surface": "faq",
+      "screenshots": {
+        "desktop": "screenshots/desktop/faq.png",
+        "mobile": "screenshots/mobile/faq.png"
+      },
+      "headings": [
+        {
+          "level": "h1",
+          "text": "RTI Online",
+          "visible": true
+        },
+        {
+          "level": "h4",
+          "text": "RTI Online Frequently Asked Questions:-",
+          "visible": true
+        }
+      ],
+      "forms": [
+        {
+          "name": "frmLang",
+          "method": "post",
+          "action": "",
+          "fields": [
+            "lan",
+            "hndbaseurl",
+            "hndactionurl"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "authorities",
+      "flow": "shell",
+      "label": "VERIFIED_LIVE",
+      "url": "https://rtionline.gov.in/request/allpa.php",
+      "title": "RTI Online :: Public Authorities available in portal",
+      "httpStatus": 200,
+      "triggeringAction": "Navigate /request/allpa.php",
+      "previousState": "home",
+      "nextActions": [
+        "Back"
+      ],
+      "fields": [],
+      "validationRules": [],
+      "validationObserved": [],
+      "surface": "authorities",
+      "screenshots": {
+        "desktop": "screenshots/desktop/authorities.png",
+        "mobile": "screenshots/mobile/authorities.png"
+      },
+      "headings": [
+        {
+          "level": "h1",
+          "text": "List of Public Authorities available in the Portal (Total - 2916)",
+          "visible": true
+        }
+      ],
+      "forms": []
+    },
+    {
+      "id": "faq.expanded",
+      "flow": "shell",
+      "label": "VERIFIED_LIVE",
+      "url": "https://rtionline.gov.in/faq.php",
+      "title": "RTI Online :: Frequently Asked Questions",
+      "httpStatus": 200,
+      "triggeringAction": "Expand every FAQ accordion",
+      "previousState": "faq",
+      "nextActions": [
+        "-",
+        "Public Authorities Available",
+        "Home",
+        "Submit Request",
+        "Submit First Appeal",
+        "View Status",
+        "View History",
+        "Login",
+        "User Manual"
+      ],
+      "fields": [
+        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
+        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
+        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
+        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
+        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
+        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
+        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
+        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
+        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
+        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
+        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
+        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
+        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
+        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
+        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
+        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
+        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
+        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
+        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
+        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
+        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
+        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
+        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
+        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
+        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
+        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]"
+      ],
+      "validationRules": [],
+      "validationObserved": [],
+      "surface": "payment-gateway",
+      "screenshots": {
+        "desktop": "screenshots/desktop/faq.expanded.png",
+        "mobile": "screenshots/mobile/faq.expanded.png"
+      },
+      "headings": [
+        {
+          "level": "h1",
+          "text": "RTI Online",
+          "visible": true
+        },
+        {
+          "level": "h4",
+          "text": "RTI Online Frequently Asked Questions:-",
+          "visible": true
+        }
+      ],
+      "forms": [
+        {
+          "name": "frmLang",
+          "method": "post",
+          "action": "",
+          "fields": [
+            "lan",
+            "hndbaseurl",
+            "hndactionurl"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "authorities.expanded",
+      "flow": "shell",
+      "label": "VERIFIED_LIVE",
+      "url": "https://rtionline.gov.in/request/allpa.php",
+      "title": "RTI Online :: Public Authorities available in portal",
+      "httpStatus": 200,
+      "triggeringAction": "Expand first three ministry rows",
+      "previousState": "authorities",
+      "nextActions": [
+        "Back"
+      ],
+      "fields": [],
+      "validationRules": [],
+      "validationObserved": [],
+      "surface": "authorities",
+      "screenshots": {
+        "desktop": "screenshots/desktop/authorities.expanded.png",
+        "mobile": "screenshots/mobile/authorities.expanded.png"
+      },
+      "headings": [
+        {
+          "level": "h1",
+          "text": "List of Public Authorities available in the Portal (Total - 2916)",
+          "visible": true
+        }
+      ],
+      "forms": []
+    },
+    {
+      "id": "submit-request.guidelines",
+      "flow": "submit-request",
+      "label": "VERIFIED_LIVE",
+      "url": "https://rtionline.gov.in/guidelines.php?request",
+      "title": "RTI Online :: Guidelines for use of RTI Online Portal",
+      "httpStatus": 200,
+      "triggeringAction": "Home \u2192 Submit Request",
+      "previousState": "home",
+      "nextActions": [
+        "Submit",
+        "Cancel"
+      ],
+      "fields": [
+        "I have read and understood the above guidelines. [checkbox]",
+        " [submit]",
+        " [button]"
+      ],
+      "validationRules": [
+        "Checkbox CHECKBOX_1 required or alert: Please select the undertaking statement!"
+      ],
+      "validationObserved": [],
+      "surface": "guidelines",
+      "screenshots": {
+        "desktop": "screenshots/desktop/submit-request.guidelines.png",
+        "mobile": "screenshots/mobile/submit-request.guidelines.png"
+      },
+      "headings": [],
+      "forms": [
+        {
+          "name": "",
+          "method": "post",
+          "action": "https://rtionline.gov.in/request/request_email_check.php?pageid=e4da3b7fbbce2345d7772b0674a318d5",
+          "fields": [
+            "CHECKBOX_1",
+            "SUBMIT",
+            "button"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "submit-request.guidelines.unchecked",
+      "flow": "submit-request",
+      "label": "VERIFIED_LIVE",
+      "url": "https://rtionline.gov.in/guidelines.php?request",
+      "title": "RTI Online :: Guidelines for use of RTI Online Portal",
+      "httpStatus": 200,
+      "triggeringAction": "Submit without accepting guidelines",
+      "previousState": "submit-request.guidelines",
+      "nextActions": [
+        "Submit",
+        "Cancel"
+      ],
+      "fields": [
+        "I have read and understood the above guidelines. [checkbox]",
+        " [submit]",
+        " [button]"
+      ],
+      "validationRules": [],
+      "validationObserved": [
+        "alert: Please select the undertaking statement!"
+      ],
+      "surface": "guidelines",
+      "screenshots": {
+        "desktop": "screenshots/desktop/submit-request.guidelines.unchecked.png",
+        "mobile": "screenshots/mobile/submit-request.guidelines.unchecked.png"
+      },
+      "headings": [],
+      "forms": [
+        {
+          "name": "",
+          "method": "post",
+          "action": "https://rtionline.gov.in/request/request_email_check.php?pageid=e4da3b7fbbce2345d7772b0674a318d5",
+          "fields": [
+            "CHECKBOX_1",
+            "SUBMIT",
+            "button"
+          ]
+        }
+      ],
+      "validationSource": "desktop screenshot + dialog listener (VERIFIED_LIVE)"
+    },
+    {
+      "id": "submit-request.email-gate",
+      "flow": "submit-request",
+      "label": "VERIFIED_LIVE",
+      "url": "https://rtionline.gov.in/request/request_email_check.php?pageid=e4da3b7fbbce2345d7772b0674a318d5",
+      "title": "RTI Online :: Online RTI Information System",
+      "httpStatus": 200,
+      "triggeringAction": "Accept guidelines and Submit",
+      "previousState": "submit-request.guidelines",
+      "nextActions": [
+        "Submit \u2192 OTP (blocked without captcha)",
+        "Reset"
+      ],
+      "fields": [
+        "* Enter Email Id (For receiving OTP) [text] *",
+        "Mobile Number [password]",
+        "* Enter Security code [text] *",
+        "Submit [submit]",
+        " [reset]"
+      ],
+      "validationRules": [
+        "Email *",
+        "Mobile optional",
+        "Security code *",
+        "OTP sent after valid captcha"
+      ],
+      "validationObserved": [
+        "OTPs do not expire until they are used, meaning users can register their applications as soon as the OTP arrives.",
+        "(All Characters are Case insensitive)"
+      ],
+      "surface": "otp",
+      "screenshots": {
+        "desktop": "screenshots/desktop/submit-request.email-gate.png",
+        "mobile": "screenshots/mobile/submit-request.email-gate.png"
+      },
+      "headings": [
+        {
+          "level": "h1",
+          "text": "RTI Online",
+          "visible": true
+        },
+        {
+          "level": "h4",
+          "text": "Online RTI Request Form",
+          "visible": true
+        }
+      ],
+      "forms": [
+        {
+          "name": "frmLang",
+          "method": "post",
+          "action": "",
+          "fields": [
+            "lan",
+            "hndbaseurl",
+            "hndactionurl"
+          ]
+        },
+        {
+          "name": "FrmStatus",
+          "method": "post",
+          "action": "/request/request_email_check.php",
+          "fields": [
+            "Email",
+            "cell",
+            "6_letters_code",
+            "Submit",
+            "reset"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "submit-request.email-gate.empty",
+      "flow": "submit-request",
+      "label": "VERIFIED_LIVE",
+      "url": "https://rtionline.gov.in/request/request_email_check.php?pageid=e4da3b7fbbce2345d7772b0674a318d5",
+      "title": "RTI Online :: Online RTI Information System",
+      "httpStatus": 200,
+      "triggeringAction": "Submit email gate with empty fields",
+      "previousState": "submit-request.email-gate",
+      "nextActions": [
+        "Submit",
+        "Reset",
+        "Public Authorities Available",
+        "Home",
+        "Submit Request",
+        "Submit First Appeal",
+        "View Status",
+        "View History",
+        "Login",
+        "User Manual"
+      ],
+      "fields": [
+        "* Enter Email Id (For receiving OTP) [text] *",
+        "Mobile Number [password]",
+        "* Enter Security code [text] *",
+        "Submit [submit]",
+        " [reset]"
+      ],
+      "validationRules": [],
+      "validationObserved": [
+        "(All Characters are Case insensitive)",
+        "OTPs do not expire until they are used, meaning users can register their applications as soon as the OTP arrives.",
+        "Please Enter Correct Captcha Code.",
+        "Please enter a valid Email ID"
+      ],
+      "surface": "otp",
+      "screenshots": {
+        "desktop": "screenshots/desktop/submit-request.email-gate.empty.png",
+        "mobile": "screenshots/mobile/submit-request.email-gate.empty.png"
+      },
+      "headings": [
+        {
+          "level": "h1",
+          "text": "RTI Online",
+          "visible": true
+        },
+        {
+          "level": "h4",
+          "text": "Online RTI Request Form",
+          "visible": true
+        }
+      ],
+      "forms": [
+        {
+          "name": "frmLang",
+          "method": "post",
+          "action": "",
+          "fields": [
+            "lan",
+            "hndbaseurl",
+            "hndactionurl"
+          ]
+        },
+        {
+          "name": "FrmStatus",
+          "method": "post",
+          "action": "/request/request_email_check.php",
+          "fields": [
+            "Email",
+            "cell",
+            "6_letters_code",
+            "Submit",
+            "reset"
+          ]
+        }
+      ],
+      "validationSource": "desktop screenshot + dialog listener (VERIFIED_LIVE)"
+    },
+    {
+      "id": "submit-request.email-gate.wrong-captcha",
+      "flow": "submit-request",
+      "label": "VERIFIED_LIVE",
+      "url": "https://rtionline.gov.in/request/request_email_check.php",
+      "title": "RTI Online :: Online RTI Information System",
+      "httpStatus": 200,
+      "triggeringAction": "Submit dummy email + wrong captcha ZZZZZZ",
+      "previousState": "submit-request.email-gate",
+      "nextActions": [
+        "Submit",
+        "Reset",
+        "Public Authorities Available",
+        "Home",
+        "Submit Request",
+        "Submit First Appeal",
+        "View Status",
+        "View History",
+        "Login",
+        "User Manual"
+      ],
+      "fields": [
+        "* Enter Email Id (For receiving OTP) [text] *",
+        "Mobile Number [password]",
+        "* Enter Security code [text] *",
+        "Submit [submit]",
+        " [reset]"
+      ],
+      "validationRules": [],
+      "validationObserved": [
+        "(All Characters are Case insensitive)",
+        "OTPs do not expire until they are used, meaning users can register their applications as soon as the OTP arrives.",
+        "Security code does not match"
+      ],
+      "surface": "otp",
+      "screenshots": {
+        "desktop": "screenshots/desktop/submit-request.email-gate.wrong-captcha.png",
+        "mobile": "screenshots/mobile/submit-request.email-gate.wrong-captcha.png"
+      },
+      "headings": [
+        {
+          "level": "h1",
+          "text": "RTI Online",
+          "visible": true
+        },
+        {
+          "level": "h4",
+          "text": "Online RTI Request Form",
+          "visible": true
+        }
+      ],
+      "forms": [
+        {
+          "name": "frmLang",
+          "method": "post",
+          "action": "",
+          "fields": [
+            "lan",
+            "hndbaseurl",
+            "hndactionurl"
+          ]
+        },
+        {
+          "name": "FrmStatus",
+          "method": "post",
+          "action": "/request/request_email_check.php",
+          "fields": [
+            "Email",
+            "cell",
+            "6_letters_code",
+            "Submit",
+            "reset"
+          ]
+        }
+      ],
+      "validationSource": "desktop screenshot + dialog listener (VERIFIED_LIVE)"
+    },
+    {
+      "id": "first-appeal.guidelines",
+      "flow": "first-appeal",
+      "label": "VERIFIED_LIVE",
+      "url": "https://rtionline.gov.in/guidelines.php?appeal",
+      "title": "RTI Online :: Guidelines for use of RTI Online Portal",
+      "httpStatus": 200,
+      "triggeringAction": "Home \u2192 Submit First Appeal",
+      "previousState": "home",
+      "nextActions": [
+        "Submit",
+        "Cancel"
+      ],
+      "fields": [
+        "I have read and understood the above guidelines. [checkbox]",
+        " [submit]",
+        " [button]"
+      ],
+      "validationRules": [],
+      "validationObserved": [],
+      "surface": "guidelines",
+      "screenshots": {
+        "desktop": "screenshots/desktop/first-appeal.guidelines.png",
+        "mobile": "screenshots/mobile/first-appeal.guidelines.png"
+      },
+      "headings": [],
+      "forms": [
+        {
+          "name": "",
+          "method": "post",
+          "action": "https://rtionline.gov.in/appeal/firstAppeal.php?pageid=1679091c5a880faf6fb5e6087eb1b2dc",
+          "fields": [
+            "CHECKBOX_1",
+            "SUBMIT",
+            "button"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "first-appeal.lookup",
+      "flow": "first-appeal",
+      "label": "VERIFIED_LIVE",
+      "url": "https://rtionline.gov.in/appeal/firstAppeal.php?pageid=1679091c5a880faf6fb5e6087eb1b2dc",
+      "title": "RTI Online :: Submit First Appeal Form",
+      "httpStatus": 200,
+      "triggeringAction": "Accept guidelines",
+      "previousState": "first-appeal.guidelines",
+      "nextActions": [
+        "Submit",
+        "Reset",
+        "Public Authorities Available",
+        "Home",
+        "Submit Request",
+        "Submit First Appeal",
+        "View Status",
+        "View History",
+        "Login",
+        "User Manual"
+      ],
+      "fields": [
+        "* RTI Request Registration No. [text] *",
+        "* Enter Email Id [password] *",
+        "*Enter Security code [text] *",
+        "Submit [submit]",
+        " [reset]"
+      ],
+      "validationRules": [
+        "RTI Request Registration No. *",
+        "Email *",
+        "Security code *"
+      ],
+      "validationObserved": [
+        "(All Characters are Case insensitive)"
+      ],
+      "surface": "appeal-lookup",
+      "screenshots": {
+        "desktop": "screenshots/desktop/first-appeal.lookup.png",
+        "mobile": "screenshots/mobile/first-appeal.lookup.png"
+      },
+      "headings": [
+        {
+          "level": "h1",
+          "text": "RTI Online",
+          "visible": true
+        },
+        {
+          "level": "h4",
+          "text": "Online RTI First Appeal Form",
+          "visible": true
+        }
+      ],
+      "forms": [
+        {
+          "name": "frmLang",
+          "method": "post",
+          "action": "",
+          "fields": [
+            "lan",
+            "hndbaseurl",
+            "hndactionurl"
+          ]
+        },
+        {
+          "name": "FrmFirstAppeal",
+          "method": "post",
+          "action": "",
+          "fields": [
+            "registrationNo",
+            "Email",
+            "6_letters_code",
+            "Submit",
+            "reset"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "first-appeal.lookup.empty",
+      "flow": "first-appeal",
+      "label": "VERIFIED_LIVE",
+      "url": "https://rtionline.gov.in/appeal/firstAppeal.php?pageid=1679091c5a880faf6fb5e6087eb1b2dc",
+      "title": "RTI Online :: Submit First Appeal Form",
+      "httpStatus": 200,
+      "triggeringAction": "Submit lookup empty",
+      "previousState": "first-appeal.lookup",
+      "nextActions": [
+        "Submit",
+        "Reset",
+        "Public Authorities Available",
+        "Home",
+        "Submit Request",
+        "Submit First Appeal",
+        "View Status",
+        "View History",
+        "Login",
+        "User Manual"
+      ],
+      "fields": [
+        "* RTI Request Registration No. [text] *",
+        "* Enter Email Id [password] *",
+        "*Enter Security code [text] *",
+        "Submit [submit]",
+        " [reset]"
+      ],
+      "validationRules": [],
+      "validationObserved": [
+        "(All Characters are Case insensitive)"
+      ],
+      "surface": "appeal-lookup",
+      "screenshots": {
+        "desktop": "screenshots/desktop/first-appeal.lookup.empty.png",
+        "mobile": "screenshots/mobile/first-appeal.lookup.empty.png"
+      },
+      "headings": [
+        {
+          "level": "h1",
+          "text": "RTI Online",
+          "visible": true
+        },
+        {
+          "level": "h4",
+          "text": "Online RTI First Appeal Form",
+          "visible": true
+        }
+      ],
+      "forms": [
+        {
+          "name": "frmLang",
+          "method": "post",
+          "action": "",
+          "fields": [
+            "lan",
+            "hndbaseurl",
+            "hndactionurl"
+          ]
+        },
+        {
+          "name": "FrmFirstAppeal",
+          "method": "post",
+          "action": "",
+          "fields": [
+            "registrationNo",
+            "Email",
+            "6_letters_code",
+            "Submit",
+            "reset"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "first-appeal.lookup.wrong-captcha",
+      "flow": "first-appeal",
+      "label": "VERIFIED_LIVE",
+      "url": "https://rtionline.gov.in/appeal/firstAppeal.php?pageid=1679091c5a880faf6fb5e6087eb1b2dc",
+      "title": "RTI Online :: Submit First Appeal Form",
+      "httpStatus": 200,
+      "triggeringAction": "Dummy registration number + wrong captcha",
+      "previousState": "first-appeal.lookup",
+      "nextActions": [
+        "Submit",
+        "Reset",
+        "Public Authorities Available",
+        "Home",
+        "Submit Request",
+        "Submit First Appeal",
+        "View Status",
+        "View History",
+        "Login",
+        "User Manual"
+      ],
+      "fields": [
+        "* RTI Request Registration No. [text] *",
+        "* Enter Email Id [password] *",
+        "*Enter Security code [text] *",
+        "Submit [submit]",
+        " [reset]"
+      ],
+      "validationRules": [],
+      "validationObserved": [
+        "(All Characters are Case insensitive)"
+      ],
+      "surface": "appeal-lookup",
+      "screenshots": {
+        "desktop": "screenshots/desktop/first-appeal.lookup.wrong-captcha.png",
+        "mobile": "screenshots/mobile/first-appeal.lookup.wrong-captcha.png"
+      },
+      "headings": [
+        {
+          "level": "h1",
+          "text": "RTI Online",
+          "visible": true
+        },
+        {
+          "level": "h4",
+          "text": "Online RTI First Appeal Form",
+          "visible": true
+        }
+      ],
+      "forms": [
+        {
+          "name": "frmLang",
+          "method": "post",
+          "action": "",
+          "fields": [
+            "lan",
+            "hndbaseurl",
+            "hndactionurl"
+          ]
+        },
+        {
+          "name": "FrmFirstAppeal",
+          "method": "post",
+          "action": "",
+          "fields": [
+            "registrationNo",
+            "Email",
+            "6_letters_code",
+            "Submit",
+            "reset"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "view-status.gate",
+      "flow": "view-status",
+      "label": "VERIFIED_LIVE",
+      "url": "https://rtionline.gov.in/request/status.php",
+      "title": "RTI Online :: View Status Form",
+      "httpStatus": 200,
+      "triggeringAction": "Home \u2192 View Status",
+      "previousState": "home",
+      "nextActions": [
+        "Submit",
+        "Reset",
+        "Public Authorities Available",
+        "Home",
+        "Submit Request",
+        "Submit First Appeal",
+        "View Status",
+        "View History",
+        "Login",
+        "User Manual"
+      ],
+      "fields": [
+        "* Enter Registration Number [text] *",
+        "* Enter Email Id [text] *",
+        "* Enter Security code [text] *",
+        "Submit [submit]",
+        " [reset]"
+      ],
+      "validationRules": [
+        "Registration number *",
+        "Email *",
+        "Security code *",
+        "Then OTP"
+      ],
+      "validationObserved": [
+        "OTPs do not expire until they are used, meaning users can register their applications as soon as the OTP arrives.",
+        "(All Characters are Case insensitive)",
+        "OTP will be sent to both email id and mobile number (If provided during submission of RTI Request)."
+      ],
+      "surface": "status-gate",
+      "screenshots": {
+        "desktop": "screenshots/desktop/view-status.gate.png",
+        "mobile": "screenshots/mobile/view-status.gate.png"
+      },
+      "headings": [
+        {
+          "level": "h1",
+          "text": "RTI Online",
+          "visible": true
+        },
+        {
+          "level": "h4",
+          "text": "View Status",
+          "visible": true
+        }
+      ],
+      "forms": [
+        {
+          "name": "frmLang",
+          "method": "post",
+          "action": "",
+          "fields": [
+            "lan",
+            "hndbaseurl",
+            "hndactionurl"
+          ]
+        },
+        {
+          "name": "FrmStatus",
+          "method": "post",
+          "action": "/request/status.php",
+          "fields": [
+            "registration_no",
+            "Email",
+            "6_letters_code",
+            "Submit",
+            "reset"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "view-status.gate.empty",
+      "flow": "view-status",
+      "label": "VERIFIED_LIVE",
+      "url": "https://rtionline.gov.in/request/status.php",
+      "title": "RTI Online :: View Status Form",
+      "httpStatus": 200,
+      "triggeringAction": "Submit empty status form",
+      "previousState": "view-status.gate",
+      "nextActions": [
+        "Submit",
+        "Reset",
+        "Public Authorities Available",
+        "Home",
+        "Submit Request",
+        "Submit First Appeal",
+        "View Status",
+        "View History",
+        "Login",
+        "User Manual"
+      ],
+      "fields": [
+        "* Enter Registration Number [text] *",
+        "* Enter Email Id [text] *",
+        "* Enter Security code [text] *",
+        "Submit [submit]",
+        " [reset]"
+      ],
+      "validationRules": [],
+      "validationObserved": [
+        "OTPs do not expire until they are used, meaning users can register their applications as soon as the OTP arrives.",
+        "(All Characters are Case insensitive)",
+        "OTP will be sent to both email id and mobile number (If provided during submission of RTI Request)."
+      ],
+      "surface": "status-gate",
+      "screenshots": {
+        "desktop": "screenshots/desktop/view-status.gate.empty.png",
+        "mobile": "screenshots/mobile/view-status.gate.empty.png"
+      },
+      "headings": [
+        {
+          "level": "h1",
+          "text": "RTI Online",
+          "visible": true
+        },
+        {
+          "level": "h4",
+          "text": "View Status",
+          "visible": true
+        }
+      ],
+      "forms": [
+        {
+          "name": "frmLang",
+          "method": "post",
+          "action": "",
+          "fields": [
+            "lan",
+            "hndbaseurl",
+            "hndactionurl"
+          ]
+        },
+        {
+          "name": "FrmStatus",
+          "method": "post",
+          "action": "/request/status.php",
+          "fields": [
+            "registration_no",
+            "Email",
+            "6_letters_code",
+            "Submit",
+            "reset"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "view-status.gate.wrong-captcha",
+      "flow": "view-status",
+      "label": "VERIFIED_LIVE",
+      "url": "https://rtionline.gov.in/request/status.php",
+      "title": "RTI Online :: View Status Form",
+      "httpStatus": 200,
+      "triggeringAction": "Dummy registration + wrong captcha",
+      "previousState": "view-status.gate",
+      "nextActions": [
+        "Submit",
+        "Reset",
+        "Public Authorities Available",
+        "Home",
+        "Submit Request",
+        "Submit First Appeal",
+        "View Status",
+        "View History",
+        "Login",
+        "User Manual"
+      ],
+      "fields": [
+        "* Enter Registration Number [text] *",
+        "* Enter Email Id [text] *",
+        "* Enter Security code [text] *",
+        "Submit [submit]",
+        " [reset]"
+      ],
+      "validationRules": [],
+      "validationObserved": [
+        "OTPs do not expire until they are used, meaning users can register their applications as soon as the OTP arrives.",
+        "(All Characters are Case insensitive)",
+        "OTP will be sent to both email id and mobile number (If provided during submission of RTI Request)."
+      ],
+      "surface": "status-gate",
+      "screenshots": {
+        "desktop": "screenshots/desktop/view-status.gate.wrong-captcha.png",
+        "mobile": "screenshots/mobile/view-status.gate.wrong-captcha.png"
+      },
+      "headings": [
+        {
+          "level": "h1",
+          "text": "RTI Online",
+          "visible": true
+        },
+        {
+          "level": "h4",
+          "text": "View Status",
+          "visible": true
+        }
+      ],
+      "forms": [
+        {
+          "name": "frmLang",
+          "method": "post",
+          "action": "",
+          "fields": [
+            "lan",
+            "hndbaseurl",
+            "hndactionurl"
+          ]
+        },
+        {
+          "name": "FrmStatus",
+          "method": "post",
+          "action": "/request/status.php",
+          "fields": [
+            "registration_no",
+            "Email",
+            "6_letters_code",
+            "Submit",
+            "reset"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "view-history.gate",
+      "flow": "view-history",
+      "label": "VERIFIED_LIVE",
+      "url": "https://rtionline.gov.in/request/status_history.php",
+      "title": "RTI Online :: Online RTI Information System",
+      "httpStatus": 200,
+      "triggeringAction": "Home \u2192 View History",
+      "previousState": "home",
+      "nextActions": [
+        "Submit",
+        "Reset",
+        "Public Authorities Available",
+        "Home",
+        "Submit Request",
+        "Submit First Appeal",
+        "View Status",
+        "View History",
+        "Login",
+        "User Manual"
+      ],
+      "fields": [
+        "* Enter Email Id (For receiving OTP) [text] *",
+        "Mobile Number [password]",
+        "* Enter Security code [text] *",
+        "Submit [submit]",
+        " [reset]"
+      ],
+      "validationRules": [
+        "Email *",
+        "Mobile",
+        "Security code *",
+        "Then OTP"
+      ],
+      "validationObserved": [
+        "(All Characters are Case insensitive)",
+        "OTP will be sent to both email id and mobile number (If provided during submission of RTI Request)."
+      ],
+      "surface": "otp",
+      "screenshots": {
+        "desktop": "screenshots/desktop/view-history.gate.png",
+        "mobile": "screenshots/mobile/view-history.gate.png"
+      },
+      "headings": [
+        {
+          "level": "h1",
+          "text": "RTI Online",
+          "visible": true
+        },
+        {
+          "level": "h4",
+          "text": "View History",
+          "visible": true
+        }
+      ],
+      "forms": [
+        {
+          "name": "frmLang",
+          "method": "post",
+          "action": "",
+          "fields": [
+            "lan",
+            "hndbaseurl",
+            "hndactionurl"
+          ]
+        },
+        {
+          "name": "FrmStatus",
+          "method": "post",
+          "action": "/request/status_history.php",
+          "fields": [
+            "Email",
+            "cell",
+            "6_letters_code",
+            "Submit",
+            "reset"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "view-history.gate.empty",
+      "flow": "view-history",
+      "label": "VERIFIED_LIVE",
+      "url": "https://rtionline.gov.in/request/status_history.php",
+      "title": "RTI Online :: Online RTI Information System",
+      "httpStatus": 200,
+      "triggeringAction": "Submit empty history form",
+      "previousState": "view-history.gate",
+      "nextActions": [
+        "Submit",
+        "Reset",
+        "Public Authorities Available",
+        "Home",
+        "Submit Request",
+        "Submit First Appeal",
+        "View Status",
+        "View History",
+        "Login",
+        "User Manual"
+      ],
+      "fields": [
+        "* Enter Email Id (For receiving OTP) [text] *",
+        "Mobile Number [password]",
+        "* Enter Security code [text] *",
+        "Submit [submit]",
+        " [reset]"
+      ],
+      "validationRules": [],
+      "validationObserved": [
+        "(All Characters are Case insensitive)",
+        "OTP will be sent to both email id and mobile number (If provided during submission of RTI Request)."
+      ],
+      "surface": "otp",
+      "screenshots": {
+        "desktop": "screenshots/desktop/view-history.gate.empty.png",
+        "mobile": "screenshots/mobile/view-history.gate.empty.png"
+      },
+      "headings": [
+        {
+          "level": "h1",
+          "text": "RTI Online",
+          "visible": true
+        },
+        {
+          "level": "h4",
+          "text": "View History",
+          "visible": true
+        }
+      ],
+      "forms": [
+        {
+          "name": "frmLang",
+          "method": "post",
+          "action": "",
+          "fields": [
+            "lan",
+            "hndbaseurl",
+            "hndactionurl"
+          ]
+        },
+        {
+          "name": "FrmStatus",
+          "method": "post",
+          "action": "/request/status_history.php",
+          "fields": [
+            "Email",
+            "cell",
+            "6_letters_code",
+            "Submit",
+            "reset"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "view-history.gate.wrong-captcha",
+      "flow": "view-history",
+      "label": "VERIFIED_LIVE",
+      "url": "https://rtionline.gov.in/request/status_history.php",
+      "title": "RTI Online :: Online RTI Information System",
+      "httpStatus": 200,
+      "triggeringAction": "Dummy email + wrong captcha",
+      "previousState": "view-history.gate",
+      "nextActions": [
+        "Submit",
+        "Reset",
+        "Public Authorities Available",
+        "Home",
+        "Submit Request",
+        "Submit First Appeal",
+        "View Status",
+        "View History",
+        "Login",
+        "User Manual"
+      ],
+      "fields": [
+        "* Enter Email Id (For receiving OTP) [text] *",
+        "Mobile Number [password]",
+        "* Enter Security code [text] *",
+        "Submit [submit]",
+        " [reset]"
+      ],
+      "validationRules": [],
+      "validationObserved": [
+        "(All Characters are Case insensitive)",
+        "OTP will be sent to both email id and mobile number (If provided during submission of RTI Request)."
+      ],
+      "surface": "otp",
+      "screenshots": {
+        "desktop": "screenshots/desktop/view-history.gate.wrong-captcha.png",
+        "mobile": "screenshots/mobile/view-history.gate.wrong-captcha.png"
+      },
+      "headings": [
+        {
+          "level": "h1",
+          "text": "RTI Online",
+          "visible": true
+        },
+        {
+          "level": "h4",
+          "text": "View History",
+          "visible": true
+        }
+      ],
+      "forms": [
+        {
+          "name": "frmLang",
+          "method": "post",
+          "action": "",
+          "fields": [
+            "lan",
+            "hndbaseurl",
+            "hndactionurl"
+          ]
+        },
+        {
+          "name": "FrmStatus",
+          "method": "post",
+          "action": "/request/status_history.php",
+          "fields": [
+            "Email",
+            "cell",
+            "6_letters_code",
+            "Submit",
+            "reset"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "login.gate",
+      "flow": "login",
+      "label": "VERIFIED_LIVE",
+      "url": "https://rtionline.gov.in/login.php",
+      "title": "RTI Online :: Citizen Login Form",
+      "httpStatus": 200,
+      "triggeringAction": "Home \u2192 Login",
+      "previousState": "home",
+      "nextActions": [
+        "Submit",
+        "Reset",
+        "Public Authorities Available",
+        "Home",
+        "Submit Request",
+        "Submit First Appeal",
+        "View Status",
+        "View History",
+        "Login",
+        "User Manual"
+      ],
+      "fields": [
+        "* Enter Username [text] *",
+        "*Enter Password [password] *",
+        "*Enter Security code [text] *",
+        "Login [submit]",
+        " [reset]"
+      ],
+      "validationRules": [
+        "Username *",
+        "Password * (client-hashed)",
+        "Security code *"
+      ],
+      "validationObserved": [
+        "(All Characters are Case insensitive)"
+      ],
+      "surface": "login",
+      "screenshots": {
+        "desktop": "screenshots/desktop/login.gate.png",
+        "mobile": "screenshots/mobile/login.gate.png"
+      },
+      "headings": [
+        {
+          "level": "h1",
+          "text": "RTI Online",
+          "visible": true
+        },
+        {
+          "level": "h4",
+          "text": "Citizen Login",
+          "visible": true
+        }
+      ],
+      "forms": [
+        {
+          "name": "frmLang",
+          "method": "post",
+          "action": "",
+          "fields": [
+            "lan",
+            "hndbaseurl",
+            "hndactionurl"
+          ]
+        },
+        {
+          "name": "FrmLogin",
+          "method": "post",
+          "action": "validLogin.php",
+          "fields": [
+            "UserName",
+            "password",
+            "hndPassword",
+            "6_letters_code",
+            "Login",
+            "reset"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "login.gate.empty",
+      "flow": "login",
+      "label": "VERIFIED_LIVE",
+      "url": "https://rtionline.gov.in/login.php",
+      "title": "RTI Online :: Citizen Login Form",
+      "httpStatus": 200,
+      "triggeringAction": "Submit empty login",
+      "previousState": "login.gate",
+      "nextActions": [
+        "Submit",
+        "Reset",
+        "Public Authorities Available",
+        "Home",
+        "Submit Request",
+        "Submit First Appeal",
+        "View Status",
+        "View History",
+        "Login",
+        "User Manual"
+      ],
+      "fields": [
+        "* Enter Username [text] *",
+        "*Enter Password [password] *",
+        "*Enter Security code [text] *",
+        "Login [submit]",
+        " [reset]"
+      ],
+      "validationRules": [],
+      "validationObserved": [
+        "(All Characters are Case insensitive)"
+      ],
+      "surface": "login",
+      "screenshots": {
+        "desktop": "screenshots/desktop/login.gate.empty.png",
+        "mobile": "screenshots/mobile/login.gate.empty.png"
+      },
+      "headings": [
+        {
+          "level": "h1",
+          "text": "RTI Online",
+          "visible": true
+        },
+        {
+          "level": "h4",
+          "text": "Citizen Login",
+          "visible": true
+        }
+      ],
+      "forms": [
+        {
+          "name": "frmLang",
+          "method": "post",
+          "action": "",
+          "fields": [
+            "lan",
+            "hndbaseurl",
+            "hndactionurl"
+          ]
+        },
+        {
+          "name": "FrmLogin",
+          "method": "post",
+          "action": "validLogin.php",
+          "fields": [
+            "UserName",
+            "password",
+            "hndPassword",
+            "6_letters_code",
+            "Login",
+            "reset"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "login.gate.wrong-captcha",
+      "flow": "login",
+      "label": "VERIFIED_LIVE",
+      "url": "https://rtionline.gov.in/login.php?error=QlFtaEo3dU9QNlhuRGhRVTFKMjBXWmZXQzR4Uzdwak1lalhpNWxOTXMxTkFVTElNTFJsOVNuNmJmajJya3Qzcjo6QtN7%2BrDSyPa1FLBcF25X1g%3D%3D",
+      "title": "RTI Online :: Citizen Login Form",
+      "httpStatus": 200,
+      "triggeringAction": "Invalid username + wrong captcha (single attempt, not brute-force)",
+      "previousState": "login.gate",
+      "nextActions": [
+        "Submit",
+        "Reset",
+        "Public Authorities Available",
+        "Home",
+        "Submit Request",
+        "Submit First Appeal",
+        "View Status",
+        "View History",
+        "Login",
+        "User Manual"
+      ],
+      "fields": [
+        "* Enter Username [text] *",
+        "*Enter Password [password] *",
+        "*Enter Security code [text] *",
+        "Login [submit]",
+        " [reset]"
+      ],
+      "validationRules": [],
+      "validationObserved": [
+        "(All Characters are Case insensitive)",
+        "The Security code does not match."
+      ],
+      "surface": "login",
+      "screenshots": {
+        "desktop": "screenshots/desktop/login.gate.wrong-captcha.png",
+        "mobile": "screenshots/mobile/login.gate.wrong-captcha.png"
+      },
+      "headings": [
+        {
+          "level": "h1",
+          "text": "RTI Online",
+          "visible": true
+        },
+        {
+          "level": "h4",
+          "text": "Citizen Login",
+          "visible": true
+        }
+      ],
+      "forms": [
+        {
+          "name": "frmLang",
+          "method": "post",
+          "action": "",
+          "fields": [
+            "lan",
+            "hndbaseurl",
+            "hndactionurl"
+          ]
+        },
+        {
+          "name": "FrmLogin",
+          "method": "post",
+          "action": "validLogin.php",
+          "fields": [
+            "UserName",
+            "password",
+            "hndPassword",
+            "6_letters_code",
+            "Login",
+            "reset"
+          ]
+        }
+      ],
+      "validationSource": "desktop screenshot + dialog listener (VERIFIED_LIVE)"
+    },
+    {
+      "id": "login.audio-captcha",
+      "flow": "login",
+      "label": "VERIFIED_LIVE",
+      "url": "https://rtionline.gov.in/audiofile1.php",
+      "title": "",
+      "httpStatus": 200,
+      "triggeringAction": "Open audio captcha popup",
+      "previousState": "login.gate",
+      "nextActions": [],
+      "fields": [],
+      "validationRules": [],
+      "validationObserved": [],
+      "surface": "audio-captcha",
+      "screenshots": {
+        "desktop": "screenshots/desktop/login.audio-captcha.png",
+        "mobile": "screenshots/mobile/login.audio-captcha.png"
+      },
+      "headings": [],
+      "forms": []
+    },
+    {
+      "id": "payment-reconciliation.gate",
+      "flow": "payment-reconciliation",
+      "label": "VERIFIED_LIVE",
+      "url": "https://rtionline.gov.in/request/status_pendingPayment.php",
+      "title": "RTI Online :: Online RTI Information System",
+      "httpStatus": 200,
+      "triggeringAction": "Home \u2192 Payment Reconciliation",
+      "previousState": "home",
+      "nextActions": [
+        "Submit",
+        "Reset",
+        "Public Authorities Available",
+        "Home",
+        "Submit Request",
+        "Submit First Appeal",
+        "View Status",
+        "View History",
+        "Login",
+        "User Manual"
+      ],
+      "fields": [
+        "* Enter Email Id (For receiving OTP) [text] *",
+        "Mobile Number [password]",
+        "* Enter Security code [text] *",
+        "Submit [submit]",
+        " [reset]"
+      ],
+      "validationRules": [
+        "Email *",
+        "Mobile",
+        "Security code *"
+      ],
+      "validationObserved": [
+        "(All Characters are Case insensitive)"
+      ],
+      "surface": "otp",
+      "screenshots": {
+        "desktop": "screenshots/desktop/payment-reconciliation.gate.png",
+        "mobile": "screenshots/mobile/payment-reconciliation.gate.png"
+      },
+      "headings": [
+        {
+          "level": "h1",
+          "text": "RTI Online",
+          "visible": true
+        },
+        {
+          "level": "h4",
+          "text": "Reconciliation of unsuccessful RTI request payments",
+          "visible": true
+        }
+      ],
+      "forms": [
+        {
+          "name": "frmLang",
+          "method": "post",
+          "action": "",
+          "fields": [
+            "lan",
+            "hndbaseurl",
+            "hndactionurl"
+          ]
+        },
+        {
+          "name": "FrmStatus",
+          "method": "post",
+          "action": "/request/status_pendingPayment.php",
+          "fields": [
+            "Email",
+            "cell",
+            "6_letters_code",
+            "Submit",
+            "reset"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "payment-reconciliation.gate.empty",
+      "flow": "payment-reconciliation",
+      "label": "VERIFIED_LIVE",
+      "url": "https://rtionline.gov.in/request/status_pendingPayment.php",
+      "title": "RTI Online :: Online RTI Information System",
+      "httpStatus": 200,
+      "triggeringAction": "Submit empty reconciliation form",
+      "previousState": "payment-reconciliation.gate",
+      "nextActions": [
+        "Submit",
+        "Reset",
+        "Public Authorities Available",
+        "Home",
+        "Submit Request",
+        "Submit First Appeal",
+        "View Status",
+        "View History",
+        "Login",
+        "User Manual"
+      ],
+      "fields": [
+        "* Enter Email Id (For receiving OTP) [text] *",
+        "Mobile Number [password]",
+        "* Enter Security code [text] *",
+        "Submit [submit]",
+        " [reset]"
+      ],
+      "validationRules": [],
+      "validationObserved": [
+        "(All Characters are Case insensitive)"
+      ],
+      "surface": "otp",
+      "screenshots": {
+        "desktop": "screenshots/desktop/payment-reconciliation.gate.empty.png",
+        "mobile": "screenshots/mobile/payment-reconciliation.gate.empty.png"
+      },
+      "headings": [
+        {
+          "level": "h1",
+          "text": "RTI Online",
+          "visible": true
+        },
+        {
+          "level": "h4",
+          "text": "Reconciliation of unsuccessful RTI request payments",
+          "visible": true
+        }
+      ],
+      "forms": [
+        {
+          "name": "frmLang",
+          "method": "post",
+          "action": "",
+          "fields": [
+            "lan",
+            "hndbaseurl",
+            "hndactionurl"
+          ]
+        },
+        {
+          "name": "FrmStatus",
+          "method": "post",
+          "action": "/request/status_pendingPayment.php",
+          "fields": [
+            "Email",
+            "cell",
+            "6_letters_code",
+            "Submit",
+            "reset"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "payment-reconciliation.gate.wrong-captcha",
+      "flow": "payment-reconciliation",
+      "label": "VERIFIED_LIVE",
+      "url": "https://rtionline.gov.in/request/status_pendingPayment.php",
+      "title": "RTI Online :: Online RTI Information System",
+      "httpStatus": 200,
+      "triggeringAction": "Dummy email + wrong captcha",
+      "previousState": "payment-reconciliation.gate",
+      "nextActions": [
+        "Submit",
+        "Reset",
+        "Public Authorities Available",
+        "Home",
+        "Submit Request",
+        "Submit First Appeal",
+        "View Status",
+        "View History",
+        "Login",
+        "User Manual"
+      ],
+      "fields": [
+        "* Enter Email Id (For receiving OTP) [text] *",
+        "Mobile Number [password]",
+        "* Enter Security code [text] *",
+        "Submit [submit]",
+        " [reset]"
+      ],
+      "validationRules": [],
+      "validationObserved": [
+        "(All Characters are Case insensitive)"
+      ],
+      "surface": "otp",
+      "screenshots": {
+        "desktop": "screenshots/desktop/payment-reconciliation.gate.wrong-captcha.png",
+        "mobile": "screenshots/mobile/payment-reconciliation.gate.wrong-captcha.png"
+      },
+      "headings": [
+        {
+          "level": "h1",
+          "text": "RTI Online",
+          "visible": true
+        },
+        {
+          "level": "h4",
+          "text": "Reconciliation of unsuccessful RTI request payments",
+          "visible": true
+        }
+      ],
+      "forms": [
+        {
+          "name": "frmLang",
+          "method": "post",
+          "action": "",
+          "fields": [
+            "lan",
+            "hndbaseurl",
+            "hndactionurl"
+          ]
+        },
+        {
+          "name": "FrmStatus",
+          "method": "post",
+          "action": "/request/status_pendingPayment.php",
+          "fields": [
+            "Email",
+            "cell",
+            "6_letters_code",
+            "Submit",
+            "reset"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "submit-request.otp",
+      "flow": "submit-request",
+      "title": "OTP entry after email/captcha (request)",
+      "previousState": "submit-request.email-gate",
+      "triggeringAction": "Correct captcha + email submit; OTP mailed/SMS",
+      "nextActions": [
+        "Submit OTP \u2192 request form"
+      ],
+      "source": "um_citizen.pdf p.27 (history OTP analog); live copy on email-gate says OTP is sent",
+      "fields": [
+        "OTP (received in email / mobile)"
+      ],
+      "label": "DOCUMENTED_ONLY",
+      "url": null,
+      "screenshots": {},
+      "validationObserved": []
+    },
+    {
+      "id": "submit-request.form",
+      "flow": "submit-request",
+      "title": "Online RTI Request Form",
+      "previousState": "submit-request.otp",
+      "triggeringAction": "Valid OTP",
+      "nextActions": [
+        "Select ministry/authority",
+        "Fill applicant details",
+        "BPL Yes \u2192 submit",
+        "BPL No \u2192 Make Payment"
+      ],
+      "source": "um_citizen.pdf pp.5\u20138",
+      "fields": [
+        "Search Public Authority",
+        "Select Ministry/Department/Apex body *",
+        "Select Public Authority *",
+        "Email-ID *",
+        "Confirm Email-ID *",
+        "Name *",
+        "Gender * (Male/Female/Third Gender)",
+        "Address *",
+        "Pin code",
+        "Country (India/Other)",
+        "State",
+        "Status (Rural/Urban)",
+        "Educational Status (Literate/Illiterate)",
+        "Phone +91",
+        "Mobile +91 (SMS)",
+        "Citizenship = Indian (locked)",
+        "BPL * Yes/No",
+        "Text for RTI Request application * (3000 chars, restricted charset)",
+        "Supporting document PDF \u2264 1 MB",
+        "Security code *"
+      ],
+      "label": "DOCUMENTED_ONLY",
+      "url": null,
+      "screenshots": {},
+      "validationObserved": []
+    },
+    {
+      "id": "submit-request.form.bpl-yes",
+      "flow": "submit-request",
+      "title": "Request form \u2014 BPL branch (no \u20b910, extra certificate fields)",
+      "previousState": "submit-request.form",
+      "triggeringAction": "BPL = Yes",
+      "nextActions": [
+        "Upload BPL PDF",
+        "Submit (no payment)"
+      ],
+      "source": "um_citizen.pdf p.6",
+      "fields": [
+        "BPL Card No.",
+        "Year of Issue",
+        "Issuing Authority",
+        "Supporting document *",
+        "Submit"
+      ],
+      "label": "DOCUMENTED_ONLY",
+      "url": null,
+      "screenshots": {},
+      "validationObserved": []
+    },
+    {
+      "id": "submit-request.form.bpl-no",
+      "flow": "submit-request",
+      "title": "Request form \u2014 non-BPL (\u20b910, Make Payment)",
+      "previousState": "submit-request.form",
+      "triggeringAction": "BPL = No",
+      "nextActions": [
+        "Make Payment"
+      ],
+      "source": "um_citizen.pdf pp.7\u20138",
+      "fields": [
+        "Notice: You are required to pay the RTI fee of \u20b910",
+        "Make Payment",
+        "Reset"
+      ],
+      "label": "DOCUMENTED_ONLY",
+      "url": null,
+      "screenshots": {},
+      "validationObserved": []
+    },
+    {
+      "id": "submit-request.payment-form",
+      "flow": "submit-request",
+      "title": "Online Request Payment Form",
+      "previousState": "submit-request.form.bpl-no",
+      "triggeringAction": "Make Payment",
+      "nextActions": [
+        "Select Payment Gateway radio",
+        "Pay",
+        "Back"
+      ],
+      "source": "um_citizen.pdf p.9 \u2014 URL pattern /request/payment.php?requestFromid=",
+      "fields": [
+        "NAME",
+        "RTI Fee \u20b910",
+        "Payment Mode (Internet banking / card / RuPay / UPI)",
+        "Payment Gateway radio",
+        "Pay",
+        "Back"
+      ],
+      "notes": "Red banner: do not refresh or register the same request again. Wait 24\u201348 working hours.",
+      "label": "DOCUMENTED_ONLY",
+      "url": null,
+      "screenshots": {},
+      "validationObserved": []
+    },
+    {
+      "id": "submit-request.sbi-gateway",
+      "flow": "submit-request",
+      "title": "State Bank Multi Option Payment System",
+      "previousState": "submit-request.payment-form",
+      "triggeringAction": "Pay",
+      "nextActions": [
+        "Net banking / cards / UPI",
+        "CANCEL"
+      ],
+      "source": "um_citizen.pdf p.10 \u2014 merchant.online-sbi.com",
+      "fields": [
+        "SBI Net Banking",
+        "Other Banks",
+        "State Bank Debit Cards",
+        "Other Bank Debit Cards",
+        "Credit Cards",
+        "UPI",
+        "CANCEL"
+      ],
+      "label": "DOCUMENTED_ONLY",
+      "url": null,
+      "screenshots": {},
+      "validationObserved": []
+    },
+    {
+      "id": "submit-request.payment-success",
+      "flow": "submit-request",
+      "title": "Payment success \u2192 request registered",
+      "previousState": "submit-request.sbi-gateway",
+      "triggeringAction": "Successful gateway payment",
+      "nextActions": [
+        "Save",
+        "Print",
+        "Print Application"
+      ],
+      "source": "um_citizen.pdf pp.7, 11",
+      "fields": [
+        "Registration Number",
+        "Name",
+        "Date of Filing",
+        "Request filed with",
+        "Contact Details",
+        "Save",
+        "Print",
+        "Print Application"
+      ],
+      "label": "DOCUMENTED_ONLY",
+      "url": null,
+      "screenshots": {},
+      "validationObserved": []
+    },
+    {
+      "id": "submit-request.payment-failure",
+      "flow": "submit-request",
+      "title": "Payment failure (reasons listed in FAQ)",
+      "previousState": "submit-request.sbi-gateway",
+      "triggeringAction": "Gateway decline / timeout / UPI not completed",
+      "nextActions": [
+        "Payment Reconciliation",
+        "Do not pay again"
+      ],
+      "source": "FAQ item 25 (live accordion) + guidelines point 11",
+      "fields": [],
+      "label": "DOCUMENTED_ONLY",
+      "url": null,
+      "screenshots": {},
+      "validationObserved": []
+    },
+    {
+      "id": "submit-request.payment-cancel",
+      "flow": "submit-request",
+      "title": "Payment cancelled on SBI gateway",
+      "previousState": "submit-request.sbi-gateway",
+      "triggeringAction": "CANCEL on SBI page",
+      "nextActions": [
+        "Return to portal",
+        "Payment Reconciliation if debited"
+      ],
+      "source": "um_citizen.pdf p.10 CANCEL control",
+      "fields": [
+        "CANCEL"
+      ],
+      "label": "DOCUMENTED_ONLY",
+      "url": null,
+      "screenshots": {},
+      "validationObserved": []
+    },
+    {
+      "id": "submit-request.acknowledgement",
+      "flow": "submit-request",
+      "title": "Your RTI Request filed successfully",
+      "previousState": "submit-request.payment-success",
+      "triggeringAction": "Redirect after payment or BPL submit",
+      "nextActions": [
+        "Save",
+        "Print",
+        "Print Application",
+        "View Status"
+      ],
+      "source": "um_citizen.pdf pp.7, 11",
+      "fields": [
+        "Registration Number (AAAAA/B/C/DD/EEEEE)",
+        "email + SMS alert"
+      ],
+      "label": "DOCUMENTED_ONLY",
+      "url": null,
+      "screenshots": {},
+      "validationObserved": []
+    },
+    {
+      "id": "first-appeal.form",
+      "flow": "first-appeal",
+      "title": "Online RTI First Appeal Form (body, after lookup)",
+      "previousState": "first-appeal.lookup",
+      "triggeringAction": "Valid registration number + email + captcha",
+      "nextActions": [
+        "Select ground",
+        "Enter appeal text",
+        "Submit (no fee)"
+      ],
+      "source": "um_citizen.pdf pp.15\u201316",
+      "fields": [
+        "Ministry/Department/Apex body (pre-filled)",
+        "Request Registration Number / Date (pre-filled)",
+        "Appellant personal details (pre-filled)",
+        "BPL",
+        "Ground For Appeal * (Refused access; No response within time limit; Unreasonable fee; Incomplete/misleading/false; Any other)",
+        "Text for RTI first appeal application * (manual says 500 and 3000)",
+        "Supporting document PDF \u2264 1 MB",
+        "Security code *",
+        "Submit / Reset"
+      ],
+      "label": "DOCUMENTED_ONLY",
+      "url": null,
+      "screenshots": {},
+      "validationObserved": []
+    },
+    {
+      "id": "first-appeal.acknowledgement",
+      "flow": "first-appeal",
+      "title": "Your RTI Appeal filed successfully",
+      "previousState": "first-appeal.form",
+      "triggeringAction": "Submit appeal (no fee)",
+      "nextActions": [
+        "Save",
+        "Print",
+        "Print Application"
+      ],
+      "source": "um_citizen.pdf p.17",
+      "fields": [
+        "Appeal registration number",
+        "Name",
+        "Date of Filing",
+        "Request filed with"
+      ],
+      "label": "DOCUMENTED_ONLY",
+      "url": null,
+      "screenshots": {},
+      "validationObserved": []
+    },
+    {
+      "id": "view-status.otp",
+      "flow": "view-status",
+      "title": "OTP after status lookup",
+      "previousState": "view-status.gate",
+      "triggeringAction": "Valid registration + email + captcha",
+      "nextActions": [
+        "Submit OTP \u2192 case card"
+      ],
+      "source": "Live gate copy + um_citizen.pdf p.27 analog",
+      "fields": [
+        "OTP"
+      ],
+      "label": "DOCUMENTED_ONLY",
+      "url": null,
+      "screenshots": {},
+      "validationObserved": []
+    },
+    {
+      "id": "view-status.case",
+      "flow": "view-status",
+      "title": "Case status card",
+      "previousState": "view-status.otp",
+      "triggeringAction": "Valid OTP",
+      "nextActions": [
+        "Print RTI Application",
+        "Print Status",
+        "Go Back"
+      ],
+      "source": "um_citizen.pdf p.19",
+      "fields": [
+        "Registration Number",
+        "Name",
+        "Date of filing",
+        "Public Authority",
+        "Status",
+        "Date of action",
+        "Reply / Remarks",
+        "Nodal Officer Details"
+      ],
+      "label": "DOCUMENTED_ONLY",
+      "url": null,
+      "screenshots": {},
+      "validationObserved": []
+    },
+    {
+      "id": "view-status.additional-fee",
+      "flow": "view-status",
+      "title": "Additional payment required",
+      "previousState": "view-status.case",
+      "triggeringAction": "CPIO requests extra fee",
+      "nextActions": [
+        "Make Payment \u2192 payment form / SBI"
+      ],
+      "source": "um_citizen.pdf p.20",
+      "fields": [
+        "Additional Payment amount",
+        "Make Payment link",
+        "Remarks"
+      ],
+      "label": "DOCUMENTED_ONLY",
+      "url": null,
+      "screenshots": {},
+      "validationObserved": []
+    },
+    {
+      "id": "view-status.upload-required",
+      "flow": "view-status",
+      "title": "Supporting document required from applicant",
+      "previousState": "view-status.case",
+      "triggeringAction": "CPIO cannot open original attachment",
+      "nextActions": [
+        "Choose File",
+        "Attached"
+      ],
+      "source": "um_citizen.pdf p.21",
+      "fields": [
+        "Upload document PDF \u2264 1 MB",
+        "Attached"
+      ],
+      "label": "DOCUMENTED_ONLY",
+      "url": null,
+      "screenshots": {},
+      "validationObserved": []
+    },
+    {
+      "id": "view-status.returned-state",
+      "flow": "view-status",
+      "title": "Returned to applicant (State / NCT Delhi) \u2014 no refund",
+      "previousState": "view-status.case",
+      "triggeringAction": "Filed against a State public authority",
+      "nextActions": [
+        "Go Back"
+      ],
+      "source": "um_citizen.pdf p.22",
+      "fields": [
+        "Status: RTI REQUEST APPLICATION RETURNED TO APPLICANT"
+      ],
+      "label": "DOCUMENTED_ONLY",
+      "url": null,
+      "screenshots": {},
+      "validationObserved": []
+    },
+    {
+      "id": "view-status.transferred",
+      "flow": "view-status",
+      "title": "Transferred to another public authority (new number)",
+      "previousState": "view-status.case",
+      "triggeringAction": "Section 6(3) transfer",
+      "nextActions": [
+        "Open new registration number in View Status"
+      ],
+      "source": "um_citizen.pdf p.23",
+      "fields": [
+        "New registration number",
+        "Destination authority"
+      ],
+      "label": "DOCUMENTED_ONLY",
+      "url": null,
+      "screenshots": {},
+      "validationObserved": []
+    },
+    {
+      "id": "view-status.split-cpio",
+      "flow": "view-status",
+      "title": "Forwarded to multiple CPIOs (child numbers)",
+      "previousState": "view-status.case",
+      "triggeringAction": "Nodal officer splits the request",
+      "nextActions": [
+        "Click here to view details",
+        "Appeal against a child number"
+      ],
+      "source": "um_citizen.pdf pp.24\u201325",
+      "fields": [
+        "Child numbers \u2026/1 \u2026/2 \u2026/3",
+        "CPIO phone/email",
+        "Current status"
+      ],
+      "label": "DOCUMENTED_ONLY",
+      "url": null,
+      "screenshots": {},
+      "validationObserved": []
+    },
+    {
+      "id": "view-history.otp",
+      "flow": "view-history",
+      "title": "History OTP form",
+      "previousState": "view-history.gate",
+      "triggeringAction": "Valid email + mobile + captcha",
+      "nextActions": [
+        "Submit OTP \u2192 dashboard"
+      ],
+      "source": "um_citizen.pdf p.27",
+      "fields": [
+        "OTP (Received in Email ONLY)"
+      ],
+      "label": "DOCUMENTED_ONLY",
+      "url": null,
+      "screenshots": {},
+      "validationObserved": []
+    },
+    {
+      "id": "view-history.dashboard",
+      "flow": "view-history",
+      "title": "Registered / pending / disposed counts",
+      "previousState": "view-history.otp",
+      "triggeringAction": "Valid OTP",
+      "nextActions": [
+        "Open Registered / Pending / Disposed Requests or Appeals"
+      ],
+      "source": "um_citizen.pdf p.28",
+      "fields": [
+        "Requests: Registered, Disposed of, Pending",
+        "Appeals: Registered, Disposed of, Pending"
+      ],
+      "label": "DOCUMENTED_ONLY",
+      "url": null,
+      "screenshots": {},
+      "validationObserved": []
+    },
+    {
+      "id": "view-history.list",
+      "flow": "view-history",
+      "title": "List of Requests Registered (search + pagination)",
+      "previousState": "view-history.dashboard",
+      "triggeringAction": "Click Registered Requests",
+      "nextActions": [
+        "Open a registration number",
+        "Search",
+        "Next page"
+      ],
+      "source": "um_citizen.pdf p.29",
+      "fields": [
+        "Show N entries",
+        "Search",
+        "S.No.",
+        "Registration Number",
+        "Name",
+        "Date of Receipt",
+        "Status"
+      ],
+      "notes": "Number format AAAAA/B/C/DD/EEEEE documented on the same page.",
+      "label": "DOCUMENTED_ONLY",
+      "url": null,
+      "screenshots": {},
+      "validationObserved": []
+    },
+    {
+      "id": "login.authenticated",
+      "flow": "login",
+      "title": "Authenticated citizen account / drafts",
+      "previousState": "login.gate",
+      "triggeringAction": "Valid username + password + captcha",
+      "nextActions": [
+        "History",
+        "Saved drafts (if any)"
+      ],
+      "source": "Login form posts to validLogin.php; destination not captured live",
+      "fields": [],
+      "label": "DOCUMENTED_ONLY",
+      "url": null,
+      "screenshots": {},
+      "validationObserved": []
+    },
+    {
+      "id": "payment-reconciliation.result",
+      "flow": "payment-reconciliation",
+      "title": "Reconciliation result (number generated or still pending)",
+      "previousState": "payment-reconciliation.gate",
+      "triggeringAction": "Valid email + captcha (and likely OTP)",
+      "nextActions": [
+        "Open View Status if number exists",
+        "Wait 24\u201348 working hours",
+        "Mail help desk"
+      ],
+      "source": "FAQ item 13 + live gate; result page not captured live",
+      "fields": [],
+      "label": "DOCUMENTED_ONLY",
+      "url": null,
+      "screenshots": {},
+      "validationObserved": []
+    }
+  ]
+}

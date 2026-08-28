@@ -1,0 +1,2906 @@
+{
+  "home": {
+    "forms": [
+      {
+        "name": "frmLang",
+        "id": "frmLang",
+        "method": "post",
+        "action": "",
+        "fields": [
+          "lan",
+          "hndbaseurl",
+          "hndactionurl"
+        ]
+      }
+    ],
+    "inputs": [
+      {
+        "tag": "input",
+        "type": "hidden",
+        "name": "hndbaseurl",
+        "id": "hndbaseurl",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "https://rtionline.gov.in/",
+        "label": "Select Language: English Hindi",
+        "visible": false
+      },
+      {
+        "tag": "input",
+        "type": "hidden",
+        "name": "hndactionurl",
+        "id": "hndactionurl",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "https://rtionline.gov.in/layout/getLanguage.php",
+        "label": "Select Language: English Hindi",
+        "visible": false
+      }
+    ],
+    "selects": [
+      {
+        "name": "lan",
+        "id": "lan",
+        "label": "Select Language: English Hindi",
+        "options": [
+          {
+            "value": "en",
+            "text": "English",
+            "selected": true
+          },
+          {
+            "value": "hi",
+            "text": "Hindi",
+            "selected": false
+          }
+        ],
+        "visible": true
+      }
+    ],
+    "checkboxes": [],
+    "buttons": [
+      {
+        "tag": "button",
+        "type": "button",
+        "text": "",
+        "name": "",
+        "id": "",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "button",
+        "type": "button",
+        "text": "",
+        "name": "",
+        "id": "",
+        "disabled": false,
+        "visible": true
+      }
+    ],
+    "links": [
+      {
+        "text": "Public Authorities Available",
+        "href": "https://rtionline.gov.in/request/allpa.php?pageid=c4ca4238a0b923820dcc509a6f75849b"
+      },
+      {
+        "text": "Home",
+        "href": "https://rtionline.gov.in/index.php"
+      },
+      {
+        "text": "Submit Request",
+        "href": "https://rtionline.gov.in/guidelines.php?request&&pageid=c4ca4238a0b923820dcc509a6f75849b"
+      },
+      {
+        "text": "Submit First Appeal",
+        "href": "https://rtionline.gov.in/guidelines.php?appeal&&pageid=c4ca4238a0b923820dcc509a6f75849b"
+      },
+      {
+        "text": "View Status",
+        "href": "https://rtionline.gov.in/request/status.php"
+      },
+      {
+        "text": "View History",
+        "href": "https://rtionline.gov.in/request/status_history.php"
+      },
+      {
+        "text": "Login",
+        "href": "https://rtionline.gov.in/login.php"
+      },
+      {
+        "text": "User Manual",
+        "href": "https://rtionline.gov.in/viewPDF.php?file=um_citizen.pdf"
+      },
+      {
+        "text": "Contact Us",
+        "href": "https://rtionline.gov.in/Contactus.php"
+      },
+      {
+        "text": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=c4ca4238a0b923820dcc509a6f75849b"
+      },
+      {
+        "text": "Payment Reconciliation",
+        "href": "https://rtionline.gov.in/request/status_pendingPayment.php?pageid=c4ca4238a0b923820dcc509a6f75849b"
+      },
+      {
+        "text": "Home",
+        "href": "https://rtionline.gov.in"
+      },
+      {
+        "text": "National Portal of India",
+        "href": "http://india.gov.in/"
+      },
+      {
+        "text": "Complaint & Second Appeal to CIC",
+        "href": "http://dsscic.nic.in/online-appeal-application/onlineappealapplication/"
+      },
+      {
+        "text": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=c4ca4238a0b923820dcc509a6f75849b"
+      },
+      {
+        "text": "Policy",
+        "href": "https://rtionline.gov.in/Policies.php"
+      }
+    ],
+    "errors": []
+  },
+  "request-status-php": {
+    "forms": [
+      {
+        "name": "frmLang",
+        "id": "frmLang",
+        "method": "post",
+        "action": "",
+        "fields": [
+          "lan",
+          "hndbaseurl",
+          "hndactionurl"
+        ]
+      },
+      {
+        "name": "FrmStatus",
+        "id": "",
+        "method": "post",
+        "action": "/request/status.php",
+        "fields": [
+          "registration_no",
+          "Email",
+          "6_letters_code",
+          "Submit",
+          "reset"
+        ]
+      }
+    ],
+    "inputs": [
+      {
+        "tag": "input",
+        "type": "hidden",
+        "name": "hndbaseurl",
+        "id": "hndbaseurl",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "https://rtionline.gov.in/request/status.php",
+        "label": "Select Language: English Hindi",
+        "visible": false
+      },
+      {
+        "tag": "input",
+        "type": "hidden",
+        "name": "hndactionurl",
+        "id": "hndactionurl",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "https://rtionline.gov.in/layout/getLanguage.php",
+        "label": "Select Language: English Hindi",
+        "visible": false
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "registration_no",
+        "id": "registration_no",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "21",
+        "value": "",
+        "label": "* Enter Registration Number",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "Email",
+        "id": "Email",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "",
+        "label": "* Enter Email Id",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "6_letters_code",
+        "id": "6_letters_code",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "6",
+        "value": "",
+        "label": "* Enter Security code",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "submit",
+        "name": "Submit",
+        "id": "Status",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "Submit",
+        "label": "",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "reset",
+        "name": "",
+        "id": "",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "Reset",
+        "label": "",
+        "visible": true
+      }
+    ],
+    "selects": [
+      {
+        "name": "lan",
+        "id": "lan",
+        "label": "Select Language: English Hindi",
+        "options": [
+          {
+            "value": "en",
+            "text": "English",
+            "selected": true
+          },
+          {
+            "value": "hi",
+            "text": "Hindi",
+            "selected": false
+          }
+        ],
+        "visible": true
+      }
+    ],
+    "checkboxes": [],
+    "buttons": [
+      {
+        "tag": "button",
+        "type": "button",
+        "text": "",
+        "name": "",
+        "id": "",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "button",
+        "type": "button",
+        "text": "",
+        "name": "",
+        "id": "",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "submit",
+        "text": "Submit",
+        "name": "Submit",
+        "id": "Status",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "reset",
+        "text": "Reset",
+        "name": "",
+        "id": "",
+        "disabled": false,
+        "visible": true
+      }
+    ],
+    "links": [
+      {
+        "text": "Public Authorities Available",
+        "href": "https://rtionline.gov.in/request/allpa.php?pageid=c4ca4238a0b923820dcc509a6f75849b"
+      },
+      {
+        "text": "Home",
+        "href": "https://rtionline.gov.in/index.php"
+      },
+      {
+        "text": "Submit Request",
+        "href": "https://rtionline.gov.in/guidelines.php?request&&pageid=c4ca4238a0b923820dcc509a6f75849b"
+      },
+      {
+        "text": "Submit First Appeal",
+        "href": "https://rtionline.gov.in/guidelines.php?appeal&&pageid=c4ca4238a0b923820dcc509a6f75849b"
+      },
+      {
+        "text": "View Status",
+        "href": "https://rtionline.gov.in/request/status.php"
+      },
+      {
+        "text": "View History",
+        "href": "https://rtionline.gov.in/request/status_history.php"
+      },
+      {
+        "text": "Login",
+        "href": "https://rtionline.gov.in/login.php"
+      },
+      {
+        "text": "User Manual",
+        "href": "https://rtionline.gov.in/viewPDF.php?file=um_citizen.pdf"
+      },
+      {
+        "text": "Contact Us",
+        "href": "https://rtionline.gov.in/Contactus.php"
+      },
+      {
+        "text": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=c4ca4238a0b923820dcc509a6f75849b"
+      },
+      {
+        "text": "Payment Reconciliation",
+        "href": "https://rtionline.gov.in/request/status_pendingPayment.php?pageid=c4ca4238a0b923820dcc509a6f75849b"
+      },
+      {
+        "text": "refresh",
+        "href": "javascript: refreshCaptcha();"
+      },
+      {
+        "text": "",
+        "href": "audiofile1.php"
+      },
+      {
+        "text": "Home",
+        "href": "https://rtionline.gov.in"
+      },
+      {
+        "text": "National Portal of India",
+        "href": "http://india.gov.in/"
+      },
+      {
+        "text": "Complaint & Second Appeal to CIC",
+        "href": "http://dsscic.nic.in/online-appeal-application/onlineappealapplication/"
+      },
+      {
+        "text": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=c4ca4238a0b923820dcc509a6f75849b"
+      },
+      {
+        "text": "Policy",
+        "href": "https://rtionline.gov.in/Policies.php"
+      }
+    ],
+    "errors": [
+      "OTPs do not expire until they are used, meaning users can register their applications as soon as the OTP arrives.",
+      "(All Characters are Case insensitive)",
+      "OTP will be sent to both email id and mobile number (If provided during submission of RTI Request)."
+    ]
+  },
+  "login-php": {
+    "forms": [
+      {
+        "name": "frmLang",
+        "id": "frmLang",
+        "method": "post",
+        "action": "",
+        "fields": [
+          "lan",
+          "hndbaseurl",
+          "hndactionurl"
+        ]
+      },
+      {
+        "name": "FrmLogin",
+        "id": "Form_1787898723",
+        "method": "post",
+        "action": "validLogin.php",
+        "fields": [
+          "UserName",
+          "password",
+          "hndPassword",
+          "6_letters_code",
+          "Login",
+          "reset"
+        ]
+      }
+    ],
+    "inputs": [
+      {
+        "tag": "input",
+        "type": "hidden",
+        "name": "hndbaseurl",
+        "id": "hndbaseurl",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "https://rtionline.gov.in/login.php",
+        "label": "Select Language: English Hindi",
+        "visible": false
+      },
+      {
+        "tag": "input",
+        "type": "hidden",
+        "name": "hndactionurl",
+        "id": "hndactionurl",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "https://rtionline.gov.in/layout/getLanguage.php",
+        "label": "Select Language: English Hindi",
+        "visible": false
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "UserName",
+        "id": "UserName",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "25",
+        "value": "",
+        "label": "* Enter Username",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "password",
+        "name": "password",
+        "id": "password",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "50",
+        "value": "",
+        "label": "*Enter Password",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "hidden",
+        "name": "hndPassword",
+        "id": "hndPassword",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "",
+        "label": "*Enter Password",
+        "visible": false
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "6_letters_code",
+        "id": "6_letters_code",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "10",
+        "value": "",
+        "label": "*Enter Security code",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "submit",
+        "name": "Login",
+        "id": "Login",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "Submit",
+        "label": "",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "reset",
+        "name": "",
+        "id": "",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "Reset",
+        "label": "",
+        "visible": true
+      }
+    ],
+    "selects": [
+      {
+        "name": "lan",
+        "id": "lan",
+        "label": "Select Language: English Hindi",
+        "options": [
+          {
+            "value": "en",
+            "text": "English",
+            "selected": true
+          },
+          {
+            "value": "hi",
+            "text": "Hindi",
+            "selected": false
+          }
+        ],
+        "visible": true
+      }
+    ],
+    "checkboxes": [],
+    "buttons": [
+      {
+        "tag": "button",
+        "type": "button",
+        "text": "",
+        "name": "",
+        "id": "",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "button",
+        "type": "button",
+        "text": "",
+        "name": "",
+        "id": "",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "submit",
+        "text": "Submit",
+        "name": "Login",
+        "id": "Login",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "reset",
+        "text": "Reset",
+        "name": "",
+        "id": "",
+        "disabled": false,
+        "visible": true
+      }
+    ],
+    "links": [
+      {
+        "text": "Public Authorities Available",
+        "href": "https://rtionline.gov.in/request/allpa.php?pageid=cfcd208495d565ef66e7dff9f98764da"
+      },
+      {
+        "text": "Home",
+        "href": "https://rtionline.gov.in/index.php"
+      },
+      {
+        "text": "Submit Request",
+        "href": "https://rtionline.gov.in/guidelines.php?request&&pageid=cfcd208495d565ef66e7dff9f98764da"
+      },
+      {
+        "text": "Submit First Appeal",
+        "href": "https://rtionline.gov.in/guidelines.php?appeal&&pageid=cfcd208495d565ef66e7dff9f98764da"
+      },
+      {
+        "text": "View Status",
+        "href": "https://rtionline.gov.in/request/status.php"
+      },
+      {
+        "text": "View History",
+        "href": "https://rtionline.gov.in/request/status_history.php"
+      },
+      {
+        "text": "Login",
+        "href": "https://rtionline.gov.in/login.php"
+      },
+      {
+        "text": "User Manual",
+        "href": "https://rtionline.gov.in/viewPDF.php?file=um_citizen.pdf"
+      },
+      {
+        "text": "Contact Us",
+        "href": "https://rtionline.gov.in/Contactus.php"
+      },
+      {
+        "text": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=cfcd208495d565ef66e7dff9f98764da"
+      },
+      {
+        "text": "Payment Reconciliation",
+        "href": "https://rtionline.gov.in/request/status_pendingPayment.php?pageid=cfcd208495d565ef66e7dff9f98764da"
+      },
+      {
+        "text": "here",
+        "href": "javascript: refreshCaptcha();"
+      },
+      {
+        "text": "",
+        "href": "audiofile1.php"
+      },
+      {
+        "text": "Home",
+        "href": "https://rtionline.gov.in"
+      },
+      {
+        "text": "National Portal of India",
+        "href": "http://india.gov.in/"
+      },
+      {
+        "text": "Complaint & Second Appeal to CIC",
+        "href": "http://dsscic.nic.in/online-appeal-application/onlineappealapplication/"
+      },
+      {
+        "text": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=cfcd208495d565ef66e7dff9f98764da"
+      },
+      {
+        "text": "Policy",
+        "href": "https://rtionline.gov.in/Policies.php"
+      }
+    ],
+    "errors": [
+      "(All Characters are Case insensitive)"
+    ]
+  },
+  "guidelines-php-appeal": {
+    "forms": [
+      {
+        "name": "",
+        "id": "",
+        "method": "post",
+        "action": "https://rtionline.gov.in/appeal/firstAppeal.php?pageid=45c48cce2e2d7fbdea1afc51c7c6ad26",
+        "fields": [
+          "CHECKBOX_1",
+          "SUBMIT",
+          "button"
+        ]
+      }
+    ],
+    "inputs": [
+      {
+        "tag": "input",
+        "type": "checkbox",
+        "name": "CHECKBOX_1",
+        "id": "",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "",
+        "label": "I have read and understood the above guidelines.",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "submit",
+        "name": "",
+        "id": "",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "Submit",
+        "label": "",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "name": "",
+        "id": "",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "Cancel",
+        "label": "",
+        "visible": true
+      }
+    ],
+    "selects": [],
+    "checkboxes": [
+      {
+        "tag": "input",
+        "type": "checkbox",
+        "name": "CHECKBOX_1",
+        "id": "",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "",
+        "label": "I have read and understood the above guidelines.",
+        "visible": true
+      }
+    ],
+    "buttons": [
+      {
+        "tag": "input",
+        "type": "SUBMIT",
+        "text": "Submit",
+        "name": "",
+        "id": "",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "text": "Cancel",
+        "name": "",
+        "id": "",
+        "disabled": false,
+        "visible": true
+      }
+    ],
+    "links": [],
+    "errors": []
+  },
+  "request-status-pendingpayment-php": {
+    "forms": [
+      {
+        "name": "frmLang",
+        "id": "frmLang",
+        "method": "post",
+        "action": "",
+        "fields": [
+          "lan",
+          "hndbaseurl",
+          "hndactionurl"
+        ]
+      },
+      {
+        "name": "FrmStatus",
+        "id": "Form_1787898685",
+        "method": "post",
+        "action": "/request/status_pendingPayment.php",
+        "fields": [
+          "Email",
+          "cell",
+          "6_letters_code",
+          "Submit",
+          "reset"
+        ]
+      }
+    ],
+    "inputs": [
+      {
+        "tag": "input",
+        "type": "hidden",
+        "name": "hndbaseurl",
+        "id": "hndbaseurl",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "https://rtionline.gov.in/request/status_pendingPayment.php",
+        "label": "Select Language: English Hindi",
+        "visible": false
+      },
+      {
+        "tag": "input",
+        "type": "hidden",
+        "name": "hndactionurl",
+        "id": "hndactionurl",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "https://rtionline.gov.in/layout/getLanguage.php",
+        "label": "Select Language: English Hindi",
+        "visible": false
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "Email",
+        "id": "Email",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "",
+        "label": "* Enter Email Id (For receiving OTP)",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "password",
+        "name": "cell",
+        "id": "cell",
+        "placeholder": "Enter Mobile Number",
+        "required": false,
+        "maxlength": "10",
+        "value": "",
+        "label": "Mobile Number",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "6_letters_code",
+        "id": "6_letters_code",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "10",
+        "value": "",
+        "label": "* Enter Security code",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "submit",
+        "name": "Submit",
+        "id": "Status",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "Submit",
+        "label": "",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "reset",
+        "name": "",
+        "id": "",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "Reset",
+        "label": "",
+        "visible": true
+      }
+    ],
+    "selects": [
+      {
+        "name": "lan",
+        "id": "lan",
+        "label": "Select Language: English Hindi",
+        "options": [
+          {
+            "value": "en",
+            "text": "English",
+            "selected": true
+          },
+          {
+            "value": "hi",
+            "text": "Hindi",
+            "selected": false
+          }
+        ],
+        "visible": true
+      }
+    ],
+    "checkboxes": [],
+    "buttons": [
+      {
+        "tag": "button",
+        "type": "button",
+        "text": "",
+        "name": "",
+        "id": "",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "button",
+        "type": "button",
+        "text": "",
+        "name": "",
+        "id": "",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "submit",
+        "text": "Submit",
+        "name": "Submit",
+        "id": "Status",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "reset",
+        "text": "Reset",
+        "name": "",
+        "id": "",
+        "disabled": false,
+        "visible": true
+      }
+    ],
+    "links": [
+      {
+        "text": "Public Authorities Available",
+        "href": "https://rtionline.gov.in/request/allpa.php?pageid=45c48cce2e2d7fbdea1afc51c7c6ad26"
+      },
+      {
+        "text": "Home",
+        "href": "https://rtionline.gov.in/index.php"
+      },
+      {
+        "text": "Submit Request",
+        "href": "https://rtionline.gov.in/guidelines.php?request&&pageid=45c48cce2e2d7fbdea1afc51c7c6ad26"
+      },
+      {
+        "text": "Submit First Appeal",
+        "href": "https://rtionline.gov.in/guidelines.php?appeal&&pageid=45c48cce2e2d7fbdea1afc51c7c6ad26"
+      },
+      {
+        "text": "View Status",
+        "href": "https://rtionline.gov.in/request/status.php"
+      },
+      {
+        "text": "View History",
+        "href": "https://rtionline.gov.in/request/status_history.php"
+      },
+      {
+        "text": "Login",
+        "href": "https://rtionline.gov.in/login.php"
+      },
+      {
+        "text": "User Manual",
+        "href": "https://rtionline.gov.in/viewPDF.php?file=um_citizen.pdf"
+      },
+      {
+        "text": "Contact Us",
+        "href": "https://rtionline.gov.in/Contactus.php"
+      },
+      {
+        "text": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=45c48cce2e2d7fbdea1afc51c7c6ad26"
+      },
+      {
+        "text": "Payment Reconciliation",
+        "href": "https://rtionline.gov.in/request/status_pendingPayment.php?pageid=45c48cce2e2d7fbdea1afc51c7c6ad26"
+      },
+      {
+        "text": "refresh",
+        "href": "javascript: refreshCaptcha();"
+      },
+      {
+        "text": "",
+        "href": "audiofile1.php"
+      },
+      {
+        "text": "Home",
+        "href": "https://rtionline.gov.in"
+      },
+      {
+        "text": "National Portal of India",
+        "href": "http://india.gov.in/"
+      },
+      {
+        "text": "Complaint & Second Appeal to CIC",
+        "href": "http://dsscic.nic.in/online-appeal-application/onlineappealapplication/"
+      },
+      {
+        "text": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=45c48cce2e2d7fbdea1afc51c7c6ad26"
+      },
+      {
+        "text": "Policy",
+        "href": "https://rtionline.gov.in/Policies.php"
+      }
+    ],
+    "errors": [
+      "(All Characters are Case insensitive)"
+    ]
+  },
+  "contactus-php": {
+    "forms": [
+      {
+        "name": "frmLang",
+        "id": "frmLang",
+        "method": "post",
+        "action": "",
+        "fields": [
+          "lan",
+          "hndbaseurl",
+          "hndactionurl"
+        ]
+      }
+    ],
+    "inputs": [
+      {
+        "tag": "input",
+        "type": "hidden",
+        "name": "hndbaseurl",
+        "id": "hndbaseurl",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "https://rtionline.gov.in/Contactus.php",
+        "label": "Select Language: English Hindi",
+        "visible": false
+      },
+      {
+        "tag": "input",
+        "type": "hidden",
+        "name": "hndactionurl",
+        "id": "hndactionurl",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "https://rtionline.gov.in/layout/getLanguage.php",
+        "label": "Select Language: English Hindi",
+        "visible": false
+      }
+    ],
+    "selects": [
+      {
+        "name": "lan",
+        "id": "lan",
+        "label": "Select Language: English Hindi",
+        "options": [
+          {
+            "value": "en",
+            "text": "English",
+            "selected": true
+          },
+          {
+            "value": "hi",
+            "text": "Hindi",
+            "selected": false
+          }
+        ],
+        "visible": true
+      }
+    ],
+    "checkboxes": [],
+    "buttons": [
+      {
+        "tag": "button",
+        "type": "button",
+        "text": "",
+        "name": "",
+        "id": "",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "button",
+        "type": "button",
+        "text": "",
+        "name": "",
+        "id": "",
+        "disabled": false,
+        "visible": true
+      }
+    ],
+    "links": [
+      {
+        "text": "Public Authorities Available",
+        "href": "https://rtionline.gov.in/request/allpa.php?pageid=45c48cce2e2d7fbdea1afc51c7c6ad26"
+      },
+      {
+        "text": "Home",
+        "href": "https://rtionline.gov.in/index.php"
+      },
+      {
+        "text": "Submit Request",
+        "href": "https://rtionline.gov.in/guidelines.php?request&&pageid=45c48cce2e2d7fbdea1afc51c7c6ad26"
+      },
+      {
+        "text": "Submit First Appeal",
+        "href": "https://rtionline.gov.in/guidelines.php?appeal&&pageid=45c48cce2e2d7fbdea1afc51c7c6ad26"
+      },
+      {
+        "text": "View Status",
+        "href": "https://rtionline.gov.in/request/status.php"
+      },
+      {
+        "text": "View History",
+        "href": "https://rtionline.gov.in/request/status_history.php"
+      },
+      {
+        "text": "Login",
+        "href": "https://rtionline.gov.in/login.php"
+      },
+      {
+        "text": "User Manual",
+        "href": "https://rtionline.gov.in/viewPDF.php?file=um_citizen.pdf"
+      },
+      {
+        "text": "Contact Us",
+        "href": "https://rtionline.gov.in/Contactus.php"
+      },
+      {
+        "text": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=45c48cce2e2d7fbdea1afc51c7c6ad26"
+      },
+      {
+        "text": "Payment Reconciliation",
+        "href": "https://rtionline.gov.in/request/status_pendingPayment.php?pageid=45c48cce2e2d7fbdea1afc51c7c6ad26"
+      },
+      {
+        "text": "Home",
+        "href": "https://rtionline.gov.in"
+      },
+      {
+        "text": "National Portal of India",
+        "href": "http://india.gov.in/"
+      },
+      {
+        "text": "Complaint & Second Appeal to CIC",
+        "href": "http://dsscic.nic.in/online-appeal-application/onlineappealapplication/"
+      },
+      {
+        "text": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=45c48cce2e2d7fbdea1afc51c7c6ad26"
+      },
+      {
+        "text": "Policy",
+        "href": "https://rtionline.gov.in/Policies.php"
+      }
+    ],
+    "errors": []
+  },
+  "registration-php": {
+    "forms": [],
+    "inputs": [],
+    "selects": [],
+    "checkboxes": [],
+    "buttons": [],
+    "links": [],
+    "errors": []
+  },
+  "guidelines-php-request": {
+    "forms": [
+      {
+        "name": "",
+        "id": "",
+        "method": "post",
+        "action": "https://rtionline.gov.in/request/request_email_check.php?pageid=c9f0f895fb98ab9159f51fd0297e236d",
+        "fields": [
+          "CHECKBOX_1",
+          "SUBMIT",
+          "button"
+        ]
+      }
+    ],
+    "inputs": [
+      {
+        "tag": "input",
+        "type": "checkbox",
+        "name": "CHECKBOX_1",
+        "id": "",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "",
+        "label": "I have read and understood the above guidelines.",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "submit",
+        "name": "",
+        "id": "",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "Submit",
+        "label": "",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "name": "",
+        "id": "",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "Cancel",
+        "label": "",
+        "visible": true
+      }
+    ],
+    "selects": [],
+    "checkboxes": [
+      {
+        "tag": "input",
+        "type": "checkbox",
+        "name": "CHECKBOX_1",
+        "id": "",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "",
+        "label": "I have read and understood the above guidelines.",
+        "visible": true
+      }
+    ],
+    "buttons": [
+      {
+        "tag": "input",
+        "type": "SUBMIT",
+        "text": "Submit",
+        "name": "",
+        "id": "",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "text": "Cancel",
+        "name": "",
+        "id": "",
+        "disabled": false,
+        "visible": true
+      }
+    ],
+    "links": [],
+    "errors": []
+  },
+  "viewpdf-php-file-um-citizen-pdf": {
+    "forms": [],
+    "inputs": [],
+    "selects": [],
+    "checkboxes": [],
+    "buttons": [],
+    "links": [],
+    "errors": []
+  },
+  "request-allpa-php": {
+    "forms": [],
+    "inputs": [],
+    "selects": [],
+    "checkboxes": [],
+    "buttons": [],
+    "links": [
+      {
+        "text": "Back",
+        "href": "../index.php"
+      }
+    ],
+    "errors": []
+  },
+  "request-status-history-php": {
+    "forms": [
+      {
+        "name": "frmLang",
+        "id": "frmLang",
+        "method": "post",
+        "action": "",
+        "fields": [
+          "lan",
+          "hndbaseurl",
+          "hndactionurl"
+        ]
+      },
+      {
+        "name": "FrmStatus",
+        "id": "Form_1787898698",
+        "method": "post",
+        "action": "/request/status_history.php",
+        "fields": [
+          "Email",
+          "cell",
+          "6_letters_code",
+          "Submit",
+          "reset"
+        ]
+      }
+    ],
+    "inputs": [
+      {
+        "tag": "input",
+        "type": "hidden",
+        "name": "hndbaseurl",
+        "id": "hndbaseurl",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "https://rtionline.gov.in/request/status_history.php",
+        "label": "Select Language: English Hindi",
+        "visible": false
+      },
+      {
+        "tag": "input",
+        "type": "hidden",
+        "name": "hndactionurl",
+        "id": "hndactionurl",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "https://rtionline.gov.in/layout/getLanguage.php",
+        "label": "Select Language: English Hindi",
+        "visible": false
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "Email",
+        "id": "Email",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "",
+        "label": "* Enter Email Id (For receiving OTP)",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "password",
+        "name": "cell",
+        "id": "cell",
+        "placeholder": "Enter Mobile Number",
+        "required": false,
+        "maxlength": "10",
+        "value": "",
+        "label": "Mobile Number",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "6_letters_code",
+        "id": "6_letters_code",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "10",
+        "value": "",
+        "label": "* Enter Security code",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "submit",
+        "name": "Submit",
+        "id": "Status",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "Submit",
+        "label": "",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "reset",
+        "name": "",
+        "id": "",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "Reset",
+        "label": "",
+        "visible": true
+      }
+    ],
+    "selects": [
+      {
+        "name": "lan",
+        "id": "lan",
+        "label": "Select Language: English Hindi",
+        "options": [
+          {
+            "value": "en",
+            "text": "English",
+            "selected": true
+          },
+          {
+            "value": "hi",
+            "text": "Hindi",
+            "selected": false
+          }
+        ],
+        "visible": true
+      }
+    ],
+    "checkboxes": [],
+    "buttons": [
+      {
+        "tag": "button",
+        "type": "button",
+        "text": "",
+        "name": "",
+        "id": "",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "button",
+        "type": "button",
+        "text": "",
+        "name": "",
+        "id": "",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "submit",
+        "text": "Submit",
+        "name": "Submit",
+        "id": "Status",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "reset",
+        "text": "Reset",
+        "name": "",
+        "id": "",
+        "disabled": false,
+        "visible": true
+      }
+    ],
+    "links": [
+      {
+        "text": "Public Authorities Available",
+        "href": "https://rtionline.gov.in/request/allpa.php?pageid=45c48cce2e2d7fbdea1afc51c7c6ad26"
+      },
+      {
+        "text": "Home",
+        "href": "https://rtionline.gov.in/index.php"
+      },
+      {
+        "text": "Submit Request",
+        "href": "https://rtionline.gov.in/guidelines.php?request&&pageid=45c48cce2e2d7fbdea1afc51c7c6ad26"
+      },
+      {
+        "text": "Submit First Appeal",
+        "href": "https://rtionline.gov.in/guidelines.php?appeal&&pageid=45c48cce2e2d7fbdea1afc51c7c6ad26"
+      },
+      {
+        "text": "View Status",
+        "href": "https://rtionline.gov.in/request/status.php"
+      },
+      {
+        "text": "View History",
+        "href": "https://rtionline.gov.in/request/status_history.php"
+      },
+      {
+        "text": "Login",
+        "href": "https://rtionline.gov.in/login.php"
+      },
+      {
+        "text": "User Manual",
+        "href": "https://rtionline.gov.in/viewPDF.php?file=um_citizen.pdf"
+      },
+      {
+        "text": "Contact Us",
+        "href": "https://rtionline.gov.in/Contactus.php"
+      },
+      {
+        "text": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=45c48cce2e2d7fbdea1afc51c7c6ad26"
+      },
+      {
+        "text": "Payment Reconciliation",
+        "href": "https://rtionline.gov.in/request/status_pendingPayment.php?pageid=45c48cce2e2d7fbdea1afc51c7c6ad26"
+      },
+      {
+        "text": "refresh",
+        "href": "javascript: refreshCaptcha();"
+      },
+      {
+        "text": "",
+        "href": "audiofile1.php"
+      },
+      {
+        "text": "Home",
+        "href": "https://rtionline.gov.in"
+      },
+      {
+        "text": "National Portal of India",
+        "href": "http://india.gov.in/"
+      },
+      {
+        "text": "Complaint & Second Appeal to CIC",
+        "href": "http://dsscic.nic.in/online-appeal-application/onlineappealapplication/"
+      },
+      {
+        "text": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=45c48cce2e2d7fbdea1afc51c7c6ad26"
+      },
+      {
+        "text": "Policy",
+        "href": "https://rtionline.gov.in/Policies.php"
+      }
+    ],
+    "errors": [
+      "(All Characters are Case insensitive)",
+      "OTP will be sent to both email id and mobile number (If provided during submission of RTI Request)."
+    ]
+  },
+  "forgotpassword-php": {
+    "forms": [],
+    "inputs": [],
+    "selects": [],
+    "checkboxes": [],
+    "buttons": [],
+    "links": [],
+    "errors": []
+  },
+  "faq-php": {
+    "forms": [
+      {
+        "name": "frmLang",
+        "id": "frmLang",
+        "method": "post",
+        "action": "",
+        "fields": [
+          "lan",
+          "hndbaseurl",
+          "hndactionurl"
+        ]
+      }
+    ],
+    "inputs": [
+      {
+        "tag": "input",
+        "type": "hidden",
+        "name": "hndbaseurl",
+        "id": "hndbaseurl",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "https://rtionline.gov.in/faq.php",
+        "label": "Select Language: English Hindi",
+        "visible": false
+      },
+      {
+        "tag": "input",
+        "type": "hidden",
+        "name": "hndactionurl",
+        "id": "hndactionurl",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "https://rtionline.gov.in/layout/getLanguage.php",
+        "label": "Select Language: English Hindi",
+        "visible": false
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "name": "",
+        "id": "btn0",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "-",
+        "label": "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request th",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "name": "",
+        "id": "btn1",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "-",
+        "label": "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request th",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "name": "",
+        "id": "btn2",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "-",
+        "label": "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request th",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "name": "",
+        "id": "btn3",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "-",
+        "label": "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request th",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "name": "",
+        "id": "btn4",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "-",
+        "label": "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request th",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "name": "",
+        "id": "btn5",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "-",
+        "label": "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request th",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "name": "",
+        "id": "btn6",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "-",
+        "label": "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request th",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "name": "",
+        "id": "btn7",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "-",
+        "label": "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request th",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "name": "",
+        "id": "btn8",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "-",
+        "label": "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request th",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "name": "",
+        "id": "btn9",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "-",
+        "label": "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request th",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "name": "",
+        "id": "btn10",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "-",
+        "label": "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request th",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "name": "",
+        "id": "btn11",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "-",
+        "label": "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request th",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "name": "",
+        "id": "btn12",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "-",
+        "label": "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request th",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "name": "",
+        "id": "btn13",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "-",
+        "label": "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request th",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "name": "",
+        "id": "btn14",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "-",
+        "label": "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request th",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "name": "",
+        "id": "btn15",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "-",
+        "label": "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request th",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "name": "",
+        "id": "btn16",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "-",
+        "label": "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request th",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "name": "",
+        "id": "btn17",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "-",
+        "label": "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request th",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "name": "",
+        "id": "btn18",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "-",
+        "label": "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request th",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "name": "",
+        "id": "btn19",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "-",
+        "label": "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request th",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "name": "",
+        "id": "btn20",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "-",
+        "label": "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request th",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "name": "",
+        "id": "btn21",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "-",
+        "label": "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request th",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "name": "",
+        "id": "btn22",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "-",
+        "label": "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request th",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "name": "",
+        "id": "btn23",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "-",
+        "label": "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request th",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "name": "",
+        "id": "btn24",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "-",
+        "label": "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request th",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "name": "",
+        "id": "btn25",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "-",
+        "label": "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request th",
+        "visible": true
+      }
+    ],
+    "selects": [
+      {
+        "name": "lan",
+        "id": "lan",
+        "label": "Select Language: English Hindi",
+        "options": [
+          {
+            "value": "en",
+            "text": "English",
+            "selected": true
+          },
+          {
+            "value": "hi",
+            "text": "Hindi",
+            "selected": false
+          }
+        ],
+        "visible": true
+      }
+    ],
+    "checkboxes": [],
+    "buttons": [
+      {
+        "tag": "button",
+        "type": "button",
+        "text": "",
+        "name": "",
+        "id": "",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "button",
+        "type": "button",
+        "text": "",
+        "name": "",
+        "id": "",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "text": "-",
+        "name": "",
+        "id": "btn0",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "text": "-",
+        "name": "",
+        "id": "btn1",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "text": "-",
+        "name": "",
+        "id": "btn2",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "text": "-",
+        "name": "",
+        "id": "btn3",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "text": "-",
+        "name": "",
+        "id": "btn4",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "text": "-",
+        "name": "",
+        "id": "btn5",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "text": "-",
+        "name": "",
+        "id": "btn6",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "text": "-",
+        "name": "",
+        "id": "btn7",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "text": "-",
+        "name": "",
+        "id": "btn8",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "text": "-",
+        "name": "",
+        "id": "btn9",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "text": "-",
+        "name": "",
+        "id": "btn10",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "text": "-",
+        "name": "",
+        "id": "btn11",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "text": "-",
+        "name": "",
+        "id": "btn12",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "text": "-",
+        "name": "",
+        "id": "btn13",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "text": "-",
+        "name": "",
+        "id": "btn14",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "text": "-",
+        "name": "",
+        "id": "btn15",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "text": "-",
+        "name": "",
+        "id": "btn16",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "text": "-",
+        "name": "",
+        "id": "btn17",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "text": "-",
+        "name": "",
+        "id": "btn18",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "text": "-",
+        "name": "",
+        "id": "btn19",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "text": "-",
+        "name": "",
+        "id": "btn20",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "text": "-",
+        "name": "",
+        "id": "btn21",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "text": "-",
+        "name": "",
+        "id": "btn22",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "text": "-",
+        "name": "",
+        "id": "btn23",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "text": "-",
+        "name": "",
+        "id": "btn24",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "button",
+        "text": "-",
+        "name": "",
+        "id": "btn25",
+        "disabled": false,
+        "visible": true
+      }
+    ],
+    "links": [
+      {
+        "text": "Public Authorities Available",
+        "href": "https://rtionline.gov.in/request/allpa.php?pageid=c4ca4238a0b923820dcc509a6f75849b"
+      },
+      {
+        "text": "Home",
+        "href": "https://rtionline.gov.in/index.php"
+      },
+      {
+        "text": "Submit Request",
+        "href": "https://rtionline.gov.in/guidelines.php?request&&pageid=c4ca4238a0b923820dcc509a6f75849b"
+      },
+      {
+        "text": "Submit First Appeal",
+        "href": "https://rtionline.gov.in/guidelines.php?appeal&&pageid=c4ca4238a0b923820dcc509a6f75849b"
+      },
+      {
+        "text": "View Status",
+        "href": "https://rtionline.gov.in/request/status.php"
+      },
+      {
+        "text": "View History",
+        "href": "https://rtionline.gov.in/request/status_history.php"
+      },
+      {
+        "text": "Login",
+        "href": "https://rtionline.gov.in/login.php"
+      },
+      {
+        "text": "User Manual",
+        "href": "https://rtionline.gov.in/viewPDF.php?file=um_citizen.pdf"
+      },
+      {
+        "text": "Contact Us",
+        "href": "https://rtionline.gov.in/Contactus.php"
+      },
+      {
+        "text": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=c4ca4238a0b923820dcc509a6f75849b"
+      },
+      {
+        "text": "Payment Reconciliation",
+        "href": "https://rtionline.gov.in/request/status_pendingPayment.php?pageid=c4ca4238a0b923820dcc509a6f75849b"
+      },
+      {
+        "text": "Home",
+        "href": "https://rtionline.gov.in"
+      },
+      {
+        "text": "National Portal of India",
+        "href": "http://india.gov.in/"
+      },
+      {
+        "text": "Complaint & Second Appeal to CIC",
+        "href": "http://dsscic.nic.in/online-appeal-application/onlineappealapplication/"
+      },
+      {
+        "text": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=c4ca4238a0b923820dcc509a6f75849b"
+      },
+      {
+        "text": "Policy",
+        "href": "https://rtionline.gov.in/Policies.php"
+      }
+    ],
+    "errors": []
+  },
+  "policies-php": {
+    "forms": [
+      {
+        "name": "frmLang",
+        "id": "frmLang",
+        "method": "post",
+        "action": "",
+        "fields": [
+          "lan",
+          "hndbaseurl",
+          "hndactionurl"
+        ]
+      }
+    ],
+    "inputs": [
+      {
+        "tag": "input",
+        "type": "hidden",
+        "name": "hndbaseurl",
+        "id": "hndbaseurl",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "https://rtionline.gov.in/Policies.php",
+        "label": "Select Language: English Hindi",
+        "visible": false
+      },
+      {
+        "tag": "input",
+        "type": "hidden",
+        "name": "hndactionurl",
+        "id": "hndactionurl",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "https://rtionline.gov.in/layout/getLanguage.php",
+        "label": "Select Language: English Hindi",
+        "visible": false
+      }
+    ],
+    "selects": [
+      {
+        "name": "lan",
+        "id": "lan",
+        "label": "Select Language: English Hindi",
+        "options": [
+          {
+            "value": "en",
+            "text": "English",
+            "selected": true
+          },
+          {
+            "value": "hi",
+            "text": "Hindi",
+            "selected": false
+          }
+        ],
+        "visible": true
+      }
+    ],
+    "checkboxes": [],
+    "buttons": [
+      {
+        "tag": "button",
+        "type": "button",
+        "text": "",
+        "name": "",
+        "id": "",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "button",
+        "type": "button",
+        "text": "",
+        "name": "",
+        "id": "",
+        "disabled": false,
+        "visible": true
+      }
+    ],
+    "links": [
+      {
+        "text": "Public Authorities Available",
+        "href": "https://rtionline.gov.in/request/allpa.php?pageid=eccbc87e4b5ce2fe28308fd9f2a7baf3"
+      },
+      {
+        "text": "Home",
+        "href": "https://rtionline.gov.in/index.php"
+      },
+      {
+        "text": "Submit Request",
+        "href": "https://rtionline.gov.in/guidelines.php?request&&pageid=eccbc87e4b5ce2fe28308fd9f2a7baf3"
+      },
+      {
+        "text": "Submit First Appeal",
+        "href": "https://rtionline.gov.in/guidelines.php?appeal&&pageid=eccbc87e4b5ce2fe28308fd9f2a7baf3"
+      },
+      {
+        "text": "View Status",
+        "href": "https://rtionline.gov.in/request/status.php"
+      },
+      {
+        "text": "View History",
+        "href": "https://rtionline.gov.in/request/status_history.php"
+      },
+      {
+        "text": "Login",
+        "href": "https://rtionline.gov.in/login.php"
+      },
+      {
+        "text": "User Manual",
+        "href": "https://rtionline.gov.in/viewPDF.php?file=um_citizen.pdf"
+      },
+      {
+        "text": "Contact Us",
+        "href": "https://rtionline.gov.in/Contactus.php"
+      },
+      {
+        "text": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=eccbc87e4b5ce2fe28308fd9f2a7baf3"
+      },
+      {
+        "text": "Payment Reconciliation",
+        "href": "https://rtionline.gov.in/request/status_pendingPayment.php?pageid=eccbc87e4b5ce2fe28308fd9f2a7baf3"
+      },
+      {
+        "text": "Home",
+        "href": "https://rtionline.gov.in"
+      },
+      {
+        "text": "National Portal of India",
+        "href": "http://india.gov.in/"
+      },
+      {
+        "text": "Complaint & Second Appeal to CIC",
+        "href": "http://dsscic.nic.in/online-appeal-application/onlineappealapplication/"
+      },
+      {
+        "text": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=eccbc87e4b5ce2fe28308fd9f2a7baf3"
+      },
+      {
+        "text": "Policy",
+        "href": "https://rtionline.gov.in/Policies.php"
+      }
+    ],
+    "errors": [
+      "Website Policies",
+      "Disclaimer",
+      "Copyright Policy",
+      "Hyperlink Policy",
+      "Privacy Statement"
+    ]
+  },
+  "request-audiofile1-php": {
+    "forms": [],
+    "inputs": [],
+    "selects": [],
+    "checkboxes": [],
+    "buttons": [],
+    "links": [],
+    "errors": []
+  },
+  "audiofile1-php": {
+    "forms": [],
+    "inputs": [],
+    "selects": [],
+    "checkboxes": [],
+    "buttons": [],
+    "links": [],
+    "errors": []
+  },
+  "request-request-email-check-php": {
+    "forms": [
+      {
+        "name": "frmLang",
+        "id": "frmLang",
+        "method": "post",
+        "action": "",
+        "fields": [
+          "lan",
+          "hndbaseurl",
+          "hndactionurl"
+        ]
+      },
+      {
+        "name": "FrmStatus",
+        "id": "Form_1787898717",
+        "method": "post",
+        "action": "/request/request_email_check.php",
+        "fields": [
+          "Email",
+          "cell",
+          "6_letters_code",
+          "Submit",
+          "reset"
+        ]
+      }
+    ],
+    "inputs": [
+      {
+        "tag": "input",
+        "type": "hidden",
+        "name": "hndbaseurl",
+        "id": "hndbaseurl",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "https://rtionline.gov.in/request/request_email_check.php?pageid=e4da3b7fbbce2345",
+        "label": "Select Language: English Hindi",
+        "visible": false
+      },
+      {
+        "tag": "input",
+        "type": "hidden",
+        "name": "hndactionurl",
+        "id": "hndactionurl",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "https://rtionline.gov.in/layout/getLanguage.php",
+        "label": "Select Language: English Hindi",
+        "visible": false
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "Email",
+        "id": "Email",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "",
+        "label": "* Enter Email Id (For receiving OTP)",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "password",
+        "name": "cell",
+        "id": "cell",
+        "placeholder": "Enter Mobile Number",
+        "required": false,
+        "maxlength": "10",
+        "value": "",
+        "label": "Mobile Number",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "6_letters_code",
+        "id": "6_letters_code",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "10",
+        "value": "",
+        "label": "* Enter Security code",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "submit",
+        "name": "Submit",
+        "id": "Status",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "Submit",
+        "label": "",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "reset",
+        "name": "",
+        "id": "",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "Reset",
+        "label": "",
+        "visible": true
+      }
+    ],
+    "selects": [
+      {
+        "name": "lan",
+        "id": "lan",
+        "label": "Select Language: English Hindi",
+        "options": [
+          {
+            "value": "en",
+            "text": "English",
+            "selected": true
+          },
+          {
+            "value": "hi",
+            "text": "Hindi",
+            "selected": false
+          }
+        ],
+        "visible": true
+      }
+    ],
+    "checkboxes": [],
+    "buttons": [
+      {
+        "tag": "button",
+        "type": "button",
+        "text": "",
+        "name": "",
+        "id": "",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "button",
+        "type": "button",
+        "text": "",
+        "name": "",
+        "id": "",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "submit",
+        "text": "Submit",
+        "name": "Submit",
+        "id": "Status",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "reset",
+        "text": "Reset",
+        "name": "",
+        "id": "",
+        "disabled": false,
+        "visible": true
+      }
+    ],
+    "links": [
+      {
+        "text": "Public Authorities Available",
+        "href": "https://rtionline.gov.in/request/allpa.php?pageid=e4da3b7fbbce2345d7772b0674a318d5"
+      },
+      {
+        "text": "Home",
+        "href": "https://rtionline.gov.in/index.php"
+      },
+      {
+        "text": "Submit Request",
+        "href": "https://rtionline.gov.in/guidelines.php?request&&pageid=e4da3b7fbbce2345d7772b0674a318d5"
+      },
+      {
+        "text": "Submit First Appeal",
+        "href": "https://rtionline.gov.in/guidelines.php?appeal&&pageid=e4da3b7fbbce2345d7772b0674a318d5"
+      },
+      {
+        "text": "View Status",
+        "href": "https://rtionline.gov.in/request/status.php"
+      },
+      {
+        "text": "View History",
+        "href": "https://rtionline.gov.in/request/status_history.php"
+      },
+      {
+        "text": "Login",
+        "href": "https://rtionline.gov.in/login.php"
+      },
+      {
+        "text": "User Manual",
+        "href": "https://rtionline.gov.in/viewPDF.php?file=um_citizen.pdf"
+      },
+      {
+        "text": "Contact Us",
+        "href": "https://rtionline.gov.in/Contactus.php"
+      },
+      {
+        "text": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=e4da3b7fbbce2345d7772b0674a318d5"
+      },
+      {
+        "text": "Payment Reconciliation",
+        "href": "https://rtionline.gov.in/request/status_pendingPayment.php?pageid=e4da3b7fbbce2345d7772b0674a318d5"
+      },
+      {
+        "text": "refresh",
+        "href": "javascript: refreshCaptcha();"
+      },
+      {
+        "text": "",
+        "href": "audiofile1.php"
+      },
+      {
+        "text": "Home",
+        "href": "https://rtionline.gov.in"
+      },
+      {
+        "text": "National Portal of India",
+        "href": "http://india.gov.in/"
+      },
+      {
+        "text": "Complaint & Second Appeal to CIC",
+        "href": "http://dsscic.nic.in/online-appeal-application/onlineappealapplication/"
+      },
+      {
+        "text": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=e4da3b7fbbce2345d7772b0674a318d5"
+      },
+      {
+        "text": "Policy",
+        "href": "https://rtionline.gov.in/Policies.php"
+      }
+    ],
+    "errors": [
+      "OTPs do not expire until they are used, meaning users can register their applications as soon as the OTP arrives.",
+      "(All Characters are Case insensitive)"
+    ]
+  },
+  "appeal-firstappeal-php": {
+    "forms": [
+      {
+        "name": "frmLang",
+        "id": "frmLang",
+        "method": "post",
+        "action": "",
+        "fields": [
+          "lan",
+          "hndbaseurl",
+          "hndactionurl"
+        ]
+      },
+      {
+        "name": "FrmFirstAppeal",
+        "id": "Form_1787898721",
+        "method": "post",
+        "action": "",
+        "fields": [
+          "registrationNo",
+          "Email",
+          "6_letters_code",
+          "Submit",
+          "reset"
+        ]
+      }
+    ],
+    "inputs": [
+      {
+        "tag": "input",
+        "type": "hidden",
+        "name": "hndbaseurl",
+        "id": "hndbaseurl",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "https://rtionline.gov.in/appeal/firstAppeal.php?pageid=cfcd208495d565ef66e7dff9f",
+        "label": "Select Language: English Hindi",
+        "visible": false
+      },
+      {
+        "tag": "input",
+        "type": "hidden",
+        "name": "hndactionurl",
+        "id": "hndactionurl",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "https://rtionline.gov.in/layout/getLanguage.php",
+        "label": "Select Language: English Hindi",
+        "visible": false
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "registrationNo",
+        "id": "registrationNo",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "21",
+        "value": "",
+        "label": "* RTI Request Registration No.",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "password",
+        "name": "Email",
+        "id": "Email",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "",
+        "label": "* Enter Email Id",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": "6_letters_code",
+        "id": "6_letters_code",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "6",
+        "value": "",
+        "label": "*Enter Security code",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "submit",
+        "name": "Submit",
+        "id": "Submit",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "Submit",
+        "label": "",
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "reset",
+        "name": "",
+        "id": "",
+        "placeholder": "",
+        "required": false,
+        "maxlength": "",
+        "value": "Reset",
+        "label": "",
+        "visible": true
+      }
+    ],
+    "selects": [
+      {
+        "name": "lan",
+        "id": "lan",
+        "label": "Select Language: English Hindi",
+        "options": [
+          {
+            "value": "en",
+            "text": "English",
+            "selected": true
+          },
+          {
+            "value": "hi",
+            "text": "Hindi",
+            "selected": false
+          }
+        ],
+        "visible": true
+      }
+    ],
+    "checkboxes": [],
+    "buttons": [
+      {
+        "tag": "button",
+        "type": "button",
+        "text": "",
+        "name": "",
+        "id": "",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "button",
+        "type": "button",
+        "text": "",
+        "name": "",
+        "id": "",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "submit",
+        "text": "Submit",
+        "name": "Submit",
+        "id": "Submit",
+        "disabled": false,
+        "visible": true
+      },
+      {
+        "tag": "input",
+        "type": "reset",
+        "text": "Reset",
+        "name": "",
+        "id": "",
+        "disabled": false,
+        "visible": true
+      }
+    ],
+    "links": [
+      {
+        "text": "Public Authorities Available",
+        "href": "https://rtionline.gov.in/request/allpa.php?pageid=cfcd208495d565ef66e7dff9f98764da"
+      },
+      {
+        "text": "Home",
+        "href": "https://rtionline.gov.in/index.php"
+      },
+      {
+        "text": "Submit Request",
+        "href": "https://rtionline.gov.in/guidelines.php?request&&pageid=cfcd208495d565ef66e7dff9f98764da"
+      },
+      {
+        "text": "Submit First Appeal",
+        "href": "https://rtionline.gov.in/guidelines.php?appeal&&pageid=cfcd208495d565ef66e7dff9f98764da"
+      },
+      {
+        "text": "View Status",
+        "href": "https://rtionline.gov.in/request/status.php"
+      },
+      {
+        "text": "View History",
+        "href": "https://rtionline.gov.in/request/status_history.php"
+      },
+      {
+        "text": "Login",
+        "href": "https://rtionline.gov.in/login.php"
+      },
+      {
+        "text": "User Manual",
+        "href": "https://rtionline.gov.in/viewPDF.php?file=um_citizen.pdf"
+      },
+      {
+        "text": "Contact Us",
+        "href": "https://rtionline.gov.in/Contactus.php"
+      },
+      {
+        "text": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=cfcd208495d565ef66e7dff9f98764da"
+      },
+      {
+        "text": "Payment Reconciliation",
+        "href": "https://rtionline.gov.in/request/status_pendingPayment.php?pageid=cfcd208495d565ef66e7dff9f98764da"
+      },
+      {
+        "text": "refresh",
+        "href": "javascript: refreshCaptcha();"
+      },
+      {
+        "text": "",
+        "href": "audiofile1.php"
+      },
+      {
+        "text": "Home",
+        "href": "https://rtionline.gov.in"
+      },
+      {
+        "text": "National Portal of India",
+        "href": "http://india.gov.in/"
+      },
+      {
+        "text": "Complaint & Second Appeal to CIC",
+        "href": "http://dsscic.nic.in/online-appeal-application/onlineappealapplication/"
+      },
+      {
+        "text": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=cfcd208495d565ef66e7dff9f98764da"
+      },
+      {
+        "text": "Policy",
+        "href": "https://rtionline.gov.in/Policies.php"
+      }
+    ],
+    "errors": [
+      "(All Characters are Case insensitive)"
+    ]
+  }
+}

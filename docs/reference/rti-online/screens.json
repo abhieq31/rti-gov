@@ -1,0 +1,1929 @@
+[
+  {
+    "id": "home",
+    "routeKey": "/",
+    "url": "https://rtionline.gov.in/",
+    "httpStatus": 200,
+    "title": "RTI Online :: Home | Submit RTI Request | Submit RTI First Appeal | View RTI Status | RTI FAQ",
+    "headings": [
+      {
+        "level": "h1",
+        "text": "RTI Online",
+        "visible": true
+      }
+    ],
+    "blockers": [],
+    "coverage": "interactively tested",
+    "viewports": {
+      "desktop": {
+        "width": 1440,
+        "height": 900,
+        "screenshot": "screenshots/home--desktop.png",
+        "scrollSize": {
+          "width": 1440,
+          "height": 925,
+          "clipped": false
+        }
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "screenshot": "screenshots/home--mobile.png",
+        "scrollSize": {
+          "width": 980,
+          "height": 925,
+          "clipped": false
+        }
+      }
+    },
+    "nextActions": [
+      {
+        "kind": "link",
+        "label": "Public Authorities Available",
+        "href": "https://rtionline.gov.in/request/allpa.php?pageid=c4ca4238a0b923820dcc509a6f75849b"
+      },
+      {
+        "kind": "link",
+        "label": "Home",
+        "href": "https://rtionline.gov.in/index.php"
+      },
+      {
+        "kind": "link",
+        "label": "Submit Request",
+        "href": "https://rtionline.gov.in/guidelines.php?request&&pageid=c4ca4238a0b923820dcc509a6f75849b"
+      },
+      {
+        "kind": "link",
+        "label": "Submit First Appeal",
+        "href": "https://rtionline.gov.in/guidelines.php?appeal&&pageid=c4ca4238a0b923820dcc509a6f75849b"
+      },
+      {
+        "kind": "link",
+        "label": "View Status",
+        "href": "https://rtionline.gov.in/request/status.php"
+      },
+      {
+        "kind": "link",
+        "label": "View History",
+        "href": "https://rtionline.gov.in/request/status_history.php"
+      },
+      {
+        "kind": "link",
+        "label": "Login",
+        "href": "https://rtionline.gov.in/login.php"
+      },
+      {
+        "kind": "link",
+        "label": "User Manual",
+        "href": "https://rtionline.gov.in/viewPDF.php?file=um_citizen.pdf"
+      },
+      {
+        "kind": "link",
+        "label": "Contact Us",
+        "href": "https://rtionline.gov.in/Contactus.php"
+      },
+      {
+        "kind": "link",
+        "label": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=c4ca4238a0b923820dcc509a6f75849b"
+      },
+      {
+        "kind": "link",
+        "label": "Payment Reconciliation",
+        "href": "https://rtionline.gov.in/request/status_pendingPayment.php?pageid=c4ca4238a0b923820dcc509a6f75849b"
+      },
+      {
+        "kind": "link",
+        "label": "Home",
+        "href": "https://rtionline.gov.in"
+      },
+      {
+        "kind": "link",
+        "label": "National Portal of India",
+        "href": "http://india.gov.in/"
+      },
+      {
+        "kind": "link",
+        "label": "Complaint & Second Appeal to CIC",
+        "href": "http://dsscic.nic.in/online-appeal-application/onlineappealapplication/"
+      },
+      {
+        "kind": "link",
+        "label": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=c4ca4238a0b923820dcc509a6f75849b"
+      },
+      {
+        "kind": "link",
+        "label": "Policy",
+        "href": "https://rtionline.gov.in/Policies.php"
+      }
+    ],
+    "dialogs": []
+  },
+  {
+    "id": "request-status-php",
+    "routeKey": "/request/status.php",
+    "url": "https://rtionline.gov.in/request/status.php",
+    "httpStatus": 200,
+    "title": "RTI Online :: View Status Form",
+    "headings": [
+      {
+        "level": "h1",
+        "text": "RTI Online",
+        "visible": true
+      },
+      {
+        "level": "h4",
+        "text": "View Status",
+        "visible": true
+      }
+    ],
+    "blockers": [
+      "captcha",
+      "valid-registration-number",
+      "otp",
+      "real-submission-gate"
+    ],
+    "coverage": "blocked",
+    "viewports": {
+      "desktop": {
+        "width": 1440,
+        "height": 900,
+        "screenshot": "screenshots/request-status-php--desktop.png",
+        "scrollSize": {
+          "width": 1440,
+          "height": 900,
+          "clipped": false
+        }
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "screenshot": "screenshots/request-status-php--mobile.png",
+        "scrollSize": {
+          "width": 985,
+          "height": 859,
+          "clipped": false
+        }
+      }
+    },
+    "validation": {
+      "dialogs": [],
+      "errors": []
+    },
+    "nextActions": [
+      {
+        "kind": "link",
+        "label": "Public Authorities Available",
+        "href": "https://rtionline.gov.in/request/allpa.php?pageid=c4ca4238a0b923820dcc509a6f75849b"
+      },
+      {
+        "kind": "link",
+        "label": "Home",
+        "href": "https://rtionline.gov.in/index.php"
+      },
+      {
+        "kind": "link",
+        "label": "Submit Request",
+        "href": "https://rtionline.gov.in/guidelines.php?request&&pageid=c4ca4238a0b923820dcc509a6f75849b"
+      },
+      {
+        "kind": "link",
+        "label": "Submit First Appeal",
+        "href": "https://rtionline.gov.in/guidelines.php?appeal&&pageid=c4ca4238a0b923820dcc509a6f75849b"
+      },
+      {
+        "kind": "link",
+        "label": "View Status",
+        "href": "https://rtionline.gov.in/request/status.php"
+      },
+      {
+        "kind": "link",
+        "label": "View History",
+        "href": "https://rtionline.gov.in/request/status_history.php"
+      },
+      {
+        "kind": "link",
+        "label": "Login",
+        "href": "https://rtionline.gov.in/login.php"
+      },
+      {
+        "kind": "link",
+        "label": "User Manual",
+        "href": "https://rtionline.gov.in/viewPDF.php?file=um_citizen.pdf"
+      },
+      {
+        "kind": "link",
+        "label": "Contact Us",
+        "href": "https://rtionline.gov.in/Contactus.php"
+      },
+      {
+        "kind": "link",
+        "label": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=c4ca4238a0b923820dcc509a6f75849b"
+      },
+      {
+        "kind": "link",
+        "label": "Payment Reconciliation",
+        "href": "https://rtionline.gov.in/request/status_pendingPayment.php?pageid=c4ca4238a0b923820dcc509a6f75849b"
+      },
+      {
+        "kind": "link",
+        "label": "refresh",
+        "href": "javascript: refreshCaptcha();"
+      },
+      {
+        "kind": "link",
+        "label": "Home",
+        "href": "https://rtionline.gov.in"
+      },
+      {
+        "kind": "link",
+        "label": "National Portal of India",
+        "href": "http://india.gov.in/"
+      },
+      {
+        "kind": "link",
+        "label": "Complaint & Second Appeal to CIC",
+        "href": "http://dsscic.nic.in/online-appeal-application/onlineappealapplication/"
+      },
+      {
+        "kind": "link",
+        "label": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=c4ca4238a0b923820dcc509a6f75849b"
+      },
+      {
+        "kind": "link",
+        "label": "Policy",
+        "href": "https://rtionline.gov.in/Policies.php"
+      },
+      {
+        "kind": "button",
+        "label": "Submit",
+        "name": "Submit"
+      },
+      {
+        "kind": "button",
+        "label": "Reset",
+        "name": ""
+      }
+    ],
+    "dialogs": []
+  },
+  {
+    "id": "login-php",
+    "routeKey": "/login.php",
+    "url": "https://rtionline.gov.in/login.php",
+    "httpStatus": 200,
+    "title": "RTI Online :: Citizen Login Form",
+    "headings": [
+      {
+        "level": "h1",
+        "text": "RTI Online",
+        "visible": true
+      },
+      {
+        "level": "h4",
+        "text": "Citizen Login",
+        "visible": true
+      }
+    ],
+    "blockers": [
+      "captcha",
+      "login",
+      "real-submission-gate"
+    ],
+    "coverage": "blocked",
+    "viewports": {
+      "desktop": {
+        "width": 1440,
+        "height": 900,
+        "screenshot": "screenshots/login-php--desktop.png",
+        "scrollSize": {
+          "width": 1440,
+          "height": 900,
+          "clipped": false
+        }
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "screenshot": "screenshots/login-php--mobile.png",
+        "scrollSize": {
+          "width": 985,
+          "height": 857,
+          "clipped": false
+        }
+      }
+    },
+    "validation": {
+      "dialogs": [],
+      "errors": [
+        "(All Characters are Case insensitive)"
+      ]
+    },
+    "nextActions": [
+      {
+        "kind": "link",
+        "label": "Public Authorities Available",
+        "href": "https://rtionline.gov.in/request/allpa.php?pageid=c4ca4238a0b923820dcc509a6f75849b"
+      },
+      {
+        "kind": "link",
+        "label": "Home",
+        "href": "https://rtionline.gov.in/index.php"
+      },
+      {
+        "kind": "link",
+        "label": "Submit Request",
+        "href": "https://rtionline.gov.in/guidelines.php?request&&pageid=c4ca4238a0b923820dcc509a6f75849b"
+      },
+      {
+        "kind": "link",
+        "label": "Submit First Appeal",
+        "href": "https://rtionline.gov.in/guidelines.php?appeal&&pageid=c4ca4238a0b923820dcc509a6f75849b"
+      },
+      {
+        "kind": "link",
+        "label": "View Status",
+        "href": "https://rtionline.gov.in/request/status.php"
+      },
+      {
+        "kind": "link",
+        "label": "View History",
+        "href": "https://rtionline.gov.in/request/status_history.php"
+      },
+      {
+        "kind": "link",
+        "label": "Login",
+        "href": "https://rtionline.gov.in/login.php"
+      },
+      {
+        "kind": "link",
+        "label": "User Manual",
+        "href": "https://rtionline.gov.in/viewPDF.php?file=um_citizen.pdf"
+      },
+      {
+        "kind": "link",
+        "label": "Contact Us",
+        "href": "https://rtionline.gov.in/Contactus.php"
+      },
+      {
+        "kind": "link",
+        "label": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=c4ca4238a0b923820dcc509a6f75849b"
+      },
+      {
+        "kind": "link",
+        "label": "Payment Reconciliation",
+        "href": "https://rtionline.gov.in/request/status_pendingPayment.php?pageid=c4ca4238a0b923820dcc509a6f75849b"
+      },
+      {
+        "kind": "link",
+        "label": "here",
+        "href": "javascript: refreshCaptcha();"
+      },
+      {
+        "kind": "link",
+        "label": "Home",
+        "href": "https://rtionline.gov.in"
+      },
+      {
+        "kind": "link",
+        "label": "National Portal of India",
+        "href": "http://india.gov.in/"
+      },
+      {
+        "kind": "link",
+        "label": "Complaint & Second Appeal to CIC",
+        "href": "http://dsscic.nic.in/online-appeal-application/onlineappealapplication/"
+      },
+      {
+        "kind": "link",
+        "label": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=c4ca4238a0b923820dcc509a6f75849b"
+      },
+      {
+        "kind": "link",
+        "label": "Policy",
+        "href": "https://rtionline.gov.in/Policies.php"
+      },
+      {
+        "kind": "button",
+        "label": "Submit",
+        "name": "Login"
+      },
+      {
+        "kind": "button",
+        "label": "Reset",
+        "name": ""
+      }
+    ],
+    "dialogs": []
+  },
+  {
+    "id": "guidelines-php-appeal",
+    "routeKey": "/guidelines.php?appeal",
+    "url": "https://rtionline.gov.in/guidelines.php?appeal",
+    "httpStatus": 200,
+    "title": "RTI Online :: Guidelines for use of RTI Online Portal",
+    "headings": [],
+    "blockers": [],
+    "coverage": "interactively tested",
+    "viewports": {
+      "desktop": {
+        "width": 1440,
+        "height": 900,
+        "screenshot": "screenshots/guidelines-php-appeal--desktop.png",
+        "scrollSize": {
+          "width": 1440,
+          "height": 1404,
+          "clipped": false
+        }
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "screenshot": "screenshots/guidelines-php-appeal--mobile.png",
+        "scrollSize": {
+          "width": 982,
+          "height": 1403,
+          "clipped": false
+        }
+      }
+    },
+    "nextActions": [
+      {
+        "kind": "button",
+        "label": "Submit",
+        "name": ""
+      },
+      {
+        "kind": "button",
+        "label": "Cancel",
+        "name": ""
+      }
+    ],
+    "dialogs": []
+  },
+  {
+    "id": "request-status-pendingpayment-php",
+    "routeKey": "/request/status_pendingPayment.php",
+    "url": "https://rtionline.gov.in/request/status_pendingPayment.php",
+    "httpStatus": 200,
+    "title": "RTI Online :: Online RTI Information System",
+    "headings": [
+      {
+        "level": "h1",
+        "text": "RTI Online",
+        "visible": true
+      },
+      {
+        "level": "h4",
+        "text": "Reconciliation of unsuccessful RTI request payments",
+        "visible": true
+      }
+    ],
+    "blockers": [
+      "captcha",
+      "otp",
+      "real-submission-gate"
+    ],
+    "coverage": "blocked",
+    "viewports": {
+      "desktop": {
+        "width": 1440,
+        "height": 900,
+        "screenshot": "screenshots/request-status-pendingpayment-php--desktop.png",
+        "scrollSize": {
+          "width": 1440,
+          "height": 900,
+          "clipped": false
+        }
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "screenshot": "screenshots/request-status-pendingpayment-php--mobile.png",
+        "scrollSize": {
+          "width": 985,
+          "height": 844,
+          "clipped": false
+        }
+      }
+    },
+    "nextActions": [
+      {
+        "kind": "link",
+        "label": "Public Authorities Available",
+        "href": "https://rtionline.gov.in/request/allpa.php?pageid=45c48cce2e2d7fbdea1afc51c7c6ad26"
+      },
+      {
+        "kind": "link",
+        "label": "Home",
+        "href": "https://rtionline.gov.in/index.php"
+      },
+      {
+        "kind": "link",
+        "label": "Submit Request",
+        "href": "https://rtionline.gov.in/guidelines.php?request&&pageid=45c48cce2e2d7fbdea1afc51c7c6ad26"
+      },
+      {
+        "kind": "link",
+        "label": "Submit First Appeal",
+        "href": "https://rtionline.gov.in/guidelines.php?appeal&&pageid=45c48cce2e2d7fbdea1afc51c7c6ad26"
+      },
+      {
+        "kind": "link",
+        "label": "View Status",
+        "href": "https://rtionline.gov.in/request/status.php"
+      },
+      {
+        "kind": "link",
+        "label": "View History",
+        "href": "https://rtionline.gov.in/request/status_history.php"
+      },
+      {
+        "kind": "link",
+        "label": "Login",
+        "href": "https://rtionline.gov.in/login.php"
+      },
+      {
+        "kind": "link",
+        "label": "User Manual",
+        "href": "https://rtionline.gov.in/viewPDF.php?file=um_citizen.pdf"
+      },
+      {
+        "kind": "link",
+        "label": "Contact Us",
+        "href": "https://rtionline.gov.in/Contactus.php"
+      },
+      {
+        "kind": "link",
+        "label": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=45c48cce2e2d7fbdea1afc51c7c6ad26"
+      },
+      {
+        "kind": "link",
+        "label": "Payment Reconciliation",
+        "href": "https://rtionline.gov.in/request/status_pendingPayment.php?pageid=45c48cce2e2d7fbdea1afc51c7c6ad26"
+      },
+      {
+        "kind": "link",
+        "label": "refresh",
+        "href": "javascript: refreshCaptcha();"
+      },
+      {
+        "kind": "link",
+        "label": "Home",
+        "href": "https://rtionline.gov.in"
+      },
+      {
+        "kind": "link",
+        "label": "National Portal of India",
+        "href": "http://india.gov.in/"
+      },
+      {
+        "kind": "link",
+        "label": "Complaint & Second Appeal to CIC",
+        "href": "http://dsscic.nic.in/online-appeal-application/onlineappealapplication/"
+      },
+      {
+        "kind": "link",
+        "label": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=45c48cce2e2d7fbdea1afc51c7c6ad26"
+      },
+      {
+        "kind": "link",
+        "label": "Policy",
+        "href": "https://rtionline.gov.in/Policies.php"
+      },
+      {
+        "kind": "button",
+        "label": "Submit",
+        "name": "Submit"
+      },
+      {
+        "kind": "button",
+        "label": "Reset",
+        "name": ""
+      }
+    ],
+    "dialogs": []
+  },
+  {
+    "id": "contactus-php",
+    "routeKey": "/Contactus.php",
+    "url": "https://rtionline.gov.in/Contactus.php",
+    "httpStatus": 200,
+    "title": "RTI Online :: Online RTI Information System",
+    "headings": [
+      {
+        "level": "h1",
+        "text": "RTI Online",
+        "visible": true
+      }
+    ],
+    "blockers": [],
+    "coverage": "captured",
+    "viewports": {
+      "desktop": {
+        "width": 1440,
+        "height": 900,
+        "screenshot": "screenshots/contactus-php--desktop.png",
+        "scrollSize": {
+          "width": 1440,
+          "height": 900,
+          "clipped": false
+        }
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "screenshot": "screenshots/contactus-php--mobile.png",
+        "scrollSize": {
+          "width": 985,
+          "height": 844,
+          "clipped": false
+        }
+      }
+    },
+    "nextActions": [
+      {
+        "kind": "link",
+        "label": "Public Authorities Available",
+        "href": "https://rtionline.gov.in/request/allpa.php?pageid=45c48cce2e2d7fbdea1afc51c7c6ad26"
+      },
+      {
+        "kind": "link",
+        "label": "Home",
+        "href": "https://rtionline.gov.in/index.php"
+      },
+      {
+        "kind": "link",
+        "label": "Submit Request",
+        "href": "https://rtionline.gov.in/guidelines.php?request&&pageid=45c48cce2e2d7fbdea1afc51c7c6ad26"
+      },
+      {
+        "kind": "link",
+        "label": "Submit First Appeal",
+        "href": "https://rtionline.gov.in/guidelines.php?appeal&&pageid=45c48cce2e2d7fbdea1afc51c7c6ad26"
+      },
+      {
+        "kind": "link",
+        "label": "View Status",
+        "href": "https://rtionline.gov.in/request/status.php"
+      },
+      {
+        "kind": "link",
+        "label": "View History",
+        "href": "https://rtionline.gov.in/request/status_history.php"
+      },
+      {
+        "kind": "link",
+        "label": "Login",
+        "href": "https://rtionline.gov.in/login.php"
+      },
+      {
+        "kind": "link",
+        "label": "User Manual",
+        "href": "https://rtionline.gov.in/viewPDF.php?file=um_citizen.pdf"
+      },
+      {
+        "kind": "link",
+        "label": "Contact Us",
+        "href": "https://rtionline.gov.in/Contactus.php"
+      },
+      {
+        "kind": "link",
+        "label": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=45c48cce2e2d7fbdea1afc51c7c6ad26"
+      },
+      {
+        "kind": "link",
+        "label": "Payment Reconciliation",
+        "href": "https://rtionline.gov.in/request/status_pendingPayment.php?pageid=45c48cce2e2d7fbdea1afc51c7c6ad26"
+      },
+      {
+        "kind": "link",
+        "label": "Home",
+        "href": "https://rtionline.gov.in"
+      },
+      {
+        "kind": "link",
+        "label": "National Portal of India",
+        "href": "http://india.gov.in/"
+      },
+      {
+        "kind": "link",
+        "label": "Complaint & Second Appeal to CIC",
+        "href": "http://dsscic.nic.in/online-appeal-application/onlineappealapplication/"
+      },
+      {
+        "kind": "link",
+        "label": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=45c48cce2e2d7fbdea1afc51c7c6ad26"
+      },
+      {
+        "kind": "link",
+        "label": "Policy",
+        "href": "https://rtionline.gov.in/Policies.php"
+      }
+    ],
+    "dialogs": []
+  },
+  {
+    "id": "registration-php",
+    "routeKey": "/registration.php",
+    "url": "https://rtionline.gov.in/registration.php",
+    "httpStatus": 404,
+    "title": "HTTP 404",
+    "headings": [],
+    "blockers": [],
+    "coverage": "unreachable/broken",
+    "viewports": {
+      "desktop": {
+        "width": 1440,
+        "height": 900,
+        "screenshot": "screenshots/registration-php--desktop.png",
+        "scrollSize": {
+          "width": 1440,
+          "height": 900,
+          "clipped": false
+        }
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "screenshot": "screenshots/registration-php--mobile.png",
+        "scrollSize": {
+          "width": 390,
+          "height": 844,
+          "clipped": false
+        }
+      }
+    },
+    "dialogs": []
+  },
+  {
+    "id": "guidelines-php-request",
+    "routeKey": "/guidelines.php?request",
+    "url": "https://rtionline.gov.in/guidelines.php?request",
+    "httpStatus": 200,
+    "title": "RTI Online :: Guidelines for use of RTI Online Portal",
+    "headings": [],
+    "blockers": [],
+    "coverage": "interactively tested",
+    "viewports": {
+      "desktop": {
+        "width": 1440,
+        "height": 900,
+        "screenshot": "screenshots/guidelines-php-request--desktop.png",
+        "scrollSize": {
+          "width": 1440,
+          "height": 1404,
+          "clipped": false
+        }
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "screenshot": "screenshots/guidelines-php-request--mobile.png",
+        "scrollSize": {
+          "width": 982,
+          "height": 1403,
+          "clipped": false
+        }
+      }
+    },
+    "nextActions": [
+      {
+        "kind": "button",
+        "label": "Submit",
+        "name": ""
+      },
+      {
+        "kind": "button",
+        "label": "Cancel",
+        "name": ""
+      }
+    ],
+    "dialogs": []
+  },
+  {
+    "id": "viewpdf-php-file-um-citizen-pdf",
+    "routeKey": "/viewPDF.php?file=um_citizen.pdf",
+    "url": "https://rtionline.gov.in/viewPDF.php?file=um_citizen.pdf",
+    "httpStatus": 200,
+    "title": "Citizen user manual PDF",
+    "headings": [],
+    "blockers": [],
+    "coverage": "captured",
+    "viewports": {
+      "desktop": {
+        "width": 1440,
+        "height": 900,
+        "screenshot": "screenshots/viewpdf-php-file-um-citizen-pdf--desktop.png",
+        "scrollSize": {
+          "width": 1440,
+          "height": 900,
+          "clipped": false
+        }
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "screenshot": "screenshots/viewpdf-php-file-um-citizen-pdf--mobile.png",
+        "scrollSize": {
+          "width": 390,
+          "height": 844,
+          "clipped": false
+        }
+      }
+    },
+    "dialogs": []
+  },
+  {
+    "id": "request-allpa-php",
+    "routeKey": "/request/allpa.php",
+    "url": "https://rtionline.gov.in/request/allpa.php",
+    "httpStatus": 200,
+    "title": "RTI Online :: Public Authorities available in portal",
+    "headings": [
+      {
+        "level": "h1",
+        "text": "List of Public Authorities available in the Portal (Total - 2916)",
+        "visible": true
+      }
+    ],
+    "blockers": [],
+    "coverage": "interactively tested",
+    "viewports": {
+      "desktop": {
+        "width": 1440,
+        "height": 900,
+        "screenshot": "screenshots/request-allpa-php--desktop.png",
+        "scrollSize": {
+          "width": 1440,
+          "height": 4600,
+          "clipped": false
+        }
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "screenshot": "screenshots/request-allpa-php--mobile.png",
+        "scrollSize": {
+          "width": 390,
+          "height": 4959,
+          "clipped": false
+        }
+      },
+      "expanded": {
+        "screenshot": "screenshots/request-allpa-php-expanded--desktop.png"
+      }
+    },
+    "directory": {
+      "rowCount": 3114,
+      "ministryCount": 75,
+      "ministries": [
+        "Cabinet Secretariat",
+        "Comptroller and Auditor General of India",
+        "Department of Agricultural Research & Education",
+        "Department of Agriculture, Cooperation & Farmers Welfare",
+        "Department of Animal Husbandry, Dairying and Fisheries",
+        "Department of Atomic Energy",
+        "Department of Bio-Technology",
+        "Department of Chemicals & Petrochemicals",
+        "Department of Commerce",
+        "Department of Consumer Affairs",
+        "Department of Defence",
+        "Department of Defence Production",
+        "Department of Economic Affairs",
+        "Department of Expenditure",
+        "Department of Fertilisers",
+        "Department of Financial Services",
+        "Department of Food & Public Distribution",
+        "Department of Health & Family Welfare",
+        "Department of Health Research",
+        "Department of Higher Education",
+        "Department of Industrial Policy & Promotion",
+        "Department of Legal Affairs",
+        "Department of Military Affairs",
+        "Department of Pensions & Pensioners Welfare",
+        "Department of Personnel & Training",
+        "Department of Pharmaceuticals",
+        "Department of Revenue",
+        "Department of School Education and Literacy",
+        "Department of Science & Technology",
+        "Department of Scientific & Industrial Research",
+        "Department of Space",
+        "Department of Telecommunications",
+        "Department of Youth Affairs",
+        "Ministry of AYUSH",
+        "Ministry of Civil Aviation",
+        "Ministry of Coal",
+        "Coal India Limited",
+        "Ministry of Corporate Affairs",
+        "Ministry of Culture",
+        "Ministry of Development of North Eastern Region",
+        "Ministry of Drinking Water and Sanitation",
+        "Ministry of Earth Sciences",
+        "Ministry of Education",
+        "Department of Higher Education",
+        "Department of School Education and Literacy",
+        "Ministry of Electronics & Information Technology",
+        "Ministry of Environment, Forest and Climate Change",
+        "Ministry of External Affairs",
+        "Ministry of Heavy Industries",
+        "Ministry of Home Affairs",
+        "Ministry of Housing & Urban Affairs",
+        "Ministry of Information & Broadcasting",
+        "Ministry of Labour & Employment",
+        "Ministry of Micro, Small and Medium Enterprises",
+        "Ministry of Mines",
+        "Ministry of Minority Affairs",
+        "Ministry of New & Renewable Energy",
+        "Ministry of Petroleum & Natural Gas",
+        "Ministry of Ports, Shipping and Waterways",
+        "Ministry of Power",
+        "Ministry of Railways",
+        "Ministry of Road Transport & Highways",
+        "Ministry of Rural Development",
+        "Ministry of Skill Development & Entrepreneurship",
+        "Ministry of Social Justice & Empowerment",
+        "Ministry of Steel",
+        "Ministry of Textiles",
+        "Ministry of Tourism",
+        "Ministry of Tribal Affairs",
+        "Ministry of Water Resources, River Development & Ganga Rejuvenation",
+        "Ministry of Women & Child Development",
+        "National Institution for Transforming India (NITI Aayog)",
+        "UT of Andaman & Nicobar",
+        "UT of Chandigarh",
+        "UT Of Puducherry"
+      ],
+      "expandedSample": [
+        "Office of the Principal Scientific Adviser",
+        "Department of Administrative Reforms & PG",
+        "Department of Agricultural Research & Education",
+        "Agricultural Scientists Recruitment Board",
+        "Agricultural Technology Application Research Institute Zone I (ICAR)",
+        "Agricultural Technology Application Research Institute Zone II (ICAR)",
+        "Agricultural Technology Application Research Institute Zone III (ICAR)",
+        "Agricultural Technology Application Research Institute Zone IV (ICAR)",
+        "Agricultural Technology Application Research Institute Zone -IX (ICAR)",
+        "Agricultural Technology Application Research Institute Zone VI (ICAR)",
+        "Agricultural Technology Application Research Institute, Zone VIII (ICAR)",
+        "Agrinnovate India Ltd.",
+        "Central Agricultural University, Imphal",
+        "Central Agroforestry Research Institute(ICAR)",
+        "Central Arid Zone Research Institute (ICAR)",
+        "Central Avian Research Institute (ICAR)",
+        "Central Citrus Research Institute (ICAR)",
+        "Central Coastal Agricultural Research Institute (ICAR)",
+        "Central Inland Fisheries Research Institute (ICAR)",
+        "Central Institue for Women in Agriculture (ICAR)"
+      ]
+    },
+    "nextActions": [
+      {
+        "kind": "link",
+        "label": "Back",
+        "href": "../index.php"
+      }
+    ],
+    "dialogs": []
+  },
+  {
+    "id": "request-status-history-php",
+    "routeKey": "/request/status_history.php",
+    "url": "https://rtionline.gov.in/request/status_history.php",
+    "httpStatus": 200,
+    "title": "RTI Online :: Online RTI Information System",
+    "headings": [
+      {
+        "level": "h1",
+        "text": "RTI Online",
+        "visible": true
+      },
+      {
+        "level": "h4",
+        "text": "View History",
+        "visible": true
+      }
+    ],
+    "blockers": [
+      "captcha",
+      "otp",
+      "real-submission-gate"
+    ],
+    "coverage": "blocked",
+    "viewports": {
+      "desktop": {
+        "width": 1440,
+        "height": 900,
+        "screenshot": "screenshots/request-status-history-php--desktop.png",
+        "scrollSize": {
+          "width": 1440,
+          "height": 900,
+          "clipped": false
+        }
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "screenshot": "screenshots/request-status-history-php--mobile.png",
+        "scrollSize": {
+          "width": 985,
+          "height": 858,
+          "clipped": false
+        }
+      }
+    },
+    "nextActions": [
+      {
+        "kind": "link",
+        "label": "Public Authorities Available",
+        "href": "https://rtionline.gov.in/request/allpa.php?pageid=45c48cce2e2d7fbdea1afc51c7c6ad26"
+      },
+      {
+        "kind": "link",
+        "label": "Home",
+        "href": "https://rtionline.gov.in/index.php"
+      },
+      {
+        "kind": "link",
+        "label": "Submit Request",
+        "href": "https://rtionline.gov.in/guidelines.php?request&&pageid=45c48cce2e2d7fbdea1afc51c7c6ad26"
+      },
+      {
+        "kind": "link",
+        "label": "Submit First Appeal",
+        "href": "https://rtionline.gov.in/guidelines.php?appeal&&pageid=45c48cce2e2d7fbdea1afc51c7c6ad26"
+      },
+      {
+        "kind": "link",
+        "label": "View Status",
+        "href": "https://rtionline.gov.in/request/status.php"
+      },
+      {
+        "kind": "link",
+        "label": "View History",
+        "href": "https://rtionline.gov.in/request/status_history.php"
+      },
+      {
+        "kind": "link",
+        "label": "Login",
+        "href": "https://rtionline.gov.in/login.php"
+      },
+      {
+        "kind": "link",
+        "label": "User Manual",
+        "href": "https://rtionline.gov.in/viewPDF.php?file=um_citizen.pdf"
+      },
+      {
+        "kind": "link",
+        "label": "Contact Us",
+        "href": "https://rtionline.gov.in/Contactus.php"
+      },
+      {
+        "kind": "link",
+        "label": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=45c48cce2e2d7fbdea1afc51c7c6ad26"
+      },
+      {
+        "kind": "link",
+        "label": "Payment Reconciliation",
+        "href": "https://rtionline.gov.in/request/status_pendingPayment.php?pageid=45c48cce2e2d7fbdea1afc51c7c6ad26"
+      },
+      {
+        "kind": "link",
+        "label": "refresh",
+        "href": "javascript: refreshCaptcha();"
+      },
+      {
+        "kind": "link",
+        "label": "Home",
+        "href": "https://rtionline.gov.in"
+      },
+      {
+        "kind": "link",
+        "label": "National Portal of India",
+        "href": "http://india.gov.in/"
+      },
+      {
+        "kind": "link",
+        "label": "Complaint & Second Appeal to CIC",
+        "href": "http://dsscic.nic.in/online-appeal-application/onlineappealapplication/"
+      },
+      {
+        "kind": "link",
+        "label": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=45c48cce2e2d7fbdea1afc51c7c6ad26"
+      },
+      {
+        "kind": "link",
+        "label": "Policy",
+        "href": "https://rtionline.gov.in/Policies.php"
+      },
+      {
+        "kind": "button",
+        "label": "Submit",
+        "name": "Submit"
+      },
+      {
+        "kind": "button",
+        "label": "Reset",
+        "name": ""
+      }
+    ],
+    "dialogs": []
+  },
+  {
+    "id": "forgotpassword-php",
+    "routeKey": "/forgotPassword.php",
+    "url": "https://rtionline.gov.in/forgotPassword.php",
+    "httpStatus": 404,
+    "title": "HTTP 404",
+    "headings": [],
+    "blockers": [],
+    "coverage": "unreachable/broken",
+    "viewports": {
+      "desktop": {
+        "width": 1440,
+        "height": 900,
+        "screenshot": "screenshots/forgotpassword-php--desktop.png",
+        "scrollSize": {
+          "width": 1440,
+          "height": 900,
+          "clipped": false
+        }
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "screenshot": "screenshots/forgotpassword-php--mobile.png",
+        "scrollSize": {
+          "width": 390,
+          "height": 844,
+          "clipped": false
+        }
+      }
+    },
+    "dialogs": []
+  },
+  {
+    "id": "faq-php",
+    "routeKey": "/faq.php",
+    "url": "https://rtionline.gov.in/faq.php",
+    "httpStatus": 200,
+    "title": "RTI Online :: Frequently Asked Questions",
+    "headings": [
+      {
+        "level": "h1",
+        "text": "RTI Online",
+        "visible": true
+      },
+      {
+        "level": "h4",
+        "text": "RTI Online Frequently Asked Questions:-",
+        "visible": true
+      }
+    ],
+    "blockers": [],
+    "coverage": "interactively tested",
+    "viewports": {
+      "desktop": {
+        "width": 1440,
+        "height": 900,
+        "screenshot": "screenshots/faq-php--desktop.png",
+        "scrollSize": {
+          "width": 1440,
+          "height": 1474,
+          "clipped": false
+        }
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "screenshot": "screenshots/faq-php--mobile.png",
+        "scrollSize": {
+          "width": 985,
+          "height": 1447,
+          "clipped": false
+        }
+      },
+      "expanded": {
+        "screenshot": "screenshots/faq-expanded--desktop.png"
+      }
+    },
+    "nextActions": [
+      {
+        "kind": "link",
+        "label": "Public Authorities Available",
+        "href": "https://rtionline.gov.in/request/allpa.php?pageid=eccbc87e4b5ce2fe28308fd9f2a7baf3"
+      },
+      {
+        "kind": "link",
+        "label": "Home",
+        "href": "https://rtionline.gov.in/index.php"
+      },
+      {
+        "kind": "link",
+        "label": "Submit Request",
+        "href": "https://rtionline.gov.in/guidelines.php?request&&pageid=eccbc87e4b5ce2fe28308fd9f2a7baf3"
+      },
+      {
+        "kind": "link",
+        "label": "Submit First Appeal",
+        "href": "https://rtionline.gov.in/guidelines.php?appeal&&pageid=eccbc87e4b5ce2fe28308fd9f2a7baf3"
+      },
+      {
+        "kind": "link",
+        "label": "View Status",
+        "href": "https://rtionline.gov.in/request/status.php"
+      },
+      {
+        "kind": "link",
+        "label": "View History",
+        "href": "https://rtionline.gov.in/request/status_history.php"
+      },
+      {
+        "kind": "link",
+        "label": "Login",
+        "href": "https://rtionline.gov.in/login.php"
+      },
+      {
+        "kind": "link",
+        "label": "User Manual",
+        "href": "https://rtionline.gov.in/viewPDF.php?file=um_citizen.pdf"
+      },
+      {
+        "kind": "link",
+        "label": "Contact Us",
+        "href": "https://rtionline.gov.in/Contactus.php"
+      },
+      {
+        "kind": "link",
+        "label": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=eccbc87e4b5ce2fe28308fd9f2a7baf3"
+      },
+      {
+        "kind": "link",
+        "label": "Payment Reconciliation",
+        "href": "https://rtionline.gov.in/request/status_pendingPayment.php?pageid=eccbc87e4b5ce2fe28308fd9f2a7baf3"
+      },
+      {
+        "kind": "link",
+        "label": "Home",
+        "href": "https://rtionline.gov.in"
+      },
+      {
+        "kind": "link",
+        "label": "National Portal of India",
+        "href": "http://india.gov.in/"
+      },
+      {
+        "kind": "link",
+        "label": "Complaint & Second Appeal to CIC",
+        "href": "http://dsscic.nic.in/online-appeal-application/onlineappealapplication/"
+      },
+      {
+        "kind": "link",
+        "label": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=eccbc87e4b5ce2fe28308fd9f2a7baf3"
+      },
+      {
+        "kind": "link",
+        "label": "Policy",
+        "href": "https://rtionline.gov.in/Policies.php"
+      },
+      {
+        "kind": "button",
+        "label": "+",
+        "name": ""
+      },
+      {
+        "kind": "button",
+        "label": "+",
+        "name": ""
+      },
+      {
+        "kind": "button",
+        "label": "+",
+        "name": ""
+      },
+      {
+        "kind": "button",
+        "label": "+",
+        "name": ""
+      },
+      {
+        "kind": "button",
+        "label": "+",
+        "name": ""
+      },
+      {
+        "kind": "button",
+        "label": "+",
+        "name": ""
+      },
+      {
+        "kind": "button",
+        "label": "+",
+        "name": ""
+      },
+      {
+        "kind": "button",
+        "label": "+",
+        "name": ""
+      },
+      {
+        "kind": "button",
+        "label": "+",
+        "name": ""
+      },
+      {
+        "kind": "button",
+        "label": "+",
+        "name": ""
+      },
+      {
+        "kind": "button",
+        "label": "+",
+        "name": ""
+      },
+      {
+        "kind": "button",
+        "label": "+",
+        "name": ""
+      },
+      {
+        "kind": "button",
+        "label": "+",
+        "name": ""
+      },
+      {
+        "kind": "button",
+        "label": "+",
+        "name": ""
+      },
+      {
+        "kind": "button",
+        "label": "+",
+        "name": ""
+      },
+      {
+        "kind": "button",
+        "label": "+",
+        "name": ""
+      },
+      {
+        "kind": "button",
+        "label": "+",
+        "name": ""
+      },
+      {
+        "kind": "button",
+        "label": "+",
+        "name": ""
+      },
+      {
+        "kind": "button",
+        "label": "+",
+        "name": ""
+      },
+      {
+        "kind": "button",
+        "label": "+",
+        "name": ""
+      },
+      {
+        "kind": "button",
+        "label": "+",
+        "name": ""
+      },
+      {
+        "kind": "button",
+        "label": "+",
+        "name": ""
+      },
+      {
+        "kind": "button",
+        "label": "+",
+        "name": ""
+      },
+      {
+        "kind": "button",
+        "label": "+",
+        "name": ""
+      }
+    ],
+    "dialogs": []
+  },
+  {
+    "id": "policies-php",
+    "routeKey": "/Policies.php",
+    "url": "https://rtionline.gov.in/Policies.php",
+    "httpStatus": 200,
+    "title": "RTI Online :: Online RTI Information System",
+    "headings": [
+      {
+        "level": "h1",
+        "text": "RTI Online",
+        "visible": true
+      },
+      {
+        "level": "h3",
+        "text": "Website Policies",
+        "visible": true
+      },
+      {
+        "level": "h4",
+        "text": "Disclaimer",
+        "visible": true
+      },
+      {
+        "level": "h4",
+        "text": "Copyright Policy",
+        "visible": true
+      },
+      {
+        "level": "h4",
+        "text": "Hyperlink Policy",
+        "visible": true
+      },
+      {
+        "level": "h4",
+        "text": "Privacy Statement",
+        "visible": true
+      }
+    ],
+    "blockers": [],
+    "coverage": "captured",
+    "viewports": {
+      "desktop": {
+        "width": 1440,
+        "height": 900,
+        "screenshot": "screenshots/policies-php--desktop.png",
+        "scrollSize": {
+          "width": 1440,
+          "height": 1570,
+          "clipped": false
+        }
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "screenshot": "screenshots/policies-php--mobile.png",
+        "scrollSize": {
+          "width": 985,
+          "height": 1570,
+          "clipped": false
+        }
+      }
+    },
+    "nextActions": [
+      {
+        "kind": "link",
+        "label": "Public Authorities Available",
+        "href": "https://rtionline.gov.in/request/allpa.php?pageid=eccbc87e4b5ce2fe28308fd9f2a7baf3"
+      },
+      {
+        "kind": "link",
+        "label": "Home",
+        "href": "https://rtionline.gov.in/index.php"
+      },
+      {
+        "kind": "link",
+        "label": "Submit Request",
+        "href": "https://rtionline.gov.in/guidelines.php?request&&pageid=eccbc87e4b5ce2fe28308fd9f2a7baf3"
+      },
+      {
+        "kind": "link",
+        "label": "Submit First Appeal",
+        "href": "https://rtionline.gov.in/guidelines.php?appeal&&pageid=eccbc87e4b5ce2fe28308fd9f2a7baf3"
+      },
+      {
+        "kind": "link",
+        "label": "View Status",
+        "href": "https://rtionline.gov.in/request/status.php"
+      },
+      {
+        "kind": "link",
+        "label": "View History",
+        "href": "https://rtionline.gov.in/request/status_history.php"
+      },
+      {
+        "kind": "link",
+        "label": "Login",
+        "href": "https://rtionline.gov.in/login.php"
+      },
+      {
+        "kind": "link",
+        "label": "User Manual",
+        "href": "https://rtionline.gov.in/viewPDF.php?file=um_citizen.pdf"
+      },
+      {
+        "kind": "link",
+        "label": "Contact Us",
+        "href": "https://rtionline.gov.in/Contactus.php"
+      },
+      {
+        "kind": "link",
+        "label": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=eccbc87e4b5ce2fe28308fd9f2a7baf3"
+      },
+      {
+        "kind": "link",
+        "label": "Payment Reconciliation",
+        "href": "https://rtionline.gov.in/request/status_pendingPayment.php?pageid=eccbc87e4b5ce2fe28308fd9f2a7baf3"
+      },
+      {
+        "kind": "link",
+        "label": "Home",
+        "href": "https://rtionline.gov.in"
+      },
+      {
+        "kind": "link",
+        "label": "National Portal of India",
+        "href": "http://india.gov.in/"
+      },
+      {
+        "kind": "link",
+        "label": "Complaint & Second Appeal to CIC",
+        "href": "http://dsscic.nic.in/online-appeal-application/onlineappealapplication/"
+      },
+      {
+        "kind": "link",
+        "label": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=eccbc87e4b5ce2fe28308fd9f2a7baf3"
+      },
+      {
+        "kind": "link",
+        "label": "Policy",
+        "href": "https://rtionline.gov.in/Policies.php"
+      }
+    ],
+    "dialogs": []
+  },
+  {
+    "id": "request-audiofile1-php",
+    "routeKey": "/request/audiofile1.php",
+    "url": "https://rtionline.gov.in/request/audiofile1.php",
+    "httpStatus": 200,
+    "title": "",
+    "headings": [],
+    "blockers": [],
+    "coverage": "captured",
+    "viewports": {
+      "desktop": {
+        "width": 1440,
+        "height": 900,
+        "screenshot": "screenshots/request-audiofile1-php--desktop.png",
+        "scrollSize": {
+          "width": 1440,
+          "height": 900,
+          "clipped": false
+        }
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "screenshot": "screenshots/request-audiofile1-php--mobile.png",
+        "scrollSize": {
+          "width": 390,
+          "height": 844,
+          "clipped": false
+        }
+      }
+    },
+    "nextActions": [],
+    "dialogs": []
+  },
+  {
+    "id": "audiofile1-php",
+    "routeKey": "/audiofile1.php",
+    "url": "https://rtionline.gov.in/audiofile1.php",
+    "httpStatus": 200,
+    "title": "",
+    "headings": [],
+    "blockers": [],
+    "coverage": "captured",
+    "viewports": {
+      "desktop": {
+        "width": 1440,
+        "height": 900,
+        "screenshot": "screenshots/audiofile1-php--desktop.png",
+        "scrollSize": {
+          "width": 1440,
+          "height": 918,
+          "clipped": false
+        }
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "screenshot": "screenshots/audiofile1-php--mobile.png",
+        "scrollSize": {
+          "width": 390,
+          "height": 862,
+          "clipped": false
+        }
+      }
+    },
+    "nextActions": [],
+    "dialogs": []
+  },
+  {
+    "id": "request-request-email-check-php",
+    "routeKey": "/request/request_email_check.php",
+    "url": "https://rtionline.gov.in/request/request_email_check.php?pageid=e4da3b7fbbce2345d7772b0674a318d5",
+    "httpStatus": 200,
+    "title": "RTI Online :: Online RTI Information System",
+    "headings": [
+      {
+        "level": "h1",
+        "text": "RTI Online",
+        "visible": true
+      },
+      {
+        "level": "h4",
+        "text": "Online RTI Request Form",
+        "visible": true
+      }
+    ],
+    "blockers": [
+      "captcha",
+      "otp",
+      "real-submission-gate"
+    ],
+    "coverage": "blocked",
+    "viewports": {
+      "desktop": {
+        "width": 1440,
+        "height": 900,
+        "screenshot": "screenshots/request-request-email-check-php--desktop.png",
+        "scrollSize": {
+          "width": 1440,
+          "height": 900,
+          "clipped": false
+        }
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "screenshot": "screenshots/request-request-email-check-php--mobile.png",
+        "scrollSize": {
+          "width": 985,
+          "height": 844,
+          "clipped": false
+        }
+      }
+    },
+    "nextActions": [
+      {
+        "kind": "link",
+        "label": "Public Authorities Available",
+        "href": "https://rtionline.gov.in/request/allpa.php?pageid=eccbc87e4b5ce2fe28308fd9f2a7baf3"
+      },
+      {
+        "kind": "link",
+        "label": "Home",
+        "href": "https://rtionline.gov.in/index.php"
+      },
+      {
+        "kind": "link",
+        "label": "Submit Request",
+        "href": "https://rtionline.gov.in/guidelines.php?request&&pageid=eccbc87e4b5ce2fe28308fd9f2a7baf3"
+      },
+      {
+        "kind": "link",
+        "label": "Submit First Appeal",
+        "href": "https://rtionline.gov.in/guidelines.php?appeal&&pageid=eccbc87e4b5ce2fe28308fd9f2a7baf3"
+      },
+      {
+        "kind": "link",
+        "label": "View Status",
+        "href": "https://rtionline.gov.in/request/status.php"
+      },
+      {
+        "kind": "link",
+        "label": "View History",
+        "href": "https://rtionline.gov.in/request/status_history.php"
+      },
+      {
+        "kind": "link",
+        "label": "Login",
+        "href": "https://rtionline.gov.in/login.php"
+      },
+      {
+        "kind": "link",
+        "label": "User Manual",
+        "href": "https://rtionline.gov.in/viewPDF.php?file=um_citizen.pdf"
+      },
+      {
+        "kind": "link",
+        "label": "Contact Us",
+        "href": "https://rtionline.gov.in/Contactus.php"
+      },
+      {
+        "kind": "link",
+        "label": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=eccbc87e4b5ce2fe28308fd9f2a7baf3"
+      },
+      {
+        "kind": "link",
+        "label": "Payment Reconciliation",
+        "href": "https://rtionline.gov.in/request/status_pendingPayment.php?pageid=eccbc87e4b5ce2fe28308fd9f2a7baf3"
+      },
+      {
+        "kind": "link",
+        "label": "refresh",
+        "href": "javascript: refreshCaptcha();"
+      },
+      {
+        "kind": "link",
+        "label": "Home",
+        "href": "https://rtionline.gov.in"
+      },
+      {
+        "kind": "link",
+        "label": "National Portal of India",
+        "href": "http://india.gov.in/"
+      },
+      {
+        "kind": "link",
+        "label": "Complaint & Second Appeal to CIC",
+        "href": "http://dsscic.nic.in/online-appeal-application/onlineappealapplication/"
+      },
+      {
+        "kind": "link",
+        "label": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=eccbc87e4b5ce2fe28308fd9f2a7baf3"
+      },
+      {
+        "kind": "link",
+        "label": "Policy",
+        "href": "https://rtionline.gov.in/Policies.php"
+      },
+      {
+        "kind": "button",
+        "label": "Submit",
+        "name": "Submit"
+      },
+      {
+        "kind": "button",
+        "label": "Reset",
+        "name": ""
+      }
+    ],
+    "dialogs": []
+  },
+  {
+    "id": "appeal-firstappeal-php",
+    "routeKey": "/appeal/firstAppeal.php",
+    "url": "https://rtionline.gov.in/appeal/firstAppeal.php?pageid=cfcd208495d565ef66e7dff9f98764da",
+    "httpStatus": 200,
+    "title": "RTI Online :: Submit First Appeal Form",
+    "headings": [
+      {
+        "level": "h1",
+        "text": "RTI Online",
+        "visible": true
+      },
+      {
+        "level": "h4",
+        "text": "Online RTI First Appeal Form",
+        "visible": true
+      }
+    ],
+    "blockers": [
+      "captcha",
+      "valid-registration-number",
+      "real-submission-gate"
+    ],
+    "coverage": "blocked",
+    "viewports": {
+      "desktop": {
+        "width": 1440,
+        "height": 900,
+        "screenshot": "screenshots/appeal-firstappeal-php--desktop.png",
+        "scrollSize": {
+          "width": 1440,
+          "height": 900,
+          "clipped": false
+        }
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "screenshot": "screenshots/appeal-firstappeal-php--mobile.png",
+        "scrollSize": {
+          "width": 985,
+          "height": 844,
+          "clipped": false
+        }
+      }
+    },
+    "nextActions": [
+      {
+        "kind": "link",
+        "label": "Public Authorities Available",
+        "href": "https://rtionline.gov.in/request/allpa.php?pageid=eccbc87e4b5ce2fe28308fd9f2a7baf3"
+      },
+      {
+        "kind": "link",
+        "label": "Home",
+        "href": "https://rtionline.gov.in/index.php"
+      },
+      {
+        "kind": "link",
+        "label": "Submit Request",
+        "href": "https://rtionline.gov.in/guidelines.php?request&&pageid=eccbc87e4b5ce2fe28308fd9f2a7baf3"
+      },
+      {
+        "kind": "link",
+        "label": "Submit First Appeal",
+        "href": "https://rtionline.gov.in/guidelines.php?appeal&&pageid=eccbc87e4b5ce2fe28308fd9f2a7baf3"
+      },
+      {
+        "kind": "link",
+        "label": "View Status",
+        "href": "https://rtionline.gov.in/request/status.php"
+      },
+      {
+        "kind": "link",
+        "label": "View History",
+        "href": "https://rtionline.gov.in/request/status_history.php"
+      },
+      {
+        "kind": "link",
+        "label": "Login",
+        "href": "https://rtionline.gov.in/login.php"
+      },
+      {
+        "kind": "link",
+        "label": "User Manual",
+        "href": "https://rtionline.gov.in/viewPDF.php?file=um_citizen.pdf"
+      },
+      {
+        "kind": "link",
+        "label": "Contact Us",
+        "href": "https://rtionline.gov.in/Contactus.php"
+      },
+      {
+        "kind": "link",
+        "label": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=eccbc87e4b5ce2fe28308fd9f2a7baf3"
+      },
+      {
+        "kind": "link",
+        "label": "Payment Reconciliation",
+        "href": "https://rtionline.gov.in/request/status_pendingPayment.php?pageid=eccbc87e4b5ce2fe28308fd9f2a7baf3"
+      },
+      {
+        "kind": "link",
+        "label": "refresh",
+        "href": "javascript: refreshCaptcha();"
+      },
+      {
+        "kind": "link",
+        "label": "Home",
+        "href": "https://rtionline.gov.in"
+      },
+      {
+        "kind": "link",
+        "label": "National Portal of India",
+        "href": "http://india.gov.in/"
+      },
+      {
+        "kind": "link",
+        "label": "Complaint & Second Appeal to CIC",
+        "href": "http://dsscic.nic.in/online-appeal-application/onlineappealapplication/"
+      },
+      {
+        "kind": "link",
+        "label": "FAQ",
+        "href": "https://rtionline.gov.in/faq.php?pageid=eccbc87e4b5ce2fe28308fd9f2a7baf3"
+      },
+      {
+        "kind": "link",
+        "label": "Policy",
+        "href": "https://rtionline.gov.in/Policies.php"
+      },
+      {
+        "kind": "button",
+        "label": "Submit",
+        "name": "Submit"
+      },
+      {
+        "kind": "button",
+        "label": "Reset",
+        "name": ""
+      }
+    ],
+    "dialogs": []
+  }
+]

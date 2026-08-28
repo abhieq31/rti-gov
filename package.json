@@ -10,7 +10,8 @@
     "build": "vinext build",
     "vercel-build": "next build",
     "start": "vinext start",
-    "lint": "eslint . --ignore-pattern dist --ignore-pattern .next"
+    "lint": "eslint . --ignore-pattern dist --ignore-pattern .next --ignore-pattern audit",
+    "audit:rti-online": "npm --prefix audit/rti-online run capture --"
   },
   "dependencies": {
     "next": "16.2.6",

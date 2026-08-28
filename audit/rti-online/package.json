@@ -1,0 +1,14 @@
+{
+  "name": "rti-online-audit",
+  "private": true,
+  "type": "module",
+  "description": "Playwright capture/audit of the public RTI Online citizen portal. Does not submit requests, appeals, payments or credentials.",
+  "scripts": {
+    "capture": "node capture.mjs",
+    "capture:human": "node capture.mjs --human-assisted",
+    "postinstall": "playwright install chromium"
+  },
+  "dependencies": {
+    "playwright": "^1.55.0"
+  }
+}
