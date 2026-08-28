@@ -115,6 +115,19 @@ const initialDraft: RequestDraft = {
   request: '', format: 'Electronic copy', payment: 'UPI',
 };
 
+const demoApplicant: Partial<RequestDraft> = {
+  name: 'Aarav Sharma',
+  gender: 'Male',
+  email: 'aarav.demo@example.in',
+  emailConfirm: 'aarav.demo@example.in',
+  mobile: '9810012345',
+  address: '14 Ashoka Road, New Delhi',
+  pin: '110001',
+  locality: 'Urban',
+  education: 'Literate',
+  bpl: 'no',
+};
+
 const regions = ['Andaman & Nicobar Islands','Andhra Pradesh','Arunachal Pradesh','Assam','Bihar','Chandigarh','Chhattisgarh','Dadra & Nagar Haveli and Daman & Diu','Delhi','Goa','Gujarat','Haryana','Himachal Pradesh','Jammu & Kashmir','Jharkhand','Karnataka','Kerala','Ladakh','Lakshadweep','Madhya Pradesh','Maharashtra','Manipur','Meghalaya','Mizoram','Nagaland','Odisha','Puducherry','Punjab','Rajasthan','Sikkim','Tamil Nadu','Telangana','Tripura','Uttar Pradesh','Uttarakhand','West Bengal'];
 
 function findAuthority(code: string) {
@@ -146,17 +159,19 @@ function PortalGuidelines({ kind, accepted, onAccepted }: { kind: 'request' | 'a
 }
 
 export function RequestWorkflow({ initialNeed = '', initialAuthority = '' }: { initialNeed?: string; initialAuthority?: string }) {
-  const seeded = findAuthority(initialAuthority);
+  const seeded = findAuthority(initialAuthority) || (initialNeed ? suggestAuthority(initialNeed) : undefined);
+  const demoPath = Boolean(initialNeed);
   const [step, setStep] = useState(0);
   const [guidelinesAccepted, setGuidelinesAccepted] = useState(false);
   const [draft, setDraft] = useState(() => ({
     ...initialDraft,
+    ...(demoPath ? demoApplicant : {}),
     request: initialNeed,
     authority: seeded?.level === 'Central' ? seeded.code : '',
     ministry: seeded?.level === 'Central' ? seeded.ministry : '',
   }));
   const [authorityQuery, setAuthorityQuery] = useState('');
-  const [securityCode, setSecurityCode] = useState('');
+  const [securityCode, setSecurityCode] = useState(demoPath ? 'RTI26' : '');
   const [confirmed, setConfirmed] = useState(false);
   const [registration, setRegistration] = useState('');
   const [submittedAt, setSubmittedAt] = useState<Date | null>(null);
@@ -233,7 +248,10 @@ export function RequestWorkflow({ initialNeed = '', initialAuthority = '' }: { i
     <div className="fast-workflow">
       <div className="fast-progress" aria-label={`Step ${step + 1} of 4`}><div style={{ width: `${((step + 1) / 4) * 100}%` }}/><span>{labels[step]}</span><b>{step < 3 ? `Step ${step + 1} of 3` : 'Complete'}</b></div>
       <div className="fast-body">
-        {step === 0 && <PortalGuidelines kind="request" accepted={guidelinesAccepted} onAccepted={setGuidelinesAccepted}/>}
+        {step === 0 && <>
+          {demoPath && <p className="demo-fill-note" role="status">Demonstration details for Aarav Sharma / Railway Board are ready on the next screen. Accept the guidelines, then continue. Security code is <b>RTI26</b>.</p>}
+          <PortalGuidelines kind="request" accepted={guidelinesAccepted} onAccepted={setGuidelinesAccepted}/>
+        </>}
         {step === 1 && <section className="fast-step official-form">
           <span className="step-label">Online RTI request form</span>
           <h2>File a request with a Central public authority.</h2>

@@ -10,6 +10,7 @@ const coreServices = [
 const information = [
   ['Public Authorities', '/authorities'], ['User Manual', '/guide'], ['FAQ', '/faq'],
   ['Contact Us', '/contact'], ['About RTI', '/learn'], ['How it works', '/process'],
+  ['Why this redesign', '/compare'],
 ] as const;
 
 export function SiteHeader() {

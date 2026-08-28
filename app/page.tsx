@@ -15,11 +15,13 @@ const moreServices = [
   ['Payment help', '/payments'],
   ['Public authorities', '/authorities'],
   ['User manual', '/guide'],
+  ['Why this redesign', '/compare'],
 ] as const;
 
 export default function HomePage() {
   return <PageShell>
     <section className="civic-hero">
+      <div className="civic-hero-photo" aria-hidden="true" />
       <div className="civic-hero-copy">
         <span className="india-kicker">Right to Information Act, 2005</span>
         <h1>The Act exists so that an informed citizen can see the records a public authority already holds.</h1>
