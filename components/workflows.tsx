@@ -387,21 +387,45 @@ export function RequestWorkflow({ initialNeed = '', initialAuthority = '' }: { i
           <div className="receipt-actions"><a className="button-primary" href={`/status?registration=${encodeURIComponent(registration)}&email=${encodeURIComponent(draft.email)}`}>View status</a><button className="button-secondary" onClick={() => window.print()} type="button">Save acknowledgement</button></div><small className="prototype-receipt-note">This is a prototype receipt and is not valid for an official RTI filing.</small>
         </section>}
       </div>
-      {step < 3 && <div className="fast-actions"><button disabled={step === 0} onClick={() => setStep((current) => current - 1)} type="button">← Back</button><span><i>✓</i> Draft stays in this browser</span>{step < 2 ? <button className="button-primary" disabled={!canContinue} onClick={() => setStep((current) => current + 1)} type="button">{step === 0 ? 'Proceed to form' : 'Make payment'} <b>→</b></button> : <button className="button-primary" disabled={!confirmed} onClick={submit} type="button">{bplExempt ? 'Submit application' : 'Pay and submit'} <b>→</b></button>}</div>}
+      {step < 3 && <div className="fast-actions"><button disabled={step === 0} onClick={() => setStep((current) => current - 1)} type="button">← Back</button><span><i>✓</i> Draft stays in this browser</span>{step < 2 ? <button className="button-primary" disabled={!canContinue} onClick={() => setStep((current) => current + 1)} type="button">{step === 0 ? (guidelinesAccepted ? <>Proceed to form <b>→</b></> : 'Accept guidelines to continue') : <>Make payment <b>→</b></>}</button> : <button className="button-primary" disabled={!confirmed} onClick={submit} type="button">{bplExempt ? 'Submit application' : 'Pay and submit'} <b>→</b></button>}</div>}
     </div>
   );
 }
 
 type StatusRecord = { id: string; subject: string; authority: string; status: string; due: string; filed?: string; kind?: string; email?: string };
 
+function matchKnownRecord(id: string, mail: string): StatusRecord | null {
+  const normalizedId = id.trim().toUpperCase();
+  const normalizedEmail = mail.trim().toLowerCase();
+  const saved = [readStored<StatusRecord>('rti-gov-demo-request'), readStored<StatusRecord>('rti-gov-demo-appeal')]
+    .find((item) => item?.id.toUpperCase() === normalizedId && item.email?.toLowerCase() === normalizedEmail);
+  if (saved) return saved;
+  const demoRecord = demoRequests.find((item) => item.id === normalizedId);
+  if (demoRecord && normalizedEmail === DEMO_EMAIL) return demoRecord;
+  return null;
+}
+
 export function StatusLookup({ initialRegistration = '', initialEmail = '' }: { initialRegistration?: string; initialEmail?: string }) {
+  const linkedDemo = demoRequests.find((item) => item.id === initialRegistration.trim().toUpperCase())
+    && initialEmail.trim().toLowerCase() === DEMO_EMAIL
+    ? demoRequests.find((item) => item.id === initialRegistration.trim().toUpperCase())
+    : null;
   const [registration, setRegistration] = useState(initialRegistration || DEMO_REQUEST_ID);
   const [email, setEmail] = useState(initialEmail || DEMO_EMAIL);
   const [securityCode, setSecurityCode] = useState(DEMO_SECURITY);
-  const [stage, setStage] = useState(0);
+  const [stage, setStage] = useState(linkedDemo ? 2 : 0);
   const [otp, setOtp] = useState('');
   const [error, setError] = useState('');
-  const [record, setRecord] = useState<StatusRecord>(demoRequests[0]);
+  const [record, setRecord] = useState<StatusRecord>(linkedDemo || demoRequests[0]);
+
+  useEffect(() => {
+    if (!initialRegistration || !initialEmail || linkedDemo) return;
+    const found = matchKnownRecord(initialRegistration, initialEmail);
+    if (found) {
+      setRecord(found);
+      setStage(2);
+    }
+  }, [initialRegistration, initialEmail, linkedDemo]);
 
   const findRequest = () => {
     if (securityCode.trim().toUpperCase() !== DEMO_SECURITY) { setError(`Enter the demonstration security code ${DEMO_SECURITY}.`); return; }
@@ -455,7 +479,7 @@ export function AppealWorkflow({ initialRegistration = '' }: { initialRegistrati
   const [reason, setReason] = useState('No response after 30 days');
   const [text, setText] = useState(demoPath ? DEMO_APPEAL_TEXT : '');
   const [confirmed, setConfirmed] = useState(false);
-  const [sourceRecord, setSourceRecord] = useState<StatusRecord | null>(null);
+  const [sourceRecord, setSourceRecord] = useState<StatusRecord | null>(demoPath ? demoRequests.find((item) => item.id === DEMO_REQUEST_ID) || demoRequests[0] : null);
   const [appealRegistration, setAppealRegistration] = useState('');
   const [submittedAt, setSubmittedAt] = useState<Date | null>(null);
   const workflowRef = useRef<HTMLDivElement>(null);
@@ -519,7 +543,7 @@ export function AppealWorkflow({ initialRegistration = '' }: { initialRegistrati
       <div className="fast-progress" aria-label={`Step ${step + 1} of 4`}><div style={{ width: `${((step + 1) / 4) * 100}%` }}/><span>{labels[step]}</span><b>{step < 3 ? `Step ${step + 1} of 3` : 'Complete'}</b></div>
       <div className="fast-body">
         {step === 0 && <>
-          {demoPath && <p className="demo-fill-note" role="status">Demonstration appeal for <b>{DEMO_REQUEST_ID}</b> is ready. Accept the guidelines, retrieve the Railway Board request, then submit. Security code is <b>RTI26</b>. No fee.</p>}
+          {demoPath && <p className="demo-fill-note" role="status">Demonstration appeal for <b>{DEMO_REQUEST_ID}</b> is ready. Accept the guidelines, then submit. No fee. Security code is <b>RTI26</b>.</p>}
           <PortalGuidelines kind="appeal" accepted={guidelinesAccepted} onAccepted={setGuidelinesAccepted}/>
         </>}
         {step === 1 && <section className="fast-step">
@@ -564,9 +588,9 @@ export function AppealWorkflow({ initialRegistration = '' }: { initialRegistrati
         </section>}
       </div>
       {step < 3 && <div className="fast-actions">
-        <button disabled={step === 0} onClick={() => setStep((current) => current - 1)} type="button">← Back</button>
+        <button disabled={step === 0} onClick={() => setStep((current) => (current === 2 && demoPath ? 0 : current - 1))} type="button">← Back</button>
         <span><i>✓</i> {step === 2 ? 'No first-appeal fee' : 'Draft stays in this browser'}</span>
-        {step === 0 && <button className="button-primary" disabled={!canContinue} onClick={() => setStep(1)} type="button">Proceed to appeal form <b>→</b></button>}
+        {step === 0 && <button className="button-primary" disabled={!canContinue} onClick={() => setStep(demoPath && sourceRecord ? 2 : 1)} type="button">{guidelinesAccepted ? <>Proceed to appeal form <b>→</b></> : 'Accept guidelines to continue'}</button>}
         {step === 1 && <button className="button-primary" disabled={!canContinue} onClick={findEligible} type="button">Retrieve request <b>→</b></button>}
         {step === 2 && <button className="button-primary" disabled={!canContinue} onClick={submitAppeal} type="button">Submit first appeal <b>→</b></button>}
       </div>}

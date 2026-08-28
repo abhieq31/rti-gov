@@ -11,9 +11,9 @@ const needExamples = [
 const DEMO_NEED = '/request?need=Inspection%20report%20for%20my%20railway%20station';
 
 const startCards = [
-  { href: DEMO_NEED, title: 'Submit a request', text: 'File with a Central public authority when the record is not already online. Demo data is pre-filled.' },
   { href: '/search', title: 'See if the record is already public', text: 'Search disclosures, circulars and reports before you file a request.' },
   { href: '/learn', title: 'Learn about the RTI process', text: 'What you can ask for, what you cannot, and how long a reply should take.' },
+  { href: '/status?registration=RTI%2FMORLY%2F2026%2F804271&email=aarav.demo%40example.in', title: 'Track a demonstration case', text: 'Open RTI/MORLY/2026/804271 and the 30-day clock without retyping credentials.' },
 ] as const;
 
 const pathSteps = [

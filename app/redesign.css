@@ -131,6 +131,8 @@ html[data-text-size='lg'] .india-theme{zoom:1.12}
   .india-theme .page-hero h1,.india-theme .fast-request-head h1{font-size:32px;line-height:1.15}
   .fast-body{min-height:0}
   .lookup-form .button-primary,.otp-panel .button-primary{width:100%}
+  .civic-start-cards{display:none}
+  .india-theme .civic-hero{padding-top:36px;padding-bottom:24px}
 }
 .fast-form .wide{grid-column:1/-1}
 .optional-details{margin-top:12px;border:1px solid var(--gov-line);background:#f8fafb}
