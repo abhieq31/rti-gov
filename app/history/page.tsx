@@ -1,3 +1,3 @@
 import type { Metadata } from 'next'; import { PageHero, PageShell, MockNotice } from '@/components/site-chrome'; import { HistoryDashboard } from '@/components/workflows';
 export const metadata: Metadata = { title: 'My RTI request and appeal history | RTI.gov', description: 'View pending and disposed RTI requests, replies, appeals and statutory deadlines in one citizen account.' };
-export default function HistoryPage(){return <PageShell><PageHero eyebrow="My RTI" title="Your civic paper trail, finally organised." intro="A complete three-year view of requests, transfers, replies, payments and appeals."/><MockNotice/><HistoryDashboard/></PageShell>}
+export default function HistoryPage(){return <PageShell><PageHero eyebrow="View history" title="Requests and appeals filed online" intro="Verify the applicant email, mobile number and OTP to view registered, pending and disposed cases retained for three years."/><MockNotice/><HistoryDashboard/></PageShell>}
