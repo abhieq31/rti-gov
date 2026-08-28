@@ -224,13 +224,12 @@ function PortalGuidelines({ kind, accepted, onAccepted }: { kind: 'request' | 'a
   </ol><label className="guidelines-check"><input checked={accepted} onChange={(event) => onAccepted(event.target.checked)} type="checkbox"/><span><b>I have read and understood the guidelines.</b><small>This remains a synthetic prototype; nothing is filed or charged.</small></span></label></section>;
 }
 
-export function RequestWorkflow({ initialNeed = '', initialAuthority = '' }: { initialNeed?: string; initialAuthority?: string }) {
+export function RequestWorkflow({ initialAuthority = '' }: { initialAuthority?: string }) {
   const seeded = findAuthority(initialAuthority);
   const [step, setStep] = useState(0);
   const [guidelinesAccepted, setGuidelinesAccepted] = useState(false);
   const [draft, setDraft] = useState(() => ({
     ...initialDraft,
-    request: initialNeed,
     authority: seeded?.level === 'Central' ? seeded.code : '',
     ministry: seeded?.level === 'Central' ? seeded.ministry : '',
   }));
