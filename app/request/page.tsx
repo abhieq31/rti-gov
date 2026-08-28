@@ -7,7 +7,7 @@ export default async function RequestPage({ searchParams }: { searchParams: Prom
     <PageShell>
       <section className="file-strip">
         <span>Submit RTI request</span>
-        <p>{demo ? 'Accept the guidelines. Railway Board and Aarav’s details are on the next screen.' : 'Central Government only. Write the record you want; the prototype recommends the office.'}</p>
+        <p>{demo ? 'Accept the guidelines. The request text is ready; you choose the office and complete the applicant details.' : 'Central Government only. Write the record you want; the prototype recommends the office.'}</p>
       </section>
       <RequestWorkflow initialAuthority={authority} initialNeed={need} />
     </PageShell>
