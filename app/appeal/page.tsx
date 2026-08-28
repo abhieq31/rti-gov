@@ -12,7 +12,7 @@ export default async function AppealPage({ searchParams }: { searchParams: Promi
   return (
     <PageShell>
       <section className="file-strip">
-        <span>Submit first appeal</span>
+        <span>Submit First Appeal</span>
         <p><b>No fee.</b> The First Appellate Authority has 45 days. Demo: RTI/MORLY/2026/804271 · aarav.demo@example.in · RTI26.</p>
       </section>
       <AppealWorkflow initialRegistration={registration} />

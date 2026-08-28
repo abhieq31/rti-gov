@@ -11,8 +11,8 @@ export default function HistoryPage() {
   return (
     <PageShell>
       <section className="file-strip">
-        <span>View history</span>
-        <p>Aarav’s cases open on this page. Each row shows how many days remain. Demo: aarav.demo@example.in · RTI26.</p>
+        <span>View History</span>
+        <p>Enter the email used to file. History is kept for three years. Demo: aarav.demo@example.in · RTI26.</p>
       </section>
       <HistoryDashboard />
     </PageShell>

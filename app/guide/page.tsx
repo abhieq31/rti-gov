@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 const flows = [
   {
-    title: 'Submit RTI request',
+    title: 'Submit Request',
     href: '/request',
     steps: [
       'Accept the guidelines',
@@ -20,7 +20,7 @@ const flows = [
     ],
   },
   {
-    title: 'Submit first appeal',
+    title: 'Submit First Appeal',
     href: '/appeal',
     steps: [
       'Accept the appeal guidelines',
@@ -30,25 +30,25 @@ const flows = [
     ],
   },
   {
-    title: 'View status',
+    title: 'View Status',
     href: '/status',
     steps: [
-      'The known demonstration opens without an extra mailbox code',
+      'Enter registration number, email and security code RTI26',
       'Read the number, due date and days left together',
       'File a first appeal at ₹0 if there is silence or an incomplete reply',
     ],
   },
   {
-    title: 'View history',
+    title: 'View History',
     href: '/history',
     steps: [
-      'Aarav’s demonstration history opens on this device',
+      'Enter the filing email and security code RTI26',
       'Each row shows how many days remain',
       'Open a case to see status, reply or appeal options',
     ],
   },
   {
-    title: 'Reconcile a payment',
+    title: 'Payment Reconciliation',
     href: '/payments',
     steps: [
       'Do not pay again',

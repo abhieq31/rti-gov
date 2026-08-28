@@ -425,21 +425,17 @@ export function StatusLookup({ initialRegistration = '', initialEmail = '' }: { 
     && initialEmail.trim().toLowerCase() === DEMO_EMAIL
     ? knownRecords.find((item) => item.id === initialRegistration.trim().toUpperCase())
     : null;
-  const openKnownDemo = Boolean(linkedDemo) || (!initialRegistration && !initialEmail);
-  const [registration, setRegistration] = useState(initialRegistration || DEMO_REQUEST_ID);
-  const [email, setEmail] = useState(initialEmail || DEMO_EMAIL);
-  const [securityCode, setSecurityCode] = useState(DEMO_SECURITY);
-  const [stage, setStage] = useState(openKnownDemo ? 2 : 0);
+  const [registration, setRegistration] = useState(initialRegistration);
+  const [email, setEmail] = useState(initialEmail);
+  const [securityCode, setSecurityCode] = useState('');
+  const [stage, setStage] = useState(linkedDemo ? 2 : 0);
   const [error, setError] = useState('');
   const [record, setRecord] = useState<StatusRecord>(linkedDemo || demoRequests[0]);
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
-      const fromUrl = initialRegistration && initialEmail ? matchKnownRecord(initialRegistration, initialEmail) : null;
-      const saved = readStored<StatusRecord>('rti-gov-demo-request');
-      const savedMatches = saved && (!initialRegistration || saved.id.toUpperCase() === initialRegistration.trim().toUpperCase())
-        && (!initialEmail || saved.email?.toLowerCase() === initialEmail.trim().toLowerCase());
-      const found = fromUrl || (savedMatches ? saved : null);
+      if (!initialRegistration || !initialEmail) return;
+      const found = matchKnownRecord(initialRegistration, initialEmail);
       if (found) {
         setRecord(found);
         setStage(2);
@@ -751,10 +747,10 @@ function daysRemaining(due: string) {
 }
 
 export function HistoryDashboard() {
-  const [accessStage, setAccessStage] = useState(2);
-  const [historyEmail, setHistoryEmail] = useState('aarav.demo@example.in');
-  const [historyMobile, setHistoryMobile] = useState('9876543210');
-  const [historySecurity, setHistorySecurity] = useState('RTI26');
+  const [accessStage, setAccessStage] = useState(0);
+  const [historyEmail, setHistoryEmail] = useState('');
+  const [historyMobile, setHistoryMobile] = useState('');
+  const [historySecurity, setHistorySecurity] = useState('');
   const [historyError, setHistoryError] = useState('');
   const [filter, setFilter] = useState('All');
   const [localRecords, setLocalRecords] = useState<StatusRecord[]>([]);
@@ -771,7 +767,7 @@ export function HistoryDashboard() {
   const appealCount = allRecords.filter((item) => item.kind === 'Appeal' && !/closed/i.test(`${item.status} ${item.due}`)).length;
   const replyCount = allRecords.filter((item) => /reply received/i.test(item.status)).length;
   const upcoming = allRecords.filter((item) => !item.due.startsWith('Closed') && !Number.isNaN(parseDue(item.due))).sort((a, b) => parseDue(a.due) - parseDue(b.due))[0]?.due || '—';
-  if (accessStage === 0) return <div className="tool-surface compact-tool"><form className="lookup-form" onSubmit={(event) => { event.preventDefault(); if (historyEmail.toLowerCase() === 'aarav.demo@example.in' && historySecurity.toUpperCase() === 'RTI26') { setHistoryError(''); setAccessStage(2); } else setHistoryError('Use the demonstration email and security code RTI26.'); }}><div className="service-form-intro"><span className="step-label">View history</span><h2>Verify the applicant.</h2><p>Requests and appeals filed with these contact details will appear on this device. The known demonstration is pre-filled.</p></div><label><span>Email ID *</span><input required type="email" value={historyEmail} onChange={(event) => setHistoryEmail(event.target.value)}/></label><label><span>Mobile number</span><input inputMode="numeric" value={historyMobile} onChange={(event) => setHistoryMobile(event.target.value)} /></label><label><span>Security code *</span><div className="captcha-row"><b>RTI26</b><input required value={historySecurity} onChange={(event) => setHistorySecurity(event.target.value)} placeholder="Enter RTI26"/></div></label>{historyError && <p className="form-error">{historyError}</p>}<button className="button-primary">View history</button><button className="text-button" onClick={() => { setHistorySecurity('RTI26'); setAccessStage(2); }} type="button">Open demonstration history</button></form></div>;
+  if (accessStage === 0) return <div className="tool-surface compact-tool"><form className="lookup-form" onSubmit={(event) => { event.preventDefault(); if (historyEmail.toLowerCase() === 'aarav.demo@example.in' && historySecurity.toUpperCase() === 'RTI26') { setHistoryError(''); setAccessStage(2); } else setHistoryError('Use the demonstration email and security code RTI26.'); }}><div className="service-form-intro"><span className="step-label">View history</span><h2>Verify the applicant.</h2><p>Enter the email used to file. Security code is RTI26. Requests and appeals with these details stay on this device for three years.</p></div><label><span>Email ID *</span><input required type="email" value={historyEmail} onChange={(event) => setHistoryEmail(event.target.value)} placeholder="aarav.demo@example.in"/></label><label><span>Mobile number</span><input inputMode="numeric" value={historyMobile} onChange={(event) => setHistoryMobile(event.target.value)} placeholder="10-digit mobile"/></label><label><span>Security code *</span><div className="captcha-row"><b>RTI26</b><input required value={historySecurity} onChange={(event) => setHistorySecurity(event.target.value)} placeholder="Enter RTI26"/></div></label>{historyError && <p className="form-error">{historyError}</p>}<button className="button-primary">View history</button><button className="text-button" onClick={() => { setHistoryEmail('aarav.demo@example.in'); setHistoryMobile('9876543210'); setHistorySecurity('RTI26'); setAccessStage(2); }} type="button">Open demonstration history</button></form></div>;
   return (
     <div className="dashboard-surface history-ledger">
       <div className="dashboard-head">
@@ -816,10 +812,10 @@ export function HistoryDashboard() {
 }
 
 export function PaymentReconciliation() {
-  const [transaction, setTransaction] = useState(DEMO_PAYMENT_ID);
-  const [email, setEmail] = useState(DEMO_EMAIL);
-  const [security, setSecurity] = useState(DEMO_SECURITY);
-  const [result, setResult] = useState<'idle' | 'found' | 'missing'>('found');
+  const [transaction, setTransaction] = useState('');
+  const [email, setEmail] = useState('');
+  const [security, setSecurity] = useState('');
+  const [result, setResult] = useState<'idle' | 'found' | 'missing'>('idle');
   const check = () => setResult(transaction.trim().toUpperCase() === DEMO_PAYMENT_ID && email.trim().toLowerCase() === DEMO_EMAIL && security.toUpperCase() === DEMO_SECURITY ? 'found' : 'missing');
   return (
     <div className="tool-surface compact-tool">
@@ -849,10 +845,10 @@ export function PaymentReconciliation() {
             <h2>Find the ₹10 once.</h2>
             <p>Use this only when money was debited but no registration number was generated. Do not pay again.</p>
           </div>
-          <label><span>Bank / gateway transaction ID *</span><input required value={transaction} onChange={(event) => setTransaction(event.target.value)} /></label>
-          <label><span>Applicant email *</span><input required type="email" value={email} onChange={(event) => setEmail(event.target.value)} /></label>
+          <label><span>Bank / gateway transaction ID *</span><input required value={transaction} onChange={(event) => setTransaction(event.target.value)} placeholder={DEMO_PAYMENT_ID} /></label>
+          <label><span>Applicant email *</span><input required type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder={DEMO_EMAIL} /></label>
           <label><span>Security code *</span><div className="captcha-row"><b>{DEMO_SECURITY}</b><input required value={security} onChange={(event) => setSecurity(event.target.value)} placeholder={`Enter ${DEMO_SECURITY}`}/></div></label>
-          {result === 'missing' && <p className="form-error" role="alert">No matching prototype payment. Use the pre-filled details and security code {DEMO_SECURITY}.</p>}
+          {result === 'missing' && <p className="form-error" role="alert">No matching prototype payment. Use the demonstration transaction, email and security code {DEMO_SECURITY}.</p>}
           <button className="button-primary">Check payment</button>
           <button className="text-button" onClick={() => { setTransaction(DEMO_PAYMENT_ID); setEmail(DEMO_EMAIL); setSecurity(DEMO_SECURITY); check(); }} type="button">Open demonstration payment</button>
         </form>

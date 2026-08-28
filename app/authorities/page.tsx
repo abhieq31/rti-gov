@@ -11,7 +11,7 @@ export default function AuthoritiesPage() {
   return (
     <PageShell>
       <section className="file-strip">
-        <span>Public authorities</span>
+        <span>Public Authorities</span>
         <p>This portal accepts filings only for Central Government public authorities. State and local offices are shown so you do not pay the wrong fee.</p>
       </section>
       <AuthorityFinder />

@@ -11,8 +11,8 @@ export default function PaymentsPage() {
   return (
     <PageShell>
       <section className="file-strip">
-        <span>Payment reconciliation</span>
-        <p>Find the ₹10 once. Do not pay twice. Demo transaction <b>RTIDEMO240822118</b> · aarav.demo@example.in · RTI26.</p>
+        <span>Payment Reconciliation</span>
+        <p>Use this if money was debited but no registration number arrived. Do not pay twice. Security code <b>RTI26</b>.</p>
       </section>
       <PaymentReconciliation />
     </PageShell>

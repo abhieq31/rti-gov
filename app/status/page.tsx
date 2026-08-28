@@ -12,8 +12,8 @@ export default async function StatusPage({ searchParams }: { searchParams: Promi
   return (
     <PageShell>
       <section className="file-strip">
-        <span>View status</span>
-        <p>The case file is below. Track <b>RTI/MORLY/2026/804271</b>. First appeal is ₹0 and starts a 45-day clock.</p>
+        <span>View Status</span>
+        <p>Enter the registration number and email from the receipt. Security code <b>RTI26</b>. First appeal is ₹0.</p>
       </section>
       <StatusLookup initialEmail={email} initialRegistration={registration} />
     </PageShell>

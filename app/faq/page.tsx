@@ -11,7 +11,7 @@ export default function FaqPage() {
   return (
     <PageShell>
       <section className="file-strip">
-        <span>Frequently asked questions</span>
+        <span>FAQ</span>
         <p>Plain answers about fees, clocks, status and first appeals before the legal language.</p>
       </section>
       <section className="narrow-content">
