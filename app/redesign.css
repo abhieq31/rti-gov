@@ -429,8 +429,8 @@ html[data-text-size='lg'] .india-theme{zoom:1.12}
 .payment-receipt{margin-top:28px;padding-top:8px;border-top:1px solid #ddd4c6}
 .history-switch{margin:0;padding:12px 25px 22px}
 .file-strip{
-  padding:18px max(20px,calc((100vw - 1120px)/2));
-  display:flex;flex-wrap:wrap;gap:8px 28px;align-items:baseline;
+  padding:12px max(20px,calc((100vw - 1120px)/2));
+  display:flex;flex-wrap:wrap;gap:6px 28px;align-items:baseline;
   background:#efe9dc;border-bottom:1px solid #ddd4c6;
 }
 .file-strip span{color:#8a4e18;font-size:12px;font-weight:650;letter-spacing:.14em;text-transform:uppercase}
@@ -451,6 +451,50 @@ html[data-text-size='lg'] .india-theme{zoom:1.12}
 .process-file{padding-bottom:40px}
 .process-file .clock-note{width:min(1120px,calc(100% - 40px));margin:18px auto}
 .process-file .button-primary{margin-top:8px}
+
+.india-theme .portal-guidelines ol{margin:4px 0 12px}
+.india-theme .portal-guidelines li{padding:7px 0;grid-template-columns:170px 1fr;gap:14px}
+.india-theme .portal-guidelines li b{font-size:13px}
+.india-theme .portal-guidelines li span{font-size:13px;line-height:1.4}
+.india-theme .guidelines-check{padding:12px 14px}
+.india-theme .demo-fill-note{margin:0 auto 12px}
+.india-theme .fast-body{min-height:0;padding:20px clamp(18px,5vw,48px) 24px}
+.india-theme .fast-workflow{margin-top:16px;margin-bottom:48px}
+.india-theme .login-card{
+  width:min(520px,calc(100% - 40px));margin:28px auto 80px;padding:28px 32px;
+  background:#fbf8f2;border:1px solid #ddd4c6;box-shadow:none;
+}
+.india-theme .login-card h2{font:500 32px/1.15 Georgia,serif}
+.india-theme .search-tool,.india-theme .authority-tool-head{
+  background:#0c2340;color:#fbf8f2;
+}
+.india-theme .search-tool{padding:28px 32px}
+.india-theme .search-tool>label{font:500 26px Georgia,serif;color:#fbf8f2}
+.india-theme .tool-surface{margin-top:20px}
+
+@media(max-width:900px){
+  .civic-hero-split{display:flex;flex-direction:column}
+  .civic-hero-copy{order:1}
+  .civic-hero-split .civic-start{order:2;grid-column:auto}
+  .civic-ack{order:3;max-width:none}
+  .india-theme .portal-guidelines li{grid-template-columns:1fr;gap:4px;padding:8px 0}
+  .history-ledger .dashboard-head{padding:16px 18px}
+  .history-ledger .dashboard-head h2{font-size:26px}
+}
+
+@media(max-width:680px){
+  .india-theme .civic-hero h1{font-size:28px}
+  .india-theme .concept-band span{display:none}
+  .india-theme .portal-guidelines li{display:block;padding:4px 0}
+  .india-theme .portal-guidelines li b,.india-theme .portal-guidelines li span{font-size:13px;line-height:1.35}
+  .india-theme .portal-guidelines li span{margin-left:.35em}
+  .india-theme .guidelines-check{padding:10px 12px}
+  .india-theme .guidelines-check b{font-size:13px}
+  .india-theme .guidelines-check small{display:none}
+  .file-strip{padding:10px 16px}
+  .file-strip p{font-size:14px}
+  .india-theme .fast-progress{height:48px}
+}
 @media(max-width:700px){
   .file-strip{padding:16px 20px;display:grid;gap:6px}
   .clock-spine{width:calc(100% - 24px)}

@@ -1,3 +1,15 @@
 import type { Metadata } from 'next'; import { PageShell } from '@/components/site-chrome'; import { RequestWorkflow } from '@/components/workflows';
 export const metadata: Metadata = { title: 'Submit a Central RTI request in one minute | RTI Online prototype', description: 'Complete the Central Government RTI request flow from guidelines and applicant details through payment and registration.' };
-export default async function RequestPage({ searchParams }: { searchParams: Promise<{ need?: string; authority?: string }> }){const { need, authority } = await searchParams; return <PageShell><section className="fast-request-head"><div><span>Submit RTI request</span><h1>Start with the record you want</h1></div><p><b>Central Government public authorities only.</b> Write the request in plain language. The prototype recommends the authority, asks for contact details, and registers after a ₹10 demonstration payment or BPL exemption.</p></section><RequestWorkflow initialNeed={need} initialAuthority={authority}/></PageShell>}
+export default async function RequestPage({ searchParams }: { searchParams: Promise<{ need?: string; authority?: string }> }) {
+  const { need, authority } = await searchParams;
+  const demo = Boolean(need);
+  return (
+    <PageShell>
+      <section className="file-strip">
+        <span>Submit RTI request</span>
+        <p>{demo ? 'Accept the guidelines. Railway Board and Aarav’s details are on the next screen.' : 'Central Government only. Write the record you want; the prototype recommends the office.'}</p>
+      </section>
+      <RequestWorkflow initialAuthority={authority} initialNeed={need} />
+    </PageShell>
+  );
+}

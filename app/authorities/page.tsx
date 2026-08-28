@@ -1,3 +1,20 @@
-import type { Metadata } from 'next'; import { PageHero, PageShell, MockNotice } from '@/components/site-chrome'; import { AuthorityFinder } from '@/components/workflows';
-export const metadata: Metadata = { title: 'Find the public authority that holds the record | RTI Online prototype', description: 'Find the Central, State or local public authority likely to hold the records you need.' };
-export default function AuthoritiesPage(){return <PageShell><PageHero eyebrow="Public authorities available" title="Check the public authority before you file." intro="This portal accepts RTI applications only for Central Government ministries, departments and public authorities. State and local authorities are shown so you do not pay the wrong fee."/><MockNotice>The directory is a demonstration subset. The live RTI Online portal lists every onboarded Central public authority.</MockNotice><AuthorityFinder/></PageShell>}
+import type { Metadata } from 'next';
+import { PageShell } from '@/components/site-chrome';
+import { AuthorityFinder } from '@/components/workflows';
+
+export const metadata: Metadata = {
+  title: 'Find the public authority that holds the record | RTI Online prototype',
+  description: 'Find the Central, State or local public authority likely to hold the records you need.',
+};
+
+export default function AuthoritiesPage() {
+  return (
+    <PageShell>
+      <section className="file-strip">
+        <span>Public authorities</span>
+        <p>This portal accepts filings only for Central Government public authorities. State and local offices are shown so you do not pay the wrong fee.</p>
+      </section>
+      <AuthorityFinder />
+    </PageShell>
+  );
+}

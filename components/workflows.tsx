@@ -189,12 +189,12 @@ function suggestAuthority(request: string) {
 
 function PortalGuidelines({ kind, accepted, onAccepted }: { kind: 'request' | 'appeal'; accepted: boolean; onAccepted: (value: boolean) => void }) {
   const appeal = kind === 'appeal';
-  return <section className="portal-guidelines"><div className="guidelines-title"><span>Before you continue</span><h2>Guidelines for use of RTI Online Portal</h2><p>Read the filing conditions once. They protect your fee, your privacy and the validity of the application.</p></div><ol>
-    <li><b>Central Government only.</b><span>Do not use this service for State Government public authorities, including the Government of NCT Delhi.</span></li>
-    <li><b>{appeal ? 'Use the original online request.' : 'Ask for an existing record.'}</b><span>{appeal ? 'An online first appeal needs the request registration number and applicant email.' : 'Write the record you want first. The prototype recommends a Central public authority from those words.'}</span></li>
-    <li><b>Protect personal information.</b><span>Do not upload Aadhaar, PAN or other identity documents. A valid BPL certificate is the only exception.</span></li>
-    <li><b>Text and attachment limits.</b><span>Application text is limited to 3,000 characters. Longer text or evidence may be attached as one PDF up to 1 MB.</span></li>
-    <li><b>{appeal ? 'No first-appeal fee.' : 'Pay only once.'}</b><span>{appeal ? 'No fee is charged for a Central first appeal.' : 'Non-BPL applicants pay ₹10 by UPI, net banking, card or RuPay. Wait 24–48 working hours before retrying a failed payment.'}</span></li>
+  return <section className="portal-guidelines"><ol>
+    <li><b>Central Government only.</b><span>Not for State authorities, including NCT Delhi.</span></li>
+    <li><b>{appeal ? 'Original request.' : 'An existing record.'}</b><span>{appeal ? 'Use the request number and the email used to file.' : 'Write what you want. The office is recommended from those words.'}</span></li>
+    <li><b>No identity documents.</b><span>Do not upload Aadhaar or PAN. A valid BPL certificate is the only exception.</span></li>
+    <li><b>Length limits.</b><span>3,000 characters. One optional PDF, up to 1 MB.</span></li>
+    <li><b>{appeal ? 'No first-appeal fee.' : 'Pay once.'}</b><span>{appeal ? 'A Central first appeal is free.' : '₹10 by UPI, net banking or card, unless BPL proof is attached.'}</span></li>
   </ol><label className="guidelines-check"><input checked={accepted} onChange={(event) => onAccepted(event.target.checked)} type="checkbox"/><span><b>I have read and understood the guidelines.</b><small>This remains a synthetic prototype; nothing is filed or charged.</small></span></label></section>;
 }
 
@@ -329,7 +329,6 @@ export function RequestWorkflow({ initialNeed = '', initialAuthority = '' }: { i
       <div className="fast-progress" aria-label={`Step ${step + 1} of 4`}><div style={{ width: `${((step + 1) / 4) * 100}%` }}/><span>{labels[step]}</span><b>{step < 3 ? `Step ${step + 1} of 3` : 'Complete'}</b></div>
       <div className="fast-body">
         {step === 0 && <>
-          {demoReady && <p className="demo-fill-note" role="status">Demonstration details for Aarav Sharma / Railway Board are ready on the next screen. Accept the guidelines, then continue. Security code is <b>{DEMO_SECURITY}</b>.</p>}
           {!demoReady && <p className="demo-fill-note" role="status">Arrived from the menu with a blank form? <button onClick={loadRailwayDemo} type="button">Load the Railway Board demonstration</button> to file in one minute, or type your own request next.</p>}
           <PortalGuidelines kind="request" accepted={guidelinesAccepted} onAccepted={setGuidelinesAccepted}/>
         </>}
@@ -808,7 +807,47 @@ export function HistoryDashboard() {
   const replyCount = allRecords.filter((item) => /reply received/i.test(item.status)).length;
   const upcoming = allRecords.filter((item) => !item.due.startsWith('Closed') && !Number.isNaN(parseDue(item.due))).sort((a, b) => parseDue(a.due) - parseDue(b.due))[0]?.due || '—';
   if (accessStage === 0) return <div className="tool-surface compact-tool"><form className="lookup-form" onSubmit={(event) => { event.preventDefault(); if (historyEmail.toLowerCase() === 'aarav.demo@example.in' && historySecurity.toUpperCase() === 'RTI26') { setHistoryError(''); setAccessStage(2); } else setHistoryError('Use the demonstration email and security code RTI26.'); }}><div className="service-form-intro"><span className="step-label">View history</span><h2>Verify the applicant.</h2><p>Requests and appeals filed with these contact details will appear on this device. The known demonstration is pre-filled.</p></div><label><span>Email ID *</span><input required type="email" value={historyEmail} onChange={(event) => setHistoryEmail(event.target.value)}/></label><label><span>Mobile number</span><input inputMode="numeric" value={historyMobile} onChange={(event) => setHistoryMobile(event.target.value)} /></label><label><span>Security code *</span><div className="captcha-row"><b>RTI26</b><input required value={historySecurity} onChange={(event) => setHistorySecurity(event.target.value)} placeholder="Enter RTI26"/></div></label>{historyError && <p className="form-error">{historyError}</p>}<button className="button-primary">View history</button><button className="text-button" onClick={() => { setHistorySecurity('RTI26'); setAccessStage(2); }} type="button">Open demonstration history</button></form></div>;
-  return <div className="dashboard-surface"><div className="dashboard-head"><div><span className="step-label">Demo citizen account</span><h2>Welcome, Aarav.</h2><p>Every request, reply, payment and appeal in one place. Each row shows how many days remain.</p></div><a className="button-primary" href="/request?need=Inspection%20report%20for%20my%20railway%20station">New request</a></div><div className="dashboard-metrics"><article><span>{requestCount}</span><b>RTI requests</b></article><article><span>{appealCount}</span><b>Active appeals</b></article><article><span>{replyCount}</span><b>Replies received</b></article><article><span>{upcoming.replace(/\s+2026$/, '')}</span><b>next deadline</b></article></div><div className="dashboard-filter">{['All', 'Request', 'Appeal', 'Pending'].map((item) => <button aria-pressed={filter === item} className={filter === item ? 'active' : ''} key={item} onClick={() => setFilter(item)} type="button">{item}</button>)}</div><div className="request-list">{records.map((item) => { const kind = item.kind || 'Request'; const itemEmail = item.email || 'aarav.demo@example.in'; const left = daysRemaining(item.due); const closed = item.due.startsWith('Closed'); return <article key={item.id}><div className={`case-kind ${kind.toLowerCase()}`}>{kind === 'Request' ? 'R' : 'A'}</div><div><small>{item.id}</small><h3>{item.subject}</h3><p>{item.authority}</p></div><span className="list-status">{item.status}</span><div className="list-due"><small>{closed ? 'Closed' : left === null ? 'Next date' : `${left} days left`}</small><b>{item.due}</b></div><a href={`/status?registration=${encodeURIComponent(item.id)}&email=${encodeURIComponent(itemEmail)}`}>Open →</a></article>; })}</div><p className="history-switch"><button className="text-button" onClick={() => setAccessStage(0)} type="button">Look up a different applicant</button></p></div>;
+  return (
+    <div className="dashboard-surface history-ledger">
+      <div className="dashboard-head">
+        <div>
+          <span className="step-label">Demo citizen account</span>
+          <h2>Aarav’s cases</h2>
+        </div>
+        <a className="button-primary" href="/request?need=Inspection%20report%20for%20my%20railway%20station">New request</a>
+      </div>
+      <div className="dashboard-filter">{['All', 'Request', 'Appeal', 'Pending'].map((item) => <button aria-pressed={filter === item} className={filter === item ? 'active' : ''} key={item} onClick={() => setFilter(item)} type="button">{item}</button>)}</div>
+      <div className="request-list">{records.map((item) => {
+        const kind = item.kind || 'Request';
+        const itemEmail = item.email || 'aarav.demo@example.in';
+        const left = daysRemaining(item.due);
+        const closed = item.due.startsWith('Closed');
+        return (
+          <article key={item.id}>
+            <div className={`case-kind ${kind.toLowerCase()}`}>{kind === 'Request' ? 'R' : 'A'}</div>
+            <div>
+              <small>{item.id}</small>
+              <h3>{item.subject}</h3>
+              <p>{item.authority}</p>
+            </div>
+            <span className="list-status">{item.status}</span>
+            <div className="list-due">
+              <small>{closed ? 'Closed' : left === null ? 'Next date' : `${left} days left`}</small>
+              <b>{item.due}</b>
+            </div>
+            <a href={`/status?registration=${encodeURIComponent(item.id)}&email=${encodeURIComponent(itemEmail)}`}>Open →</a>
+          </article>
+        );
+      })}</div>
+      <div className="dashboard-metrics">
+        <article><span>{requestCount}</span><b>RTI requests</b></article>
+        <article><span>{appealCount}</span><b>Active appeals</b></article>
+        <article><span>{replyCount}</span><b>Replies received</b></article>
+        <article><span>{upcoming.replace(/\s+2026$/, '')}</span><b>next deadline</b></article>
+      </div>
+      <p className="history-switch"><button className="text-button" onClick={() => setAccessStage(0)} type="button">Look up a different applicant</button></p>
+    </div>
+  );
 }
 
 export function PaymentReconciliation() {
@@ -820,7 +859,7 @@ export function PaymentReconciliation() {
 export function DemoLogin() {
   const [username, setUsername] = useState('aarav.demo'); const [password, setPassword] = useState('rti@2026'); const [security, setSecurity] = useState('RTI26'); const [error, setError] = useState('');
   const login = () => { if (username === 'aarav.demo' && password === 'rti@2026' && security.toUpperCase() === 'RTI26') { storeValue('rti-gov-demo-user', 'aarav'); window.location.href = '/history'; } else setError('Use the demonstration username, password and security code RTI26.'); };
-  return <div className="login-card"><span className="step-label">Citizen login</span><h2>Sign in to RTI Online.</h2><p>The demonstration credentials are pre-filled. Enter security code <b>RTI26</b>.</p><label><span>Username *</span><input autoComplete="username" value={username} onChange={(event) => setUsername(event.target.value)} /></label><label><span>Password *</span><input autoComplete="current-password" type="password" value={password} onChange={(event) => setPassword(event.target.value)} /></label><label><span>Security code *</span><div className="captcha-row"><b>RTI26</b><input value={security} onChange={(event) => setSecurity(event.target.value)} placeholder="Enter RTI26"/></div></label>{error && <p className="form-error" role="alert">{error}</p>}<button className="button-primary" onClick={login} type="button">Login</button><a className="login-history-link" href="/history">Forgot credentials? Open Aarav’s history →</a></div>;
+  return <div className="login-card"><span className="step-label">Citizen login</span><h2>Sign in with the demonstration account.</h2><p>Credentials are pre-filled. Security code is <b>RTI26</b>.</p><label><span>Username *</span><input autoComplete="username" value={username} onChange={(event) => setUsername(event.target.value)} /></label><label><span>Password *</span><input autoComplete="current-password" type="password" value={password} onChange={(event) => setPassword(event.target.value)} /></label><label><span>Security code *</span><div className="captcha-row"><b>RTI26</b><input value={security} onChange={(event) => setSecurity(event.target.value)} placeholder="Enter RTI26"/></div></label>{error && <p className="form-error" role="alert">{error}</p>}<button className="button-primary" onClick={login} type="button">Login</button><a className="login-history-link" href="/history">Forgot credentials? Open Aarav’s history →</a></div>;
 }
 
 export function FeedbackForm() {
