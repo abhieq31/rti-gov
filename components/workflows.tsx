@@ -35,6 +35,23 @@ function removeStored(key: string) {
   }
 }
 
+const monthIndex: Record<string, number> = {
+  jan: 0, january: 0, feb: 1, february: 1, mar: 2, march: 2, apr: 3, april: 3,
+  may: 4, jun: 5, june: 5, jul: 6, july: 6, aug: 7, august: 7, sep: 8, sept: 8, september: 8,
+  oct: 9, october: 9, nov: 10, november: 10, dec: 11, december: 11,
+};
+
+function parseDue(value: string): number {
+  const cleaned = value.replace(/^Closed\s+/i, '').trim();
+  const match = cleaned.match(/^(\d{1,2})\s+([A-Za-z]+)\.?\,?\s+(\d{4})$/);
+  if (match) {
+    const month = monthIndex[match[2].toLowerCase()];
+    if (month != null) return new Date(Number(match[3]), month, Number(match[1])).setHours(0, 0, 0, 0);
+  }
+  const native = Date.parse(cleaned);
+  return Number.isNaN(native) ? Number.NaN : native;
+}
+
 export function CitizenStart() {
   const [need, setNeed] = useState('');
   const examples = [
@@ -411,7 +428,7 @@ export function StatusLookup({ initialRegistration = '', initialEmail = '' }: { 
 function CaseStatus({ record }: { record: StatusRecord }) {
   const [action, setAction] = useState<'none' | 'fee' | 'document' | 'parts'>('none');
   const closed = record.due.startsWith('Closed');
-  const dueTimestamp = Date.parse(record.due.replace(/^Closed\s+/, ''));
+  const dueTimestamp = parseDue(record.due);
   const today = new Date(); today.setHours(0, 0, 0, 0);
   const daysLeft = Number.isNaN(dueTimestamp) ? null : Math.max(0, Math.ceil((dueTimestamp - today.getTime()) / 86_400_000));
   const isPrimaryDemo = record.id === demoRequests[0].id;
@@ -571,7 +588,7 @@ export function HistoryDashboard() {
   const requestCount = allRecords.filter((item) => item.kind === 'Request').length;
   const appealCount = allRecords.filter((item) => item.kind === 'Appeal' && !/closed/i.test(`${item.status} ${item.due}`)).length;
   const replyCount = allRecords.filter((item) => /reply received/i.test(item.status)).length;
-  const upcoming = allRecords.filter((item) => !item.due.startsWith('Closed') && !Number.isNaN(Date.parse(item.due))).sort((a, b) => Date.parse(a.due) - Date.parse(b.due))[0]?.due || '—';
+  const upcoming = allRecords.filter((item) => !item.due.startsWith('Closed') && !Number.isNaN(parseDue(item.due))).sort((a, b) => parseDue(a.due) - parseDue(b.due))[0]?.due || '—';
   if (accessStage === 0) return <div className="tool-surface compact-tool"><form className="lookup-form" onSubmit={(event) => { event.preventDefault(); if (historyEmail.toLowerCase() === 'aarav.demo@example.in' && historySecurity.toUpperCase() === 'RTI26') { setHistoryError(''); setAccessStage(1); } else setHistoryError('Use the demonstration email and security code RTI26.'); }}><div className="service-form-intro"><span className="step-label">View history</span><h2>Verify the applicant.</h2><p>Requests and appeals filed with these contact details will appear after OTP verification.</p></div><label><span>Email ID for receiving OTP *</span><input required type="email" value={historyEmail} onChange={(event) => setHistoryEmail(event.target.value)}/></label><label><span>Mobile number</span><input inputMode="numeric" value={historyMobile} onChange={(event) => setHistoryMobile(event.target.value)} /></label><label><span>Security code *</span><div className="captcha-row"><b>RTI26</b><input required value={historySecurity} onChange={(event) => setHistorySecurity(event.target.value)} placeholder="Enter RTI26"/></div></label>{historyError && <p className="form-error">{historyError}</p>}<button className="button-primary">Send OTP</button><button className="text-button" onClick={() => setHistorySecurity('RTI26')} type="button">Use demonstration security code</button></form></div>;
   if (accessStage === 1) return <div className="tool-surface compact-tool"><div className="otp-panel"><span className="step-label">Applicant verification</span><h2>Enter the OTP.</h2><p>Use the demonstration OTP <b>240805</b>.</p><label><span className="sr-only">Six-digit OTP</span><input inputMode="numeric" maxLength={6} value={historyOtp} onChange={(event) => setHistoryOtp(event.target.value.replace(/\D/g, ''))}/></label><button className="button-primary" disabled={historyOtp !== '240805'} onClick={() => setAccessStage(2)} type="button">View three-year history</button><button className="text-button" onClick={() => setHistoryOtp('240805')} type="button">Use demonstration OTP 240805</button></div></div>;
   return <div className="dashboard-surface"><div className="dashboard-head"><div><span className="step-label">Demo citizen account</span><h2>Welcome, Aarav.</h2><p>Every request, reply, payment and appeal in one place.</p></div><a className="button-primary" href="/request">New request</a></div><div className="dashboard-metrics"><article><span>{requestCount}</span><b>RTI requests</b></article><article><span>{appealCount}</span><b>Active appeals</b></article><article><span>{replyCount}</span><b>Replies received</b></article><article><span>{upcoming.replace(/\s+2026$/, '')}</span><b>next deadline</b></article></div><div className="dashboard-filter">{['All', 'Request', 'Appeal', 'Pending'].map((item) => <button aria-pressed={filter === item} className={filter === item ? 'active' : ''} key={item} onClick={() => setFilter(item)} type="button">{item}</button>)}</div><div className="request-list">{records.map((item) => { const kind = item.kind || 'Request'; const itemEmail = item.email || 'aarav.demo@example.in'; return <article key={item.id}><div className={`case-kind ${kind.toLowerCase()}`}>{kind === 'Request' ? 'R' : 'A'}</div><div><small>{item.id}</small><h3>{item.subject}</h3><p>{item.authority}</p></div><span className="list-status">{item.status}</span><div className="list-due"><small>Next date</small><b>{item.due}</b></div><a href={`/status?registration=${encodeURIComponent(item.id)}&email=${encodeURIComponent(itemEmail)}`}>Open →</a></article>; })}</div></div>;
