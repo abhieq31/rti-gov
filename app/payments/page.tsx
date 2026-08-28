@@ -10,12 +10,9 @@ export const metadata: Metadata = {
 export default function PaymentsPage() {
   return (
     <PageShell>
-      <section className="fast-request-head">
-        <div>
-          <span>Payment reconciliation</span>
-          <h1>Find the ₹10 once. Do not pay twice.</h1>
-        </div>
-        <p>Use this only when money was debited but no registration number arrived. Demo transaction <b>RTIDEMO240822118</b> · aarav.demo@example.in · RTI26.</p>
+      <section className="file-strip">
+        <span>Payment reconciliation</span>
+        <p>Find the ₹10 once. Do not pay twice. Demo transaction <b>RTIDEMO240822118</b> · aarav.demo@example.in · RTI26.</p>
       </section>
       <PaymentReconciliation />
     </PageShell>

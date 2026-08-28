@@ -11,12 +11,9 @@ export default async function StatusPage({ searchParams }: { searchParams: Promi
   const { registration, email } = await searchParams;
   return (
     <PageShell>
-      <section className="fast-request-head">
-        <div>
-          <span>View status</span>
-          <h1>Number, due date and days left.</h1>
-        </div>
-        <p>The known demonstration opens on this page. Track <b>RTI/MORLY/2026/804271</b> with aarav.demo@example.in. First appeal is ₹0 and starts a 45-day clock.</p>
+      <section className="file-strip">
+        <span>View status</span>
+        <p>The case file is below. Track <b>RTI/MORLY/2026/804271</b>. First appeal is ₹0 and starts a 45-day clock.</p>
       </section>
       <StatusLookup initialEmail={email} initialRegistration={registration} />
     </PageShell>

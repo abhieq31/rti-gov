@@ -1,78 +1,42 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { PageHero, PageShell } from '@/components/site-chrome';
+import { PageShell } from '@/components/site-chrome';
 
 export const metadata: Metadata = {
   title: '30, 5, 45 and 90-day RTI clocks | RTI Online prototype',
   description: 'The official citizen clocks: 30 days to reply, 5 days to transfer, 45 days for a first appeal, 90 days for a second appeal to the CIC.',
 };
 
-const branches = [
-  {
-    time: '30 days',
-    title: 'Reply',
-    copy: 'The CPIO sends the record, a lawful exemption, extra-fee notice or a transfer. If you are satisfied, the case ends.',
-  },
-  {
-    time: '5 days',
-    title: 'Transfer',
-    copy: 'If another Central authority holds the record, the request should move within five days. That office then has its own 30-day clock.',
-  },
-  {
-    time: '30 days',
-    title: 'No reply',
-    copy: 'Silence is a ground for first appeal. If there is also no applicable time limit, a Section 18 complaint may go to the CIC.',
-  },
-] as const;
-
-const later = [
-  { time: '30 days', title: 'First appeal', copy: 'No fee. Challenge delay, denial, an incomplete reply or an unreasonable extra fee with the First Appellate Authority.' },
-  { time: '45 days', title: 'Appeal decision', copy: 'The First Appellate Authority should decide. No decision, or a decision you reject, opens the next remedy.' },
-  { time: '90 days', title: 'Second appeal to CIC / SIC', copy: 'Central cases go to the Central Information Commission. State authorities use the State Information Commission. That filing is outside this portal.' },
+const spine = [
+  { time: 'Day 0', title: 'Request registered', copy: 'You leave with a registration number, the filing date and the usual statutory due date on the same screen.' },
+  { time: '48 hours', title: 'Life or liberty', copy: 'Use only for a genuine emergency. The CPIO must reply in two days, not thirty. The prototype marks this on the receipt when selected.', urgent: true },
+  { time: '30 days', title: 'Reply', copy: 'The CPIO sends the record, a lawful exemption, an extra-fee notice or a transfer. If you are satisfied, the case ends.' },
+  { time: '5 days', title: 'Transfer', copy: 'If another Central authority holds the record, the request should move within five days. That office then has its own 30-day clock.' },
+  { time: '45 days', title: 'First appeal · ₹0', copy: 'Silence, denial or an incomplete reply is enough. No fee. The First Appellate Authority should decide within 45 days.' },
+  { time: '90 days', title: 'Second appeal', copy: 'Central cases go to the Central Information Commission. That filing sits outside this portal.' },
 ] as const;
 
 export default function ProcessPage() {
   return (
     <PageShell>
-      <PageHero
-        eyebrow="How the service works"
-        title="From registration number to reply, appeal and CIC."
-        intro="These clocks match the official RTI Online homepage diagram: 30 days for a usual reply, 5 days for a Central transfer, 45 days for a first-appeal decision, and 90 days for a second appeal."
-        actions={<Link className="button-primary" href="/request?need=Inspection%20report%20for%20my%20railway%20station">Submit a demo request</Link>}
-      />
-      <section className="clock-board" aria-label="Statutory clocks after an RTI request">
-        <article className="clock-origin">
-          <span>Day 0</span>
-          <h2>RTI request registered</h2>
-          <p>You receive a registration number, filing date and the usual statutory due date. Life-or-liberty requests are due in 48 hours.</p>
-        </article>
-        <aside className="clock-urgent" role="note">
-          <b>48 hours</b>
-          <div>
-            <strong>Life or liberty</strong>
-            <p>Use only for a genuine emergency. The CPIO must reply in two days, not thirty. The prototype marks this on the receipt when selected.</p>
-          </div>
-        </aside>
-        <div className="clock-row">
-          {branches.map((item) => (
-            <article key={item.title}>
+      <section className="file-strip">
+        <span>How the service works</span>
+        <p>These clocks match the official RTI Online homepage diagram. The prototype shows them as a file, not a missing image.</p>
+      </section>
+      <section className="process-file" aria-label="Statutory clocks after an RTI request">
+        <ol className="clock-spine">
+          {spine.map((item) => (
+            <li className={'urgent' in item && item.urgent ? 'urgent' : undefined} key={item.title}>
               <b>{item.time}</b>
-              <h3>{item.title}</h3>
-              <p>{item.copy}</p>
-            </article>
+              <div>
+                <h2>{item.title}</h2>
+                <p>{item.copy}</p>
+              </div>
+            </li>
           ))}
-        </div>
-        <p className="clock-bridge">Not satisfied after a reply — or after silence — continues down this path.</p>
-        <div className="clock-row later">
-          {later.map((item) => (
-            <article key={item.title}>
-              <b>{item.time}</b>
-              <h3>{item.title}</h3>
-              <p>{item.copy}</p>
-            </article>
-          ))}
-        </div>
+        </ol>
         <p className="clock-note">A Section 18 complaint to the CIC is a separate remedy when there is no applicable time limit. Second appeals are not filed through this portal.</p>
+        <p className="clock-note"><Link className="button-primary" href="/request?need=Inspection%20report%20for%20my%20railway%20station">File a demo request</Link></p>
       </section>
     </PageShell>
   );

@@ -10,12 +10,9 @@ export const metadata: Metadata = {
 export default function HistoryPage() {
   return (
     <PageShell>
-      <section className="fast-request-head">
-        <div>
-          <span>View history</span>
-          <h1>Every request and appeal on one page.</h1>
-        </div>
-        <p>Aarav’s demonstration history opens on this page. Each row shows the next statutory date. Demo: aarav.demo@example.in · RTI26.</p>
+      <section className="file-strip">
+        <span>View history</span>
+        <p>Aarav’s cases open on this page. Each row shows how many days remain. Demo: aarav.demo@example.in · RTI26.</p>
       </section>
       <HistoryDashboard />
     </PageShell>

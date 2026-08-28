@@ -92,8 +92,8 @@ export default function HomePage() {
     <section aria-labelledby="path-heading" className="civic-path">
       <div className="civic-path-copy">
         <span className="india-kicker">The one-minute path</span>
-        <h2 id="path-heading">Four decisions. Then a registration number.</h2>
-        <p>Judges and citizens take the same walk: guidelines, pre-filled Railway Board request, ₹10 demonstration payment, acknowledgement with the statutory clock.</p>
+        <h2 id="path-heading">Three decisions. Then a number and a due date.</h2>
+        <p>Guidelines, the recommended office, ₹10, then a registration number and the statutory due date on the same screen.</p>
       </div>
       <ol>
         {pathSteps.map((step) => (

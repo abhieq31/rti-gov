@@ -11,12 +11,9 @@ export default async function AppealPage({ searchParams }: { searchParams: Promi
   const { registration } = await searchParams;
   return (
     <PageShell>
-      <section className="fast-request-head">
-        <div>
-          <span>Submit first appeal</span>
-          <h1>No fee. A 45-day clock starts today.</h1>
-        </div>
-        <p><b>First appeal is free.</b> Use the original request number. The First Appellate Authority should decide within 45 days. Demo: RTI/MORLY/2026/804271 · aarav.demo@example.in · RTI26.</p>
+      <section className="file-strip">
+        <span>Submit first appeal</span>
+        <p><b>No fee.</b> The First Appellate Authority has 45 days. Demo: RTI/MORLY/2026/804271 · aarav.demo@example.in · RTI26.</p>
       </section>
       <AppealWorkflow initialRegistration={registration} />
     </PageShell>

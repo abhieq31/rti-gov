@@ -8,6 +8,17 @@ const DEMO_EMAIL = 'aarav.demo@example.in';
 const DEMO_SECURITY = 'RTI26';
 const DEMO_PAYMENT_ID = 'RTIDEMO240822118';
 const DEMO_REQUEST_ID = 'RTI/MORLY/2026/804271';
+const DEMO_APPEAL_ID = 'RTI/MORLY/A/2026/804271';
+const demoAppeal: StatusRecord = {
+  id: DEMO_APPEAL_ID,
+  subject: 'First appeal: Inspection report for Anand Vihar railway station',
+  authority: 'Railway Board',
+  status: 'Appeal registered',
+  due: '12 Oct 2026',
+  filed: '28 Aug 2026',
+  kind: 'Appeal',
+  email: DEMO_EMAIL,
+};
 
 function readStored<T>(key: string): T | null {
   try {
@@ -438,15 +449,16 @@ function matchKnownRecord(id: string, mail: string): StatusRecord | null {
   const saved = [readStored<StatusRecord>('rti-gov-demo-request'), readStored<StatusRecord>('rti-gov-demo-appeal')]
     .find((item) => item?.id.toUpperCase() === normalizedId && item.email?.toLowerCase() === normalizedEmail);
   if (saved) return saved;
-  const demoRecord = demoRequests.find((item) => item.id === normalizedId);
+  const demoRecord = [...demoRequests, demoAppeal].find((item) => item.id === normalizedId);
   if (demoRecord && normalizedEmail === DEMO_EMAIL) return demoRecord;
   return null;
 }
 
 export function StatusLookup({ initialRegistration = '', initialEmail = '' }: { initialRegistration?: string; initialEmail?: string }) {
-  const linkedDemo = demoRequests.find((item) => item.id === initialRegistration.trim().toUpperCase())
+  const knownRecords = [...demoRequests, demoAppeal];
+  const linkedDemo = knownRecords.find((item) => item.id === initialRegistration.trim().toUpperCase())
     && initialEmail.trim().toLowerCase() === DEMO_EMAIL
-    ? demoRequests.find((item) => item.id === initialRegistration.trim().toUpperCase())
+    ? knownRecords.find((item) => item.id === initialRegistration.trim().toUpperCase())
     : null;
   const openKnownDemo = Boolean(linkedDemo) || (!initialRegistration && !initialEmail);
   const [registration, setRegistration] = useState(initialRegistration || DEMO_REQUEST_ID);
@@ -480,7 +492,7 @@ export function StatusLookup({ initialRegistration = '', initialEmail = '' }: { 
     if (saved) {
       setRecord(saved); setError(''); setStage(2); return;
     }
-    const demoRecord = demoRequests.find((item) => item.id === normalizedId);
+    const demoRecord = knownRecords.find((item) => item.id === normalizedId);
     if (demoRecord && normalizedEmail === DEMO_EMAIL) {
       setRecord(demoRecord); setError(''); setStage(2); return;
     }
@@ -501,13 +513,23 @@ export function StatusLookup({ initialRegistration = '', initialEmail = '' }: { 
 
 function CaseStatus({ record, onChangeDetails }: { record: StatusRecord; onChangeDetails?: () => void }) {
   const [action, setAction] = useState<'none' | 'fee' | 'document' | 'parts'>('none');
+  const [linkedAppeal, setLinkedAppeal] = useState<StatusRecord | null>(null);
   const closed = record.due.startsWith('Closed');
   const dueTimestamp = parseDue(record.due);
   const today = new Date(); today.setHours(0, 0, 0, 0);
   const daysLeft = Number.isNaN(dueTimestamp) ? null : Math.max(0, Math.ceil((dueTimestamp - today.getTime()) / 86_400_000));
   const isAppeal = record.kind === 'Appeal';
-  const isPrimaryDemo = record.id === demoRequests[0].id || record.id.startsWith('RTI/MORLY/');
+  const isPrimaryDemo = record.id === demoRequests[0].id || record.id === DEMO_REQUEST_ID || record.id === DEMO_APPEAL_ID;
   const dueLabel = isAppeal ? 'Appeal decision due' : closed ? 'Case disposition' : 'Statutory response due';
+  const appealDays = linkedAppeal ? daysRemaining(linkedAppeal.due) : null;
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      const saved = readStored<StatusRecord & { sourceRegistration?: string }>('rti-gov-demo-appeal');
+      if (!saved) return;
+      if (saved.id === record.id || saved.sourceRegistration === record.id) setLinkedAppeal(saved);
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, [record.id]);
   return (
     <div className="case-status case-file">
       <div className="case-file-head">
@@ -528,7 +550,17 @@ function CaseStatus({ record, onChangeDetails }: { record: StatusRecord; onChang
           <span>{closed ? 'closed' : daysLeft === null ? 'date' : 'days left'}</span>
         </div>
       </div>
-      {!isAppeal && record.status !== 'Routed' && (
+      {!isAppeal && record.status !== 'Routed' && linkedAppeal && (
+        <div className="appeal-strip">
+          <div>
+            <span>First appeal registered</span>
+            <b>{linkedAppeal.id}</b>
+            <small>Decision due {linkedAppeal.due}{appealDays === null ? '' : ` · ${appealDays} days left`} · ₹0</small>
+          </div>
+          <a className="button-primary" href={`/status?registration=${encodeURIComponent(linkedAppeal.id)}&email=${encodeURIComponent(linkedAppeal.email || DEMO_EMAIL)}`}>View appeal</a>
+        </div>
+      )}
+      {!isAppeal && record.status !== 'Routed' && !linkedAppeal && (
         <div className="appeal-strip">
           <div>
             <span>First appeal</span>
@@ -543,7 +575,7 @@ function CaseStatus({ record, onChangeDetails }: { record: StatusRecord; onChang
         {isPrimaryDemo ? (
           <>
             <li className="done"><i>✓</i><div><b>Sent to nodal officer</b><small>Railway Board</small></div></li>
-            <li className="active"><i>2</i><div><b>Forwarded to concerned CPIO</b><small>Waiting for the record or a lawful exemption</small></div></li>
+            <li className="active"><i>2</i><div><b>{isAppeal ? 'With First Appellate Authority' : 'Forwarded to concerned CPIO'}</b><small>{isAppeal ? 'Waiting for a decision on the 45-day clock' : 'Waiting for the record or a lawful exemption'}</small></div></li>
           </>
         ) : (
           <li className="active"><i>2</i><div><b>{closed ? 'Case completed' : record.status === 'Routed' ? 'Continue in the receiving service' : 'Routing to the responsible officer'}</b><small>{closed ? 'A prototype reply is available in the case history.' : record.status === 'Routed' ? 'State and local applications use their appropriate RTI service and fee rules.' : 'The prototype case is active on this device.'}</small></div></li>
@@ -551,17 +583,19 @@ function CaseStatus({ record, onChangeDetails }: { record: StatusRecord; onChang
         <li><i>3</i><div><b>{isAppeal ? 'FAA decision' : 'Response or first appeal'}</b><small>{isAppeal ? 'The First Appellate Authority should decide within 45 days.' : 'Silence, denial or an incomplete reply opens a ₹0 first appeal.'}</small></div></li>
       </ol>
       {isPrimaryDemo && !isAppeal && (
-        <div className="status-actions">
-          <span>Demonstrate portal actions</span>
-          <div>
-            <button onClick={() => setAction('fee')} type="button">Pay additional fee</button>
-            <button onClick={() => setAction('document')} type="button">Upload requested PDF</button>
-            <button onClick={() => setAction('parts')} type="button">View split CPIO cases</button>
+        <details className="optional-details extra-actions">
+          <summary>Additional fee, PDF or split CPIO numbers</summary>
+          <div className="status-actions">
+            <div>
+              <button onClick={() => setAction('fee')} type="button">Pay additional fee</button>
+              <button onClick={() => setAction('document')} type="button">Upload requested PDF</button>
+              <button onClick={() => setAction('parts')} type="button">View split CPIO cases</button>
+            </div>
+            {action === 'fee' && <section><b>Additional fee: ₹12</b><p>Six A4 pages at ₹2 per page. This is a synthetic payment.</p><button className="button-primary" onClick={() => setAction('none')} type="button">Pay mock fee</button></section>}
+            {action === 'document' && <section><b>Supporting document required</b><p>Upload the requested PDF from the applicant. Maximum size: 1 MB.</p><input accept="application/pdf" type="file"/></section>}
+            {action === 'parts' && <section><b>Forwarded to multiple CPIOs</b><p>{record.id}/1 · Railway Board<br/>{record.id}/2 · Northern Railway<br/>{record.id}/3 · Station Development Directorate</p></section>}
           </div>
-          {action === 'fee' && <section><b>Additional fee: ₹12</b><p>Six A4 pages at ₹2 per page. This is a synthetic payment.</p><button className="button-primary" onClick={() => setAction('none')} type="button">Pay mock fee</button></section>}
-          {action === 'document' && <section><b>Supporting document required</b><p>Upload the requested PDF from the applicant. Maximum size: 1 MB.</p><input accept="application/pdf" type="file"/></section>}
-          {action === 'parts' && <section><b>Forwarded to multiple CPIOs</b><p>{record.id}/1 · Railway Board<br/>{record.id}/2 · Northern Railway<br/>{record.id}/3 · Station Development Directorate</p></section>}
-        </div>
+        </details>
       )}
       <div className="case-actions">
         {onChangeDetails && <button onClick={onChangeDetails} type="button">Look up a different case</button>}
@@ -588,9 +622,11 @@ export function AppealWorkflow({ initialRegistration = '' }: { initialRegistrati
   const [sourceRecord, setSourceRecord] = useState<StatusRecord | null>(demoPath ? demoRequests.find((item) => item.id === DEMO_REQUEST_ID) || demoRequests[0] : null);
   const [appealRegistration, setAppealRegistration] = useState('');
   const [submittedAt, setSubmittedAt] = useState<Date | null>(null);
+  const [editing, setEditing] = useState(false);
   const workflowRef = useRef<HTMLDivElement>(null);
   const didStep = useRef(false);
-  const labels = ['Guidelines', 'Retrieve request', 'Appeal form', 'Registered'];
+  const labels = demoPath ? ['Guidelines', 'Appeal form', 'Appeal form', 'Registered'] : ['Guidelines', 'Retrieve request', 'Appeal form', 'Registered'];
+  const progressNow = step === 3 ? 1 : demoPath ? (step === 0 ? 1 : 2) / 2 : (step + 1) / 3;
   const formatDate = (date: Date) => new Intl.DateTimeFormat('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }).format(date);
   const dueDate = useMemo(() => {
     if (!submittedAt) return null;
@@ -637,8 +673,9 @@ export function AppealWorkflow({ initialRegistration = '' }: { initialRegistrati
   const submitAppeal = () => {
     const now = new Date();
     const due = new Date(now); due.setDate(due.getDate() + 45);
+    const canonical = registration.trim().toUpperCase() === DEMO_REQUEST_ID && email.trim().toLowerCase() === DEMO_EMAIL;
     const authorityCode = registration.split('/').find((part) => /^[A-Z]{2,8}$/.test(part) && part !== 'RTI') || 'DEMO';
-    const appealId = `RTI/${authorityCode}/A/${now.getFullYear()}/${String(now.getTime()).slice(-5)}`;
+    const appealId = canonical ? DEMO_APPEAL_ID : `RTI/${authorityCode}/A/${now.getFullYear()}/${String(now.getTime()).slice(-5)}`;
     const savedAppeal: StatusRecord = { id: appealId, subject: `First appeal: ${sourceRecord?.subject || registration}`, authority: sourceRecord?.authority || 'Original public authority', status: 'Appeal registered', due: formatDate(due), filed: formatDate(now), kind: 'Appeal', email };
     storeValue('rti-gov-demo-appeal', { ...savedAppeal, sourceRegistration: registration, reason, text });
     setAppealRegistration(appealId);
@@ -648,10 +685,10 @@ export function AppealWorkflow({ initialRegistration = '' }: { initialRegistrati
 
   return (
     <div className="fast-workflow" ref={workflowRef}>
-      <div className="fast-progress" aria-label={`Step ${step + 1} of 4`}><div style={{ width: `${((step + 1) / 4) * 100}%` }}/><span>{labels[step]}</span><b>{step < 3 ? `Step ${step + 1} of 3` : 'Complete'}</b></div>
+      <div className="fast-progress" aria-label={step === 3 ? 'Complete' : `Step ${demoPath ? (step === 0 ? 1 : 2) : step + 1} of ${demoPath ? 2 : 3}`}><div style={{ width: `${progressNow * 100}%` }}/><span>{labels[step]}</span><b>{step === 3 ? 'Complete' : demoPath ? `Step ${step === 0 ? 1 : 2} of 2` : `Step ${step + 1} of 3`}</b></div>
       <div className="fast-body">
         {step === 0 && <>
-          {demoPath && <p className="demo-fill-note" role="status">Demonstration appeal for <b>{DEMO_REQUEST_ID}</b> is ready. Accept the guidelines, then submit. No fee. Security code is <b>RTI26</b>.</p>}
+          {demoPath && <p className="demo-fill-note" role="status">Demonstration appeal for <b>{DEMO_REQUEST_ID}</b> is ready. Accept the guidelines, then review. No fee.</p>}
           <PortalGuidelines kind="appeal" accepted={guidelinesAccepted} onAccepted={setGuidelinesAccepted}/>
         </>}
         {step === 1 && <section className="fast-step">
@@ -665,7 +702,34 @@ export function AppealWorkflow({ initialRegistration = '' }: { initialRegistrati
           </div>
           {lookupError && <p className="form-error" role="alert">{lookupError}</p>}
         </section>}
-        {step === 2 && <section className="fast-step">
+        {step === 2 && demoPath && !editing && <section className="fast-step demo-dossier">
+          <span className="step-label">Grounds for appeal</span>
+          <h2>No fee. Review the first appeal.</h2>
+          <p>The original Railway Board request is attached. The First Appellate Authority has 45 days to decide.</p>
+          <div className="demo-dossier-card">
+            <article>
+              <span>The appeal</span>
+              <p>{text}</p>
+            </article>
+            <dl>
+              <div><dt>Original request</dt><dd>{sourceRecord?.id}<small>{sourceRecord?.subject}</small></dd></div>
+              <div><dt>Ground</dt><dd>{reason}</dd></div>
+              <div><dt>Fee</dt><dd>₹0 · first appeal</dd></div>
+              <div><dt>FAA clock</dt><dd>45 days</dd></div>
+            </dl>
+          </div>
+          <div className="demo-pay-slip appeal-fee-slip">
+            <div>
+              <span>First appeal fee</span>
+              <strong>₹0</strong>
+              <small>No fee for a Central first appeal</small>
+            </div>
+            <div className="deadline-count"><b>45</b><span>days</span></div>
+          </div>
+          <button className="text-button" onClick={() => setEditing(true)} type="button">Change details</button>
+          <label className="final-declaration"><input checked={confirmed} onChange={(event) => setConfirmed(event.target.checked)} type="checkbox" /><span><b>I confirm the appeal details are correct.</b><small>No fee is charged for a Central first appeal. This prototype transmits nothing.</small></span></label>
+        </section>}
+        {step === 2 && (!demoPath || editing) && <section className="fast-step">
           <span className="step-label">Grounds for appeal</span>
           <h2>Complete the first appeal.</h2>
           <p>State what went wrong and the relief you want. The First Appellate Authority should decide within 45 days.</p>
@@ -748,7 +812,7 @@ export function HistoryDashboard() {
 }
 
 export function PaymentReconciliation() {
-  const [transaction, setTransaction] = useState(DEMO_PAYMENT_ID); const [email, setEmail] = useState(DEMO_EMAIL); const [security, setSecurity] = useState(DEMO_SECURITY); const [result, setResult] = useState<'idle' | 'found' | 'missing'>('idle');
+  const [transaction, setTransaction] = useState(DEMO_PAYMENT_ID); const [email, setEmail] = useState(DEMO_EMAIL); const [security, setSecurity] = useState(DEMO_SECURITY); const [result, setResult] = useState<'idle' | 'found' | 'missing'>('found');
   const check = () => setResult(transaction.trim().toUpperCase() === DEMO_PAYMENT_ID && email.trim().toLowerCase() === DEMO_EMAIL && security.toUpperCase() === DEMO_SECURITY ? 'found' : 'missing');
   return <div className="tool-surface compact-tool"><form className="lookup-form" onSubmit={(event) => { event.preventDefault(); check(); }}><div className="service-form-intro"><span className="step-label">Payment reconciliation</span><h2>Find the ₹10 once.</h2><p>Use this only when money was debited but no registration number was generated. Do not pay again. Demonstration details are pre-filled.</p></div><label><span>Bank / gateway transaction ID *</span><input required value={transaction} onChange={(event) => setTransaction(event.target.value)} /></label><label><span>Applicant email *</span><input required type="email" value={email} onChange={(event) => setEmail(event.target.value)} /></label><label><span>Security code *</span><div className="captcha-row"><b>{DEMO_SECURITY}</b><input required value={security} onChange={(event) => setSecurity(event.target.value)} placeholder={`Enter ${DEMO_SECURITY}`}/></div></label>{result === 'missing' && <p className="form-error" role="alert">No matching prototype payment. Use the pre-filled details and security code {DEMO_SECURITY}.</p>}<button className="button-primary">Check payment</button><button className="text-button" onClick={() => { setTransaction(DEMO_PAYMENT_ID); setEmail(DEMO_EMAIL); setSecurity(DEMO_SECURITY); check(); }} type="button">Open demonstration payment</button></form>{result === 'found' && <div className="fast-receipt payment-receipt" role="status"><div className="success-orbit"><span>✓</span></div><span className="step-label">Payment reconciled</span><h2>₹10 received. Number issued.</h2><p>Do not attempt another payment. Status uses this same registration number.</p><div className="registration-card"><span>Prototype registration number</span><b>{DEMO_REQUEST_ID}</b></div><dl className="receipt-summary"><div><dt>Amount</dt><dd>₹10 · UPI</dd></div><div><dt>Transaction</dt><dd>{DEMO_PAYMENT_ID}</dd></div><div><dt>Applicant</dt><dd>{DEMO_EMAIL}</dd></div><div><dt>Authority</dt><dd>Railway Board</dd></div></dl><div className="receipt-actions"><a className="button-primary" href={`/status?registration=${encodeURIComponent(DEMO_REQUEST_ID)}&email=${encodeURIComponent(DEMO_EMAIL)}`}>View status</a></div></div>}</div>;
 }

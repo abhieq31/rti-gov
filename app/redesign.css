@@ -428,6 +428,35 @@ html[data-text-size='lg'] .india-theme{zoom:1.12}
 .appeal-strip .button-primary{flex:none;white-space:nowrap}
 .payment-receipt{margin-top:28px;padding-top:8px;border-top:1px solid #ddd4c6}
 .history-switch{margin:0;padding:12px 25px 22px}
+.file-strip{
+  padding:18px max(20px,calc((100vw - 1120px)/2));
+  display:flex;flex-wrap:wrap;gap:8px 28px;align-items:baseline;
+  background:#efe9dc;border-bottom:1px solid #ddd4c6;
+}
+.file-strip span{color:#8a4e18;font-size:12px;font-weight:650;letter-spacing:.14em;text-transform:uppercase}
+.file-strip p{margin:0;max-width:640px;color:#5d6b78;font-size:15px;line-height:1.5}
+.file-strip b{color:#0c2340}
+.india-theme .dashboard-head{padding:22px 28px}
+.india-theme .dashboard-head h2{margin:4px 0 6px;font:500 32px/1.15 Georgia,serif}
+.india-theme .dashboard-metrics span{font:500 28px Georgia,serif}
+.india-theme .tool-surface.compact-tool{margin-top:20px}
+.extra-actions{margin:8px 0 16px}
+.clock-spine{width:min(1120px,calc(100% - 40px));margin:0 auto 80px;padding:0;list-style:none;border-top:1px solid #ddd4c6}
+.clock-spine>li{display:grid;grid-template-columns:140px 1fr;gap:24px;padding:28px 0;border-bottom:1px solid #ddd4c6}
+.clock-spine>li>b{color:#8a4e18;font:500 28px/1 Georgia,"Iowan Old Style",Palatino,serif}
+.clock-spine h2{margin:0 0 8px;color:#0c2340;font:500 24px/1.2 Georgia,serif}
+.clock-spine p{margin:0;color:#5d6b78;font-size:15px;line-height:1.55}
+.clock-spine .urgent{background:#f7f1e4;margin:0 -20px;padding:28px 20px;border-bottom:1px solid #e4d8c4}
+.clock-spine .urgent>b{color:#8a4e18}
+.process-file{padding-bottom:40px}
+.process-file .clock-note{width:min(1120px,calc(100% - 40px));margin:18px auto}
+.process-file .button-primary{margin-top:8px}
+@media(max-width:700px){
+  .file-strip{padding:16px 20px;display:grid;gap:6px}
+  .clock-spine{width:calc(100% - 24px)}
+  .clock-spine>li,.clock-spine .urgent{grid-template-columns:1fr;gap:8px;padding:22px 0}
+  .clock-spine .urgent{margin:0;padding:22px 0}
+}
 .india-theme .civic-clocks .clock-urgent>b{min-width:auto}
 
 .fast-receipt,.demo-dossier,.review-step{scroll-margin-top:12px}
