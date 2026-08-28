@@ -1,12 +1,13 @@
 # Official lifecycle diagram (homepage)
 
 **Label:** VERIFIED_LIVE (image on https://rtionline.gov.in/)  
-**Screenshot:** `screenshots/desktop/home.lifecycle.png`  
+**Screenshots:** `screenshots/desktop/home.lifecycle.png`, `screenshots/mobile/home.lifecycle.png`  
 **Asset URL:** `https://rtionline.gov.in/images/rti_lifecycle.jpg`
 
 These nodes are **process outcomes drawn on the homepage**, not separate URLs. Do not treat them as captured form screens. Form/OTP/payment states remain DOCUMENTED_ONLY until human-assisted capture.
 
-![Official RTI lifecycle](../screenshots/desktop/home.lifecycle.png)
+![Official RTI lifecycle desktop](../screenshots/desktop/home.lifecycle.png)
+![Official RTI lifecycle mobile](../screenshots/mobile/home.lifecycle.png)
 
 ## Graph (as drawn)
 

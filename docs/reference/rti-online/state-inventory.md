@@ -1,6 +1,6 @@
 # Official RTI Online — state inventory
 
-Generated: 2026-08-28T06:53:06.903Z
+Generated: 2026-08-28T07:40:20.201Z
 Human-assisted run: no
 
 Labels are mutually exclusive. **DOCUMENTED_ONLY** states come from `source/um_citizen.pdf` or FAQ copy and must not be treated as live UI.
@@ -9,20 +9,20 @@ Labels are mutually exclusive. **DOCUMENTED_ONLY** states come from `source/um_c
 
 | Label | Count |
 | --- | --- |
-| VERIFIED_LIVE | 31 |
+| VERIFIED_LIVE | 32 |
 | VERIFIED_HUMAN_ASSISTED | 0 |
 | DOCUMENTED_ONLY | 24 |
 | UNREACHABLE | 0 |
 | BROKEN_OFFICIAL_SITE | 2 |
-| **Total distinct states** | **57** |
+| **Total distinct states** | **58** |
 
 ## Inventory
 
 | ID | Flow | Label | Viewport shots | Previous | Action | Next | Title |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | `home` | shell | VERIFIED_LIVE | yes | — | Open https://rtionline.gov.in/ | Submit Request; Submit First Appeal; View Status; View History; Login; Payment Reconciliation; FAQ; Contact Us; Policy; Public Authorities Available | RTI Online :: Home \| Submit RTI Request \| Submit RTI First Appeal \| View RTI Status \| RTI FAQ |
-| `home.cic-banner` | shell | VERIFIED_LIVE | yes | home | Land on home (CIC integration notice) | Complaint & Second Appeal to CIC (external) | CIC second-appeal integration notice |
-| `home.lifecycle` | shell | VERIFIED_LIVE | yes | home | Homepage lifecycle image | Submit Request; First Appeal; Second Appeal CIC/SIC | RTI request lifecycle diagram |
+| `home.cic-banner` | shell | VERIFIED_LIVE | yes | home | Land on home (CIC integration notice) | Complaint & Second Appeal to CIC (external dsscic.nic.in); Submit First Appeal | CIC second-appeal integration notice |
+| `home.lifecycle` | shell | VERIFIED_LIVE | yes | home | Homepage embeds images/rti_lifecycle.jpg (alt image1) | Submit Request; Submit First Appeal; Complaint & Second Appeal to CIC | RTI request lifecycle diagram |
 | `registration.404` | login | BROKEN_OFFICIAL_SITE | yes | home | GET /registration.php |  |  |
 | `forgot-password.404` | login | BROKEN_OFFICIAL_SITE | yes | home | GET /forgotPassword.php |  |  |
 | `contact` | shell | VERIFIED_LIVE | yes | home | Navigate /Contactus.php | Public Authorities Available; Home; Submit Request; Submit First Appeal; View Status; View History; Login; User Manual | RTI Online :: Online RTI Information System |
@@ -37,6 +37,7 @@ Labels are mutually exclusive. **DOCUMENTED_ONLY** states come from `source/um_c
 | `submit-request.email-gate.empty` | submit-request | VERIFIED_LIVE | yes | submit-request.email-gate | Submit email gate with empty fields | Submit; Reset; Public Authorities Available; Home; Submit Request; Submit First Appeal; View Status; View History; Login; User Manual | RTI Online :: Online RTI Information System |
 | `submit-request.email-gate.wrong-captcha` | submit-request | VERIFIED_LIVE | yes | submit-request.email-gate | Submit dummy email + wrong captcha ZZZZZZ | Submit; Reset; Public Authorities Available; Home; Submit Request; Submit First Appeal; View Status; View History; Login; User Manual | RTI Online :: Online RTI Information System |
 | `first-appeal.guidelines` | first-appeal | VERIFIED_LIVE | yes | home | Home → Submit First Appeal | Submit; Cancel | RTI Online :: Guidelines for use of RTI Online Portal |
+| `first-appeal.guidelines.unchecked` | first-appeal | VERIFIED_LIVE | yes | first-appeal.guidelines | Submit without accepting guidelines | Submit; Cancel | RTI Online :: Guidelines for use of RTI Online Portal |
 | `first-appeal.lookup` | first-appeal | VERIFIED_LIVE | yes | first-appeal.guidelines | Accept guidelines | Submit; Reset; Public Authorities Available; Home; Submit Request; Submit First Appeal; View Status; View History; Login; User Manual | RTI Online :: Submit First Appeal Form |
 | `first-appeal.lookup.empty` | first-appeal | VERIFIED_LIVE | yes | first-appeal.lookup | Submit lookup empty | Submit; Reset; Public Authorities Available; Home; Submit Request; Submit First Appeal; View Status; View History; Login; User Manual | RTI Online :: Submit First Appeal Form |
 | `first-appeal.lookup.wrong-captcha` | first-appeal | VERIFIED_LIVE | yes | first-appeal.lookup | Dummy registration number + wrong captcha | Submit; Reset; Public Authorities Available; Home; Submit Request; Submit First Appeal; View Status; View History; Login; User Manual | RTI Online :: Submit First Appeal Form |
@@ -45,14 +46,14 @@ Labels are mutually exclusive. **DOCUMENTED_ONLY** states come from `source/um_c
 | `view-status.gate.wrong-captcha` | view-status | VERIFIED_LIVE | yes | view-status.gate | Dummy registration + wrong captcha | Submit; Reset; Public Authorities Available; Home; Submit Request; Submit First Appeal; View Status; View History; Login; User Manual | RTI Online :: View Status Form |
 | `view-history.gate` | view-history | VERIFIED_LIVE | yes | home | Home → View History | Submit; Reset; Public Authorities Available; Home; Submit Request; Submit First Appeal; View Status; View History; Login; User Manual | RTI Online :: Online RTI Information System |
 | `view-history.gate.empty` | view-history | VERIFIED_LIVE | yes | view-history.gate | Submit empty history form | Submit; Reset; Public Authorities Available; Home; Submit Request; Submit First Appeal; View Status; View History; Login; User Manual | RTI Online :: Online RTI Information System |
-| `view-history.gate.wrong-captcha` | view-history | VERIFIED_LIVE | yes | view-history.gate | Dummy email + wrong captcha | Submit; Reset; Public Authorities Available; Home; Submit Request; Submit First Appeal; View Status; View History; Login; User Manual | RTI Online :: Online RTI Information System |
+| `view-history.gate.wrong-captcha` | view-history | VERIFIED_LIVE | yes | view-history.gate | Dummy email + empty mobile + wrong captcha ZZZZZZ | Submit; Reset; Public Authorities Available; Home; Submit Request; Submit First Appeal; View Status; View History; Login; User Manual | RTI Online :: Online RTI Information System |
 | `login.gate` | login | VERIFIED_LIVE | yes | home | Home → Login | Submit; Reset; Public Authorities Available; Home; Submit Request; Submit First Appeal; View Status; View History; Login; User Manual | RTI Online :: Citizen Login Form |
 | `login.gate.empty` | login | VERIFIED_LIVE | yes | login.gate | Submit empty login | Submit; Reset; Public Authorities Available; Home; Submit Request; Submit First Appeal; View Status; View History; Login; User Manual | RTI Online :: Citizen Login Form |
 | `login.gate.wrong-captcha` | login | VERIFIED_LIVE | yes | login.gate | Invalid username + wrong captcha (single attempt, not brute-force) | Submit; Reset; Public Authorities Available; Home; Submit Request; Submit First Appeal; View Status; View History; Login; User Manual | RTI Online :: Citizen Login Form |
-| `login.audio-captcha` | login | VERIFIED_LIVE | yes | login.gate | Open audio captcha popup |  |  |
+| `login.audio-captcha` | login | VERIFIED_LIVE | yes | login.gate | Open audio captcha popup |  | Audio captcha popup |
 | `payment-reconciliation.gate` | payment-reconciliation | VERIFIED_LIVE | yes | home | Home → Payment Reconciliation | Submit; Reset; Public Authorities Available; Home; Submit Request; Submit First Appeal; View Status; View History; Login; User Manual | RTI Online :: Online RTI Information System |
 | `payment-reconciliation.gate.empty` | payment-reconciliation | VERIFIED_LIVE | yes | payment-reconciliation.gate | Submit empty reconciliation form | Submit; Reset; Public Authorities Available; Home; Submit Request; Submit First Appeal; View Status; View History; Login; User Manual | RTI Online :: Online RTI Information System |
-| `payment-reconciliation.gate.wrong-captcha` | payment-reconciliation | VERIFIED_LIVE | yes | payment-reconciliation.gate | Dummy email + wrong captcha | Submit; Reset; Public Authorities Available; Home; Submit Request; Submit First Appeal; View Status; View History; Login; User Manual | RTI Online :: Online RTI Information System |
+| `payment-reconciliation.gate.wrong-captcha` | payment-reconciliation | VERIFIED_LIVE | yes | payment-reconciliation.gate | Dummy email + empty mobile + wrong captcha ZZZZZZ | Public Authorities Available | RTI Online :: Online RTI Information System |
 | `submit-request.otp` | submit-request | DOCUMENTED_ONLY | — | submit-request.email-gate | Correct captcha + email submit; OTP mailed/SMS | Submit OTP → request form | OTP entry after email/captcha (request) |
 | `submit-request.form` | submit-request | DOCUMENTED_ONLY | — | submit-request.otp | Valid OTP | Select ministry/authority; Fill applicant details; BPL Yes → submit; BPL No → Make Payment | Online RTI Request Form |
 | `submit-request.form.bpl-yes` | submit-request | DOCUMENTED_ONLY | — | submit-request.form | BPL = Yes | Upload BPL PDF; Submit (no payment) | Request form — BPL branch (no ₹10, extra certificate fields) |
@@ -80,11 +81,12 @@ Labels are mutually exclusive. **DOCUMENTED_ONLY** states come from `source/um_c
 
 ## Official-site defects observed live
 
-- /images/rti_lifecycle.jpg/ is a trailing-slash 404 (image without slash is 200).
 - Home CIC notice overflows the layout (“The C” / “The Centra”).
+- /images/rti_lifecycle.jpg/ trailing-slash returns HTTP 404 (image without slash is 200).
 - /registration.php returns HTTP 404
 - /forgotPassword.php returns HTTP 404
 - Audio captcha page /audiofile1.php loads; SiteOne recorded /audio/en/.wav as 404. Popup may render captcha glyphs as visible text.
+- POST of dummy email + ZZZZZZ on /request/status_pendingPayment.php returned HTTP 200 but dropped the reconciliation form (chrome + language select only).
 
 ## Flows still incomplete
 

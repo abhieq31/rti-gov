@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-28T07:16:00.000Z",
+  "generatedAt": "2026-08-28T07:40:20.201Z",
   "humanAssisted": false,
   "states": [
     {
@@ -26,6 +26,7 @@
       "fields": [],
       "validationRules": [],
       "validationObserved": [],
+      "onPageNotices": [],
       "surface": "home",
       "screenshots": {
         "desktop": "screenshots/desktop/home.png",
@@ -50,7 +51,7 @@
           ]
         }
       ],
-      "notes": "Playwright desktop screenshot crops the CIC banner. Full banner + lifecycle recorded as home.cic-banner and home.lifecycle."
+      "notes": "Playwright 1440×900 home shot can crop the CIC banner. Full banner + lifecycle recorded as home.cic-banner and home.lifecycle."
     },
     {
       "id": "home.cic-banner",
@@ -59,7 +60,7 @@
       "url": "https://rtionline.gov.in/",
       "title": "CIC second-appeal integration notice",
       "httpStatus": 200,
-      "triggeringAction": "Land on home (banner above the jurisdiction warning)",
+      "triggeringAction": "Land on home (CIC integration notice)",
       "previousState": "home",
       "nextActions": [
         "Complaint & Second Appeal to CIC (external dsscic.nic.in)",
@@ -71,13 +72,15 @@
         "Date of Filing the First Appeal"
       ],
       "validationRules": [],
-      "validationObserved": [],
+      "validationObserved": [
+        "alert: The Central Information Commission (CIC) has integrated its Second Appeal Filing Portal with the Department of Personnel and Training (DoPT) RTI Online Portal. Now, while submitting a Second Appeal, appellants can input the First Appeal Registration Number, Email ID and Date of Filing the First Appeal, thereafter, the system will automatically retrieve related details of the RTI Application and First Appeal from the RTI Online Portal. This will ensure a smooth and more streamlined Second Appeal filing process."
+      ],
       "surface": "home",
       "screenshots": {
-        "desktop": "screenshots/desktop/home.png",
-        "mobile": "screenshots/mobile/home.png"
+        "desktop": "screenshots/desktop/home.cic-banner.png",
+        "mobile": "screenshots/mobile/home.cic-banner.png"
       },
-      "notes": "Full text verified from live homepage HTML. Playwright PNG crops the right edge of this banner. Footer link uses HTTP and a JS alert with the same copy."
+      "notes": "Full text verified from live homepage HTML. Playwright PNG may still crop overflow (“The C” / “The Centra”). Footer link uses HTTP and a JS alert with the same copy. Banner: The Central Information Commission (CIC) has integrated its Second Appeal Filing Portal with the Department of Personnel and Training (DoPT) RTI Online Portal. Now, while submitting a Second Appeal, appellants can input the First Appeal Registration Number, Email ID and Date of Filing the First Appeal, thereafter, the system will automatically retrieve related details of the RTI Application and First Appeal from the RTI Online Portal. This will ensure a smooth and more streamlined Second Appeal "
     },
     {
       "id": "home.lifecycle",
@@ -96,10 +99,14 @@
       "fields": [],
       "validationRules": [],
       "validationObserved": [],
-      "surface": "home",
+      "onPageNotices": [],
+      "surface": "lifecycle",
       "screenshots": {
-        "desktop": "screenshots/desktop/home.lifecycle.png"
+        "desktop": "screenshots/desktop/home.lifecycle.png",
+        "mobile": "screenshots/mobile/home.lifecycle.png"
       },
+      "headings": [],
+      "forms": [],
       "notes": "Process graphic, not a form. Nodes and day-counts are recorded in flows/lifecycle.md. Trailing-slash URL 404s."
     },
     {
@@ -115,6 +122,7 @@
       "fields": [],
       "validationRules": [],
       "validationObserved": [],
+      "onPageNotices": [],
       "surface": "broken",
       "screenshots": {
         "desktop": "screenshots/desktop/registration.404.png",
@@ -136,6 +144,7 @@
       "fields": [],
       "validationRules": [],
       "validationObserved": [],
+      "onPageNotices": [],
       "surface": "broken",
       "screenshots": {
         "desktop": "screenshots/desktop/forgot-password.404.png",
@@ -166,6 +175,7 @@
       "fields": [],
       "validationRules": [],
       "validationObserved": [],
+      "onPageNotices": [],
       "surface": "contact",
       "screenshots": {
         "desktop": "screenshots/desktop/contact.png",
@@ -212,13 +222,8 @@
       ],
       "fields": [],
       "validationRules": [],
-      "validationObserved": [
-        "Website Policies",
-        "Disclaimer",
-        "Copyright Policy",
-        "Hyperlink Policy",
-        "Privacy Statement"
-      ],
+      "validationObserved": [],
+      "onPageNotices": [],
       "surface": "policies",
       "screenshots": {
         "desktop": "screenshots/desktop/policies.png",
@@ -290,35 +295,36 @@
         "User Manual"
       ],
       "fields": [
-        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
-        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
-        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
-        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
-        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
-        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
-        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
-        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
-        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
-        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
-        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
-        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
-        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
-        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
-        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
-        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
-        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
-        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
-        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
-        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
-        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
-        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
-        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
-        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
-        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]",
-        "To which Public Authority can I file a request through this portal? How do I write my application for seeking the information as per RTI Act 2005? How do I make the payment for RTI [button]"
+        "1. To which Public Authority can I file a request through this portal?",
+        "2. How do I write my application for seeking the information as per RTI Act 2005?",
+        "3. How do I make the payment for RTI fee?",
+        "4. Do I get any receipt for online filing of RTI application?",
+        "5. What will happen to my application if I select a wrong Public Authority in the RTI request form?",
+        "6. Will I be informed about the additional fee (if any) is required to pay?",
+        "7. How do I file an appeal with First Appellate Authority?",
+        "8. Do I need to make any payment for filing an appeal?",
+        "9. Do I get any SMS from RTI Online Portal?",
+        "10. What can I do if I forgot my login credentials?",
+        "11. Is it mandatory to create user account on RTI online web portal?",
+        "12. How much time RTI request/appeal retain at this portal?",
+        "13. What should I do if amount is deducted from my account but registration number is not generated?",
+        "14. What should I do when portal is not allowing me to file the first appeal?",
+        "15. Can I file online first appeal for any RTI application filed physically in the first place ?",
+        "16. Why RTI application filed by me is not reflecting in my user account history?",
+        "17. Why I have received multiple RTI registration numbers, even though I have filed single RTI application ?",
+        "18. How can I View Status/Reply of my RTI Application or First Appeal?",
+        "19. What if the Registration Number is not received on my Email or Mobile No. even after 48 working Hours?",
+        "20. How to upload a supporting document if an alert comes as \"SUPPORTING DOCUMENTS REQUIRED FROM APPLICANT\"?",
+        "21. What queries can be raised with Helpline Email helprtionline-dopt(at)nic(dot)in ?",
+        "22. What should I do when my browser show certificate error while opening RTI online portal?",
+        "23. Can I file RTI application for state public authorities through this portal?",
+        "24. If the RTI application is filed manually , then is it possible to file 1st appeal on line?",
+        "25. What are the reasons for my RTI payment failing?",
+        "26. Why this OTP feature is introduced in view status option?"
       ],
       "validationRules": [],
       "validationObserved": [],
+      "onPageNotices": [],
       "surface": "faq",
       "screenshots": {
         "desktop": "screenshots/desktop/faq.png",
@@ -364,6 +370,7 @@
       "fields": [],
       "validationRules": [],
       "validationObserved": [],
+      "onPageNotices": [],
       "surface": "authorities",
       "screenshots": {
         "desktop": "screenshots/desktop/authorities.png",
@@ -399,36 +406,37 @@
         "User Manual"
       ],
       "fields": [
-        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
-        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
-        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
-        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
-        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
-        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
-        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
-        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
-        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
-        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
-        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
-        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
-        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
-        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
-        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
-        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
-        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
-        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
-        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
-        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
-        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
-        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
-        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
-        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
-        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]",
-        "To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Onlin [button]"
+        "1. To which Public Authority can I file a request through this portal? An applicant who desires to obtain information under the RTI Act, 2005 can make a request through this RTI Online Portal to the Central Ministries/Departments and other Cen",
+        "2. How do I write my application for seeking the information as per RTI Act 2005? The text of the application may be written in the prescribed column of the RTI request form. At present, the text of the application is confined up to 3000 chara",
+        "3. How do I make the payment for RTI fee? After filling the first page of the RTI request form, a non-BPL applicant has to click on \"Make Payment\" button for payment of the prescribed RTI fee. The applicant can pay the prescribed RTI fee throu",
+        "4. Do I get any receipt for online filing of RTI application? On submission of an application, a unique registration number will be issued, which may be referred by the applicant for any future reference. It may be noted that the application f",
+        "5. What will happen to my application if I select a wrong Public Authority in the RTI request form? In case the RTI application is not meant for the Public authority which has been selected by the applicant, the \"Nodal Officer\" of the said pub",
+        "6. Will I be informed about the additional fee (if any) is required to pay? In case additional fee representing the cost is required for providing information, the CPIO will intimate the same, which can be viewed by the applicant through \"View",
+        "7. How do I file an appeal with First Appellate Authority? For making an appeal to the first Appellate Authority, the applicant has to select the option \"Submit First Appeal\" in the RTI Online Portal and fill up the form that will appear. The ",
+        "8. Do I need to make any payment for filing an appeal? As per RTI Act, no fee has to be paid for first appeal.",
+        "9. Do I get any SMS from RTI Online Portal? Though optional, the mobile number can be provided by the applicant/ appellant in order to receive SMS alerts.",
+        "10. What can I do if I forgot my login credentials? You can go to View History column to see your past RTI requests/appeals.",
+        "11. Is it mandatory to create user account on RTI online web portal? No. You can directly file your RTI on \"Submit Request\" tab.",
+        "12. How much time RTI request/appeal retain at this portal? In the View History/View Status citizen can see RTI Cases retained for a period of 3 years.",
+        "13. What should I do if amount is deducted from my account but registration number is not generated? Use \"Payment Reconciliation\" feature Please do not attempt to make payment repeatedly or try to submit request once again. Kindly wait for the ",
+        "14. What should I do when portal is not allowing me to file the first appeal? This may happen under following two situation: 1) When your RTI application has been physically transferred to other public authority, which is not aligned to this po",
+        "15. Can I file online first appeal for any RTI application filed physically in the first place ? No,Online first appeal can only be filed against previously filed online RTI application.",
+        "16. Why RTI application filed by me is not reflecting in my user account history? If you have opted to file RTI or First Appeal directly i.e without logging into your user account, then in such cases you will not be able to see the filed RTI or",
+        "17. Why I have received multiple RTI registration numbers, even though I have filed single RTI application ? This is the case where in your RTI application has been forwarded to multiple CPIOs since the information sought lies with more than on",
+        "18. How can I View Status/Reply of my RTI Application or First Appeal? Status/Reply of the RTI Application or First appeal filed online can be viewed by the applicant by clicking on \"View Status\".",
+        "19. What if the Registration Number is not received on my Email or Mobile No. even after 48 working Hours? Registration Number are generated after reconciliation of bank scrolls for cases whose numbers are not generated instantly after the paym",
+        "20. How to upload a supporting document if an alert comes as \"SUPPORTING DOCUMENTS REQUIRED FROM APPLICANT\"? When a Public Authority request for supporting document, an alert is sent to the applicant to his/her Mobile or Email Id. In such situa",
+        "21. What queries can be raised with Helpline Email helprtionline-dopt(at)nic(dot)in ? Helpline mail id is exclusively meant for queries or problem being faced while filing the online RTI through this portal. Please do not send mail to this help",
+        "22. What should I do when my browser show certificate error while opening RTI online portal? You should ignore the certificate error and proceed forward. Kindly select, Mozilla Firefox – I understand the risk add exception. Google Chrome – Proc",
+        "23. Can I file RTI application for state public authorities through this portal? No. This Portal is exclusively meant for Public Authorities under Central Govt. only.",
+        "24. If the RTI application is filed manually , then is it possible to file 1st appeal on line? Manual applications can be lodged into RTI Online portal by CPIOs and can be disposed off by CPIO online. In this context, if applicant provides emai",
+        "25. What are the reasons for my RTI payment failing? The major reasons for failure are due to Business declines, Business Decline are as under: 1. Customer has set e-Commerce flag as Disabled for Debit / Credit Card. 2. Customer either closed t",
+        "26. Why this OTP feature is introduced in view status option? RTI Application may contain personal information of the Applicant and if any third person gets the registration number and email id, then the person can view this personal informatio"
       ],
       "validationRules": [],
       "validationObserved": [],
-      "surface": "payment-gateway",
+      "onPageNotices": [],
+      "surface": "faq",
       "screenshots": {
         "desktop": "screenshots/desktop/faq.expanded.png",
         "mobile": "screenshots/mobile/faq.expanded.png"
@@ -473,6 +481,7 @@
       "fields": [],
       "validationRules": [],
       "validationObserved": [],
+      "onPageNotices": [],
       "surface": "authorities",
       "screenshots": {
         "desktop": "screenshots/desktop/authorities.expanded.png",
@@ -494,7 +503,7 @@
       "url": "https://rtionline.gov.in/guidelines.php?request",
       "title": "RTI Online :: Guidelines for use of RTI Online Portal",
       "httpStatus": 200,
-      "triggeringAction": "Home \u2192 Submit Request",
+      "triggeringAction": "Home → Submit Request",
       "previousState": "home",
       "nextActions": [
         "Submit",
@@ -502,13 +511,13 @@
       ],
       "fields": [
         "I have read and understood the above guidelines. [checkbox]",
-        " [submit]",
-        " [button]"
+        " [submit]"
       ],
       "validationRules": [
         "Checkbox CHECKBOX_1 required or alert: Please select the undertaking statement!"
       ],
       "validationObserved": [],
+      "onPageNotices": [],
       "surface": "guidelines",
       "screenshots": {
         "desktop": "screenshots/desktop/submit-request.guidelines.png",
@@ -519,7 +528,7 @@
         {
           "name": "",
           "method": "post",
-          "action": "https://rtionline.gov.in/request/request_email_check.php?pageid=e4da3b7fbbce2345d7772b0674a318d5",
+          "action": "https://rtionline.gov.in/request/request_email_check.php?pageid=c4ca4238a0b923820dcc509a6f75849b",
           "fields": [
             "CHECKBOX_1",
             "SUBMIT",
@@ -543,13 +552,13 @@
       ],
       "fields": [
         "I have read and understood the above guidelines. [checkbox]",
-        " [submit]",
-        " [button]"
+        " [submit]"
       ],
       "validationRules": [],
       "validationObserved": [
         "alert: Please select the undertaking statement!"
       ],
+      "onPageNotices": [],
       "surface": "guidelines",
       "screenshots": {
         "desktop": "screenshots/desktop/submit-request.guidelines.unchecked.png",
@@ -560,7 +569,7 @@
         {
           "name": "",
           "method": "post",
-          "action": "https://rtionline.gov.in/request/request_email_check.php?pageid=e4da3b7fbbce2345d7772b0674a318d5",
+          "action": "https://rtionline.gov.in/request/request_email_check.php?pageid=c4ca4238a0b923820dcc509a6f75849b",
           "fields": [
             "CHECKBOX_1",
             "SUBMIT",
@@ -568,19 +577,19 @@
           ]
         }
       ],
-      "validationSource": "desktop screenshot + dialog listener (VERIFIED_LIVE)"
+      "validationSource": "live extract (red/error text + dialog listener)"
     },
     {
       "id": "submit-request.email-gate",
       "flow": "submit-request",
       "label": "VERIFIED_LIVE",
-      "url": "https://rtionline.gov.in/request/request_email_check.php?pageid=e4da3b7fbbce2345d7772b0674a318d5",
+      "url": "https://rtionline.gov.in/request/request_email_check.php?pageid=c4ca4238a0b923820dcc509a6f75849b",
       "title": "RTI Online :: Online RTI Information System",
       "httpStatus": 200,
       "triggeringAction": "Accept guidelines and Submit",
       "previousState": "submit-request.guidelines",
       "nextActions": [
-        "Submit \u2192 OTP (blocked without captcha)",
+        "Submit → OTP (blocked without captcha)",
         "Reset"
       ],
       "fields": [
@@ -596,11 +605,17 @@
         "Security code *",
         "OTP sent after valid captcha"
       ],
-      "validationObserved": [
+      "validationObserved": [],
+      "onPageNotices": [
         "OTPs do not expire until they are used, meaning users can register their applications as soon as the OTP arrives.",
-        "(All Characters are Case insensitive)"
+        "Online RTI Request Form Note:Fields marked with * are Mandatory. OTPs do not expire until they are used, meaning users can register their applications as soon as the OTP arrives.",
+        "Note:Fields marked with * are Mandatory.",
+        "* Enter Email Id (For receiving OTP) Mobile Number * Enter Security code (All Characters are Case insensitive) refresh",
+        "* Enter Security code (All Characters are Case insensitive) refresh",
+        "(All Characters are Case insensitive)",
+        "refresh"
       ],
-      "surface": "otp",
+      "surface": "email-gate",
       "screenshots": {
         "desktop": "screenshots/desktop/submit-request.email-gate.png",
         "mobile": "screenshots/mobile/submit-request.email-gate.png"
@@ -646,7 +661,7 @@
       "id": "submit-request.email-gate.empty",
       "flow": "submit-request",
       "label": "VERIFIED_LIVE",
-      "url": "https://rtionline.gov.in/request/request_email_check.php?pageid=e4da3b7fbbce2345d7772b0674a318d5",
+      "url": "https://rtionline.gov.in/request/request_email_check.php?pageid=c4ca4238a0b923820dcc509a6f75849b",
       "title": "RTI Online :: Online RTI Information System",
       "httpStatus": 200,
       "triggeringAction": "Submit email gate with empty fields",
@@ -672,12 +687,17 @@
       ],
       "validationRules": [],
       "validationObserved": [
-        "(All Characters are Case insensitive)",
-        "OTPs do not expire until they are used, meaning users can register their applications as soon as the OTP arrives.",
-        "Please Enter Correct Captcha Code.",
-        "Please enter a valid Email ID"
+        "Please enter a valid Email ID",
+        "Please Enter Correct Captcha Code."
       ],
-      "surface": "otp",
+      "onPageNotices": [
+        "OTPs do not expire until they are used, meaning users can register their applications as soon as the OTP arrives.",
+        "Online RTI Request Form Note:Fields marked with * are Mandatory. OTPs do not expire until they are used, meaning users can register their applications as soon as the OTP arrives.",
+        "Note:Fields marked with * are Mandatory.",
+        "(All Characters are Case insensitive)",
+        "refresh"
+      ],
+      "surface": "email-gate",
       "screenshots": {
         "desktop": "screenshots/desktop/submit-request.email-gate.empty.png",
         "mobile": "screenshots/mobile/submit-request.email-gate.empty.png"
@@ -718,7 +738,7 @@
           ]
         }
       ],
-      "validationSource": "desktop screenshot + dialog listener (VERIFIED_LIVE)"
+      "validationSource": "live extract (red/error text + dialog listener)"
     },
     {
       "id": "submit-request.email-gate.wrong-captcha",
@@ -750,11 +770,18 @@
       ],
       "validationRules": [],
       "validationObserved": [
-        "(All Characters are Case insensitive)",
-        "OTPs do not expire until they are used, meaning users can register their applications as soon as the OTP arrives.",
         "Security code does not match"
       ],
-      "surface": "otp",
+      "onPageNotices": [
+        "OTPs do not expire until they are used, meaning users can register their applications as soon as the OTP arrives.",
+        "Online RTI Request Form Note:Fields marked with * are Mandatory. OTPs do not expire until they are used, meaning users can register their applications as soon as the OTP arrives.",
+        "Note:Fields marked with * are Mandatory.",
+        "* Enter Email Id (For receiving OTP) Mobile Number * Enter Security code (All Characters are Case insensitive) refresh",
+        "* Enter Security code (All Characters are Case insensitive) refresh",
+        "(All Characters are Case insensitive)",
+        "refresh"
+      ],
+      "surface": "email-gate",
       "screenshots": {
         "desktop": "screenshots/desktop/submit-request.email-gate.wrong-captcha.png",
         "mobile": "screenshots/mobile/submit-request.email-gate.wrong-captcha.png"
@@ -795,7 +822,7 @@
           ]
         }
       ],
-      "validationSource": "desktop screenshot + dialog listener (VERIFIED_LIVE)"
+      "validationSource": "live extract (red/error text + dialog listener)"
     },
     {
       "id": "first-appeal.guidelines",
@@ -804,7 +831,7 @@
       "url": "https://rtionline.gov.in/guidelines.php?appeal",
       "title": "RTI Online :: Guidelines for use of RTI Online Portal",
       "httpStatus": 200,
-      "triggeringAction": "Home \u2192 Submit First Appeal",
+      "triggeringAction": "Home → Submit First Appeal",
       "previousState": "home",
       "nextActions": [
         "Submit",
@@ -812,11 +839,13 @@
       ],
       "fields": [
         "I have read and understood the above guidelines. [checkbox]",
-        " [submit]",
-        " [button]"
+        " [submit]"
       ],
-      "validationRules": [],
+      "validationRules": [
+        "Checkbox CHECKBOX_1 required or alert: Please select the undertaking statement!"
+      ],
       "validationObserved": [],
+      "onPageNotices": [],
       "surface": "guidelines",
       "screenshots": {
         "desktop": "screenshots/desktop/first-appeal.guidelines.png",
@@ -827,7 +856,7 @@
         {
           "name": "",
           "method": "post",
-          "action": "https://rtionline.gov.in/appeal/firstAppeal.php?pageid=1679091c5a880faf6fb5e6087eb1b2dc",
+          "action": "https://rtionline.gov.in/appeal/firstAppeal.php?pageid=cfcd208495d565ef66e7dff9f98764da",
           "fields": [
             "CHECKBOX_1",
             "SUBMIT",
@@ -837,10 +866,52 @@
       ]
     },
     {
+      "id": "first-appeal.guidelines.unchecked",
+      "flow": "first-appeal",
+      "label": "VERIFIED_LIVE",
+      "url": "https://rtionline.gov.in/guidelines.php?appeal",
+      "title": "RTI Online :: Guidelines for use of RTI Online Portal",
+      "httpStatus": 200,
+      "triggeringAction": "Submit without accepting guidelines",
+      "previousState": "first-appeal.guidelines",
+      "nextActions": [
+        "Submit",
+        "Cancel"
+      ],
+      "fields": [
+        "I have read and understood the above guidelines. [checkbox]",
+        " [submit]"
+      ],
+      "validationRules": [],
+      "validationObserved": [
+        "alert: Please select the undertaking statement!"
+      ],
+      "onPageNotices": [],
+      "surface": "guidelines",
+      "screenshots": {
+        "desktop": "screenshots/desktop/first-appeal.guidelines.unchecked.png",
+        "mobile": "screenshots/mobile/first-appeal.guidelines.unchecked.png"
+      },
+      "headings": [],
+      "forms": [
+        {
+          "name": "",
+          "method": "post",
+          "action": "https://rtionline.gov.in/appeal/firstAppeal.php?pageid=cfcd208495d565ef66e7dff9f98764da",
+          "fields": [
+            "CHECKBOX_1",
+            "SUBMIT",
+            "button"
+          ]
+        }
+      ],
+      "validationSource": "live extract (red/error text + dialog listener)"
+    },
+    {
       "id": "first-appeal.lookup",
       "flow": "first-appeal",
       "label": "VERIFIED_LIVE",
-      "url": "https://rtionline.gov.in/appeal/firstAppeal.php?pageid=1679091c5a880faf6fb5e6087eb1b2dc",
+      "url": "https://rtionline.gov.in/appeal/firstAppeal.php?pageid=cfcd208495d565ef66e7dff9f98764da",
       "title": "RTI Online :: Submit First Appeal Form",
       "httpStatus": 200,
       "triggeringAction": "Accept guidelines",
@@ -869,8 +940,12 @@
         "Email *",
         "Security code *"
       ],
-      "validationObserved": [
-        "(All Characters are Case insensitive)"
+      "validationObserved": [],
+      "onPageNotices": [
+        "* RTI Request Registration No. * Enter Email Id *Enter Security code (All Characters are Case insensitive) refresh",
+        "*Enter Security code (All Characters are Case insensitive) refresh",
+        "(All Characters are Case insensitive)",
+        "refresh"
       ],
       "surface": "appeal-lookup",
       "screenshots": {
@@ -918,7 +993,7 @@
       "id": "first-appeal.lookup.empty",
       "flow": "first-appeal",
       "label": "VERIFIED_LIVE",
-      "url": "https://rtionline.gov.in/appeal/firstAppeal.php?pageid=1679091c5a880faf6fb5e6087eb1b2dc",
+      "url": "https://rtionline.gov.in/appeal/firstAppeal.php?pageid=cfcd208495d565ef66e7dff9f98764da",
       "title": "RTI Online :: Submit First Appeal Form",
       "httpStatus": 200,
       "triggeringAction": "Submit lookup empty",
@@ -944,7 +1019,13 @@
       ],
       "validationRules": [],
       "validationObserved": [
-        "(All Characters are Case insensitive)"
+        "Please enter valid registration number (कृपया एक वैध अनुरोध पंजीकरण संख्या दर्ज करें।)",
+        "Please enter a valid Email ID (कृपया एक मान्य ईमेल आईडी दर्ज करें।)",
+        "Please enter security code (कृपया सुरक्षा कोड डाले)"
+      ],
+      "onPageNotices": [
+        "(All Characters are Case insensitive)",
+        "refresh"
       ],
       "surface": "appeal-lookup",
       "screenshots": {
@@ -986,13 +1067,14 @@
             "reset"
           ]
         }
-      ]
+      ],
+      "validationSource": "live extract (red/error text + dialog listener)"
     },
     {
       "id": "first-appeal.lookup.wrong-captcha",
       "flow": "first-appeal",
       "label": "VERIFIED_LIVE",
-      "url": "https://rtionline.gov.in/appeal/firstAppeal.php?pageid=1679091c5a880faf6fb5e6087eb1b2dc",
+      "url": "https://rtionline.gov.in/appeal/firstAppeal.php?pageid=cfcd208495d565ef66e7dff9f98764da",
       "title": "RTI Online :: Submit First Appeal Form",
       "httpStatus": 200,
       "triggeringAction": "Dummy registration number + wrong captcha",
@@ -1018,7 +1100,13 @@
       ],
       "validationRules": [],
       "validationObserved": [
-        "(All Characters are Case insensitive)"
+        "Security code does not match."
+      ],
+      "onPageNotices": [
+        "* RTI Request Registration No. * Enter Email Id *Enter Security code (All Characters are Case insensitive) refresh",
+        "*Enter Security code (All Characters are Case insensitive) refresh",
+        "(All Characters are Case insensitive)",
+        "refresh"
       ],
       "surface": "appeal-lookup",
       "screenshots": {
@@ -1060,7 +1148,8 @@
             "reset"
           ]
         }
-      ]
+      ],
+      "validationSource": "live extract (red/error text + dialog listener)"
     },
     {
       "id": "view-status.gate",
@@ -1069,7 +1158,7 @@
       "url": "https://rtionline.gov.in/request/status.php",
       "title": "RTI Online :: View Status Form",
       "httpStatus": 200,
-      "triggeringAction": "Home \u2192 View Status",
+      "triggeringAction": "Home → View Status",
       "previousState": "home",
       "nextActions": [
         "Submit",
@@ -1096,10 +1185,17 @@
         "Security code *",
         "Then OTP"
       ],
-      "validationObserved": [
+      "validationObserved": [],
+      "onPageNotices": [
         "OTPs do not expire until they are used, meaning users can register their applications as soon as the OTP arrives.",
+        "OTP will be sent to both email id and mobile number (If provided during submission of RTI Request).",
+        "View Status Note:Fields marked with * are Mandatory. OTPs do not expire until they are used, meaning users can register their applications as soon as the OTP arrives.",
+        "Note:Fields marked with * are Mandatory.",
+        "* Enter Registration Number * Enter Email Id * Enter Security code (All Characters are Case insensitive) refresh OTP will be sent to both email id and mobile number (If provided during submission of RTI Request).",
+        "* Enter Registration Number * Enter Email Id * Enter Security code (All Characters are Case insensitive) refresh",
+        "* Enter Security code (All Characters are Case insensitive) refresh",
         "(All Characters are Case insensitive)",
-        "OTP will be sent to both email id and mobile number (If provided during submission of RTI Request)."
+        "refresh"
       ],
       "surface": "status-gate",
       "screenshots": {
@@ -1173,9 +1269,19 @@
       ],
       "validationRules": [],
       "validationObserved": [
+        "Please Enter Registration Number.",
+        "Please provide a valid email address",
+        "Please Enter security code"
+      ],
+      "onPageNotices": [
         "OTPs do not expire until they are used, meaning users can register their applications as soon as the OTP arrives.",
+        "OTP will be sent to both email id and mobile number (If provided during submission of RTI Request).",
+        "View Status Note:Fields marked with * are Mandatory. OTPs do not expire until they are used, meaning users can register their applications as soon as the OTP arrives.",
+        "Note:Fields marked with * are Mandatory.",
+        "* Enter Registration Number * Enter Email Id * Enter Security code (All Characters are Case insensitive) refresh",
+        "* Enter Security code (All Characters are Case insensitive) refresh",
         "(All Characters are Case insensitive)",
-        "OTP will be sent to both email id and mobile number (If provided during submission of RTI Request)."
+        "refresh"
       ],
       "surface": "status-gate",
       "screenshots": {
@@ -1217,7 +1323,8 @@
             "reset"
           ]
         }
-      ]
+      ],
+      "validationSource": "live extract (red/error text + dialog listener)"
     },
     {
       "id": "view-status.gate.wrong-captcha",
@@ -1249,9 +1356,17 @@
       ],
       "validationRules": [],
       "validationObserved": [
+        "Security code does not match"
+      ],
+      "onPageNotices": [
         "OTPs do not expire until they are used, meaning users can register their applications as soon as the OTP arrives.",
+        "OTP will be sent to both email id and mobile number (If provided during submission of RTI Request).",
+        "View Status Note:Fields marked with * are Mandatory. OTPs do not expire until they are used, meaning users can register their applications as soon as the OTP arrives.",
+        "Note:Fields marked with * are Mandatory.",
+        "* Enter Registration Number * Enter Email Id * Enter Security code (All Characters are Case insensitive) refresh",
+        "* Enter Security code (All Characters are Case insensitive) refresh",
         "(All Characters are Case insensitive)",
-        "OTP will be sent to both email id and mobile number (If provided during submission of RTI Request)."
+        "refresh"
       ],
       "surface": "status-gate",
       "screenshots": {
@@ -1293,7 +1408,8 @@
             "reset"
           ]
         }
-      ]
+      ],
+      "validationSource": "live extract (red/error text + dialog listener)"
     },
     {
       "id": "view-history.gate",
@@ -1302,7 +1418,7 @@
       "url": "https://rtionline.gov.in/request/status_history.php",
       "title": "RTI Online :: Online RTI Information System",
       "httpStatus": 200,
-      "triggeringAction": "Home \u2192 View History",
+      "triggeringAction": "Home → View History",
       "previousState": "home",
       "nextActions": [
         "Submit",
@@ -1329,11 +1445,18 @@
         "Security code *",
         "Then OTP"
       ],
-      "validationObserved": [
+      "validationObserved": [],
+      "onPageNotices": [
+        "OTP will be sent to both email id and mobile number (If provided during submission of RTI Request).",
+        "View History Note:Fields marked with * are Mandatory. Enter email id, mobile number that was used earlier to file RTI request/appeal.",
+        "Note:Fields marked with * are Mandatory.",
+        "* Enter Email Id (For receiving OTP) Mobile Number * Enter Security code (All Characters are Case insensitive) refresh OTP will be sent to both email id and mobile number (If provided during submission of RTI Request).",
+        "* Enter Email Id (For receiving OTP) Mobile Number * Enter Security code (All Characters are Case insensitive) refresh",
+        "* Enter Security code (All Characters are Case insensitive) refresh",
         "(All Characters are Case insensitive)",
-        "OTP will be sent to both email id and mobile number (If provided during submission of RTI Request)."
+        "refresh"
       ],
-      "surface": "otp",
+      "surface": "history-gate",
       "screenshots": {
         "desktop": "screenshots/desktop/view-history.gate.png",
         "mobile": "screenshots/mobile/view-history.gate.png"
@@ -1405,10 +1528,17 @@
       ],
       "validationRules": [],
       "validationObserved": [
-        "(All Characters are Case insensitive)",
-        "OTP will be sent to both email id and mobile number (If provided during submission of RTI Request)."
+        "Please enter a valid Email ID.",
+        "Please Enter Correct Captcha Code."
       ],
-      "surface": "otp",
+      "onPageNotices": [
+        "OTP will be sent to both email id and mobile number (If provided during submission of RTI Request).",
+        "View History Note:Fields marked with * are Mandatory. Enter email id, mobile number that was used earlier to file RTI request/appeal.",
+        "Note:Fields marked with * are Mandatory.",
+        "(All Characters are Case insensitive)",
+        "refresh"
+      ],
+      "surface": "history-gate",
       "screenshots": {
         "desktop": "screenshots/desktop/view-history.gate.empty.png",
         "mobile": "screenshots/mobile/view-history.gate.empty.png"
@@ -1448,7 +1578,8 @@
             "reset"
           ]
         }
-      ]
+      ],
+      "validationSource": "live extract (red/error text + dialog listener)"
     },
     {
       "id": "view-history.gate.wrong-captcha",
@@ -1457,7 +1588,7 @@
       "url": "https://rtionline.gov.in/request/status_history.php",
       "title": "RTI Online :: Online RTI Information System",
       "httpStatus": 200,
-      "triggeringAction": "Dummy email + wrong captcha",
+      "triggeringAction": "Dummy email + empty mobile + wrong captcha ZZZZZZ",
       "previousState": "view-history.gate",
       "nextActions": [
         "Submit",
@@ -1480,10 +1611,18 @@
       ],
       "validationRules": [],
       "validationObserved": [
-        "(All Characters are Case insensitive)",
-        "OTP will be sent to both email id and mobile number (If provided during submission of RTI Request)."
+        "Security code does not match"
       ],
-      "surface": "otp",
+      "onPageNotices": [
+        "OTP will be sent to both email id and mobile number (If provided during submission of RTI Request).",
+        "View History Note:Fields marked with * are Mandatory. Enter email id, mobile number that was used earlier to file RTI request/appeal.",
+        "Note:Fields marked with * are Mandatory.",
+        "* Enter Email Id (For receiving OTP) Mobile Number * Enter Security code (All Characters are Case insensitive) refresh",
+        "* Enter Security code (All Characters are Case insensitive) refresh",
+        "(All Characters are Case insensitive)",
+        "refresh"
+      ],
+      "surface": "history-gate",
       "screenshots": {
         "desktop": "screenshots/desktop/view-history.gate.wrong-captcha.png",
         "mobile": "screenshots/mobile/view-history.gate.wrong-captcha.png"
@@ -1523,7 +1662,8 @@
             "reset"
           ]
         }
-      ]
+      ],
+      "validationSource": "live extract (red/error text + dialog listener)"
     },
     {
       "id": "login.gate",
@@ -1532,7 +1672,7 @@
       "url": "https://rtionline.gov.in/login.php",
       "title": "RTI Online :: Citizen Login Form",
       "httpStatus": 200,
-      "triggeringAction": "Home \u2192 Login",
+      "triggeringAction": "Home → Login",
       "previousState": "home",
       "nextActions": [
         "Submit",
@@ -1558,8 +1698,15 @@
         "Password * (client-hashed)",
         "Security code *"
       ],
-      "validationObserved": [
-        "(All Characters are Case insensitive)"
+      "validationObserved": [],
+      "onPageNotices": [
+        "Citizen Login Note:Fields marked with * are Mandatory. * Enter Username *Enter Password *Enter Security code (All Characters are Case insensitive) Can't read the image? click here to refresh",
+        "Citizen Login Note:Fields marked with * are Mandatory.",
+        "Note:Fields marked with * are Mandatory.",
+        "* Enter Username *Enter Password *Enter Security code (All Characters are Case insensitive) Can't read the image? click here to refresh",
+        "*Enter Security code (All Characters are Case insensitive) Can't read the image? click here to refresh",
+        "(All Characters are Case insensitive)",
+        "Can't read the image? click here to refresh"
       ],
       "surface": "login",
       "screenshots": {
@@ -1634,7 +1781,15 @@
       ],
       "validationRules": [],
       "validationObserved": [
-        "(All Characters are Case insensitive)"
+        "Please enter user name (कृपया उपयोगकर्ता का नाम दर्ज करें)",
+        "Please enter a valid Password (कृपया वैध पासवर्ड दर्ज करें)",
+        "Please enter security code (कृपया सुरक्षा कोड दर्ज करें)"
+      ],
+      "onPageNotices": [
+        "Citizen Login Note:Fields marked with * are Mandatory.",
+        "Note:Fields marked with * are Mandatory.",
+        "(All Characters are Case insensitive)",
+        "Can't read the image? click here to refresh"
       ],
       "surface": "login",
       "screenshots": {
@@ -1677,13 +1832,14 @@
             "reset"
           ]
         }
-      ]
+      ],
+      "validationSource": "live extract (red/error text + dialog listener)"
     },
     {
       "id": "login.gate.wrong-captcha",
       "flow": "login",
       "label": "VERIFIED_LIVE",
-      "url": "https://rtionline.gov.in/login.php?error=QlFtaEo3dU9QNlhuRGhRVTFKMjBXWmZXQzR4Uzdwak1lalhpNWxOTXMxTkFVTElNTFJsOVNuNmJmajJya3Qzcjo6QtN7%2BrDSyPa1FLBcF25X1g%3D%3D",
+      "url": "https://rtionline.gov.in/login.php?error=dW9UY0U0UktRYkJzRTh3bkdmanFWcXZTVzM2eGt1a25URTRkZVZnT2dqVFpWYS9HeWpPU0w5QmZqYjNRQStSYjo6vLXmeBNUsLxrHveP2kimlg%3D%3D",
       "title": "RTI Online :: Citizen Login Form",
       "httpStatus": 200,
       "triggeringAction": "Invalid username + wrong captcha (single attempt, not brute-force)",
@@ -1709,8 +1865,14 @@
       ],
       "validationRules": [],
       "validationObserved": [
-        "(All Characters are Case insensitive)",
         "The Security code does not match."
+      ],
+      "onPageNotices": [
+        "Citizen Login Note:Fields marked with * are Mandatory.",
+        "Note:Fields marked with * are Mandatory.",
+        "*Enter Security code (All Characters are Case insensitive) Can't read the image? click here to refresh",
+        "(All Characters are Case insensitive)",
+        "Can't read the image? click here to refresh"
       ],
       "surface": "login",
       "screenshots": {
@@ -1754,14 +1916,14 @@
           ]
         }
       ],
-      "validationSource": "desktop screenshot + dialog listener (VERIFIED_LIVE)"
+      "validationSource": "live extract (red/error text + dialog listener)"
     },
     {
       "id": "login.audio-captcha",
       "flow": "login",
       "label": "VERIFIED_LIVE",
       "url": "https://rtionline.gov.in/audiofile1.php",
-      "title": "",
+      "title": "Audio captcha popup",
       "httpStatus": 200,
       "triggeringAction": "Open audio captcha popup",
       "previousState": "login.gate",
@@ -1769,13 +1931,15 @@
       "fields": [],
       "validationRules": [],
       "validationObserved": [],
+      "onPageNotices": [],
       "surface": "audio-captcha",
       "screenshots": {
         "desktop": "screenshots/desktop/login.audio-captcha.png",
         "mobile": "screenshots/mobile/login.audio-captcha.png"
       },
       "headings": [],
-      "forms": []
+      "forms": [],
+      "notes": "WAV at /audio/en/.wav 404s (SiteOne). Popup may render captcha glyphs as visible text. Glyphs are not recorded and are never used to pass a gate."
     },
     {
       "id": "payment-reconciliation.gate",
@@ -1784,7 +1948,7 @@
       "url": "https://rtionline.gov.in/request/status_pendingPayment.php",
       "title": "RTI Online :: Online RTI Information System",
       "httpStatus": 200,
-      "triggeringAction": "Home \u2192 Payment Reconciliation",
+      "triggeringAction": "Home → Payment Reconciliation",
       "previousState": "home",
       "nextActions": [
         "Submit",
@@ -1810,10 +1974,16 @@
         "Mobile",
         "Security code *"
       ],
-      "validationObserved": [
-        "(All Characters are Case insensitive)"
+      "validationObserved": [],
+      "onPageNotices": [
+        "Reconciliation of unsuccessful RTI request payments Note:Fields marked with * are Mandatory. Enter email id, mobile number that was used earlier to file RTI request/appeal.",
+        "Note:Fields marked with * are Mandatory.",
+        "* Enter Email Id (For receiving OTP) Mobile Number * Enter Security code (All Characters are Case insensitive) refresh",
+        "* Enter Security code (All Characters are Case insensitive) refresh",
+        "(All Characters are Case insensitive)",
+        "refresh"
       ],
-      "surface": "otp",
+      "surface": "payment-reconciliation-gate",
       "screenshots": {
         "desktop": "screenshots/desktop/payment-reconciliation.gate.png",
         "mobile": "screenshots/mobile/payment-reconciliation.gate.png"
@@ -1885,9 +2055,16 @@
       ],
       "validationRules": [],
       "validationObserved": [
-        "(All Characters are Case insensitive)"
+        "Please enter a valid Email ID",
+        "Please enter Captcha code"
       ],
-      "surface": "otp",
+      "onPageNotices": [
+        "Reconciliation of unsuccessful RTI request payments Note:Fields marked with * are Mandatory. Enter email id, mobile number that was used earlier to file RTI request/appeal.",
+        "Note:Fields marked with * are Mandatory.",
+        "(All Characters are Case insensitive)",
+        "refresh"
+      ],
+      "surface": "payment-reconciliation-gate",
       "screenshots": {
         "desktop": "screenshots/desktop/payment-reconciliation.gate.empty.png",
         "mobile": "screenshots/mobile/payment-reconciliation.gate.empty.png"
@@ -1927,7 +2104,8 @@
             "reset"
           ]
         }
-      ]
+      ],
+      "validationSource": "live extract (red/error text + dialog listener)"
     },
     {
       "id": "payment-reconciliation.gate.wrong-captcha",
@@ -1936,32 +2114,17 @@
       "url": "https://rtionline.gov.in/request/status_pendingPayment.php",
       "title": "RTI Online :: Online RTI Information System",
       "httpStatus": 200,
-      "triggeringAction": "Dummy email + wrong captcha",
+      "triggeringAction": "Dummy email + empty mobile + wrong captcha ZZZZZZ",
       "previousState": "payment-reconciliation.gate",
       "nextActions": [
-        "Submit",
-        "Reset",
-        "Public Authorities Available",
-        "Home",
-        "Submit Request",
-        "Submit First Appeal",
-        "View Status",
-        "View History",
-        "Login",
-        "User Manual"
+        "Public Authorities Available"
       ],
-      "fields": [
-        "* Enter Email Id (For receiving OTP) [text] *",
-        "Mobile Number [password]",
-        "* Enter Security code [text] *",
-        "Submit [submit]",
-        " [reset]"
-      ],
+      "fields": [],
       "validationRules": [],
-      "validationObserved": [
-        "(All Characters are Case insensitive)"
-      ],
-      "surface": "otp",
+      "validationObserved": [],
+      "onPageNotices": [],
+      "surface": "payment-reconciliation-gate",
+      "notes": "Live probe: form vanished after wrong-captcha POST. Not an OTP/result screen. Official page rendered masthead + language select only.",
       "screenshots": {
         "desktop": "screenshots/desktop/payment-reconciliation.gate.wrong-captcha.png",
         "mobile": "screenshots/mobile/payment-reconciliation.gate.wrong-captcha.png"
@@ -1970,11 +2133,6 @@
         {
           "level": "h1",
           "text": "RTI Online",
-          "visible": true
-        },
-        {
-          "level": "h4",
-          "text": "Reconciliation of unsuccessful RTI request payments",
           "visible": true
         }
       ],
@@ -1988,18 +2146,6 @@
             "hndbaseurl",
             "hndactionurl"
           ]
-        },
-        {
-          "name": "FrmStatus",
-          "method": "post",
-          "action": "/request/status_pendingPayment.php",
-          "fields": [
-            "Email",
-            "cell",
-            "6_letters_code",
-            "Submit",
-            "reset"
-          ]
         }
       ]
     },
@@ -2010,7 +2156,7 @@
       "previousState": "submit-request.email-gate",
       "triggeringAction": "Correct captcha + email submit; OTP mailed/SMS",
       "nextActions": [
-        "Submit OTP \u2192 request form"
+        "Submit OTP → request form"
       ],
       "source": "um_citizen.pdf p.27 (history OTP analog); live copy on email-gate says OTP is sent",
       "fields": [
@@ -2030,10 +2176,10 @@
       "nextActions": [
         "Select ministry/authority",
         "Fill applicant details",
-        "BPL Yes \u2192 submit",
-        "BPL No \u2192 Make Payment"
+        "BPL Yes → submit",
+        "BPL No → Make Payment"
       ],
-      "source": "um_citizen.pdf pp.5\u20138",
+      "source": "um_citizen.pdf pp.5–8",
       "fields": [
         "Search Public Authority",
         "Select Ministry/Department/Apex body *",
@@ -2053,7 +2199,7 @@
         "Citizenship = Indian (locked)",
         "BPL * Yes/No",
         "Text for RTI Request application * (3000 chars, restricted charset)",
-        "Supporting document PDF \u2264 1 MB",
+        "Supporting document PDF ≤ 1 MB",
         "Security code *"
       ],
       "label": "DOCUMENTED_ONLY",
@@ -2064,7 +2210,7 @@
     {
       "id": "submit-request.form.bpl-yes",
       "flow": "submit-request",
-      "title": "Request form \u2014 BPL branch (no \u20b910, extra certificate fields)",
+      "title": "Request form — BPL branch (no ₹10, extra certificate fields)",
       "previousState": "submit-request.form",
       "triggeringAction": "BPL = Yes",
       "nextActions": [
@@ -2087,15 +2233,15 @@
     {
       "id": "submit-request.form.bpl-no",
       "flow": "submit-request",
-      "title": "Request form \u2014 non-BPL (\u20b910, Make Payment)",
+      "title": "Request form — non-BPL (₹10, Make Payment)",
       "previousState": "submit-request.form",
       "triggeringAction": "BPL = No",
       "nextActions": [
         "Make Payment"
       ],
-      "source": "um_citizen.pdf pp.7\u20138",
+      "source": "um_citizen.pdf pp.7–8",
       "fields": [
-        "Notice: You are required to pay the RTI fee of \u20b910",
+        "Notice: You are required to pay the RTI fee of ₹10",
         "Make Payment",
         "Reset"
       ],
@@ -2115,16 +2261,16 @@
         "Pay",
         "Back"
       ],
-      "source": "um_citizen.pdf p.9 \u2014 URL pattern /request/payment.php?requestFromid=",
+      "source": "um_citizen.pdf p.9 — URL pattern /request/payment.php?requestFromid=",
       "fields": [
         "NAME",
-        "RTI Fee \u20b910",
+        "RTI Fee ₹10",
         "Payment Mode (Internet banking / card / RuPay / UPI)",
         "Payment Gateway radio",
         "Pay",
         "Back"
       ],
-      "notes": "Red banner: do not refresh or register the same request again. Wait 24\u201348 working hours.",
+      "notes": "Red banner: do not refresh or register the same request again. Wait 24–48 working hours.",
       "label": "DOCUMENTED_ONLY",
       "url": null,
       "screenshots": {},
@@ -2140,7 +2286,7 @@
         "Net banking / cards / UPI",
         "CANCEL"
       ],
-      "source": "um_citizen.pdf p.10 \u2014 merchant.online-sbi.com",
+      "source": "um_citizen.pdf p.10 — merchant.online-sbi.com",
       "fields": [
         "SBI Net Banking",
         "Other Banks",
@@ -2158,7 +2304,7 @@
     {
       "id": "submit-request.payment-success",
       "flow": "submit-request",
-      "title": "Payment success \u2192 request registered",
+      "title": "Payment success → request registered",
       "previousState": "submit-request.sbi-gateway",
       "triggeringAction": "Successful gateway payment",
       "nextActions": [
@@ -2251,7 +2397,7 @@
         "Enter appeal text",
         "Submit (no fee)"
       ],
-      "source": "um_citizen.pdf pp.15\u201316",
+      "source": "um_citizen.pdf pp.15–16",
       "fields": [
         "Ministry/Department/Apex body (pre-filled)",
         "Request Registration Number / Date (pre-filled)",
@@ -2259,7 +2405,7 @@
         "BPL",
         "Ground For Appeal * (Refused access; No response within time limit; Unreasonable fee; Incomplete/misleading/false; Any other)",
         "Text for RTI first appeal application * (manual says 500 and 3000)",
-        "Supporting document PDF \u2264 1 MB",
+        "Supporting document PDF ≤ 1 MB",
         "Security code *",
         "Submit / Reset"
       ],
@@ -2298,7 +2444,7 @@
       "previousState": "view-status.gate",
       "triggeringAction": "Valid registration + email + captcha",
       "nextActions": [
-        "Submit OTP \u2192 case card"
+        "Submit OTP → case card"
       ],
       "source": "Live gate copy + um_citizen.pdf p.27 analog",
       "fields": [
@@ -2343,7 +2489,7 @@
       "previousState": "view-status.case",
       "triggeringAction": "CPIO requests extra fee",
       "nextActions": [
-        "Make Payment \u2192 payment form / SBI"
+        "Make Payment → payment form / SBI"
       ],
       "source": "um_citizen.pdf p.20",
       "fields": [
@@ -2368,7 +2514,7 @@
       ],
       "source": "um_citizen.pdf p.21",
       "fields": [
-        "Upload document PDF \u2264 1 MB",
+        "Upload document PDF ≤ 1 MB",
         "Attached"
       ],
       "label": "DOCUMENTED_ONLY",
@@ -2379,7 +2525,7 @@
     {
       "id": "view-status.returned-state",
       "flow": "view-status",
-      "title": "Returned to applicant (State / NCT Delhi) \u2014 no refund",
+      "title": "Returned to applicant (State / NCT Delhi) — no refund",
       "previousState": "view-status.case",
       "triggeringAction": "Filed against a State public authority",
       "nextActions": [
@@ -2423,9 +2569,9 @@
         "Click here to view details",
         "Appeal against a child number"
       ],
-      "source": "um_citizen.pdf pp.24\u201325",
+      "source": "um_citizen.pdf pp.24–25",
       "fields": [
-        "Child numbers \u2026/1 \u2026/2 \u2026/3",
+        "Child numbers …/1 …/2 …/3",
         "CPIO phone/email",
         "Current status"
       ],
@@ -2441,7 +2587,7 @@
       "previousState": "view-history.gate",
       "triggeringAction": "Valid email + mobile + captcha",
       "nextActions": [
-        "Submit OTP \u2192 dashboard"
+        "Submit OTP → dashboard"
       ],
       "source": "um_citizen.pdf p.27",
       "fields": [
@@ -2523,7 +2669,7 @@
       "triggeringAction": "Valid email + captcha (and likely OTP)",
       "nextActions": [
         "Open View Status if number exists",
-        "Wait 24\u201348 working hours",
+        "Wait 24–48 working hours",
         "Mail help desk"
       ],
       "source": "FAQ item 13 + live gate; result page not captured live",

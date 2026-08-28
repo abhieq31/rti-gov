@@ -2,18 +2,18 @@
 
 State-by-state reconstruction of the **public citizen** portal at https://rtionline.gov.in/. Not a clone spec.
 
-Generated 2026-08-28T06:53:06.903Z. Human-assisted: no.
+Generated 2026-08-28T07:40:20.201Z. Human-assisted: no.
 
 ## Counts
 
 | Label | Count |
 | --- | --- |
-| VERIFIED_LIVE | 31 |
+| VERIFIED_LIVE | 32 |
 | VERIFIED_HUMAN_ASSISTED | 0 |
 | DOCUMENTED_ONLY | 24 |
 | UNREACHABLE | 0 |
 | BROKEN_OFFICIAL_SITE | 2 |
-| Total distinct states | 57 |
+| Total distinct states | 58 |
 
 ## How to rerun
 

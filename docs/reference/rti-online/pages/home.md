@@ -37,7 +37,7 @@ Please read instructions carefully while submitting request/appeal.
 
 ## Lifecycle diagram (`home.lifecycle`)
 
-The homepage embeds `images/rti_lifecycle.jpg` (alt `image1`). A trailing-slash link `/images/rti_lifecycle.jpg/` 404s. Live diagram: `screenshots/desktop/home.lifecycle.png`. Statutory graph: `flows/lifecycle.md`.
+The homepage embeds `images/rti_lifecycle.jpg` (alt `image1`). A trailing-slash link `/images/rti_lifecycle.jpg/` 404s. Live diagram: `screenshots/desktop/home.lifecycle.png` and `screenshots/mobile/home.lifecycle.png`. Statutory graph: `flows/lifecycle.md`.
 
 ## Help desk
 

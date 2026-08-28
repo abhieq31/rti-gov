@@ -60,7 +60,7 @@ flowchart TD
 | guidelines-request | Submit without checkbox | alert: Please select the undertaking statement! |
 | guidelines-request | Accept guidelines and Submit | request-email-otp-gate |
 | request-email-otp-gate | Email + captcha + OTP (BLOCKED) | request-form-not-captured |
-| guidelines-appeal | Submit without checkbox | alert: Please select the undertaking statement! |
+| guidelines-appeal | Submit without checkbox | alert: Please select the undertaking statement! (`first-appeal.guidelines.unchecked`) |
 | guidelines-appeal | Accept guidelines and Submit | appeal-lookup-gate |
 | appeal-lookup-gate | Registration no + email + captcha (BLOCKED) | appeal-form-not-captured |
 | login | Submit empty form | client-validation |

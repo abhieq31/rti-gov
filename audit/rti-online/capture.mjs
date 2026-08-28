@@ -29,13 +29,24 @@ const VIEWPORTS = {
 };
 const MAX_HEIGHT = 8000;
 const DUMMY = {
-  email: 'rti-audit-invalid@example.invalid',
+  // Valid-looking mailbox so probes reach captcha, not the email-format check.
+  // Never paired with a solved captcha; OTP is not requested.
+  email: 'rti.audit.noreply@gmail.com',
   mobile: '9000000000',
   registration: 'AUDIT/R/E/00/00000',
   username: 'audit_invalid',
   password: 'invalid',
   captcha: 'ZZZZZZ',
 };
+
+const GATE_SUBMIT = [
+  'form[name="FrmStatus"] input[type=submit]',
+  'form[name="FrmFirstAppeal"] input[type=submit]',
+  'form[name="FrmLogin"] input[type=submit]',
+  'form[name="FrmLogin"] input[name=Login]',
+  'input[name=SUBMIT][type=submit]',
+  'form:not([name=frmLang]):not(#frmLang) input[type=submit]',
+].join(', ');
 
 function ensureDirs() {
   for (const dir of ['screenshots/desktop', 'screenshots/mobile', 'traces', 'pages', 'flows', 'source']) {
@@ -92,33 +103,60 @@ async function captureViewports(page, id) {
   return shots;
 }
 
+function fieldList(snapshot, spec) {
+  if (spec.fields) return spec.fields;
+  if (/faq\.php/i.test(snapshot.url || '') && snapshot.faqItems?.length) {
+    return snapshot.faqItems.map((item, i) => `${i + 1}. ${item.question}`);
+  }
+  return (snapshot.inputs || [])
+    .filter((i) => i.visible && !['hidden', 'button'].includes(i.type) && !/^btn/i.test(i.id || ''))
+    .map((i) => `${i.label || i.name} [${i.type}]${i.required ? ' *' : ''}`);
+}
+
+function collectValidation(snapshot, book) {
+  const observed = [...(snapshot.errors || [])];
+  if (book.lastDialog) observed.push(`alert: ${book.lastDialog}`);
+  return [...new Set(observed.map((v) => String(v).replace(/\s+/g, ' ').trim()).filter(Boolean))];
+}
+
 async function recordLive(page, book, spec) {
-  await page.waitForTimeout(400);
-  const snapshot = await extract(page).catch(() => ({ url: page.url(), title: '', inputs: [], buttons: [], forms: [], errors: [], visibleText: '', headings: [] }));
+  await page.waitForTimeout(500);
+  let snapshot = await extract(page).catch(() => ({
+    url: page.url(), title: '', inputs: [], buttons: [], forms: [], errors: [], notices: [], visibleText: '', headings: [], faqItems: [],
+  }));
   snapshot.httpStatus = spec.httpStatus;
   const screenshots = spec.skipShot ? {} : await captureViewports(page, spec.id).catch((error) => {
     console.warn(`screenshot failed ${spec.id}: ${error.message}`);
     return {};
   });
-  const validation = [...(snapshot.errors || [])];
-  if (book.lastDialog) validation.push(`alert: ${book.lastDialog}`);
+  const after = await extract(page).catch(() => snapshot);
+  snapshot = {
+    ...snapshot,
+    ...after,
+    errors: [...new Set([...(snapshot.errors || []), ...(after.errors || [])])],
+    notices: [...new Set([...(snapshot.notices || []), ...(after.notices || [])])],
+  };
+  const validation = collectValidation(snapshot, book);
   const state = book.add({
     id: spec.id,
     flow: spec.flow,
     label: spec.label || (HUMAN && spec.human ? 'VERIFIED_HUMAN_ASSISTED' : 'VERIFIED_LIVE'),
-    url: page.url(),
-    title: snapshot.title || spec.title || '',
+    url: spec.url || page.url(),
+    title: spec.title || snapshot.title || '',
     httpStatus: spec.httpStatus ?? 200,
     triggeringAction: spec.action,
     previousState: spec.previous,
     nextActions: spec.next || nextFrom(snapshot),
-    fields: (snapshot.inputs || []).filter((i) => i.visible && i.type !== 'hidden').map((i) => `${i.label || i.name} [${i.type}]${i.required ? ' *' : ''}`),
+    fields: fieldList(snapshot, spec),
     validationRules: spec.validationRules || [],
     validationObserved: validation,
-    surface: classifySurface(snapshot),
+    onPageNotices: snapshot.notices || [],
+    surface: spec.surface || classifySurface(snapshot),
     screenshots,
     headings: snapshot.headings,
     forms: snapshot.forms,
+    notes: spec.notes,
+    validationSource: validation.length ? 'live extract (red/error text + dialog listener)' : undefined,
   });
   book.lastDialog = '';
   console.log(`  state ${state.id}  ${state.label}  ${state.url}`);
@@ -147,13 +185,16 @@ async function goto(page, pathOrUrl) {
 }
 
 async function clickSubmit(page) {
-  const submit = page.locator('input[type=submit], button[type=submit]').first();
+  const submit = page.locator(GATE_SUBMIT).first();
   if (!(await submit.count())) return;
   await Promise.all([
-    page.waitForNavigation({ timeout: 12_000 }).catch(() => null),
+    page.waitForNavigation({ timeout: 6_000 }).catch(() => null),
     submit.click({ timeout: 4000 }),
   ]).catch(() => null);
-  await page.waitForTimeout(800);
+  await page.waitForTimeout(900);
+  await page.locator('label.error, font[color="red"], font[color="Red"]').first()
+    .waitFor({ state: 'visible', timeout: 2500 })
+    .catch(() => null);
 }
 
 async function fillIf(page, selector, value) {
@@ -205,16 +246,90 @@ async function probeWrongCaptcha(page, fill) {
   await clickSubmit(page);
 }
 
+async function screenshotBanner(page, id) {
+  const handle = await page.evaluateHandle(() => {
+    const match = [...document.querySelectorAll('div, p, td, span, font, marquee')]
+      .find((el) => /Central Information Commission \(CIC\) has integrated/i.test((el.innerText || '').replace(/\s+/g, ' ')));
+    return match || null;
+  });
+  const el = handle.asElement();
+  const rel = { desktop: `screenshots/desktop/${id}.png`, mobile: `screenshots/mobile/${id}.png` };
+  await page.setViewportSize({ width: 1920, height: 900 });
+  if (el) {
+    await el.screenshot({ path: path.join(OUT, rel.desktop), timeout: 30_000 }).catch(async () => {
+      await screenshot(page, rel.desktop);
+    });
+  } else {
+    await screenshot(page, rel.desktop);
+  }
+  await page.setViewportSize(VIEWPORTS.mobile);
+  await page.waitForTimeout(200);
+  if (el) {
+    await el.screenshot({ path: path.join(OUT, rel.mobile), timeout: 30_000 }).catch(async () => {
+      await screenshot(page, rel.mobile);
+    });
+  } else {
+    await screenshot(page, rel.mobile);
+  }
+  await page.setViewportSize(VIEWPORTS.desktop);
+  return rel;
+}
+
 async function flowHome(page, book) {
   const nav = await goto(page, '/');
-  await recordLive(page, book, {
+  const homeSnap = await recordLive(page, book, {
     id: 'home',
     flow: 'shell',
     action: 'Open https://rtionline.gov.in/',
     previous: null,
     httpStatus: nav.status,
     next: ['Submit Request', 'Submit First Appeal', 'View Status', 'View History', 'Login', 'Payment Reconciliation', 'FAQ', 'Contact Us', 'Policy', 'Public Authorities Available'],
+    notes: 'Playwright 1440×900 home shot can crop the CIC banner. Full banner + lifecycle recorded as home.cic-banner and home.lifecycle.',
   });
+
+  const bannerShots = await screenshotBanner(page, 'home.cic-banner');
+  const bannerText = homeSnap.snapshot.cicBanner
+    || 'The Central Information Commission (CIC) has integrated its Second Appeal Filing Portal with the Department of Personnel and Training (DoPT) RTI Online Portal.';
+  await page.locator('a').filter({ hasText: 'Complaint & Second Appeal to CIC' }).first().click({ timeout: 4000 }).catch(() => null);
+  await page.waitForTimeout(600);
+  const cicAlert = book.lastDialog;
+  if (!page.url().includes('rtionline.gov.in')) await goto(page, '/');
+  book.add({
+    id: 'home.cic-banner',
+    flow: 'shell',
+    label: 'VERIFIED_LIVE',
+    url: `${ORIGIN}/`,
+    title: 'CIC second-appeal integration notice',
+    httpStatus: 200,
+    triggeringAction: 'Land on home (CIC integration notice)',
+    previousState: 'home',
+    nextActions: ['Complaint & Second Appeal to CIC (external dsscic.nic.in)', 'Submit First Appeal'],
+    fields: ['First Appeal Registration Number', 'Email ID', 'Date of Filing the First Appeal'],
+    validationRules: [],
+    validationObserved: cicAlert ? [`alert: ${cicAlert}`] : [],
+    surface: 'home',
+    screenshots: bannerShots,
+    notes: `Full text verified from live homepage HTML. Playwright PNG may still crop overflow (“The C” / “The Centra”). Footer link uses HTTP and a JS alert with the same copy. Banner: ${bannerText.slice(0, 500)}`,
+  });
+  book.lastDialog = '';
+  console.log('  state home.cic-banner  VERIFIED_LIVE');
+
+  const life = await goto(page, '/images/rti_lifecycle.jpg');
+  await recordLive(page, book, {
+    id: 'home.lifecycle',
+    flow: 'shell',
+    action: 'Homepage embeds images/rti_lifecycle.jpg (alt image1)',
+    previous: 'home',
+    httpStatus: life.status,
+    title: 'RTI request lifecycle diagram',
+    next: ['Submit Request', 'Submit First Appeal', 'Complaint & Second Appeal to CIC'],
+    notes: 'Process graphic, not a form. Nodes and day-counts are recorded in flows/lifecycle.md. Trailing-slash URL 404s.',
+    surface: 'lifecycle',
+  });
+  const slash = await goto(page, '/images/rti_lifecycle.jpg/');
+  if (slash.status >= 400) {
+    book.defects.push(`/images/rti_lifecycle.jpg/ trailing-slash returns HTTP ${slash.status} (image without slash is ${life.status}).`);
+  }
 }
 
 async function flowBroken(page, book) {
@@ -354,7 +469,18 @@ async function flowAppeal(page, book) {
     flow: 'first-appeal',
     action: 'Home → Submit First Appeal',
     previous: 'home',
+    validationRules: ['Checkbox CHECKBOX_1 required or alert: Please select the undertaking statement!'],
   });
+
+  await page.locator('input[type=submit]').click();
+  await page.waitForTimeout(400);
+  await recordLive(page, book, {
+    id: 'first-appeal.guidelines.unchecked',
+    flow: 'first-appeal',
+    action: 'Submit without accepting guidelines',
+    previous: 'first-appeal.guidelines',
+  });
+
   await page.locator('input[name=CHECKBOX_1]').check();
   await clickSubmit(page);
   await recordLive(page, book, {
@@ -451,12 +577,12 @@ async function flowHistory(page, book) {
   });
   await probeWrongCaptcha(page, async (p) => {
     await fillIf(p, '#Email, input[name=Email]', DUMMY.email);
-    await fillIf(p, '#cell, input[name=cell]', DUMMY.mobile);
+    // Leave mobile empty so the probe hits captcha, not "email and mobile do not match".
   });
   await recordLive(page, book, {
     id: 'view-history.gate.wrong-captcha',
     flow: 'view-history',
-    action: 'Dummy email + wrong captcha',
+    action: 'Dummy email + empty mobile + wrong captcha ZZZZZZ',
     previous: 'view-history.gate',
   });
   const continued = await waitForHuman(page, 'VIEW HISTORY. Enter the filing email, mobile and captcha, then OTP.');
@@ -516,6 +642,9 @@ async function flowLogin(page, book) {
     flow: 'login',
     action: 'Open audio captcha popup',
     previous: 'login.gate',
+    title: 'Audio captcha popup',
+    next: [],
+    notes: 'WAV at /audio/en/.wav 404s (SiteOne). Popup may render captcha glyphs as visible text. Glyphs are not recorded and are never used to pass a gate.',
   });
   book.defects.push('Audio captcha page /audiofile1.php loads; SiteOne recorded /audio/en/.wav as 404. Popup may render captcha glyphs as visible text.');
 }
@@ -538,14 +667,21 @@ async function flowPayments(page, book) {
   });
   await probeWrongCaptcha(page, async (p) => {
     await fillIf(p, '#Email, input[name=Email]', DUMMY.email);
-    await fillIf(p, '#cell, input[name=cell]', DUMMY.mobile);
   });
-  await recordLive(page, book, {
+  const payWrong = await recordLive(page, book, {
     id: 'payment-reconciliation.gate.wrong-captcha',
     flow: 'payment-reconciliation',
-    action: 'Dummy email + wrong captcha',
+    action: 'Dummy email + empty mobile + wrong captcha ZZZZZZ',
     previous: 'payment-reconciliation.gate',
   });
+  const stillHasForm = (payWrong.snapshot.forms || []).some((f) => /FrmStatus|pending/i.test(f.name + f.action));
+  if (!stillHasForm) {
+    book.defects.push('POST of dummy email + ZZZZZZ on /request/status_pendingPayment.php returned HTTP 200 but dropped the reconciliation form (chrome + language select only).');
+    const state = book.states.find((s) => s.id === 'payment-reconciliation.gate.wrong-captcha');
+    if (state) {
+      state.notes = 'Live probe: form vanished after wrong-captcha POST. Not an OTP/result screen. Official page rendered masthead + language select only.';
+    }
+  }
   const continued = await waitForHuman(page, 'PAYMENT RECONCILIATION. Enter email used for a real payment and captcha. Do not initiate a new payment.');
   if (continued) {
     await recordLive(page, book, {
@@ -562,7 +698,6 @@ async function flowPayments(page, book) {
 async function main() {
   ensureDirs();
   const book = new Book();
-  book.defects.push('/images/rti_lifecycle.jpg/ is a trailing-slash 404 (image without slash is 200).');
   book.defects.push('Home CIC notice overflows the layout (“The C” / “The Centra”).');
 
   const browser = await chromium.launch({

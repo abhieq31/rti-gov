@@ -19,4 +19,5 @@ Seeds URLs from the SiteOne JSON at `/Users/abhipatel/tmp/rtionline.gov.in.outpu
 - GET navigation and in-page UI only, except the guidelines checkbox POST (it only opens the next gate).
 - Login, OTP, payment, appeal-lookup and request-form POSTs are aborted at the network layer.
 - Empty-form clicks are used only to surface client-side validation / alerts.
-- Assets, captcha images and trailing-slash image 404s are not treated as citizen screens.
+- Wrong-captcha probes use a valid-looking dummy email and captcha `ZZZZZZ`. Optional mobile is left empty so the probe is not diverted to “email and mobile do not match”.
+- Assets, captcha images and trailing-slash image 404s are not treated as citizen screens. Audio-captcha glyphs, if visible, are never used to pass a gate.

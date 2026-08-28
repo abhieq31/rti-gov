@@ -33,11 +33,11 @@ export function writeReports(outDir, book) {
     '',
     '| ID | Flow | Label | Viewport shots | Previous | Action | Next | Title |',
     '| --- | --- | --- | --- | --- | --- | --- | --- |',
-    ...states.map((s) => `| \`${s.id}\` | ${s.flow} | ${s.label} | ${s.screenshots?.desktop || s.screenshots?.mobile ? 'yes' : '—'} | ${md(s.previousState || '—')} | ${md(s.triggeringAction || '—')} | ${md((s.nextActions || []).join('; '))} | ${md(s.title)} |`),
+    ...states.map((s) => `| \`${s.id}\` | ${s.flow} | ${s.label} | ${viewportMark(s)} | ${md(s.previousState || '—')} | ${md(s.triggeringAction || '—')} | ${md((s.nextActions || []).join('; '))} | ${md(s.title)} |`),
     '',
     '## Official-site defects observed live',
     '',
-    ...(book.defects || []).map((d) => `- ${d}`),
+    ...[...new Set(book.defects || [])].map((d) => `- ${d}`),
     '',
     '## Flows still incomplete',
     '',
@@ -79,18 +79,24 @@ export function writeReports(outDir, book) {
       mermaid(subset, flow),
       '```',
       '',
-      '| ID | Label | URL | Action in | Next | Screenshot |',
-      '| --- | --- | --- | --- | --- | --- |',
-      ...subset.map((s) => `| \`${s.id}\` | ${s.label} | ${md(s.url || '—')} | ${md(s.triggeringAction || '—')} | ${md((s.nextActions || []).join('; '))} | ${s.screenshots?.desktop ? `\`${s.screenshots.desktop}\`` : '—'} |`),
+      '| ID | Label | URL | Action in | Next | Validation observed | Screenshot |',
+      '| --- | --- | --- | --- | --- | --- | --- |',
+      ...subset.map((s) => `| \`${s.id}\` | ${s.label} | ${md(s.url || '—')} | ${md(s.triggeringAction || '—')} | ${md((s.nextActions || []).join('; '))} | ${md((s.validationObserved || []).join('; ') || '—')} | ${s.screenshots?.desktop ? `\`${s.screenshots.desktop}\`` : '—'} |`),
       '',
-      ...subset.filter((s) => s.screenshots?.desktop).map((s) => [
+      ...subset.filter((s) => s.screenshots?.desktop || s.screenshots?.mobile).map((s) => [
         `## ${s.id}`,
         '',
-        `![${s.id} desktop](../${s.screenshots.desktop})`,
-        s.screenshots.mobile ? `![${s.id} mobile](../${s.screenshots.mobile})` : '',
+        s.screenshots?.desktop ? `![${s.id} desktop](../${s.screenshots.desktop})` : '',
+        s.screenshots?.mobile ? `![${s.id} mobile](../${s.screenshots.mobile})` : '',
+        s.validationObserved?.length ? `\nValidation observed: ${s.validationObserved.join('; ')}` : '',
+        s.notes ? `\n${s.notes}` : '',
         '',
       ].join('\n')),
     ];
+    if (flow === 'shell') {
+      lines.push('Full homepage copy: [pages/home.md](../pages/home.md). Statutory graph: [lifecycle.md](lifecycle.md).');
+      lines.push('');
+    }
     fs.writeFileSync(path.join(outDir, 'flows', `${flow}.md`), `${lines.join('\n')}\n`);
   }
 
@@ -134,6 +140,15 @@ export function writeReports(outDir, book) {
   fs.writeFileSync(path.join(outDir, 'README.md'), `${readme}\n`);
 
   return counts;
+}
+
+function viewportMark(s) {
+  const d = Boolean(s.screenshots?.desktop);
+  const m = Boolean(s.screenshots?.mobile);
+  if (d && m) return 'yes';
+  if (d) return 'desktop only';
+  if (m) return 'mobile only';
+  return '—';
 }
 
 function incompleteFlows(states) {

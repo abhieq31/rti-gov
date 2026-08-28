@@ -15,27 +15,35 @@ flowchart TD
   view_history_dashboard --> view_history_list
 ```
 
-| ID | Label | URL | Action in | Next | Screenshot |
-| --- | --- | --- | --- | --- | --- |
-| `view-history.gate` | VERIFIED_LIVE | https://rtionline.gov.in/request/status_history.php | Home → View History | Submit; Reset; Public Authorities Available; Home; Submit Request; Submit First Appeal; View Status; View History; Login; User Manual | `screenshots/desktop/view-history.gate.png` |
-| `view-history.gate.empty` | VERIFIED_LIVE | https://rtionline.gov.in/request/status_history.php | Submit empty history form | Submit; Reset; Public Authorities Available; Home; Submit Request; Submit First Appeal; View Status; View History; Login; User Manual | `screenshots/desktop/view-history.gate.empty.png` |
-| `view-history.gate.wrong-captcha` | VERIFIED_LIVE | https://rtionline.gov.in/request/status_history.php | Dummy email + wrong captcha | Submit; Reset; Public Authorities Available; Home; Submit Request; Submit First Appeal; View Status; View History; Login; User Manual | `screenshots/desktop/view-history.gate.wrong-captcha.png` |
-| `view-history.otp` | DOCUMENTED_ONLY | — | Valid email + mobile + captcha | Submit OTP → dashboard | — |
-| `view-history.dashboard` | DOCUMENTED_ONLY | — | Valid OTP | Open Registered / Pending / Disposed Requests or Appeals | — |
-| `view-history.list` | DOCUMENTED_ONLY | — | Click Registered Requests | Open a registration number; Search; Next page | — |
+| ID | Label | URL | Action in | Next | Validation observed | Screenshot |
+| --- | --- | --- | --- | --- | --- | --- |
+| `view-history.gate` | VERIFIED_LIVE | https://rtionline.gov.in/request/status_history.php | Home → View History | Submit; Reset; Public Authorities Available; Home; Submit Request; Submit First Appeal; View Status; View History; Login; User Manual | — | `screenshots/desktop/view-history.gate.png` |
+| `view-history.gate.empty` | VERIFIED_LIVE | https://rtionline.gov.in/request/status_history.php | Submit empty history form | Submit; Reset; Public Authorities Available; Home; Submit Request; Submit First Appeal; View Status; View History; Login; User Manual | Please enter a valid Email ID.; Please Enter Correct Captcha Code. | `screenshots/desktop/view-history.gate.empty.png` |
+| `view-history.gate.wrong-captcha` | VERIFIED_LIVE | https://rtionline.gov.in/request/status_history.php | Dummy email + empty mobile + wrong captcha ZZZZZZ | Submit; Reset; Public Authorities Available; Home; Submit Request; Submit First Appeal; View Status; View History; Login; User Manual | Security code does not match | `screenshots/desktop/view-history.gate.wrong-captcha.png` |
+| `view-history.otp` | DOCUMENTED_ONLY | — | Valid email + mobile + captcha | Submit OTP → dashboard | — | — |
+| `view-history.dashboard` | DOCUMENTED_ONLY | — | Valid OTP | Open Registered / Pending / Disposed Requests or Appeals | — | — |
+| `view-history.list` | DOCUMENTED_ONLY | — | Click Registered Requests | Open a registration number; Search; Next page | — | — |
 
 ## view-history.gate
 
 ![view-history.gate desktop](../screenshots/desktop/view-history.gate.png)
 ![view-history.gate mobile](../screenshots/mobile/view-history.gate.png)
 
+
+
 ## view-history.gate.empty
 
 ![view-history.gate.empty desktop](../screenshots/desktop/view-history.gate.empty.png)
 ![view-history.gate.empty mobile](../screenshots/mobile/view-history.gate.empty.png)
 
+Validation observed: Please enter a valid Email ID.; Please Enter Correct Captcha Code.
+
+
 ## view-history.gate.wrong-captcha
 
 ![view-history.gate.wrong-captcha desktop](../screenshots/desktop/view-history.gate.wrong-captcha.png)
 ![view-history.gate.wrong-captcha mobile](../screenshots/mobile/view-history.gate.wrong-captcha.png)
+
+Validation observed: Security code does not match
+
 
