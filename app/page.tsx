@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { PageShell } from '@/components/site-chrome';
 import { CitizenStart } from '@/components/workflows';
+import { DesignComparison } from '@/components/design-comparison';
 
 const directActions = [
   { n: '01', title: 'Search first', text: 'Check whether the record is already public.', href: '/search' },
@@ -34,6 +35,12 @@ export default function HomePage() {
         <div className="rti-jurisdiction-mark" aria-hidden="true">!</div>
         <div><span>Before you file</span><h2 id="jurisdiction-title">The filing route depends on who holds the record.</h2><p>Central, State and local authorities use different systems. This prototype identifies that before payment.</p></div>
         <Link href="/authorities">Check an authority <span aria-hidden="true">→</span></Link>
+      </section>
+
+      <section className="home-comparison" aria-labelledby="home-compare-title">
+        <div className="home-comparison-head"><div><span className="page-eyebrow">Current portal → proposed service</span><h2 id="home-compare-title">Don’t promise the upgrade.<br/>Let them feel it.</h2></div><p>Drag across the interface. The new design keeps the official service map, then reorganises it around the citizen’s actual journey.</p></div>
+        <DesignComparison />
+        <Link className="home-comparison-link" href="/compare">See the complete redesign case and functional parity <span aria-hidden="true">→</span></Link>
       </section>
 
       <section className="invisible-service" aria-labelledby="service-title">

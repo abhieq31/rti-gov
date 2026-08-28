@@ -7,6 +7,7 @@ const services = [
 ] as const;
 
 const information = [
+  ['Current vs proposed', '/compare'],
   ['Learn about RTI', '/learn'], ['Find an authority', '/authorities'], ['Search disclosures', '/search'],
   ['User guide', '/guide'], ['FAQ', '/faq'], ['Contact', '/contact'],
 ] as const;

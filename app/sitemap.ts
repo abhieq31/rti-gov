@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 
-const routes = ['', '/learn', '/search', '/authorities', '/commissions', '/request', '/status', '/appeal', '/history', '/payments', '/faq', '/contact', '/guide', '/process', '/policies'];
+const routes = ['', '/compare', '/learn', '/search', '/authorities', '/commissions', '/request', '/status', '/appeal', '/history', '/payments', '/faq', '/contact', '/guide', '/process', '/policies'];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return routes.map((route, index) => ({
