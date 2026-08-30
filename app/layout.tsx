@@ -4,6 +4,7 @@ import './official-portal.css';
 import './citizen-portal.css';
 import './portal-v2.css';
 import './redesign.css';
+import { LanguageProvider } from '@/components/language-provider';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://rti-gov.vercel.app'),
@@ -41,7 +42,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en-IN">
-      <body>{children}</body>
+      <body><LanguageProvider>{children}</LanguageProvider></body>
     </html>
   );
 }

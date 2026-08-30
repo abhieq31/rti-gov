@@ -4,8 +4,7 @@ import { GovUtilityTools } from './gov-tools';
 import { SiteNav } from './site-nav';
 
 const coreServices = [
-  ['Submit Request', '/request'], ['Submit First Appeal', '/appeal'], ['View Status', '/status'],
-  ['View History', '/history'], ['Payment Reconciliation', '/payments'],
+  ['Submit Request', '/request'], ['View Status', '/status'], ['Submit First Appeal', '/appeal'],
 ] as const;
 
 const information = [
@@ -59,6 +58,8 @@ export function SiteFooter() {
         <div className="gov-footer-links">
           <div>
             {coreServices.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}
+            <Link href="/history">View History</Link>
+            <Link href="/payments">Payment Reconciliation</Link>
           </div>
           <div>
             {information.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}

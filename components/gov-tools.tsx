@@ -2,26 +2,26 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { useLanguage } from './language-provider';
 
 type TextSize = 'sm' | 'md' | 'lg';
 
 export function GovUtilityTools() {
   const [size, setSize] = useState<TextSize>('md');
-  const [hindi, setHindi] = useState(false);
+  const { language, toggleLanguage } = useLanguage();
+  const hindi = language === 'hi';
 
   useEffect(() => {
     const saved = window.localStorage.getItem('rti-gov-text-size');
-    if (saved === 'sm' || saved === 'md' || saved === 'lg') setSize(saved);
+    if (saved !== 'sm' && saved !== 'md' && saved !== 'lg') return;
+    const frame = window.requestAnimationFrame(() => setSize(saved));
+    return () => window.cancelAnimationFrame(frame);
   }, []);
 
   useEffect(() => {
     document.documentElement.dataset.textSize = size;
     window.localStorage.setItem('rti-gov-text-size', size);
   }, [size]);
-
-  useEffect(() => {
-    document.documentElement.lang = hindi ? 'hi-IN' : 'en-IN';
-  }, [hindi]);
 
   return (
     <>
@@ -32,14 +32,9 @@ export function GovUtilityTools() {
           <button aria-label="Default text size" aria-pressed={size === 'md'} onClick={() => setSize('md')} type="button">A</button>
           <button aria-label="Increase text size" aria-pressed={size === 'lg'} onClick={() => setSize('lg')} type="button">A+</button>
         </span>
-        <button aria-pressed={hindi} onClick={() => setHindi((current) => !current)} type="button">{hindi ? 'English' : 'हिन्दी'}</button>
+        <button aria-pressed={hindi} onClick={toggleLanguage} type="button" aria-label={hindi ? 'Switch site to English' : 'पूरी साइट हिन्दी में करें'}>{hindi ? 'English' : 'हिन्दी'}</button>
       </nav>
-      {hindi && (
-        <p className="lang-note" role="status">
-          हिन्दी: यह प्रोटोटाइप अंग्रेज़ी में है। अधिनियम हिन्दी या क्षेत्र की राजभाषा में आवेदन की अनुमति देता है।{' '}
-          <Link href="/policies">भाषा नीति</Link>
-        </p>
-      )}
+      <span className="sr-only" aria-live="polite">{hindi ? 'पूरी साइट हिन्दी में दिखाई जा रही है।' : 'The full site is shown in English.'}</span>
     </>
   );
 }

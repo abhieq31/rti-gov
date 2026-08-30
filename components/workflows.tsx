@@ -64,27 +64,31 @@ function parseDue(value: string): number {
 
 export function CitizenStart() {
   const [need, setNeed] = useState('');
+  const [attempted, setAttempted] = useState(false);
   const examples = [
     'Road repair estimate near my home',
     'Inspection report for my railway station',
     'Status and file noting of my pension case',
   ];
   return (
-    <form className="citizen-start" action="/request">
+    <form className="citizen-start" action="/request" onSubmit={(event) => { if (need.trim().length < 12) { event.preventDefault(); setAttempted(true); } }}>
       <label htmlFor="citizen-need">What information do you want?</label>
       <textarea
+        aria-describedby={attempted ? 'citizen-need-error' : undefined}
+        aria-invalid={attempted && need.trim().length < 12}
         id="citizen-need"
         name="need"
         value={need}
-        onChange={(event) => setNeed(event.target.value)}
+        onChange={(event) => { setNeed(event.target.value); if (event.target.value.trim().length >= 12) setAttempted(false); }}
         placeholder="For example: Give me the inspection reports for the road repaired outside my home last year."
         rows={3}
       />
+      {attempted && need.trim().length < 12 && <p className="citizen-start-error" id="citizen-need-error" role="alert">Describe the record in at least 12 characters.</p>}
       <div className="citizen-start-actions">
         <span><i aria-hidden="true">✓</i> No reason. No Aadhaar. Plain language is enough.</span>
-        <button disabled={need.trim().length < 12}>Start my request <b>→</b></button>
+        <button type="submit">Start my request <b>→</b></button>
       </div>
-      <div className="example-prompts"><span>Try an example</span>{examples.map((example) => <button key={example} type="button" onClick={() => setNeed(example)}>{example}</button>)}</div>
+      <div className="example-prompts"><span>Try an example</span>{examples.map((example) => <button key={example} type="button" onClick={() => { setNeed(example); setAttempted(false); }}>{example}</button>)}</div>
     </form>
   );
 }
@@ -106,7 +110,7 @@ export function SearchRecords() {
     <div className="tool-surface">
       <form className="search-tool" onSubmit={(event) => { event.preventDefault(); setSearched(true); }}>
         <label htmlFor="records-query">What information are you looking for?</label>
-        <div><span aria-hidden="true">⌕</span><input id="records-query" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Try “railway safety inspection report”" /><button>Search records</button></div>
+        <div><span aria-hidden="true">⌕</span><input id="records-query" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Try “railway safety inspection report”" /><button type="submit">Search records</button></div>
         <small>Searches synthetic proactive disclosures and authority topics in this prototype.</small>
       </form>
       <div className="quick-queries"><span>Try:</span>{['EPFO circulars', 'Highway tenders', 'RTI annual report'].map((item) => <button key={item} onClick={() => { setQuery(item); setSearched(true); }} type="button">{item}</button>)}</div>
@@ -160,8 +164,18 @@ function CopyNumber({ value }: { value: string }) {
   return (
     <button
       type="button"
-      onClick={() => {
-        void navigator.clipboard?.writeText(value).then(() => setCopied(true)).catch(() => setCopied(false));
+      onClick={async () => {
+        try {
+          if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(value);
+          else {
+            const input = document.createElement('textarea');
+            input.value = value;
+            input.style.position = 'fixed'; input.style.opacity = '0';
+            document.body.appendChild(input); input.select(); document.execCommand('copy'); input.remove();
+          }
+          setCopied(true);
+          window.setTimeout(() => setCopied(false), 1800);
+        } catch { setCopied(false); }
       }}
     >
       {copied ? 'Copied' : 'Copy number'}
@@ -224,22 +238,29 @@ function PortalGuidelines({ kind, accepted, onAccepted }: { kind: 'request' | 'a
   </ol><label className="guidelines-check"><input checked={accepted} onChange={(event) => onAccepted(event.target.checked)} type="checkbox"/><span><b>I have read and understood the guidelines.</b><small>This remains a synthetic prototype; nothing is filed or charged.</small></span></label></section>;
 }
 
-export function RequestWorkflow({ initialAuthority = '' }: { initialAuthority?: string }) {
+export function RequestWorkflow({ initialAuthority = '', initialRequest = '' }: { initialAuthority?: string; initialRequest?: string }) {
   const seeded = findAuthority(initialAuthority);
   const [step, setStep] = useState(0);
   const [guidelinesAccepted, setGuidelinesAccepted] = useState(false);
   const [draft, setDraft] = useState(() => ({
     ...initialDraft,
+    request: initialRequest.slice(0, 3000),
     authority: seeded?.level === 'Central' ? seeded.code : '',
     ministry: seeded?.level === 'Central' ? seeded.ministry : '',
   }));
   const [authorityQuery, setAuthorityQuery] = useState('');
   const [securityCode, setSecurityCode] = useState('');
+  const [bplDocument, setBplDocument] = useState('');
+  const [supportingDocument, setSupportingDocument] = useState('');
+  const [fileError, setFileError] = useState('');
+  const [fileVersion, setFileVersion] = useState(0);
+  const [draftRestored, setDraftRestored] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
   const [registration, setRegistration] = useState('');
   const [submittedAt, setSubmittedAt] = useState<Date | null>(null);
   const workflowRef = useRef<HTMLDivElement>(null);
   const didStep = useRef(false);
+  const didRestoreDraft = useRef(Boolean(initialRequest || initialAuthority));
   const labels = ['Guidelines', 'Request form', 'Payment', 'Registered'];
   const update = <K extends keyof RequestDraft>(key: K, value: RequestDraft[K]) => {
     setConfirmed(false);
@@ -268,6 +289,7 @@ export function RequestWorkflow({ initialAuthority = '' }: { initialAuthority?: 
     && draft.country === 'India'
     && pinValid
     && draft.bpl
+    && (draft.bpl !== 'yes' || Boolean(bplDocument))
     && draft.request.trim().length >= 12
     && draft.request.length <= 3000
     && securityCode.trim().toUpperCase() === DEMO_SECURITY,
@@ -275,10 +297,64 @@ export function RequestWorkflow({ initialAuthority = '' }: { initialAuthority?: 
   const canContinue = [guidelinesAccepted, formComplete, confirmed][step] ?? true;
   const bplExempt = draft.bpl === 'yes';
   const grievanceLikely = /fix|repair|complaint|not received|delay|pending|take action/.test(draft.request.toLowerCase());
+  const missingItems = [
+    !draft.request.trim() && 'Describe the record you want',
+    draft.request.trim().length > 0 && draft.request.trim().length < 12 && 'Add more detail to the request',
+    !draft.ministry && 'Select a ministry or department',
+    !selectedAuthority && 'Select a public authority',
+    draft.name.trim().length < 2 && 'Enter your name',
+    !emailValid && 'Enter a valid email address',
+    draft.address.trim().length < 8 && 'Enter your full address',
+    !pinValid && 'Enter a 6-digit PIN code',
+    !draft.bpl && 'Choose BPL status',
+    draft.bpl === 'yes' && !bplDocument && 'Attach a valid BPL certificate',
+    securityCode.trim().toUpperCase() !== DEMO_SECURITY && `Enter security code ${DEMO_SECURITY}`,
+  ].filter(Boolean) as string[];
+
+  const fillDemoRequest = () => {
+    const authority = findAuthority('MORLY');
+    setDraft({
+      ...initialDraft,
+      request: 'Provide copies of inspection reports for Anand Vihar railway station completed during 2025.',
+      ministry: authority?.ministry || 'Ministry of Railways',
+      authority: authority?.code || 'MORLY',
+      name: 'Aarav Sharma', email: DEMO_EMAIL, emailConfirm: DEMO_EMAIL,
+      mobile: '9876543210', address: '12 Janpath Road, New Delhi', pin: '110001', bpl: 'no',
+    });
+    setSecurityCode(DEMO_SECURITY); setConfirmed(false);
+    setBplDocument(''); setSupportingDocument(''); setFileError('');
+    setFileVersion((current) => current + 1); setDraftRestored(false);
+  };
+  const choosePdf = (file: File | undefined, kind: 'bpl' | 'supporting') => {
+    setFileError('');
+    if (!file) {
+      if (kind === 'bpl') setBplDocument(''); else setSupportingDocument('');
+      return;
+    }
+    if (file.type !== 'application/pdf' || file.size > 1_000_000) {
+      setFileError('Choose a PDF no larger than 1 MB.');
+      if (kind === 'bpl') setBplDocument(''); else setSupportingDocument('');
+      return;
+    }
+    if (kind === 'bpl') setBplDocument(file.name); else setSupportingDocument(file.name);
+  };
 
   useEffect(() => {
+    if (!didRestoreDraft.current) return;
     if (step < 3) storeValue('rti-gov-demo-draft', draft);
   }, [draft, step]);
+
+  useEffect(() => {
+    if (initialRequest || initialAuthority) return;
+    const timer = window.setTimeout(() => {
+      const saved = readStored<RequestDraft>('rti-gov-demo-draft');
+      didRestoreDraft.current = true;
+      if (!saved?.request) return;
+      setDraft({ ...initialDraft, ...saved });
+      setDraftRestored(true);
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, [initialAuthority, initialRequest]);
 
   useEffect(() => {
     if (!didStep.current) {
@@ -329,6 +405,11 @@ export function RequestWorkflow({ initialAuthority = '' }: { initialAuthority?: 
           <span className="step-label">Online RTI request form</span>
           <h2>Start with the record you want.</h2>
           <p>Indian citizens only. Type the record, use the suggested office if it is right, then name, email, address, BPL and security code <b>{DEMO_SECURITY}</b>.</p>
+          {draftRestored && <div className="draft-restored" role="status"><span>✓</span><div><b>Draft restored from this browser.</b><small>Review the details before continuing.</small></div><button onClick={() => { setDraft({ ...initialDraft }); setSecurityCode(''); removeStored('rti-gov-demo-draft'); setDraftRestored(false); }} type="button">Discard draft</button></div>}
+          <div className="form-utility-actions">
+            <button className="text-button" onClick={fillDemoRequest} type="button">Fill demonstration details</button>
+            <button className="text-button" onClick={() => { setDraft({ ...initialDraft }); setSecurityCode(''); setBplDocument(''); setSupportingDocument(''); setFileError(''); setFileVersion((current) => current + 1); setDraftRestored(false); removeStored('rti-gov-demo-draft'); setConfirmed(false); }} type="button">Clear form</button>
+          </div>
 
           <fieldset className="form-fieldset">
             <legend>The record you want</legend>
@@ -376,10 +457,15 @@ export function RequestWorkflow({ initialAuthority = '' }: { initialAuthority?: 
               <label><span>Send records as</span><select value={draft.format} onChange={(event) => update('format', event.target.value)}><option>Electronic copy</option><option>Certified paper copy</option><option>Inspection of records</option></select></label>
               <label className="urgent-toggle"><input checked={draft.urgent} onChange={(event) => update('urgent', event.target.checked)} type="checkbox"/><span><b>Life or liberty</b><small>Use only for a genuine 48-hour matter</small></span></label>
             </div>
-            {bplExempt && <label className="supporting-upload"><span>BPL certificate *</span><input accept="application/pdf" type="file"/><small>Valid BPL proof · PDF up to 1 MB. Do not upload Aadhaar or PAN.</small></label>}
-            <label className="supporting-upload"><span>Supporting document (optional)</span><input accept="application/pdf" type="file"/><small>One PDF up to 1 MB. PDF name should be under 12 characters, with no spaces. Do not upload Aadhaar or PAN.</small></label>
+            {bplExempt && <label className="supporting-upload"><span>BPL certificate *</span><input accept="application/pdf" key={`bpl-${fileVersion}`} onChange={(event) => choosePdf(event.target.files?.[0], 'bpl')} type="file"/><small>{bplDocument ? `Attached: ${bplDocument}` : 'Valid BPL proof · PDF up to 1 MB. Do not upload Aadhaar or PAN.'}</small></label>}
+            <label className="supporting-upload"><span>Supporting document (optional)</span><input accept="application/pdf" key={`support-${fileVersion}`} onChange={(event) => choosePdf(event.target.files?.[0], 'supporting')} type="file"/><small>{supportingDocument ? `Attached: ${supportingDocument}` : 'One PDF up to 1 MB. PDF name should be under 12 characters, with no spaces. Do not upload Aadhaar or PAN.'}</small></label>
+            {fileError && <p className="form-error" role="alert">{fileError}</p>}
             <label><span>Enter security code *</span><div className="captcha-row"><b aria-label="Demonstration security code">RTI26</b><input value={securityCode} onChange={(event) => setSecurityCode(event.target.value)} placeholder="Enter RTI26"/></div></label>
           </fieldset>
+          <div className={missingItems.length ? 'completion-panel' : 'completion-panel complete'} aria-live="polite">
+            <b>{missingItems.length ? `${missingItems.length} required items remaining` : 'Required details complete'}</b>
+            {missingItems.length > 0 && <ul>{missingItems.map((item) => <li key={item}>{item}</li>)}</ul>}
+          </div>
         </section>}
         {step === 2 && selectedAuthority && <section className="fast-step review-step"><span className="step-label">Make payment</span><h2>{bplExempt ? 'Confirm the BPL exemption.' : 'Confirm and pay ₹10.'}</h2><p>{bplExempt ? 'Eligible BPL applicants do not pay the application fee when valid proof is attached.' : 'Non-BPL applicants pay ₹10 once. Do not pay again if a previous attempt is pending. This demonstration does not charge a bank or UPI account.'}</p>
           <div className="fast-review"><article><span>Request</span><p>{draft.request}</p><button type="button" onClick={() => setStep(1)}>Edit</button></article><article><span>Public authority</span><b>{selectedAuthority.name}</b><small>{selectedAuthority.ministry}</small></article><article><span>Applicant</span><b>{draft.name}</b><small>{draft.email} · {draft.format}</small></article></div>
@@ -400,7 +486,7 @@ export function RequestWorkflow({ initialAuthority = '' }: { initialAuthority?: 
           <div className="receipt-actions"><a className="button-primary" href={`/status?registration=${encodeURIComponent(registration)}&email=${encodeURIComponent(draft.email)}`}>View status</a><a className="button-secondary" href={`/appeal?registration=${encodeURIComponent(registration)}`}>Prepare first appeal</a></div><small className="prototype-receipt-note">This is a prototype receipt and is not valid for an official RTI filing.</small>
         </section>}
       </div>
-      {step < 3 && <div className="fast-actions"><button disabled={step === 0} onClick={() => setStep((current) => current - 1)} type="button">← Back</button><span><i>✓</i> Draft stays in this browser</span>{step < 2 ? <button className="button-primary" disabled={!canContinue} onClick={() => setStep((current) => current + 1)} type="button">{step === 0 ? (guidelinesAccepted ? <>Proceed to form <b>→</b></> : 'Accept guidelines to continue') : <>Pay ₹10 <b>→</b></>}</button> : <button className="button-primary" disabled={!confirmed} onClick={submit} type="button">{confirmed ? (bplExempt ? 'Register without fee' : 'Pay ₹10 and register') : 'Confirm details to pay'}{confirmed && <b>→</b>}</button>}</div>}
+      {step < 3 && <div className="fast-actions"><button disabled={step === 0} onClick={() => setStep((current) => current - 1)} type="button">← Back</button><span><i>✓</i> Draft stays in this browser</span>{step < 2 ? <button className="button-primary" disabled={!canContinue} onClick={() => setStep((current) => current + 1)} type="button">{step === 0 ? (guidelinesAccepted ? <>Proceed to form <b>→</b></> : 'Accept guidelines to continue') : <>{bplExempt ? 'Review request' : 'Pay ₹10'} <b>→</b></>}</button> : <button className="button-primary" disabled={!confirmed} onClick={submit} type="button">{confirmed ? (bplExempt ? 'Register without fee' : 'Pay ₹10 and register') : 'Confirm details to pay'}{confirmed && <b>→</b>}</button>}</div>}
     </div>
   );
 }
@@ -468,11 +554,12 @@ export function StatusLookup({ initialRegistration = '', initialEmail = '' }: { 
     setStage(2);
   };
 
-  return <div className="tool-surface compact-tool">{stage === 0 ? <form className="lookup-form" onSubmit={(event) => { event.preventDefault(); findRequest(); }}><div className="service-form-intro"><span className="step-label">View status</span><h2>Enter the application details.</h2><p>Use the registration number and email from the receipt. The known demonstration does not send a code to a mailbox.</p></div><label><span>Registration number *</span><input required value={registration} onChange={(event) => setRegistration(event.target.value)} placeholder={DEMO_REQUEST_ID} /></label><label><span>Email used to file *</span><input required type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder={DEMO_EMAIL} /></label><label><span>Security code *</span><div className="captcha-row"><b aria-label="Demonstration security code">{DEMO_SECURITY}</b><input required value={securityCode} onChange={(event) => setSecurityCode(event.target.value)} placeholder={`Enter ${DEMO_SECURITY}`} /></div></label>{error && <p className="form-error" role="alert">{error}</p>}<button className="button-primary">View status</button><button className="text-button" onClick={openDemoCase} type="button">Open demonstration case</button></form> : <CaseStatus onChangeDetails={() => setStage(0)} record={record} />}</div>;
+  return <div className="tool-surface compact-tool">{stage === 0 ? <form className="lookup-form" onSubmit={(event) => { event.preventDefault(); findRequest(); }}><div className="service-form-intro"><span className="step-label">View status</span><h2>Enter the application details.</h2><p>Use the registration number and email from the receipt. The known demonstration does not send a code to a mailbox.</p></div><label><span>Registration number *</span><input required value={registration} onChange={(event) => setRegistration(event.target.value)} placeholder={DEMO_REQUEST_ID} /></label><label><span>Email used to file *</span><input required type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder={DEMO_EMAIL} /></label><label><span>Security code *</span><div className="captcha-row"><b aria-label="Demonstration security code">{DEMO_SECURITY}</b><input required value={securityCode} onChange={(event) => setSecurityCode(event.target.value)} placeholder={`Enter ${DEMO_SECURITY}`} /></div></label>{error && <p className="form-error" role="alert">{error}</p>}<button className="button-primary" type="submit">View status</button><button className="text-button" onClick={openDemoCase} type="button">Open demonstration case</button></form> : <CaseStatus onChangeDetails={() => setStage(0)} record={record} />}</div>;
 }
 
 function CaseStatus({ record, onChangeDetails }: { record: StatusRecord; onChangeDetails?: () => void }) {
   const [action, setAction] = useState<'none' | 'fee' | 'document' | 'parts'>('none');
+  const [actionStatus, setActionStatus] = useState('');
   const [linkedAppeal, setLinkedAppeal] = useState<StatusRecord | null>(null);
   const closed = record.due.startsWith('Closed');
   const dueTimestamp = parseDue(record.due);
@@ -547,13 +634,14 @@ function CaseStatus({ record, onChangeDetails }: { record: StatusRecord; onChang
           <summary>Additional fee, PDF or split CPIO numbers</summary>
           <div className="status-actions">
             <div>
-              <button onClick={() => setAction('fee')} type="button">Pay additional fee</button>
-              <button onClick={() => setAction('document')} type="button">Upload requested PDF</button>
-              <button onClick={() => setAction('parts')} type="button">View split CPIO cases</button>
+              <button onClick={() => { setAction('fee'); setActionStatus(''); }} type="button">Pay additional fee</button>
+              <button onClick={() => { setAction('document'); setActionStatus(''); }} type="button">Upload requested PDF</button>
+              <button onClick={() => { setAction('parts'); setActionStatus(''); }} type="button">View split CPIO cases</button>
             </div>
-            {action === 'fee' && <section><b>Additional fee: ₹12</b><p>Six A4 pages at ₹2 per page. This is a synthetic payment.</p><button className="button-primary" onClick={() => setAction('none')} type="button">Pay mock fee</button></section>}
-            {action === 'document' && <section><b>Supporting document required</b><p>Upload the requested PDF from the applicant. Maximum size: 1 MB.</p><input accept="application/pdf" type="file"/></section>}
+            {action === 'fee' && <section><b>Additional fee: ₹12</b><p>Six A4 pages at ₹2 per page. This is a synthetic payment.</p><button className="button-primary" onClick={() => setActionStatus('Mock fee paid. The case can continue.')} type="button">Pay mock fee</button></section>}
+            {action === 'document' && <section><b>Supporting document required</b><p>Upload the requested PDF from the applicant. Maximum size: 1 MB.</p><input accept="application/pdf" onChange={(event) => { const file = event.target.files?.[0]; setActionStatus(file ? (file.type === 'application/pdf' && file.size <= 1_000_000 ? `${file.name} uploaded to this prototype case.` : 'Choose a PDF no larger than 1 MB.') : ''); }} type="file"/></section>}
             {action === 'parts' && <section><b>Forwarded to multiple CPIOs</b><p>{record.id}/1 · Railway Board<br/>{record.id}/2 · Northern Railway<br/>{record.id}/3 · Station Development Directorate</p></section>}
+            {actionStatus && <p className="status-action-result" role="status">✓ {actionStatus}</p>}
           </div>
         </details>
       )}
@@ -576,11 +664,15 @@ export function AppealWorkflow({ initialRegistration = '' }: { initialRegistrati
   const [reason, setReason] = useState('No response after 30 days');
   const [text, setText] = useState('');
   const [confirmed, setConfirmed] = useState(false);
+  const [appealFile, setAppealFile] = useState('');
+  const [appealFileError, setAppealFileError] = useState('');
+  const [appealDraftRestored, setAppealDraftRestored] = useState(false);
   const [sourceRecord, setSourceRecord] = useState<StatusRecord | null>(null);
   const [appealRegistration, setAppealRegistration] = useState('');
   const [submittedAt, setSubmittedAt] = useState<Date | null>(null);
   const workflowRef = useRef<HTMLDivElement>(null);
   const didStep = useRef(false);
+  const didRestoreAppeal = useRef(Boolean(initialRegistration));
   const labels = ['Guidelines', 'Retrieve request', 'Appeal form', 'Registered'];
   const progressNow = step === 3 ? 1 : (step + 1) / 3;
   const formatDate = (date: Date) => new Intl.DateTimeFormat('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }).format(date);
@@ -595,8 +687,37 @@ export function AppealWorkflow({ initialRegistration = '' }: { initialRegistrati
     Boolean(registration.trim() && email.trim() && securityCode.trim()),
     text.trim().length >= 20 && confirmed,
   ][step] ?? true;
+  const appealMissingItems = [
+    text.trim().length < 20 && 'Write at least 20 characters explaining the appeal',
+    !confirmed && 'Confirm that the appeal details are correct',
+  ].filter(Boolean) as string[];
+
+  useEffect(() => {
+    if (initialRegistration) return;
+    const timer = window.setTimeout(() => {
+      const saved = readStored<{ registration: string; email: string; securityCode: string; reason: string; text: string }>('rti-gov-demo-appeal-draft');
+      didRestoreAppeal.current = true;
+      if (!saved?.registration && !saved?.text) return;
+      setRegistration(saved.registration || ''); setEmail(saved.email || ''); setSecurityCode(saved.securityCode || '');
+      setReason(saved.reason || 'No response after 30 days'); setText(saved.text || ''); setAppealDraftRestored(true);
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, [initialRegistration]);
+
+  useEffect(() => {
+    if (!didRestoreAppeal.current || step === 3) return;
+    storeValue('rti-gov-demo-appeal-draft', { registration, email, securityCode, reason, text });
+  }, [email, reason, registration, securityCode, step, text]);
 
   const findEligible = () => {
+    if (!registration.trim() || !email.trim() || !securityCode.trim()) {
+      setLookupError('Enter the registration number, applicant email and security code.');
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+      setLookupError('Enter a valid applicant email address.');
+      return;
+    }
     if (securityCode.trim().toUpperCase() !== 'RTI26') { setLookupError('Enter the demonstration security code RTI26.'); return; }
     const normalizedId = registration.trim().toUpperCase();
     const normalizedEmail = email.trim().toLowerCase();
@@ -634,6 +755,7 @@ export function AppealWorkflow({ initialRegistration = '' }: { initialRegistrati
     const appealId = canonical ? DEMO_APPEAL_ID : `RTI/${authorityCode}/A/${now.getFullYear()}/${String(now.getTime()).slice(-5)}`;
     const savedAppeal: StatusRecord = { id: appealId, subject: `First appeal: ${sourceRecord?.subject || registration}`, authority: sourceRecord?.authority || 'Original public authority', status: 'Appeal registered', due: formatDate(due), filed: formatDate(now), kind: 'Appeal', email };
     storeValue('rti-gov-demo-appeal', { ...savedAppeal, sourceRegistration: registration, reason, text });
+    removeStored('rti-gov-demo-appeal-draft');
     setAppealRegistration(appealId);
     setSubmittedAt(now);
     setStep(3);
@@ -648,6 +770,7 @@ export function AppealWorkflow({ initialRegistration = '' }: { initialRegistrati
           <span className="step-label">Online RTI first appeal form</span>
           <h2>Start with the original request.</h2>
           <p>An online first appeal needs the original registration number, applicant email and security code. No fee is charged for a Central first appeal.</p>
+          {appealDraftRestored && <div className="draft-restored" role="status"><span>✓</span><div><b>Appeal draft restored.</b><small>Review the original request details before retrieving it.</small></div><button onClick={() => { setRegistration(''); setEmail(''); setSecurityCode(''); setReason('No response after 30 days'); setText(''); setAppealDraftRestored(false); removeStored('rti-gov-demo-appeal-draft'); }} type="button">Discard draft</button></div>}
           <div className="fast-form">
             <label><span>RTI request registration number *</span><input required value={registration} onChange={(event) => setRegistration(event.target.value)} placeholder={DEMO_REQUEST_ID} /></label>
             <label><span>Email used to file *</span><input required type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder={DEMO_EMAIL} /></label>
@@ -672,8 +795,10 @@ export function AppealWorkflow({ initialRegistration = '' }: { initialRegistrati
           <div className="fast-form">
             <label className="wide"><span>Ground for appeal *</span><select value={reason} onChange={(event) => { setReason(event.target.value); setConfirmed(false); }}><option>No response after 30 days</option><option>Incomplete information</option><option>Information wrongly denied</option><option>Unreasonable additional fee</option><option>Other</option></select></label>
             <label className="wide fast-question"><span>Text for RTI first appeal application *</span><textarea maxLength={3000} value={text} onChange={(event) => { setText(event.target.value); setConfirmed(false); }} placeholder="State the response date, what is missing, and the relief requested." /><small>{text.length} / 3,000 characters</small></label>
-            <label className="wide supporting-upload"><span>Supporting PDF (optional)</span><input accept="application/pdf" type="file" /><small>One PDF up to 1 MB. Do not upload Aadhaar or PAN.</small></label>
+            <label className="wide supporting-upload"><span>Supporting PDF (optional)</span><input accept="application/pdf" onChange={(event) => { const file = event.target.files?.[0]; setAppealFileError(''); if (!file) { setAppealFile(''); return; } if (file.type !== 'application/pdf' || file.size > 1_000_000) { setAppealFile(''); setAppealFileError('Choose a PDF no larger than 1 MB.'); return; } setAppealFile(file.name); }} type="file" /><small>{appealFile ? `Attached: ${appealFile}` : 'One PDF up to 1 MB. Do not upload Aadhaar or PAN.'}</small></label>
           </div>
+          {appealFileError && <p className="form-error" role="alert">{appealFileError}</p>}
+          <div className={appealMissingItems.length ? 'completion-panel' : 'completion-panel complete'} aria-live="polite"><b>{appealMissingItems.length ? `${appealMissingItems.length} required items remaining` : 'Required details complete'}</b>{appealMissingItems.length > 0 && <ul>{appealMissingItems.map((item) => <li key={item}>{item}</li>)}</ul>}</div>
           <label className="final-declaration"><input checked={confirmed} onChange={(event) => setConfirmed(event.target.checked)} type="checkbox" /><span><b>I confirm the appeal details are correct.</b><small>No fee is charged for a Central first appeal. This prototype transmits nothing.</small></span></label>
         </section>}
         {step === 3 && submittedAt && dueDate && <section className="fast-receipt">
@@ -697,7 +822,7 @@ export function AppealWorkflow({ initialRegistration = '' }: { initialRegistrati
         <button disabled={step === 0} onClick={() => setStep((current) => current - 1)} type="button">← Back</button>
         <span><i>✓</i> {step === 2 ? 'No first-appeal fee' : 'Draft stays in this browser'}</span>
         {step === 0 && <button className="button-primary" disabled={!canContinue} onClick={() => setStep(1)} type="button">{guidelinesAccepted ? <>Proceed to appeal form <b>→</b></> : 'Accept guidelines to continue'}</button>}
-        {step === 1 && <button className="button-primary" disabled={!canContinue} onClick={findEligible} type="button">Retrieve request <b>→</b></button>}
+        {step === 1 && <button className="button-primary" onClick={findEligible} type="button">Retrieve request <b>→</b></button>}
         {step === 2 && <button className="button-primary" disabled={!canContinue} onClick={submitAppeal} type="button">{confirmed ? <>Submit first appeal <b>→</b></> : 'Confirm details to submit'}</button>}
       </div>}
     </div>
@@ -718,30 +843,47 @@ export function HistoryDashboard() {
   const [historyMobile, setHistoryMobile] = useState('');
   const [historySecurity, setHistorySecurity] = useState('');
   const [historyError, setHistoryError] = useState('');
+  const [verifiedEmail, setVerifiedEmail] = useState('');
   const [filter, setFilter] = useState('All');
   const [localRecords, setLocalRecords] = useState<StatusRecord[]>([]);
+  const [signedIn, setSignedIn] = useState(false);
   useEffect(() => {
     const timer = window.setTimeout(() => {
       const records = [readStored<StatusRecord>('rti-gov-demo-request'), readStored<StatusRecord>('rti-gov-demo-appeal')].filter((item): item is StatusRecord => Boolean(item));
       setLocalRecords(records);
+      if (readStored<string>('rti-gov-demo-user') === 'aarav') {
+        setSignedIn(true); setHistoryEmail(DEMO_EMAIL); setVerifiedEmail(DEMO_EMAIL); setAccessStage(2);
+      }
     }, 0);
     return () => window.clearTimeout(timer);
   }, []);
-  const allRecords: StatusRecord[] = [...localRecords, ...demoRequests].filter((item, index, records) => records.findIndex((candidate) => candidate.id === item.id) === index);
+  const verifyHistory = () => {
+    if (historySecurity.trim().toUpperCase() !== DEMO_SECURITY) { setHistoryError(`Enter the security code ${DEMO_SECURITY}.`); return; }
+    const normalizedEmail = historyEmail.trim().toLowerCase();
+    const stored = [readStored<StatusRecord>('rti-gov-demo-request'), readStored<StatusRecord>('rti-gov-demo-appeal')].filter((item): item is StatusRecord => Boolean(item));
+    if (normalizedEmail !== DEMO_EMAIL && !stored.some((item) => item.email?.toLowerCase() === normalizedEmail)) {
+      setHistoryError('No cases were found for that email on this device.'); return;
+    }
+    setLocalRecords(stored); setVerifiedEmail(normalizedEmail); setHistoryError(''); setAccessStage(2);
+  };
+  const eligibleRecords = verifiedEmail === DEMO_EMAIL
+    ? [...localRecords, ...demoRequests]
+    : localRecords.filter((item) => item.email?.toLowerCase() === verifiedEmail);
+  const allRecords: StatusRecord[] = eligibleRecords.filter((item, index, records) => records.findIndex((candidate) => candidate.id === item.id) === index);
   const records = allRecords.filter((item) => filter === 'All' || item.kind === filter || (filter === 'Pending' && !/reply received|closed/i.test(`${item.status} ${item.due}`)));
   const requestCount = allRecords.filter((item) => item.kind === 'Request').length;
   const appealCount = allRecords.filter((item) => item.kind === 'Appeal' && !/closed/i.test(`${item.status} ${item.due}`)).length;
   const replyCount = allRecords.filter((item) => /reply received/i.test(item.status)).length;
   const upcoming = allRecords.filter((item) => !item.due.startsWith('Closed') && !Number.isNaN(parseDue(item.due))).sort((a, b) => parseDue(a.due) - parseDue(b.due))[0]?.due || '—';
-  if (accessStage === 0) return <div className="tool-surface compact-tool"><form className="lookup-form" onSubmit={(event) => { event.preventDefault(); if (historyEmail.toLowerCase() === 'aarav.demo@example.in' && historySecurity.toUpperCase() === 'RTI26') { setHistoryError(''); setAccessStage(2); } else setHistoryError('Use the demonstration email and security code RTI26.'); }}><div className="service-form-intro"><span className="step-label">View history</span><h2>Verify the applicant.</h2><p>Enter the email used to file. Security code is RTI26. Requests and appeals with these details stay on this device for three years.</p></div><label><span>Email ID *</span><input required type="email" value={historyEmail} onChange={(event) => setHistoryEmail(event.target.value)} placeholder="aarav.demo@example.in"/></label><label><span>Mobile number</span><input inputMode="numeric" value={historyMobile} onChange={(event) => setHistoryMobile(event.target.value)} placeholder="10-digit mobile"/></label><label><span>Security code *</span><div className="captcha-row"><b>RTI26</b><input required value={historySecurity} onChange={(event) => setHistorySecurity(event.target.value)} placeholder="Enter RTI26"/></div></label>{historyError && <p className="form-error">{historyError}</p>}<button className="button-primary">View history</button><button className="text-button" onClick={() => { setHistoryEmail('aarav.demo@example.in'); setHistoryMobile('9876543210'); setHistorySecurity('RTI26'); setAccessStage(2); }} type="button">Open demonstration history</button></form></div>;
+  if (accessStage === 0) return <div className="tool-surface compact-tool"><form className="lookup-form" onSubmit={(event) => { event.preventDefault(); verifyHistory(); }}><div className="service-form-intro"><span className="step-label">View history</span><h2>Verify the applicant.</h2><p>Enter the email used to file. Security code is RTI26. Requests and appeals with these details stay on this device for three years.</p></div><label><span>Email ID *</span><input required type="email" value={historyEmail} onChange={(event) => setHistoryEmail(event.target.value)} placeholder="aarav.demo@example.in"/></label><label><span>Mobile number</span><input inputMode="numeric" value={historyMobile} onChange={(event) => setHistoryMobile(event.target.value)} placeholder="10-digit mobile"/></label><label><span>Security code *</span><div className="captcha-row"><b>RTI26</b><input required value={historySecurity} onChange={(event) => setHistorySecurity(event.target.value)} placeholder="Enter RTI26"/></div></label>{historyError && <p className="form-error" role="alert">{historyError}</p>}<button className="button-primary" type="submit">View history</button><button className="text-button" onClick={() => { setHistoryEmail(DEMO_EMAIL); setHistoryMobile('9876543210'); setHistorySecurity(DEMO_SECURITY); setVerifiedEmail(DEMO_EMAIL); setHistoryError(''); setAccessStage(2); }} type="button">Open demonstration history</button></form></div>;
   return (
     <div className="dashboard-surface history-ledger">
       <div className="dashboard-head">
         <div>
-          <span className="step-label">Demo citizen account</span>
-          <h2>Aarav’s cases</h2>
+          <span className="step-label">{verifiedEmail === DEMO_EMAIL ? 'Demo citizen account' : 'Device-local history'}</span>
+          <h2>{verifiedEmail === DEMO_EMAIL ? 'Aarav’s cases' : 'Your cases'}</h2>
         </div>
-        <a className="button-primary" href="/request">New request</a>
+        <div className="dashboard-head-actions"><a className="button-primary" href="/request">New request</a>{signedIn && <button onClick={() => { removeStored('rti-gov-demo-user'); setSignedIn(false); setVerifiedEmail(''); setAccessStage(0); }} type="button">Sign out</button>}</div>
       </div>
       <div className="dashboard-filter">{['All', 'Request', 'Appeal', 'Pending'].map((item) => <button aria-pressed={filter === item} className={filter === item ? 'active' : ''} key={item} onClick={() => setFilter(item)} type="button">{item}</button>)}</div>
       <div className="request-list">{records.map((item) => {
@@ -765,14 +907,14 @@ export function HistoryDashboard() {
             <a href={`/status?registration=${encodeURIComponent(item.id)}&email=${encodeURIComponent(itemEmail)}`}>Open →</a>
           </article>
         );
-      })}</div>
+      })}{records.length === 0 && <div className="history-empty" role="status"><b>No cases match this filter.</b><p>Choose All to see every case on this device.</p></div>}</div>
       <div className="dashboard-metrics">
         <article><span>{requestCount}</span><b>RTI requests</b></article>
         <article><span>{appealCount}</span><b>Active appeals</b></article>
         <article><span>{replyCount}</span><b>Replies received</b></article>
         <article><span>{upcoming.replace(/\s+2026$/, '')}</span><b>next deadline</b></article>
       </div>
-      <p className="history-switch"><button className="text-button" onClick={() => setAccessStage(0)} type="button">Look up a different applicant</button></p>
+      <p className="history-switch"><button className="text-button" onClick={() => { setAccessStage(0); setVerifiedEmail(''); setHistoryError(''); }} type="button">Look up a different applicant</button></p>
     </div>
   );
 }
@@ -782,7 +924,21 @@ export function PaymentReconciliation() {
   const [email, setEmail] = useState('');
   const [security, setSecurity] = useState('');
   const [result, setResult] = useState<'idle' | 'found' | 'missing'>('idle');
-  const check = () => setResult(transaction.trim().toUpperCase() === DEMO_PAYMENT_ID && email.trim().toLowerCase() === DEMO_EMAIL && security.toUpperCase() === DEMO_SECURITY ? 'found' : 'missing');
+  const demoPaymentRecord: StatusRecord & { paymentId: string } = { ...demoRequests[0], paymentId: DEMO_PAYMENT_ID };
+  const [matchedRequest, setMatchedRequest] = useState<StatusRecord & { paymentId?: string }>(demoPaymentRecord);
+  const check = () => {
+    if (security.trim().toUpperCase() !== DEMO_SECURITY) { setResult('missing'); return; }
+    const normalizedTransaction = transaction.trim().toUpperCase();
+    const normalizedEmail = email.trim().toLowerCase();
+    const stored = readStored<StatusRecord & { paymentId?: string }>('rti-gov-demo-request');
+    if (stored?.paymentId?.toUpperCase() === normalizedTransaction && stored.email?.toLowerCase() === normalizedEmail) {
+      setMatchedRequest(stored); setResult('found'); return;
+    }
+    if (normalizedTransaction === DEMO_PAYMENT_ID && normalizedEmail === DEMO_EMAIL) {
+      setMatchedRequest(demoPaymentRecord); setResult('found'); return;
+    }
+    setResult('missing');
+  };
   return (
     <div className="tool-surface compact-tool">
       {result === 'found' && (
@@ -791,15 +947,15 @@ export function PaymentReconciliation() {
           <span className="step-label">Payment reconciled</span>
           <h2>₹10 received. Number issued.</h2>
           <p>Do not pay again. Status uses this same registration number.</p>
-          <PaperKeep number={DEMO_REQUEST_ID} numberLabel="Prototype registration number" dueLabel="Response due" due={DEMO_DUE} dueHint="30 calendar days from registration" clock="30" clockUnit="days" />
+          <PaperKeep number={matchedRequest.id} numberLabel="Prototype registration number" dueLabel="Response due" due={matchedRequest.due || DEMO_DUE} dueHint="30 calendar days from registration" clock="30" clockUnit="days" />
           <dl className="receipt-summary">
             <div><dt>Amount</dt><dd>₹10 · UPI</dd></div>
-            <div><dt>Transaction</dt><dd>{DEMO_PAYMENT_ID}</dd></div>
-            <div><dt>Applicant</dt><dd>{DEMO_EMAIL}</dd></div>
-            <div><dt>Authority</dt><dd>Railway Board</dd></div>
+            <div><dt>Transaction</dt><dd>{matchedRequest.paymentId || transaction}</dd></div>
+            <div><dt>Applicant</dt><dd>{matchedRequest.email || email}</dd></div>
+            <div><dt>Authority</dt><dd>{matchedRequest.authority}</dd></div>
           </dl>
           <div className="receipt-actions">
-            <a className="button-primary" href={`/status?registration=${encodeURIComponent(DEMO_REQUEST_ID)}&email=${encodeURIComponent(DEMO_EMAIL)}`}>View status</a>
+            <a className="button-primary" href={`/status?registration=${encodeURIComponent(matchedRequest.id)}&email=${encodeURIComponent(matchedRequest.email || email)}`}>View status</a>
             <button className="button-secondary" onClick={() => setResult('idle')} type="button">Look up a different payment</button>
           </div>
         </div>
@@ -815,8 +971,8 @@ export function PaymentReconciliation() {
           <label><span>Applicant email *</span><input required type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder={DEMO_EMAIL} /></label>
           <label><span>Security code *</span><div className="captcha-row"><b>{DEMO_SECURITY}</b><input required value={security} onChange={(event) => setSecurity(event.target.value)} placeholder={`Enter ${DEMO_SECURITY}`}/></div></label>
           {result === 'missing' && <p className="form-error" role="alert">No matching prototype payment. Use the demonstration transaction, email and security code {DEMO_SECURITY}.</p>}
-          <button className="button-primary">Check payment</button>
-          <button className="text-button" onClick={() => { setTransaction(DEMO_PAYMENT_ID); setEmail(DEMO_EMAIL); setSecurity(DEMO_SECURITY); check(); }} type="button">Open demonstration payment</button>
+          <button className="button-primary" type="submit">Check payment</button>
+          <button className="text-button" onClick={() => { setTransaction(DEMO_PAYMENT_ID); setEmail(DEMO_EMAIL); setSecurity(DEMO_SECURITY); setMatchedRequest(demoPaymentRecord); setResult('found'); }} type="button">Open demonstration payment</button>
         </form>
       )}
     </div>
@@ -826,13 +982,13 @@ export function PaymentReconciliation() {
 export function DemoLogin() {
   const [username, setUsername] = useState(''); const [password, setPassword] = useState(''); const [security, setSecurity] = useState(''); const [error, setError] = useState('');
   const login = () => { if (username === 'aarav.demo' && password === 'rti@2026' && security.toUpperCase() === 'RTI26') { storeValue('rti-gov-demo-user', 'aarav'); window.location.href = '/history'; } else setError('Use the demonstration username, password and security code RTI26.'); };
-  return <div className="login-card"><span className="step-label">Login</span><h2>Sign in to view history.</h2><p>An account is not required to file. Security code is <b>RTI26</b>.</p><label><span>Username *</span><input autoComplete="username" value={username} onChange={(event) => setUsername(event.target.value)} placeholder="aarav.demo" /></label><label><span>Password *</span><input autoComplete="current-password" type="password" value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Password" /></label><label><span>Security code *</span><div className="captcha-row"><b>RTI26</b><input value={security} onChange={(event) => setSecurity(event.target.value)} placeholder="Enter RTI26"/></div></label>{error && <p className="form-error" role="alert">{error}</p>}<button className="button-primary" onClick={login} type="button">Login</button><button className="text-button" onClick={() => { setUsername('aarav.demo'); setPassword('rti@2026'); setSecurity('RTI26'); setError(''); }} type="button">Fill demonstration account</button><a className="login-history-link" href="/history">View history without login →</a></div>;
+  return <form className="login-card" onSubmit={(event) => { event.preventDefault(); login(); }}><span className="step-label">Login</span><h2>Sign in to view history.</h2><p>An account is not required to file. Security code is <b>RTI26</b>.</p><label><span>Username *</span><input autoComplete="username" required value={username} onChange={(event) => setUsername(event.target.value)} placeholder="aarav.demo" /></label><label><span>Password *</span><input autoComplete="current-password" required type="password" value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Password" /></label><label><span>Security code *</span><div className="captcha-row"><b>RTI26</b><input required value={security} onChange={(event) => setSecurity(event.target.value)} placeholder="Enter RTI26"/></div></label>{error && <p className="form-error" role="alert">{error}</p>}<button className="button-primary" type="submit">Login</button><button className="text-button" onClick={() => { setUsername('aarav.demo'); setPassword('rti@2026'); setSecurity('RTI26'); setError(''); }} type="button">Fill demonstration account</button><a className="login-history-link" href="/history">View history without login →</a></form>;
 }
 
 export function FeedbackForm() {
   const [message, setMessage] = useState(''); const [sent, setSent] = useState(false);
   if (sent) return <div className="feedback-success" role="status"><b>Feedback saved on this device.</b><p>Thank you. Nothing was transmitted from this prototype.</p><button className="text-button" onClick={() => { setSent(false); setMessage(''); }} type="button">Write another note</button></div>;
-  return <form className="feedback-form" onSubmit={(event) => { event.preventDefault(); storeValue('rti-gov-demo-feedback', message.trim()); setSent(true); }}><label><span>Your feedback</span><textarea required minLength={10} value={message} onChange={(event) => setMessage(event.target.value)} placeholder="What was unclear or did not work?" /></label><button className="button-primary" disabled={message.trim().length < 10}>Save prototype feedback</button></form>;
+  return <form className="feedback-form" onSubmit={(event) => { event.preventDefault(); if (message.trim().length < 10) return; storeValue('rti-gov-demo-feedback', message.trim()); setSent(true); }}><label><span>Your feedback</span><textarea required minLength={10} value={message} onChange={(event) => setMessage(event.target.value)} placeholder="What was unclear or did not work?" /></label><button className="button-primary" type="submit">Save prototype feedback</button></form>;
 }
 
 export function FaqList() {
